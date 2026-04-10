@@ -1,2 +1,14 @@
+# Dependency folders
 node_modules/
+
+# OS generated files
 .DS_Store
+Thumbs.db
+
+# Keep the CONFIG, but not the actual data the apps generate
+mosquitto/data/
+mosquitto/log/
+node-red-data/
+
+# Log files
+*.log

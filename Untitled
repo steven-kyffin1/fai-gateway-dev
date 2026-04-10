@@ -1,0 +1,5 @@
+# 1. Update the connection type from HTTPS to SSH
+git remote set-url origin git@github.com:steven-kyffin1/fai-gateway-dev.git
+
+# 2. Push to verify the SK-Dell key is working
+git push
