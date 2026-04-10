@@ -52,14 +52,23 @@ else
 fi
 
 # 6. MQTT & Project Folder Structure
-echo "[6/6] Finalizing Project Folders & MQTT Config..."
-PARENT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$PARENT_DIR"
+echo "[6/6] Finalizing Project Folders & Environment..."
+
+# Ensure we are in the directory containing the script
+cd "$(dirname "$0")"
 
 # Create folders
 mkdir -p mosquitto/config mosquitto/data mosquitto/log node-red-data
 
+# Generate the .env file for Docker Compose and Node-RED
+echo "Writing environment variables..."
+cat <<EOF > .env
+GATEWAY_SERIAL=$CPUSERIAL
+GATEWAY_HOSTNAME=$NEW_HOSTNAME
+EOF
+
 # Write Mosquitto Config
+echo "Writing mosquitto.conf..."
 cat <<EOF > mosquitto/config/mosquitto.conf
 persistence true
 persistence_location /mosquitto/data/
@@ -68,7 +77,16 @@ listener 1883 0.0.0.0
 allow_anonymous true
 EOF
 
+# FIX PERMISSIONS:
+# 1883 is Mosquitto's internal user, 1000 is Node-RED's
+echo "Setting permissions for Docker users..."
+sudo chown -R 1883:1883 mosquitto/data mosquitto/log
+sudo chown -R 1000:1000 node-red-data
+
+# Ensure the user can talk to the TinyMesh USB stick
+sudo usermod -aG dialout $USER
+
 echo "--- ✅ BOOTSTRAP COMPLETE ---"
-echo "Identity: $NEW_HOSTNAME"
-echo "Project Root: $PARENT_DIR"
-echo "Next Step: Run 'sudo reboot' to apply hostname and Docker group changes."
+echo "Identity: $NEW_HOSTNAME (Serial: $CPUSERIAL)"
+echo "Environment file (.env) generated."
+echo "Next Step: Run 'sudo reboot' then 'docker-compose up -d'"

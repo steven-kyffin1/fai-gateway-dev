@@ -5,10 +5,19 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# Keep the CONFIG, but not the actual data the apps generate
+# Mosquitto runtime data
 mosquitto/data/
 mosquitto/log/
-node-red-data/
+
+# Node-RED: Ignore the environment and modules, but KEEP the flows
+node-red-data/node_modules/
+node-red-data/.config.runtime.json
+node-red-data/.sessions.json
+node-red-data/debug.log
+node-red-data/backups/
+
+# Keep the CONFIG, but not the actual .env file (which contains local secrets)
+.env
 
 # Log files
 *.log

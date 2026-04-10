@@ -16,13 +16,20 @@ services:
     image: nodered/node-red:latest
     container_name: fai-nodered
     restart: unless-stopped
-    environment:
-      - TZ=Europe/London # Sets your local time for logs
-    depends_on:
-      - mqtt
-    ports:
-      - "1880:1880"
+    # 1. Map the Radiocrafts USB stick into the container
+    devices:
+      - "/dev/ttyUSB0:/dev/ttyUSB0" 
+    # 2. Permissions for serial port access (User:pi, Group:dialout)
+    user: "1000:20" 
+    # 3. Persistence
     volumes:
       - ./node-red-data:/data
-    devices:
-      - "/dev/ttyUSB0:/dev/ttyUSB0" # Maps your Tinymesh USB-TTL to the container
+    environment:
+      - TZ=UTC
+      # This pulls the variable from your .env file created by bootstrap.sh
+      - GATEWAY_SERIAL=${GATEWAY_SERIAL}
+      - GATEWAY_HOSTNAME=${GATEWAY_HOSTNAME}
+    ports:
+      - "1880:1880"
+    depends_on:
+      - mqtt
