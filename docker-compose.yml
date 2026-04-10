@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   mqtt:
     image: eclipse-mosquitto:latest
@@ -8,11 +9,15 @@ services:
       - "1883:1883"
     volumes:
       - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
 
   nodered:
     image: nodered/node-red:latest
     container_name: fai-nodered
     restart: unless-stopped
+    environment:
+      - TZ=Europe/London # Sets your local time for logs
     depends_on:
       - mqtt
     ports:
