@@ -18,8 +18,8 @@ services:
     restart: unless-stopped
     # 1. Map the Radiocrafts USB stick into the container
     devices:
-      - "/dev/ttyUSB0:/dev/ttyUSB0"
-      #- "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJOW-if00-port0:/dev/ttyUSB0" 
+      #- "/dev/ttyUSB0:/dev/ttyUSB0"
+      - "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJOW-if00-port0:/dev/ttyUSB0" 
     # 2. Permissions for serial port access (User:pi, Group:dialout)
     user: "1000:20" 
     # 3. Persistence
