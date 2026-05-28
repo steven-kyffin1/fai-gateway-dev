@@ -1,0 +1,1107 @@
+[
+    {
+        "id": "3738026cb3832ee1",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "683cf0d2d547c4fd",
+        "type": "serial-port",
+        "name": "Tinymesh",
+        "serialport": "/dev/ttyUSB1",
+        "serialbaud": "19200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "",
+        "dtr": "high",
+        "rts": "high",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "50",
+        "bin": "bin",
+        "out": "time",
+        "addchar": "",
+        "responsetimeout": 10000
+    },
+    {
+        "id": "eed478715e8dbc61",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "3096e34db10023a8",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mqtts://mqtt.birdbox.faifarms.com",
+        "port": "8883",
+        "tls": "eed478715e8dbc61",
+        "clientid": "${GATEWAY_SERIAL}",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": 60,
+        "cleansession": false,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "58ca2c2a38f51e7f",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "birdbox-vpn",
+        "port": "8883",
+        "tls": "eed478715e8dbc61",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "bcc4801ac002ac63",
+        "type": "serial-port",
+        "name": "WMBUS in",
+        "serialport": "/dev/ttyUSB0",
+        "serialbaud": "19200",
+        "databits": 8,
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "400",
+        "bin": "bin",
+        "out": "time",
+        "addchar": "",
+        "responsetimeout": 10000
+    },
+    {
+        "id": "06277bcaebbb921e",
+        "type": "global-config",
+        "env": [
+            {
+                "name": "GATEWAY_SERIAL",
+                "value": "d83adde45b6f",
+                "type": "str"
+            }
+        ],
+        "modules": {}
+    },
+    {
+        "id": "be275ba8c3129bf2",
+        "type": "modbus-client",
+        "name": "",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.1.102",
+        "tcpPort": "5020",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": "2",
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "6776b5a3c41f3f5c",
+        "type": "modbus-client",
+        "name": "Modbus Client",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "mbusd",
+        "tcpPort": "5020",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB2",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 2,
+        "commandDelay": 1,
+        "clientTimeout": 5000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 5000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "3795322861042bc3",
+        "type": "serial in",
+        "z": "3738026cb3832ee1",
+        "name": "Tinymesh In",
+        "serial": "683cf0d2d547c4fd",
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "3e23d6eda29ff93e",
+                "edd0911a555ca093"
+            ]
+        ]
+    },
+    {
+        "id": "7b6f165b76d6d69f",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "X",
+        "payloadType": "str",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "b31a1c514bd646c8"
+            ]
+        ]
+    },
+    {
+        "id": "b31a1c514bd646c8",
+        "type": "serial out",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "name": "Tinymesh Out",
+        "serial": "683cf0d2d547c4fd",
+        "x": 380,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "f84db370fab9f36f",
+        "type": "mqtt out",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "name": "",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3096e34db10023a8",
+        "x": 610,
+        "y": 120,
+        "wires": [],
+        "info": "topic was gateway/${gatewayId}/tinymesh/out"
+    },
+    {
+        "id": "3e23d6eda29ff93e",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Local Parser",
+        "func": "// ── The Complete 18-Byte Header Parser (Env, Weight, & Alive) ──\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216; \n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload)) incoming = msg.payload.toString('hex');\nelse if (msg.payload && typeof msg.payload.hex === 'string') incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string') incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\n// 1. GARBAGE COLLECTOR\nif (buf.length > 8192) {\n    buf = \"\"; \n    context.set('buf', buf);\n    node.warn(\"Buffer overflow prevented. Flushed garbage data.\");\n    return null;\n}\n\n// 2. OMNI-SIGNATURE SCANNER\nwhile (buf.length > 0) {\n    // Look for all three known packet types\n    let sensorIdx = buf.indexOf(\"013a\"); // Type 0x01 (Env), Length 58\n    let weightIdx = buf.indexOf(\"026a\"); // Type 0x02 (Weight), Length 106\n    let aliveIdx  = buf.indexOf(\"040c\"); // Type 0x04 (Alive), Length 12\n\n    let startIndex = -1;\n    let packetType = 0;\n\n    // Find whichever valid signature appears first in the current chunk\n    const indices = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx }\n    ].filter(obj => obj.idx !== -1);\n\n    if (indices.length > 0) {\n        const earliest = indices.reduce((prev, curr) => prev.idx < curr.idx ? prev : curr);\n        startIndex = earliest.idx;\n        packetType = earliest.type;\n    }\n\n    if (startIndex === -1) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break; \n    }\n\n    // 3. EXTRACT THE 18-BYTE PACKET MODE HEADER\n    if (startIndex < 36) {\n        buf = buf.slice(startIndex + 2); \n        continue;\n    }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex); \n    \n    // ── THE BIG-ENDIAN FIX ──\n    const trueUidHex = headerHex.slice(10, 18);\n    let dynamicUid = 0; \n    if (/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0); \n    } else {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n\n    // ── EXTRACT METADATA ──\n    const trueRssiHex = headerHex.slice(18, 20);\n    let rawRssi = parseInt(trueRssiHex, 16);\n    let trueRssi = (rawRssi / 2) - 121; // Match the old Gateway's exact dBm formula\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    // 4. EXTRACT THE PAYLOAD DATA (Little-Endian)\n    let expectedPayloadChars = 0;\n    if (packetType === 1) expectedPayloadChars = 58 * 2;\n    else if (packetType === 2) expectedPayloadChars = 106 * 2;\n    else if (packetType === 4) expectedPayloadChars = 12 * 2;\n\n    if (buf.length < startIndex + expectedPayloadChars) {\n        break; // Wait for the rest of the serial chunk\n    }\n\n    const frameHex = buf.slice(startIndex, startIndex + expectedPayloadChars);\n    buf = buf.slice(startIndex + expectedPayloadChars); \n\n    const bytes = [];\n    for (let i = 0; i < frameHex.length; i += 2) {\n        bytes.push(parseInt(frameHex.slice(i, i + 2), 16));\n    }\n    const view = new DataView(new Uint8Array(bytes).buffer);\n\n    let extractedData = {};\n    let messageDetail = \"unknown\";\n\n    if (packetType === 1) {\n        messageDetail = \"sensor_telemetry\";\n        \n        // Mapped exactly to sensor_telegram_t from sensors.h\n        extractedData = {\n            AirTemperature:      view.getFloat32(6,  true),\n            AirPressure:         view.getFloat32(10, true),\n            HumidityTemperature: view.getFloat32(14, true),\n            Humidity:            view.getFloat32(18, true),\n            LightALS:            view.getUint32(22,  true), // Parsed as integer based on C-struct behavior\n            GASCO2:              view.getFloat32(26, true),\n            GASTemperature:      view.getFloat32(30, true),\n            GASHumidity:         view.getFloat32(34, true),\n            GASNH3:              view.getFloat32(38, true),\n            GASCO:               view.getFloat32(42, true),\n            GASNO2:              view.getFloat32(46, true),\n            BoardTemperature:    view.getFloat32(50, true),\n            PT100Temperature:    view.getFloat32(54, true)\n        };\n    } else if (packetType === 2) {\n        messageDetail = \"weight_telemetry\";\n        const samples = [];\n        for (let i = 6; i + 1 < bytes.length; i += 2) {\n            samples.push(view.getUint16(i, true)); // Payload stays LE\n        }\n        extractedData = {\n            count: samples.length,\n            mean_weight: samples.reduce((a, b) => a + b, 0) / samples.length\n        };\n    } else if (packetType === 4) {\n        messageDetail = \"device_startup\";\n        extractedData = {\n            hardware_mac: frameHex.slice(4, 20), \n            firmware: view.getUint16(10, true) // Payload stays LE\n        };\n    }\n\n    // 5. BUILD THE FAI CLOUD ENVELOPE\n    out.push({\n        topic: `gateway/${gatewayId}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString() },\n            \"block\": 0,\n            \"data\": JSON.stringify(extractedData), \n            \"detail\": messageDetail,               \n            \"hops\": hops,\n            \"latency\": latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": trueRssi, \n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid,  \n            \"raw_hex\": frameHex \n        }\n    });\n}\n\ncontext.set('buf', buf);\n\nif (out.length === 0) return null;\nif (out.length === 1) return out[0];\nreturn [out];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "edd0911a555ca093",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Backend Parser",
+        "func": "// ── FAI Gateway Parser (v3.1 - Raw Payload, Correct UID) ──\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload))           incoming = msg.payload.toString('hex');\nelse if (msg.payload?.hex)                  incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string')   incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\nif (buf.length > 8192) {\n    context.set('buf', '');\n    node.warn(\"Buffer overflow — flushed\");\n    return null;\n}\n\nwhile (buf.length > 0) {\n    const sensorIdx = buf.indexOf(\"013a\");\n    const weightIdx = buf.indexOf(\"026a\");\n    const aliveIdx  = buf.indexOf(\"040c\");\n\n    const candidates = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx }\n    ].filter(c => c.idx !== -1);\n\n    if (!candidates.length) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break;\n    }\n\n    const { type: packetType, idx: startIndex } =\n        candidates.reduce((a, b) => a.idx < b.idx ? a : b);\n\n    // Need 18-byte (36 hex char) header before the payload signature\n    if (startIndex < 36) { buf = buf.slice(startIndex + 2); continue; }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex);\n\n    // UID: bytes 5-8 of header, Big-Endian\n    const trueUidHex = headerHex.slice(10, 18);\n    if (!/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n    const dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0);\n\n    // RSSI: raw integer as the backend expects (same format tinymesh-edge sent)\n    const rawRssi = parseInt(headerHex.slice(18, 20), 16);\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops       = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency    = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    const payloadLen = packetType === 1 ? 58 : packetType === 2 ? 106 : 12;\n    const needed = startIndex + payloadLen * 2;\n    if (buf.length < needed) break;\n\n    const frameHex = buf.slice(startIndex, needed);\n    buf = buf.slice(needed);\n\n    out.push({\n        topic: `gateway/${gatewayId}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString().split('.')[0] + '+00:00' },\n            \"block\":       0,\n            \"data\":        frameHex,   // Raw C-struct hex — backend decodes this itself\n            \"detail\":      \"serial\",\n            \"hops\":        hops,\n            \"latency\":     latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\":  Math.floor(Math.random() * 65535),\n            \"rssi\":        rawRssi,    // Raw integer, not dBm — matches tinymesh-edge format\n            \"sid\":         TARGET_CLOUD_SID,\n            \"type\":        \"event\",\n            \"uid\":         dynamicUid\n        }\n    });\n}\n\ncontext.set('buf', buf);\nif (!out.length) return null;\nreturn out.length === 1 ? out[0] : out;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 340,
+        "wires": [
+            [
+                "479b96e0273a18b1"
+            ]
+        ]
+    },
+    {
+        "id": "81706964859001bb",
+        "type": "serial in",
+        "z": "3738026cb3832ee1",
+        "name": "WMBUS In",
+        "serial": "bcc4801ac002ac63",
+        "x": 160,
+        "y": 520,
+        "wires": [
+            [
+                "771a91e17adff194"
+            ]
+        ]
+    },
+    {
+        "id": "479b96e0273a18b1",
+        "type": "mqtt out",
+        "z": "3738026cb3832ee1",
+        "name": "",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3096e34db10023a8",
+        "x": 1570,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "771a91e17adff194",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "WMBUS parser 5.2",
+        "func": "// ── FAI wMBus Extractor (MC100 Format Match) ──\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) return null;\n\nconst hexData = msg.payload.toString('hex').toLowerCase();\nconst base64Raw = msg.payload.toString('base64');\n\nif (hexData.length < 50) return null;\n\n// ── PARSE HEADER FIELDS ──\nconst lField = parseInt(hexData.substring(0, 2), 16);\nconst cField = parseInt(hexData.substring(2, 4), 16);\n\n// Manufacturer (bytes 2-3, little-endian → 15-bit decode)\nconst manHex = hexData.substring(6, 8) + hexData.substring(4, 6);\nconst manInt = parseInt(manHex, 16);\nconst manufacturer =\n    String.fromCharCode(((manInt >> 10) & 0x001F) + 64) +\n    String.fromCharCode(((manInt >> 5)  & 0x001F) + 64) +\n    String.fromCharCode((manInt & 0x001F) + 64);\n\n// Device ID (bytes 4-7, little-endian BCD reversal)\nconst idHex = hexData.substring(8, 16);\nconst serialNumber = idHex.substring(6, 8) +\n    idHex.substring(4, 6) +\n    idHex.substring(2, 4) +\n    idHex.substring(0, 2);\n\n// Version and device type bytes\nconst version = parseInt(hexData.substring(16, 18), 16);\nconst ciField  = parseInt(hexData.substring(20, 22), 16);\n\n// Full ID as the MC100 sends it (manufacturer + serial)\nconst fullId = manufacturer + serialNumber;\n\n// RSSI — RC1180 with RSSI mode off means we don't have it;\n// send a reasonable placeholder or omit\nconst rssiDbm = -52; // placeholder; adjust if you enable RSSI on dongle\n\nmsg.topic = `gateway/${gatewayId}/wmbus/out`;\nmsg.payload = {\n    \"_meta\": {\n        \"received\": new Date().toISOString().split('.')[0] + '+00:00',\n        \"receiver_id\": \"0000000000000000\",\n        \"rssi\": rssiDbm\n    },\n    \"data\": {\n        \"AField\":       idHex.toUpperCase() + hexData.substring(16, 28).toUpperCase(),\n        \"CField\":       cField,\n        \"CIField\":      ciField,\n        \"ID\":           \"18\" + serialNumber,\n        \"LField\":       lField,\n        \"MField\":       manInt,\n        \"Manufacturer\": manufacturer,\n        \"SerialNumber\": serialNumber\n    },\n    \"raw\":  base64Raw,\n    \"type\": \"wmbus\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 520,
+        "wires": [
+            [
+                "479b96e0273a18b1"
+            ]
+        ]
+    },
+    {
+        "id": "ed90c2419ae077fc",
+        "type": "modbus-read",
+        "z": "3738026cb3832ee1",
+        "name": "Power Meter voltage",
+        "topic": "voltage",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "0",
+        "quantity": "2",
+        "rate": "5",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 510,
+        "y": 1780,
+        "wires": [
+            [
+                "d6059965c1fc1a18"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "fb98271132dd59e0",
+        "type": "modbus-read",
+        "z": "3738026cb3832ee1",
+        "name": "Power Meter amps",
+        "topic": "amps",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "12",
+        "quantity": "2",
+        "rate": "7",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 510,
+        "y": 1840,
+        "wires": [
+            [
+                "d6059965c1fc1a18"
+            ],
+            [
+                "d6059965c1fc1a18"
+            ]
+        ]
+    },
+    {
+        "id": "93c49b83ad60f88f",
+        "type": "modbus-read",
+        "z": "3738026cb3832ee1",
+        "name": "Power Meter Addr model",
+        "topic": "model",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "11",
+        "quantity": "1",
+        "rate": "9",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 530,
+        "y": 1900,
+        "wires": [
+            [
+                "d6059965c1fc1a18"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2a62321f996547b5",
+        "type": "modbus-read",
+        "z": "3738026cb3832ee1",
+        "name": "Power Meter Addr model",
+        "topic": "serial",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "20480",
+        "quantity": "7",
+        "rate": "11",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 530,
+        "y": 1960,
+        "wires": [
+            [
+                "d6059965c1fc1a18"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d6059965c1fc1a18",
+        "type": "join",
+        "z": "3738026cb3832ee1",
+        "name": "Modbus Join",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "20",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 800,
+        "y": 1840,
+        "wires": [
+            [
+                "be65e38005890391"
+            ]
+        ]
+    },
+    {
+        "id": "be65e38005890391",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Power meter Parser",
+        "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"Unknown CG Meter\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet modArr = getArray(joined.model);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 0)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[1] << 16) | volArr[0];\n    voltage = rawVolts / 10;\n}\n\n// 2. Parse Amps (Address 12)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[1] << 16) | ampArr[0];\n    amps = rawAmps / 1000;\n}\n\n// 3. Identify Device Type (Address 11)\nif (modArr && modArr.length >= 1) {\n    let modelCode = modArr[0];\n    if (modelCode === 332) partNumber = \"EM330-DIN AV5\";\n    else if (modelCode === 341) partNumber = \"EM340-DIN AV2\";\n    else partNumber = \"Model Code: \" + modelCode;\n}\n\n// 4. Parse Serial Number (Address 20480)\nif (serArr) {\n    serial = \"\";\n    serArr.forEach(reg => {\n        serial += String.fromCharCode(reg & 0xFF); // Extract LSB to ASCII\n    });\n}\n\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- NEW CODE: Build the exact MQTT Topic ---\n// Grab the Gateway Serial from the Docker environment variables\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// Format: gateway/A100000155081224/power/out\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 1840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2ec4d64c4d152c47",
+        "type": "switch",
+        "z": "3738026cb3832ee1",
+        "name": "Power Meter Switch",
+        "property": "POWER_METER_TYPE",
+        "propertyType": "env",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "GAVAZZI",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "TIP_SINUS",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 460,
+        "y": 780,
+        "wires": [
+            [
+                "d392a434756845eb",
+                "c49885e9d6a9fc61",
+                "0d95085cc5ba3a5e",
+                "7c8ff7058b4c4054"
+            ],
+            [
+                "ef481e36e2bb3fa6",
+                "f9eb5f9f56a54bc6",
+                "e3730d84bcc3688e"
+            ]
+        ]
+    },
+    {
+        "id": "ece73113c7b4bfd0",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 780,
+        "wires": [
+            [
+                "2ec4d64c4d152c47"
+            ]
+        ]
+    },
+    {
+        "id": "f758c47d588bbb4d",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "name": "CG Voltage",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "0",
+        "quantity": "2",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 930,
+        "y": 640,
+        "wires": [
+            [
+                "459b1521753592c4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3c1ea0563bf6ac22",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "name": "CG Amps",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "12",
+        "quantity": "2",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": false,
+        "startDelayTime": "20",
+        "x": 920,
+        "y": 680,
+        "wires": [
+            [
+                "459b1521753592c4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d392a434756845eb",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "name": "CG Voltage Model",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "11",
+        "quantity": "1",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": false,
+        "startDelayTime": "40",
+        "x": 950,
+        "y": 720,
+        "wires": [
+            [
+                "459b1521753592c4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a38fb8b144266ed0",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "name": "CG Serial",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "20480",
+        "quantity": "7",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": false,
+        "startDelayTime": "60",
+        "x": 920,
+        "y": 760,
+        "wires": [
+            [
+                "459b1521753592c4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e101a3e45c80eeab",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "name": "Sinus Voltage",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "34",
+        "quantity": "2",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": false,
+        "startDelayTime": "20",
+        "x": 940,
+        "y": 840,
+        "wires": [
+            [
+                "06c2e152e80aa22b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "47ce93c9cc2d22b9",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "name": "Sinus Amps",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "36",
+        "quantity": "2",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": false,
+        "startDelayTime": "40",
+        "x": 930,
+        "y": 880,
+        "wires": [
+            [
+                "06c2e152e80aa22b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f81febb542ad7385",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "name": "Sinus Serial#",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "4",
+        "quantity": "2",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": true,
+        "startDelayTime": "0",
+        "x": 930,
+        "y": 920,
+        "wires": [
+            [
+                "06c2e152e80aa22b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "459b1521753592c4",
+        "type": "join",
+        "z": "3738026cb3832ee1",
+        "name": "Modbus Join",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "20",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1200,
+        "y": 700,
+        "wires": [
+            [
+                "878d632399a701a1"
+            ]
+        ]
+    },
+    {
+        "id": "878d632399a701a1",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Power meter Parser (Carlo Gavazzi)",
+        "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"Unknown CG Meter\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet modArr = getArray(joined.model);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 0)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[1] << 16) | volArr[0];\n    voltage = rawVolts / 10;\n}\n\n// 2. Parse Amps (Address 12)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[1] << 16) | ampArr[0];\n    amps = rawAmps / 1000;\n}\n\n// 3. Identify Device Type (Address 11)\nif (modArr && modArr.length >= 1) {\n    let modelCode = modArr[0];\n    if (modelCode === 332) partNumber = \"EM330-DIN AV5\";\n    else if (modelCode === 341) partNumber = \"EM340-DIN AV2\";\n    else partNumber = \"Model Code: \" + modelCode;\n}\n\n// 4. Parse Serial Number (Address 20480)\nif (serArr) {\n    serial = \"\";\n    serArr.forEach(reg => {\n        serial += String.fromCharCode(reg & 0xFF); // Extract LSB to ASCII\n    });\n}\n\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- NEW CODE: Build the exact MQTT Topic ---\n// Grab the Gateway Serial from the Docker environment variables\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// Format: gateway/A100000155081224/power/out\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1530,
+        "y": 700,
+        "wires": [
+            [
+                "479b96e0273a18b1",
+                "e4f1dbcdbbd44547"
+            ]
+        ]
+    },
+    {
+        "id": "06c2e152e80aa22b",
+        "type": "join",
+        "z": "3738026cb3832ee1",
+        "name": "Modbus Join",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "20",
+        "count": "3",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1140,
+        "y": 860,
+        "wires": [
+            [
+                "d0ffcd208a752da9"
+            ]
+        ]
+    },
+    {
+        "id": "d0ffcd208a752da9",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Power meter Parser (Sinus)",
+        "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"TIP SINUS\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\n// Notice I removed the '#' from the Serial name here!\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 34)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[0] * 65536) + volArr[1];\n    voltage = rawVolts / 1000;\n}\n\n// 2. Parse Amps (Address 36)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[0] * 65536) + ampArr[1];\n    amps = rawAmps / 1000;\n}\n\n// 3. Parse Serial Number (Address 4)\nif (serArr && serArr.length >= 2) {\n    let highHex = serArr[0].toString(16).padStart(4, '0');\n    let lowHex = serArr[1].toString(16).padStart(4, '0');\n    let rawSerial = (highHex + lowHex).toUpperCase();\n    \n    // Convert to integer to strip leading zeros, then back to string\n    serial = parseInt(rawSerial, 10).toString(); \n}\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- Build the exact MQTT Topic ---\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 860,
+        "wires": [
+            [
+                "479b96e0273a18b1"
+            ]
+        ]
+    },
+    {
+        "id": "ef481e36e2bb3fa6",
+        "type": "change",
+        "z": "3738026cb3832ee1",
+        "name": "Voltage Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "voltage",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 840,
+        "wires": [
+            [
+                "e101a3e45c80eeab"
+            ]
+        ]
+    },
+    {
+        "id": "f9eb5f9f56a54bc6",
+        "type": "change",
+        "z": "3738026cb3832ee1",
+        "name": "Amps Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "amps",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 880,
+        "wires": [
+            [
+                "47ce93c9cc2d22b9"
+            ]
+        ]
+    },
+    {
+        "id": "e3730d84bcc3688e",
+        "type": "change",
+        "z": "3738026cb3832ee1",
+        "name": "Serial Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "serial",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 920,
+        "wires": [
+            [
+                "f81febb542ad7385"
+            ]
+        ]
+    },
+    {
+        "id": "e4f1dbcdbbd44547",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1680,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "c49885e9d6a9fc61",
+        "type": "change",
+        "z": "3738026cb3832ee1",
+        "name": "Voltage Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "voltage",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 640,
+        "wires": [
+            [
+                "f758c47d588bbb4d"
+            ]
+        ]
+    },
+    {
+        "id": "0d95085cc5ba3a5e",
+        "type": "change",
+        "z": "3738026cb3832ee1",
+        "name": "Amps Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "amps",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 680,
+        "wires": [
+            [
+                "3c1ea0563bf6ac22"
+            ]
+        ]
+    },
+    {
+        "id": "7c8ff7058b4c4054",
+        "type": "change",
+        "z": "3738026cb3832ee1",
+        "name": "Serial Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "serial",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 760,
+        "wires": [
+            [
+                "a38fb8b144266ed0"
+            ]
+        ]
+    }
+]

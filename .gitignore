@@ -5,18 +5,23 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# Mosquitto runtime data
+# Mosquitto: Track config, completely ignore runtime data & logs
 mosquitto/data/
 mosquitto/log/
 
-# Node-RED: Ignore the environment and modules, but KEEP the flows
-node-red-data/node_modules/
-node-red-data/.config.runtime.json
-node-red-data/.sessions.json
-node-red-data/debug.log
-node-red-data/backups/
+# Node-RED: Ignore everything EXCEPT the core flow configuration files
+node-red-data/*
+!node-red-data/flows.json
+!node-red-data/flows_cred.json
+!node-red-data/settings.js
 
-# Keep the CONFIG, but not the actual .env file (which contains local secrets)
+# Installer scripts & System files built locally
+get-docker.sh
+fai-gateway.service
+seeed-linux-dtverlays/
+scripts/mosquitto/
+
+# Local Secrets (Keep out of GitHub!)
 .env
 
 # Log files
