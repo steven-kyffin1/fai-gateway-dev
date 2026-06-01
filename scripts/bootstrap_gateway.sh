@@ -118,6 +118,51 @@ else
     echo "ERROR: Could not find fai-gateway.service in $PROJECT_ROOT"
 fi
 
+# 8. SSD Setup
+echo "[8/8] Configuring NVMe SSD for Store-and-Forward..."
+MOUNT_POINT="/opt/fai-storage"
+NVME_DRIVE="/dev/nvme0n1"
+
+# Create the mount folder if it doesn't exist
+mkdir -p $MOUNT_POINT
+
+# Check if the drive is already formatted with ext4
+if blkid $NVME_DRIVE | grep -q "ext4"; then
+    echo "Drive $NVME_DRIVE is already formatted."
+else
+    echo "Formatting $NVME_DRIVE to ext4... (This wipes the drive!)"
+    parted -s $NVME_DRIVE mklabel gpt
+    parted -s $NVME_DRIVE mkpart primary ext4 0% 100%
+    mkfs.ext4 -F ${NVME_DRIVE}p1
+fi
+
+# Add to /etc/fstab so it mounts automatically on every reboot
+if ! grep -q "${NVME_DRIVE}p1" /etc/fstab; then
+    echo "Adding drive to /etc/fstab for auto-mounting..."
+    echo "${NVME_DRIVE}p1 $MOUNT_POINT ext4 defaults 0 2" | tee -a /etc/fstab
+fi
+
+# Mount it and assign ownership to the REAL deployment user
+mount -a
+chown -R $REAL_USER:$REAL_USER $MOUNT_POINT
+echo "SSD configured and mounted at $MOUNT_POINT"
+
+# 9. SuperCAP UPS Setup
+echo "[9/9] Configuring I2C for SuperCAP UPS..."
+
+# Install the I2C diagnostic tools
+apt-get update
+apt-get install -y i2c-tools python3-smbus
+
+# Add the REAL user to the i2c hardware group
+if groups $REAL_USER | grep &>/dev/null '\bi2c\b'; then
+    echo "User $REAL_USER is already in the i2c group."
+else
+    echo "Adding $REAL_USER to the i2c group..."
+    usermod -aG i2c $REAL_USER
+fi
+
+echo "I2C configured. (Note: group changes take effect on next login or reboot)"
 echo ""
 echo "--- ✅ BOOTSTRAP COMPLETE ---"
 echo "Identity: $NEW_HOSTNAME"

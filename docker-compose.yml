@@ -7,7 +7,7 @@ services:
       - "1883:1883"
     volumes:
       - ./mosquitto/config:/mosquitto/config
-      - ./mosquitto/data:/mosquitto/data
+      - /opt/fai-storage:/mosquitto/data
       - ./mosquitto/log:/mosquitto/log
 
   watchdog:
@@ -18,6 +18,22 @@ services:
       - AUTOHEAL_CONTAINER_LABEL=all
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  ups-watchdog:
+      image: python:3.9-slim
+      container_name: ups-watchdog
+      restart: always
+      privileged: true 
+      volumes:
+        - ./scripts/ups_watchdog.py:/app/ups_watchdog.py
+        - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket 
+      devices:
+        - "/dev/i2c-6:/dev/i2c-6" 
+      # Automatically install the I2C library and DBUS tool before running the script
+      command: >
+        sh -c "apt-get update && apt-get install -y dbus && 
+        pip install smbus2 && 
+        python -u /app/ups_watchdog.py"
 
   mbusd:
     image: alpine:latest

@@ -8,6 +8,163 @@
         "env": []
     },
     {
+        "id": "group_telemetry",
+        "type": "group",
+        "z": "3738026cb3832ee1",
+        "name": "1. Live Feed Bin Telemetry (Runs Constantly)",
+        "style": {
+            "stroke": "#3f92a6",
+            "fill": "#eff2f6",
+            "label": true
+        },
+        "nodes": [
+            "modbus_read_weight",
+            "parse_weight",
+            "debug_weight",
+            "5e24a7fa58d31074",
+            "43a32c58306da29c",
+            "399c5992ea9f0bad",
+            "470317d11e3be29d",
+            "7944cc5e36abae4b",
+            "57272a9eba0c6efd",
+            "a61fd9ce84ae778d",
+            "87c34af15b4d9e67"
+        ],
+        "x": 34,
+        "y": 1059,
+        "w": 912,
+        "h": 202
+    },
+    {
+        "id": "group_calib",
+        "type": "group",
+        "z": "3738026cb3832ee1",
+        "name": "2. Tech Calibration Dashboard (Triggered by UI)",
+        "style": {
+            "stroke": "#d4a017",
+            "fill": "#fdf7e3",
+            "label": true
+        },
+        "nodes": [
+            "btn_zero",
+            "btn_load",
+            "input_nov",
+            "format_zero",
+            "format_load",
+            "format_nov",
+            "modbus_write_zero",
+            "modbus_write_load",
+            "modbus_write_nov",
+            "5b486b5f72868d45",
+            "2bff9a925e919ced",
+            "75741b364a09e9ee",
+            "d1556d3cb5fbfa9e"
+        ],
+        "x": 34,
+        "y": 1279,
+        "w": 772,
+        "h": 322
+    },
+    {
+        "id": "f39362f0cc4d435f",
+        "type": "group",
+        "z": "3738026cb3832ee1",
+        "name": "Power Meters",
+        "style": {
+            "stroke": "#ffC000",
+            "fill": "#ffefbf",
+            "label": true,
+            "fill-opacity": "0.45"
+        },
+        "nodes": [
+            "2ec4d64c4d152c47",
+            "ece73113c7b4bfd0",
+            "f758c47d588bbb4d",
+            "3c1ea0563bf6ac22",
+            "d392a434756845eb",
+            "a38fb8b144266ed0",
+            "e101a3e45c80eeab",
+            "47ce93c9cc2d22b9",
+            "f81febb542ad7385",
+            "459b1521753592c4",
+            "878d632399a701a1",
+            "06c2e152e80aa22b",
+            "d0ffcd208a752da9",
+            "ef481e36e2bb3fa6",
+            "f9eb5f9f56a54bc6",
+            "e3730d84bcc3688e",
+            "c49885e9d6a9fc61",
+            "0d95085cc5ba3a5e",
+            "7c8ff7058b4c4054"
+        ],
+        "x": 34,
+        "y": 659,
+        "w": 1612,
+        "h": 362
+    },
+    {
+        "id": "febc9982bb1406d1",
+        "type": "group",
+        "z": "3738026cb3832ee1",
+        "name": "Water Meter",
+        "style": {
+            "stroke": "#001f60",
+            "fill": "#bfdbef",
+            "label": true,
+            "fill-opacity": "0.51"
+        },
+        "nodes": [
+            "81706964859001bb",
+            "771a91e17adff194"
+        ],
+        "x": 34,
+        "y": 539,
+        "w": 752,
+        "h": 82
+    },
+    {
+        "id": "5014da80cd5e927f",
+        "type": "group",
+        "z": "3738026cb3832ee1",
+        "name": "Flocksensor Tinymesh",
+        "style": {
+            "stroke": "#6f2fa0",
+            "fill": "#dbcbe7",
+            "fill-opacity": "0.5",
+            "label": true
+        },
+        "nodes": [
+            "3795322861042bc3",
+            "3e23d6eda29ff93e",
+            "edd0911a555ca093"
+        ],
+        "x": 34,
+        "y": 339,
+        "w": 712,
+        "h": 162
+    },
+    {
+        "id": "14acfddd9b78e00f",
+        "type": "group",
+        "z": "3738026cb3832ee1",
+        "name": "",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "ed90c2419ae077fc",
+            "fb98271132dd59e0",
+            "93c49b83ad60f88f",
+            "2a62321f996547b5",
+            "d6059965c1fc1a18",
+            "be65e38005890391"
+        ],
+        "x": 374,
+        "y": 1739,
+        "w": 772,
+        "h": 262
+    },
+    {
         "id": "683cf0d2d547c4fd",
         "type": "serial-port",
         "name": "Tinymesh",
@@ -198,13 +355,130 @@
         "showLogs": true
     },
     {
+        "id": "ui_calib_tab",
+        "type": "ui_tab",
+        "name": "Load Cells",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "ui_calib_group",
+        "type": "ui_group",
+        "name": "Bin Calibration",
+        "tab": "ui_calib_tab",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "245ed48afc4cb607",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
         "id": "3795322861042bc3",
         "type": "serial in",
         "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
         "name": "Tinymesh In",
         "serial": "683cf0d2d547c4fd",
-        "x": 190,
-        "y": 340,
+        "x": 130,
+        "y": 380,
         "wires": [
             [
                 "3e23d6eda29ff93e",
@@ -276,6 +550,7 @@
         "id": "3e23d6eda29ff93e",
         "type": "function",
         "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
         "name": "Local Parser",
         "func": "// ── The Complete 18-Byte Header Parser (Env, Weight, & Alive) ──\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216; \n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload)) incoming = msg.payload.toString('hex');\nelse if (msg.payload && typeof msg.payload.hex === 'string') incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string') incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\n// 1. GARBAGE COLLECTOR\nif (buf.length > 8192) {\n    buf = \"\"; \n    context.set('buf', buf);\n    node.warn(\"Buffer overflow prevented. Flushed garbage data.\");\n    return null;\n}\n\n// 2. OMNI-SIGNATURE SCANNER\nwhile (buf.length > 0) {\n    // Look for all three known packet types\n    let sensorIdx = buf.indexOf(\"013a\"); // Type 0x01 (Env), Length 58\n    let weightIdx = buf.indexOf(\"026a\"); // Type 0x02 (Weight), Length 106\n    let aliveIdx  = buf.indexOf(\"040c\"); // Type 0x04 (Alive), Length 12\n\n    let startIndex = -1;\n    let packetType = 0;\n\n    // Find whichever valid signature appears first in the current chunk\n    const indices = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx }\n    ].filter(obj => obj.idx !== -1);\n\n    if (indices.length > 0) {\n        const earliest = indices.reduce((prev, curr) => prev.idx < curr.idx ? prev : curr);\n        startIndex = earliest.idx;\n        packetType = earliest.type;\n    }\n\n    if (startIndex === -1) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break; \n    }\n\n    // 3. EXTRACT THE 18-BYTE PACKET MODE HEADER\n    if (startIndex < 36) {\n        buf = buf.slice(startIndex + 2); \n        continue;\n    }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex); \n    \n    // ── THE BIG-ENDIAN FIX ──\n    const trueUidHex = headerHex.slice(10, 18);\n    let dynamicUid = 0; \n    if (/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0); \n    } else {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n\n    // ── EXTRACT METADATA ──\n    const trueRssiHex = headerHex.slice(18, 20);\n    let rawRssi = parseInt(trueRssiHex, 16);\n    let trueRssi = (rawRssi / 2) - 121; // Match the old Gateway's exact dBm formula\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    // 4. EXTRACT THE PAYLOAD DATA (Little-Endian)\n    let expectedPayloadChars = 0;\n    if (packetType === 1) expectedPayloadChars = 58 * 2;\n    else if (packetType === 2) expectedPayloadChars = 106 * 2;\n    else if (packetType === 4) expectedPayloadChars = 12 * 2;\n\n    if (buf.length < startIndex + expectedPayloadChars) {\n        break; // Wait for the rest of the serial chunk\n    }\n\n    const frameHex = buf.slice(startIndex, startIndex + expectedPayloadChars);\n    buf = buf.slice(startIndex + expectedPayloadChars); \n\n    const bytes = [];\n    for (let i = 0; i < frameHex.length; i += 2) {\n        bytes.push(parseInt(frameHex.slice(i, i + 2), 16));\n    }\n    const view = new DataView(new Uint8Array(bytes).buffer);\n\n    let extractedData = {};\n    let messageDetail = \"unknown\";\n\n    if (packetType === 1) {\n        messageDetail = \"sensor_telemetry\";\n        \n        // Mapped exactly to sensor_telegram_t from sensors.h\n        extractedData = {\n            AirTemperature:      view.getFloat32(6,  true),\n            AirPressure:         view.getFloat32(10, true),\n            HumidityTemperature: view.getFloat32(14, true),\n            Humidity:            view.getFloat32(18, true),\n            LightALS:            view.getUint32(22,  true), // Parsed as integer based on C-struct behavior\n            GASCO2:              view.getFloat32(26, true),\n            GASTemperature:      view.getFloat32(30, true),\n            GASHumidity:         view.getFloat32(34, true),\n            GASNH3:              view.getFloat32(38, true),\n            GASCO:               view.getFloat32(42, true),\n            GASNO2:              view.getFloat32(46, true),\n            BoardTemperature:    view.getFloat32(50, true),\n            PT100Temperature:    view.getFloat32(54, true)\n        };\n    } else if (packetType === 2) {\n        messageDetail = \"weight_telemetry\";\n        const samples = [];\n        for (let i = 6; i + 1 < bytes.length; i += 2) {\n            samples.push(view.getUint16(i, true)); // Payload stays LE\n        }\n        extractedData = {\n            count: samples.length,\n            mean_weight: samples.reduce((a, b) => a + b, 0) / samples.length\n        };\n    } else if (packetType === 4) {\n        messageDetail = \"device_startup\";\n        extractedData = {\n            hardware_mac: frameHex.slice(4, 20), \n            firmware: view.getUint16(10, true) // Payload stays LE\n        };\n    }\n\n    // 5. BUILD THE FAI CLOUD ENVELOPE\n    out.push({\n        topic: `gateway/${gatewayId}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString() },\n            \"block\": 0,\n            \"data\": JSON.stringify(extractedData), \n            \"detail\": messageDetail,               \n            \"hops\": hops,\n            \"latency\": latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": trueRssi, \n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid,  \n            \"raw_hex\": frameHex \n        }\n    });\n}\n\ncontext.set('buf', buf);\n\nif (out.length === 0) return null;\nif (out.length === 1) return out[0];\nreturn [out];",
         "outputs": 1,
@@ -284,8 +559,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
-        "y": 420,
+        "x": 410,
+        "y": 460,
         "wires": [
             []
         ]
@@ -294,6 +569,7 @@
         "id": "edd0911a555ca093",
         "type": "function",
         "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
         "name": "Backend Parser",
         "func": "// ── FAI Gateway Parser (v3.1 - Raw Payload, Correct UID) ──\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload))           incoming = msg.payload.toString('hex');\nelse if (msg.payload?.hex)                  incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string')   incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\nif (buf.length > 8192) {\n    context.set('buf', '');\n    node.warn(\"Buffer overflow — flushed\");\n    return null;\n}\n\nwhile (buf.length > 0) {\n    const sensorIdx = buf.indexOf(\"013a\");\n    const weightIdx = buf.indexOf(\"026a\");\n    const aliveIdx  = buf.indexOf(\"040c\");\n\n    const candidates = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx }\n    ].filter(c => c.idx !== -1);\n\n    if (!candidates.length) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break;\n    }\n\n    const { type: packetType, idx: startIndex } =\n        candidates.reduce((a, b) => a.idx < b.idx ? a : b);\n\n    // Need 18-byte (36 hex char) header before the payload signature\n    if (startIndex < 36) { buf = buf.slice(startIndex + 2); continue; }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex);\n\n    // UID: bytes 5-8 of header, Big-Endian\n    const trueUidHex = headerHex.slice(10, 18);\n    if (!/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n    const dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0);\n\n    // RSSI: raw integer as the backend expects (same format tinymesh-edge sent)\n    const rawRssi = parseInt(headerHex.slice(18, 20), 16);\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops       = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency    = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    const payloadLen = packetType === 1 ? 58 : packetType === 2 ? 106 : 12;\n    const needed = startIndex + payloadLen * 2;\n    if (buf.length < needed) break;\n\n    const frameHex = buf.slice(startIndex, needed);\n    buf = buf.slice(needed);\n\n    out.push({\n        topic: `gateway/${gatewayId}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString().split('.')[0] + '+00:00' },\n            \"block\":       0,\n            \"data\":        frameHex,   // Raw C-struct hex — backend decodes this itself\n            \"detail\":      \"serial\",\n            \"hops\":        hops,\n            \"latency\":     latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\":  Math.floor(Math.random() * 65535),\n            \"rssi\":        rawRssi,    // Raw integer, not dBm — matches tinymesh-edge format\n            \"sid\":         TARGET_CLOUD_SID,\n            \"type\":        \"event\",\n            \"uid\":         dynamicUid\n        }\n    });\n}\n\ncontext.set('buf', buf);\nif (!out.length) return null;\nreturn out.length === 1 ? out[0] : out;",
         "outputs": 1,
@@ -302,8 +578,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 700,
-        "y": 340,
+        "x": 640,
+        "y": 380,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -314,10 +590,11 @@
         "id": "81706964859001bb",
         "type": "serial in",
         "z": "3738026cb3832ee1",
+        "g": "febc9982bb1406d1",
         "name": "WMBUS In",
         "serial": "bcc4801ac002ac63",
-        "x": 160,
-        "y": 520,
+        "x": 120,
+        "y": 580,
         "wires": [
             [
                 "771a91e17adff194"
@@ -338,14 +615,15 @@
         "correl": "",
         "expiry": "",
         "broker": "3096e34db10023a8",
-        "x": 1570,
-        "y": 460,
+        "x": 1890,
+        "y": 860,
         "wires": []
     },
     {
         "id": "771a91e17adff194",
         "type": "function",
         "z": "3738026cb3832ee1",
+        "g": "febc9982bb1406d1",
         "name": "WMBUS parser 5.2",
         "func": "// ── FAI wMBus Extractor (MC100 Format Match) ──\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) return null;\n\nconst hexData = msg.payload.toString('hex').toLowerCase();\nconst base64Raw = msg.payload.toString('base64');\n\nif (hexData.length < 50) return null;\n\n// ── PARSE HEADER FIELDS ──\nconst lField = parseInt(hexData.substring(0, 2), 16);\nconst cField = parseInt(hexData.substring(2, 4), 16);\n\n// Manufacturer (bytes 2-3, little-endian → 15-bit decode)\nconst manHex = hexData.substring(6, 8) + hexData.substring(4, 6);\nconst manInt = parseInt(manHex, 16);\nconst manufacturer =\n    String.fromCharCode(((manInt >> 10) & 0x001F) + 64) +\n    String.fromCharCode(((manInt >> 5)  & 0x001F) + 64) +\n    String.fromCharCode((manInt & 0x001F) + 64);\n\n// Device ID (bytes 4-7, little-endian BCD reversal)\nconst idHex = hexData.substring(8, 16);\nconst serialNumber = idHex.substring(6, 8) +\n    idHex.substring(4, 6) +\n    idHex.substring(2, 4) +\n    idHex.substring(0, 2);\n\n// Version and device type bytes\nconst version = parseInt(hexData.substring(16, 18), 16);\nconst ciField  = parseInt(hexData.substring(20, 22), 16);\n\n// Full ID as the MC100 sends it (manufacturer + serial)\nconst fullId = manufacturer + serialNumber;\n\n// RSSI — RC1180 with RSSI mode off means we don't have it;\n// send a reasonable placeholder or omit\nconst rssiDbm = -52; // placeholder; adjust if you enable RSSI on dongle\n\nmsg.topic = `gateway/${gatewayId}/wmbus/out`;\nmsg.payload = {\n    \"_meta\": {\n        \"received\": new Date().toISOString().split('.')[0] + '+00:00',\n        \"receiver_id\": \"0000000000000000\",\n        \"rssi\": rssiDbm\n    },\n    \"data\": {\n        \"AField\":       idHex.toUpperCase() + hexData.substring(16, 28).toUpperCase(),\n        \"CField\":       cField,\n        \"CIField\":      ciField,\n        \"ID\":           \"18\" + serialNumber,\n        \"LField\":       lField,\n        \"MField\":       manInt,\n        \"Manufacturer\": manufacturer,\n        \"SerialNumber\": serialNumber\n    },\n    \"raw\":  base64Raw,\n    \"type\": \"wmbus\"\n};\n\nreturn msg;",
         "outputs": 1,
@@ -354,8 +632,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 710,
-        "y": 520,
+        "x": 670,
+        "y": 580,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -366,6 +644,8 @@
         "id": "ed90c2419ae077fc",
         "type": "modbus-read",
         "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "14acfddd9b78e00f",
         "name": "Power Meter voltage",
         "topic": "voltage",
         "showStatusActivities": false,
@@ -399,6 +679,8 @@
         "id": "fb98271132dd59e0",
         "type": "modbus-read",
         "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "14acfddd9b78e00f",
         "name": "Power Meter amps",
         "topic": "amps",
         "showStatusActivities": false,
@@ -434,6 +716,8 @@
         "id": "93c49b83ad60f88f",
         "type": "modbus-read",
         "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "14acfddd9b78e00f",
         "name": "Power Meter Addr model",
         "topic": "model",
         "showStatusActivities": false,
@@ -467,6 +751,8 @@
         "id": "2a62321f996547b5",
         "type": "modbus-read",
         "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "14acfddd9b78e00f",
         "name": "Power Meter Addr model",
         "topic": "serial",
         "showStatusActivities": false,
@@ -500,6 +786,7 @@
         "id": "d6059965c1fc1a18",
         "type": "join",
         "z": "3738026cb3832ee1",
+        "g": "14acfddd9b78e00f",
         "name": "Modbus Join",
         "mode": "custom",
         "build": "object",
@@ -529,6 +816,7 @@
         "id": "be65e38005890391",
         "type": "function",
         "z": "3738026cb3832ee1",
+        "g": "14acfddd9b78e00f",
         "name": "Power meter Parser",
         "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"Unknown CG Meter\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet modArr = getArray(joined.model);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 0)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[1] << 16) | volArr[0];\n    voltage = rawVolts / 10;\n}\n\n// 2. Parse Amps (Address 12)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[1] << 16) | ampArr[0];\n    amps = rawAmps / 1000;\n}\n\n// 3. Identify Device Type (Address 11)\nif (modArr && modArr.length >= 1) {\n    let modelCode = modArr[0];\n    if (modelCode === 332) partNumber = \"EM330-DIN AV5\";\n    else if (modelCode === 341) partNumber = \"EM340-DIN AV2\";\n    else partNumber = \"Model Code: \" + modelCode;\n}\n\n// 4. Parse Serial Number (Address 20480)\nif (serArr) {\n    serial = \"\";\n    serArr.forEach(reg => {\n        serial += String.fromCharCode(reg & 0xFF); // Extract LSB to ASCII\n    });\n}\n\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- NEW CODE: Build the exact MQTT Topic ---\n// Grab the Gateway Serial from the Docker environment variables\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// Format: gateway/A100000155081224/power/out\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
         "outputs": 1,
@@ -547,6 +835,7 @@
         "id": "2ec4d64c4d152c47",
         "type": "switch",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Power Meter Switch",
         "property": "POWER_METER_TYPE",
         "propertyType": "env",
@@ -565,8 +854,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 460,
-        "y": 780,
+        "x": 400,
+        "y": 840,
         "wires": [
             [
                 "d392a434756845eb",
@@ -585,6 +874,7 @@
         "id": "ece73113c7b4bfd0",
         "type": "inject",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "",
         "props": [
             {
@@ -602,8 +892,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 210,
-        "y": 780,
+        "x": 150,
+        "y": 840,
         "wires": [
             [
                 "2ec4d64c4d152c47"
@@ -614,6 +904,7 @@
         "id": "f758c47d588bbb4d",
         "type": "modbus-getter",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "CG Voltage",
         "showStatusActivities": false,
         "showErrors": false,
@@ -632,8 +923,8 @@
         "delayOnStart": false,
         "enableDeformedMessages": false,
         "startDelayTime": "",
-        "x": 930,
-        "y": 640,
+        "x": 870,
+        "y": 700,
         "wires": [
             [
                 "459b1521753592c4"
@@ -645,6 +936,7 @@
         "id": "3c1ea0563bf6ac22",
         "type": "modbus-getter",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "CG Amps",
         "showStatusActivities": false,
         "showErrors": false,
@@ -663,8 +955,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": false,
         "startDelayTime": "20",
-        "x": 920,
-        "y": 680,
+        "x": 860,
+        "y": 740,
         "wires": [
             [
                 "459b1521753592c4"
@@ -676,6 +968,7 @@
         "id": "d392a434756845eb",
         "type": "modbus-getter",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "CG Voltage Model",
         "showStatusActivities": false,
         "showErrors": false,
@@ -694,8 +987,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": false,
         "startDelayTime": "40",
-        "x": 950,
-        "y": 720,
+        "x": 890,
+        "y": 780,
         "wires": [
             [
                 "459b1521753592c4"
@@ -707,6 +1000,7 @@
         "id": "a38fb8b144266ed0",
         "type": "modbus-getter",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "CG Serial",
         "showStatusActivities": false,
         "showErrors": false,
@@ -725,8 +1019,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": false,
         "startDelayTime": "60",
-        "x": 920,
-        "y": 760,
+        "x": 860,
+        "y": 820,
         "wires": [
             [
                 "459b1521753592c4"
@@ -738,6 +1032,7 @@
         "id": "e101a3e45c80eeab",
         "type": "modbus-getter",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Sinus Voltage",
         "showStatusActivities": false,
         "showErrors": false,
@@ -756,8 +1051,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": false,
         "startDelayTime": "20",
-        "x": 940,
-        "y": 840,
+        "x": 880,
+        "y": 900,
         "wires": [
             [
                 "06c2e152e80aa22b"
@@ -769,6 +1064,7 @@
         "id": "47ce93c9cc2d22b9",
         "type": "modbus-getter",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Sinus Amps",
         "showStatusActivities": false,
         "showErrors": false,
@@ -787,8 +1083,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": false,
         "startDelayTime": "40",
-        "x": 930,
-        "y": 880,
+        "x": 870,
+        "y": 940,
         "wires": [
             [
                 "06c2e152e80aa22b"
@@ -800,6 +1096,7 @@
         "id": "f81febb542ad7385",
         "type": "modbus-getter",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Sinus Serial#",
         "showStatusActivities": false,
         "showErrors": false,
@@ -818,8 +1115,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": true,
         "startDelayTime": "0",
-        "x": 930,
-        "y": 920,
+        "x": 870,
+        "y": 980,
         "wires": [
             [
                 "06c2e152e80aa22b"
@@ -831,6 +1128,7 @@
         "id": "459b1521753592c4",
         "type": "join",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Modbus Join",
         "mode": "custom",
         "build": "object",
@@ -848,8 +1146,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 1200,
-        "y": 700,
+        "x": 1140,
+        "y": 760,
         "wires": [
             [
                 "878d632399a701a1"
@@ -860,6 +1158,7 @@
         "id": "878d632399a701a1",
         "type": "function",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Power meter Parser (Carlo Gavazzi)",
         "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"Unknown CG Meter\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet modArr = getArray(joined.model);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 0)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[1] << 16) | volArr[0];\n    voltage = rawVolts / 10;\n}\n\n// 2. Parse Amps (Address 12)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[1] << 16) | ampArr[0];\n    amps = rawAmps / 1000;\n}\n\n// 3. Identify Device Type (Address 11)\nif (modArr && modArr.length >= 1) {\n    let modelCode = modArr[0];\n    if (modelCode === 332) partNumber = \"EM330-DIN AV5\";\n    else if (modelCode === 341) partNumber = \"EM340-DIN AV2\";\n    else partNumber = \"Model Code: \" + modelCode;\n}\n\n// 4. Parse Serial Number (Address 20480)\nif (serArr) {\n    serial = \"\";\n    serArr.forEach(reg => {\n        serial += String.fromCharCode(reg & 0xFF); // Extract LSB to ASCII\n    });\n}\n\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- NEW CODE: Build the exact MQTT Topic ---\n// Grab the Gateway Serial from the Docker environment variables\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// Format: gateway/A100000155081224/power/out\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
         "outputs": 1,
@@ -868,12 +1167,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1530,
-        "y": 700,
+        "x": 1470,
+        "y": 760,
         "wires": [
             [
-                "479b96e0273a18b1",
-                "e4f1dbcdbbd44547"
+                "479b96e0273a18b1"
             ]
         ]
     },
@@ -881,6 +1179,7 @@
         "id": "06c2e152e80aa22b",
         "type": "join",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Modbus Join",
         "mode": "custom",
         "build": "object",
@@ -898,8 +1197,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 1140,
-        "y": 860,
+        "x": 1080,
+        "y": 920,
         "wires": [
             [
                 "d0ffcd208a752da9"
@@ -910,6 +1209,7 @@
         "id": "d0ffcd208a752da9",
         "type": "function",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Power meter Parser (Sinus)",
         "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"TIP SINUS\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\n// Notice I removed the '#' from the Serial name here!\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 34)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[0] * 65536) + volArr[1];\n    voltage = rawVolts / 1000;\n}\n\n// 2. Parse Amps (Address 36)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[0] * 65536) + ampArr[1];\n    amps = rawAmps / 1000;\n}\n\n// 3. Parse Serial Number (Address 4)\nif (serArr && serArr.length >= 2) {\n    let highHex = serArr[0].toString(16).padStart(4, '0');\n    let lowHex = serArr[1].toString(16).padStart(4, '0');\n    let rawSerial = (highHex + lowHex).toUpperCase();\n    \n    // Convert to integer to strip leading zeros, then back to string\n    serial = parseInt(rawSerial, 10).toString(); \n}\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- Build the exact MQTT Topic ---\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
         "outputs": 1,
@@ -918,8 +1218,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1380,
-        "y": 860,
+        "x": 1320,
+        "y": 920,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -930,6 +1230,7 @@
         "id": "ef481e36e2bb3fa6",
         "type": "change",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Voltage Change",
         "rules": [
             {
@@ -945,8 +1246,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
-        "y": 840,
+        "x": 620,
+        "y": 900,
         "wires": [
             [
                 "e101a3e45c80eeab"
@@ -957,6 +1258,7 @@
         "id": "f9eb5f9f56a54bc6",
         "type": "change",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Amps Change",
         "rules": [
             {
@@ -972,8 +1274,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
-        "y": 880,
+        "x": 620,
+        "y": 940,
         "wires": [
             [
                 "47ce93c9cc2d22b9"
@@ -984,6 +1286,7 @@
         "id": "e3730d84bcc3688e",
         "type": "change",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Serial Change",
         "rules": [
             {
@@ -999,8 +1302,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
-        "y": 920,
+        "x": 620,
+        "y": 980,
         "wires": [
             [
                 "f81febb542ad7385"
@@ -1008,25 +1311,10 @@
         ]
     },
     {
-        "id": "e4f1dbcdbbd44547",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1680,
-        "y": 640,
-        "wires": []
-    },
-    {
         "id": "c49885e9d6a9fc61",
         "type": "change",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Voltage Change",
         "rules": [
             {
@@ -1042,8 +1330,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
-        "y": 640,
+        "x": 620,
+        "y": 700,
         "wires": [
             [
                 "f758c47d588bbb4d"
@@ -1054,6 +1342,7 @@
         "id": "0d95085cc5ba3a5e",
         "type": "change",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Amps Change",
         "rules": [
             {
@@ -1069,8 +1358,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
-        "y": 680,
+        "x": 620,
+        "y": 740,
         "wires": [
             [
                 "3c1ea0563bf6ac22"
@@ -1081,6 +1370,7 @@
         "id": "7c8ff7058b4c4054",
         "type": "change",
         "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
         "name": "Serial Change",
         "rules": [
             {
@@ -1096,12 +1386,680 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 700,
-        "y": 760,
+        "x": 640,
+        "y": 820,
         "wires": [
             [
                 "a38fb8b144266ed0"
             ]
+        ]
+    },
+    {
+        "id": "modbus_read_weight",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "Read Weight (Addr 40) Silo 1",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "40",
+        "quantity": "2",
+        "server": "",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 380,
+        "y": 1100,
+        "wires": [
+            [
+                "parse_weight"
+            ],
+            [
+                "5e24a7fa58d31074"
+            ]
+        ]
+    },
+    {
+        "id": "parse_weight",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "group_telemetry",
+        "name": "Parse 32-bit Weight",
+        "func": "let raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    // 1. Stitch the two 16-bit Modbus registers into a 32-bit signed integer\n    let weight = (raw[0] << 16) | raw[1];\n    \n    // 2. Dynamically pull the device's hardware serial from the local .env\n    let gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n    \n    // 3. Format the payload to exactly match your Tinymesh backend architecture\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight\n        }\n    };\n    \n    // 4. Assign the standard routing topic for your MQTT broker\n    msg.topic = `gateway/${gatewaySerial}/telemetry`;\n    \n    return msg;\n}\n\n// If the Modbus read fails or returns empty, stop the flow to prevent crashing the backend\nreturn null;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 1100,
+        "wires": [
+            [
+                "debug_weight"
+            ]
+        ]
+    },
+    {
+        "id": "debug_weight",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "Live Weight",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "btn_zero",
+        "type": "ui_button",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "",
+        "group": "ui_calib_group",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "1. Set Empty Scale (Zero)",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "#d9534f",
+        "className": "",
+        "icon": "",
+        "payload": "zero",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 170,
+        "y": 1320,
+        "wires": [
+            [
+                "format_zero"
+            ]
+        ]
+    },
+    {
+        "id": "btn_load",
+        "type": "ui_button",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "",
+        "group": "ui_calib_group",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "2. Sample Heavy Test Load",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "#f0ad4e",
+        "className": "",
+        "icon": "",
+        "payload": "load",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 180,
+        "y": 1380,
+        "wires": [
+            [
+                "format_load"
+            ]
+        ]
+    },
+    {
+        "id": "input_nov",
+        "type": "ui_numeric",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "group_calib",
+        "name": "",
+        "label": "3. Enter Actual Test Weight (kg)",
+        "tooltip": "Hit enter to send to Junction Box",
+        "group": "ui_calib_group",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 100000,
+        "step": 1,
+        "className": "",
+        "x": 190,
+        "y": 1500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "format_zero",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Format 0x7FFFFFFF",
+        "func": "// The manual requires sending 0x7FFFFFFF to trigger calibration.\n// We split this into two 16-bit Modbus registers:\n// High: 0x7FFF (32767)\n// Low:  0xFFFF (65535)\nmsg.payload = [32767, 65535];\n// Grab the silo selected in the UI dropdown, default to 1 if empty\nmsg.unitid = flow.get(\"activeCalibrationSilo\") || 1; \nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1320,
+        "wires": [
+            [
+                "modbus_write_zero"
+            ]
+        ]
+    },
+    {
+        "id": "format_load",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Format 0x7FFFFFFF",
+        "func": "msg.payload = [32767, 65535];\n// Grab the silo selected in the UI dropdown, default to 1 if empty\nmsg.unitid = flow.get(\"activeCalibrationSilo\") || 1; \nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1380,
+        "wires": [
+            [
+                "modbus_write_load"
+            ]
+        ]
+    },
+    {
+        "id": "format_nov",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Convert to 32-bit Array",
+        "func": "msg.payload = msg.payload.weight;\nlet val = parseInt(msg.payload);\n\n// Convert the user's weight input into two 16-bit Modbus words\nlet highWord = (val >> 16) & 0xFFFF;\nlet lowWord = val & 0xFFFF;\n\nmsg.payload = [highWord, lowWord];\n// Grab the silo selected in the UI dropdown, default to 1 if empty\nmsg.unitid = flow.get(\"activeCalibrationSilo\") || 1;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 1440,
+        "wires": [
+            [
+                "modbus_write_nov"
+            ]
+        ]
+    },
+    {
+        "id": "modbus_write_zero",
+        "type": "modbus-write",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Write LDW (Addr 16)",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MultipleRegisters",
+        "adr": "16",
+        "quantity": "2",
+        "server": "",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 680,
+        "y": 1320,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "modbus_write_load",
+        "type": "modbus-write",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Write LWT (Addr 18)",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MultipleRegisters",
+        "adr": "18",
+        "quantity": "2",
+        "server": "",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 680,
+        "y": 1380,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "modbus_write_nov",
+        "type": "modbus-write",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Write NOV (Addr 20)",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MultipleRegisters",
+        "adr": "20",
+        "quantity": "2",
+        "server": "",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 680,
+        "y": 1440,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5b486b5f72868d45",
+        "type": "ui_text_input",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "group_calib",
+        "name": "",
+        "label": "3. Enter Actual Test Weight (kg)",
+        "tooltip": "",
+        "group": "ui_calib_group",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "number",
+        "delay": "0",
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 190,
+        "y": 1560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2bff9a925e919ced",
+        "type": "ui_form",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "",
+        "label": "Actual Test Weight (kg)",
+        "group": "ui_calib_group",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Actual Test Weight (kg)",
+                "value": "weight",
+                "type": "number",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "weight": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 160,
+        "y": 1440,
+        "wires": [
+            [
+                "format_nov"
+            ]
+        ]
+    },
+    {
+        "id": "5e24a7fa58d31074",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "Parse 32-bit Weight",
+        "func": "// ── FAI Gateway: Silo Weight Parser (Production) ──\n\n// 1. Get the physical gateway's identity\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// 2. Extract the raw Modbus payload\nlet raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    // 3. Bitwise shift to combine the two 16-bit registers into a 32-bit integer\n    let weight = (raw[0] << 16) | raw[1];\n    \n    // 4. Identify WHICH silo this is based on the Modbus Slave Address (1 to 4)\n    // node-red-contrib-modbus attaches the unitid to the request object automatically\n    let slaveAddress = (msg.modbusRequest && msg.modbusRequest.unitid) ? msg.modbusRequest.unitid : 1; \n    let deviceId = \"silo_\" + slaveAddress.toString().padStart(2, '0'); // e.g., \"silo_01\", \"silo_02\"\n    \n    // 5. Build the clean, decoupled JSON payload for the backend\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight,\n            \"modbus_address\": slaveAddress\n        }\n    };\n    \n    // 6. Route it to the dedicated Silo topic\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    \n    return msg;\n}\n\n// Stop the flow if the reading failed or is empty\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 1160,
+        "wires": [
+            [
+                "479b96e0273a18b1",
+                "debug_weight"
+            ]
+        ]
+    },
+    {
+        "id": "43a32c58306da29c",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "Read Weight (Addr 40) Silo 2",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "40",
+        "quantity": "2",
+        "server": "",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 380,
+        "y": 1140,
+        "wires": [
+            [
+                "5e24a7fa58d31074"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "399c5992ea9f0bad",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "Read Weight (Addr 40) Silo 3",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "3",
+        "dataType": "HoldingRegister",
+        "adr": "40",
+        "quantity": "2",
+        "server": "",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 380,
+        "y": 1180,
+        "wires": [
+            [
+                "5e24a7fa58d31074"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "470317d11e3be29d",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "Read Weight (Addr 40) Silo 4",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "4",
+        "dataType": "HoldingRegister",
+        "adr": "40",
+        "quantity": "2",
+        "server": "",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 380,
+        "y": 1220,
+        "wires": [
+            [
+                "5e24a7fa58d31074"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7944cc5e36abae4b",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "20",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 1100,
+        "wires": [
+            [
+                "modbus_read_weight"
+            ]
+        ]
+    },
+    {
+        "id": "57272a9eba0c6efd",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "20",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 1140,
+        "wires": [
+            [
+                "43a32c58306da29c"
+            ]
+        ]
+    },
+    {
+        "id": "a61fd9ce84ae778d",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "20",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 1180,
+        "wires": [
+            [
+                "399c5992ea9f0bad"
+            ]
+        ]
+    },
+    {
+        "id": "87c34af15b4d9e67",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "20",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "15",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 1220,
+        "wires": [
+            [
+                "470317d11e3be29d"
+            ]
+        ]
+    },
+    {
+        "id": "75741b364a09e9ee",
+        "type": "ui_dropdown",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "",
+        "label": "Select Silo to Calibrate",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "ui_calib_group",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Silo 1",
+                "value": "1",
+                "type": "str"
+            },
+            {
+                "label": "Silo 2",
+                "value": "2",
+                "type": "str"
+            },
+            {
+                "label": "Silo 3",
+                "value": "3",
+                "type": "str"
+            },
+            {
+                "label": "Silo 4",
+                "value": "4",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 460,
+        "y": 1500,
+        "wires": [
+            [
+                "d1556d3cb5fbfa9e"
+            ]
+        ]
+    },
+    {
+        "id": "d1556d3cb5fbfa9e",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Remember Choice",
+        "func": "flow.set(\"activeCalibrationSilo\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 1500,
+        "wires": [
+            []
         ]
     }
 ]
