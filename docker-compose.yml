@@ -25,7 +25,7 @@ services:
       restart: always
       privileged: true 
       volumes:
-        - ./scripts/ups_watchdog.py:/app/ups_watchdog.py
+        - ./scripts/ups_watchdog.py:/app/ups_watchdog.py:ro # 'ro'  ensures the container cannot modify your host script.
         - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket 
       devices:
         - "/dev/i2c-6:/dev/i2c-6" 
@@ -73,6 +73,8 @@ services:
       - "46" 
     volumes:
       - ./node-red-data:/data
+    env_file:
+      - .env  # This forces Docker to load the file
     environment:
       - NODE_RED_ENABLE_SAFE_MODE=false
       - TZ=UTC
@@ -82,8 +84,10 @@ services:
     ports:
       - "1880:1880"
     depends_on:
-      - mqtt
-      - mbusd
+      mqtt:
+        condition: service_started
+      mbusd:
+        condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider http://localhost:1880/ || exit 1"]
       interval: 60s

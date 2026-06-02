@@ -471,6 +471,37 @@
         }
     },
     {
+        "id": "b78b8561ebd93ffc",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "fai-mqtt",
+        "port": 1883,
+        "clientid": "nodered-local",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
         "id": "3795322861042bc3",
         "type": "serial in",
         "z": "3738026cb3832ee1",
@@ -485,66 +516,6 @@
                 "edd0911a555ca093"
             ]
         ]
-    },
-    {
-        "id": "7b6f165b76d6d69f",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "X",
-        "payloadType": "str",
-        "x": 110,
-        "y": 120,
-        "wires": [
-            [
-                "b31a1c514bd646c8"
-            ]
-        ]
-    },
-    {
-        "id": "b31a1c514bd646c8",
-        "type": "serial out",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "name": "Tinymesh Out",
-        "serial": "683cf0d2d547c4fd",
-        "x": 380,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "f84db370fab9f36f",
-        "type": "mqtt out",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "name": "",
-        "topic": "",
-        "qos": "1",
-        "retain": "false",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "3096e34db10023a8",
-        "x": 610,
-        "y": 120,
-        "wires": [],
-        "info": "topic was gateway/${gatewayId}/tinymesh/out"
     },
     {
         "id": "3e23d6eda29ff93e",
@@ -614,7 +585,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "3096e34db10023a8",
+        "broker": "b78b8561ebd93ffc",
         "x": 1890,
         "y": 860,
         "wires": []

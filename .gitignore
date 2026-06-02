@@ -8,6 +8,10 @@ Thumbs.db
 # Mosquitto: Track config, completely ignore runtime data & logs
 mosquitto/data/
 mosquitto/log/
+# --- NEW ADDITIONS START ---
+mosquitto/config/mosquitto.conf
+mosquitto/config/conf.d/bridge.conf
+# --- NEW ADDITIONS END ---
 
 # Node-RED: Ignore everything EXCEPT the core flow configuration files
 node-red-data/*

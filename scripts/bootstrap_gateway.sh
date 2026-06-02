@@ -102,6 +102,42 @@ chown -R 1883:1883 mosquitto/data mosquitto/log
 chown -R 1000:1000 node-red-data
 usermod -aG dialout "$REAL_USER"
 
+# --- ADD THIS TO THE END OF SECTION 6 ---
+
+echo "Generating Secure Mosquitto Cloud Bridge..."
+mkdir -p mosquitto/config/conf.d
+
+# Write the main mosquitto.conf
+cat <<EOF > mosquitto/config/mosquitto.conf
+# ==========================================
+# 1. LOCAL EDGE SETTINGS (The "Store")
+# ==========================================
+persistence true
+persistence_location /mosquitto/data/
+autosave_interval 30
+log_dest stdout
+listener 1883 0.0.0.0
+allow_anonymous true
+include_dir /mosquitto/config/conf.d
+EOF
+
+# Write the dynamic Cloud Bridge with the strict syntax
+cat <<EOF > mosquitto/config/conf.d/bridge.conf
+connection cloud-backend-bridge
+address mqtt.birdbox.faifarms.com:8883
+remote_clientid ${FINAL_SERIAL}
+remote_username ${FINAL_SERIAL}
+bridge_protocol_version mqttv311
+bridge_cafile /etc/ssl/certs/ca-certificates.crt
+bridge_insecure true
+cleansession false
+try_private false
+topic gateway/${FINAL_SERIAL}/# out 1 "" ""
+EOF
+
+echo "Mosquitto configuration generated for $FINAL_SERIAL"
+# ----------------------------------------
+
 # 7. Systemd Service & Persistence
 echo "[7/7] Installing Systemd Service..."
 
