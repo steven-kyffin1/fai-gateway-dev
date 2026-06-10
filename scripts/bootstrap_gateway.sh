@@ -42,6 +42,12 @@ fi
 echo "[3/7] Updating System Packages..."
 apt-get update && apt-get upgrade -y
 
+# NEW: Destroy default Linux drivers that hijack the RS485 and USB radios
+echo "Banning ModemManager and BRLTTY..."
+systemctl stop ModemManager || true
+systemctl disable ModemManager || true
+apt-get remove --purge brltty -y || true
+
 # 4. Install Tailscale
 echo "[4/7] Installing Tailscale..."
 if ! command -v tailscale &> /dev/null; then
