@@ -36,41 +36,31 @@ services:
         python -u /app/ups_watchdog.py"
 
   mbusd:
-    image: alpine:latest
+    build: ./mbusd
     container_name: fai-mbusd
     restart: unless-stopped
+    privileged: true
     devices:
-      - "/dev/serial/by-id/usb-WCH.CN_USB_Quad_Serial_BD65C4ABCD-if00:/dev/ttyACM_METER"
-    command: >
-      /bin/sh -c "
-      if ! command -v mbusd > /dev/null; then
-        echo 'Compiling mbusd natively for ARM64...' &&
-        apk add --no-cache git cmake build-base linux-headers pkgconf bash &&
-        git clone https://github.com/3cky/mbusd.git /tmp/mbusd &&
-        cd /tmp/mbusd && mkdir build && cd build &&
-        cmake -DCMAKE_INSTALL_PREFIX=/usr .. && make && make install &&
-        rm -rf /tmp/mbusd;
-      fi;
-      echo 'Starting Modbus Gateway...' &&
-      exec mbusd -d -p /dev/ttyACM_METER -s 9600 -m 8N1 -P 5020 -t 2000"
+      - "/dev/ttyACM2:/dev/ttyACM_METER"
     ports:
       - "5020:5020"
     healthcheck:
-      test: ["CMD-SHELL", "nc -z localhost 5020 || exit 1"]
+      test: ["CMD-SHELL", "netstat -ln | grep 5020 || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s
+      start_period: 15s
+
 
   nodered:
-    image: nodered/node-red:latest
+    build: ./nodered-build
     container_name: fai-nodered
     restart: unless-stopped
-    devices:
-      - "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJOW-if00-port0:/dev/ttyUSB1"  # Tinymesh USB
-      - "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B400T7S7-if00-port0:/dev/ttyUSB0"  # WMBUS USB
     group_add:
-      - "46" 
+      - "46"  # Critical: Grants Node-RED access to the USB radios
+    devices:
+      - "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJP7-if00-port0:/dev/ttyUSB1"  # Tinymesh USB
+      - "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B400T7S1-if00-port0:/dev/ttyUSB0"  # WMBUS USB
     volumes:
       - ./node-red-data:/data
     env_file:
