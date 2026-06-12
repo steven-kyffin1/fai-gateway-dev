@@ -30,3 +30,4 @@ scripts/mosquitto/
 
 # Log files
 *.log*cred.json
+.env

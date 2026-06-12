@@ -288,7 +288,7 @@
         "env": [
             {
                 "name": "GATEWAY_SERIAL",
-                "value": "d83adde45b6f",
+                "value": "88a29eab6b31",
                 "type": "str"
             }
         ],
@@ -542,7 +542,7 @@
         "z": "3738026cb3832ee1",
         "g": "5014da80cd5e927f",
         "name": "Backend Parser",
-        "func": "// ── FAI Gateway Parser (v3.1 - Raw Payload, Correct UID) ──\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload))           incoming = msg.payload.toString('hex');\nelse if (msg.payload?.hex)                  incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string')   incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\nif (buf.length > 8192) {\n    context.set('buf', '');\n    node.warn(\"Buffer overflow — flushed\");\n    return null;\n}\n\nwhile (buf.length > 0) {\n    const sensorIdx = buf.indexOf(\"013a\");\n    const weightIdx = buf.indexOf(\"026a\");\n    const aliveIdx  = buf.indexOf(\"040c\");\n\n    const candidates = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx }\n    ].filter(c => c.idx !== -1);\n\n    if (!candidates.length) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break;\n    }\n\n    const { type: packetType, idx: startIndex } =\n        candidates.reduce((a, b) => a.idx < b.idx ? a : b);\n\n    // Need 18-byte (36 hex char) header before the payload signature\n    if (startIndex < 36) { buf = buf.slice(startIndex + 2); continue; }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex);\n\n    // UID: bytes 5-8 of header, Big-Endian\n    const trueUidHex = headerHex.slice(10, 18);\n    if (!/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n    const dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0);\n\n    // RSSI: raw integer as the backend expects (same format tinymesh-edge sent)\n    const rawRssi = parseInt(headerHex.slice(18, 20), 16);\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops       = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency    = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    const payloadLen = packetType === 1 ? 58 : packetType === 2 ? 106 : 12;\n    const needed = startIndex + payloadLen * 2;\n    if (buf.length < needed) break;\n\n    const frameHex = buf.slice(startIndex, needed);\n    buf = buf.slice(needed);\n\n    out.push({\n        topic: `gateway/${gatewayId}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString().split('.')[0] + '+00:00' },\n            \"block\":       0,\n            \"data\":        frameHex,   // Raw C-struct hex — backend decodes this itself\n            \"detail\":      \"serial\",\n            \"hops\":        hops,\n            \"latency\":     latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\":  Math.floor(Math.random() * 65535),\n            \"rssi\":        rawRssi,    // Raw integer, not dBm — matches tinymesh-edge format\n            \"sid\":         TARGET_CLOUD_SID,\n            \"type\":        \"event\",\n            \"uid\":         dynamicUid\n        }\n    });\n}\n\ncontext.set('buf', buf);\nif (!out.length) return null;\nreturn out.length === 1 ? out[0] : out;",
+        "func": "// ── FAI Gateway Parser (v3.1 - Raw Payload, Correct UID) ──\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload))           incoming = msg.payload.toString('hex');\nelse if (msg.payload?.hex)                  incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string')   incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\nif (buf.length > 8192) {\n    context.set('buf', '');\n    node.warn(\"Buffer overflow — flushed\");\n    return null;\n}\n\nwhile (buf.length > 0) {\n    const sensorIdx = buf.indexOf(\"013a\");\n    const weightIdx = buf.indexOf(\"026a\");\n    const aliveIdx  = buf.indexOf(\"040c\");\n\n    const candidates = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx }\n    ].filter(c => c.idx !== -1);\n\n    if (!candidates.length) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break;\n    }\n\n    const { type: packetType, idx: startIndex } =\n        candidates.reduce((a, b) => a.idx < b.idx ? a : b);\n\n    // Need 18-byte (36 hex char) header before the payload signature\n    if (startIndex < 36) { buf = buf.slice(startIndex + 2); continue; }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex);\n\n    // UID: bytes 5-8 of header, Big-Endian\n    const trueUidHex = headerHex.slice(10, 18);\n    if (!/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n    const dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0);\n\n    // RSSI: raw integer as the backend expects (same format tinymesh-edge sent)\n    const rawRssi = parseInt(headerHex.slice(18, 20), 16);\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops       = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency    = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    const payloadLen = packetType === 1 ? 58 : packetType === 2 ? 106 : 12;\n    const needed = startIndex + payloadLen * 2;\n    if (buf.length < needed) break;\n\n    const frameHex = buf.slice(startIndex, needed);\n    buf = buf.slice(needed);\n\n    out.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString().split('.')[0] + '+00:00' },\n            \"block\":       0,\n            \"data\":        frameHex,   // Raw C-struct hex — backend decodes this itself\n            \"detail\":      \"serial\",\n            \"hops\":        hops,\n            \"latency\":     latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\":  Math.floor(Math.random() * 65535),\n            \"rssi\":        rawRssi,    // Raw integer, not dBm — matches tinymesh-edge format\n            \"sid\":         TARGET_CLOUD_SID,\n            \"type\":        \"event\",\n            \"uid\":         dynamicUid\n        }\n    });\n}\n\ncontext.set('buf', buf);\nif (!out.length) return null;\nreturn out.length === 1 ? out[0] : out;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -596,7 +596,7 @@
         "z": "3738026cb3832ee1",
         "g": "febc9982bb1406d1",
         "name": "WMBUS parser 5.2",
-        "func": "// ── FAI wMBus Extractor (MC100 Format Match) ──\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) return null;\n\nconst hexData = msg.payload.toString('hex').toLowerCase();\nconst base64Raw = msg.payload.toString('base64');\n\nif (hexData.length < 50) return null;\n\n// ── PARSE HEADER FIELDS ──\nconst lField = parseInt(hexData.substring(0, 2), 16);\nconst cField = parseInt(hexData.substring(2, 4), 16);\n\n// Manufacturer (bytes 2-3, little-endian → 15-bit decode)\nconst manHex = hexData.substring(6, 8) + hexData.substring(4, 6);\nconst manInt = parseInt(manHex, 16);\nconst manufacturer =\n    String.fromCharCode(((manInt >> 10) & 0x001F) + 64) +\n    String.fromCharCode(((manInt >> 5)  & 0x001F) + 64) +\n    String.fromCharCode((manInt & 0x001F) + 64);\n\n// Device ID (bytes 4-7, little-endian BCD reversal)\nconst idHex = hexData.substring(8, 16);\nconst serialNumber = idHex.substring(6, 8) +\n    idHex.substring(4, 6) +\n    idHex.substring(2, 4) +\n    idHex.substring(0, 2);\n\n// Version and device type bytes\nconst version = parseInt(hexData.substring(16, 18), 16);\nconst ciField  = parseInt(hexData.substring(20, 22), 16);\n\n// Full ID as the MC100 sends it (manufacturer + serial)\nconst fullId = manufacturer + serialNumber;\n\n// RSSI — RC1180 with RSSI mode off means we don't have it;\n// send a reasonable placeholder or omit\nconst rssiDbm = -52; // placeholder; adjust if you enable RSSI on dongle\n\nmsg.topic = `gateway/${gatewayId}/wmbus/out`;\nmsg.payload = {\n    \"_meta\": {\n        \"received\": new Date().toISOString().split('.')[0] + '+00:00',\n        \"receiver_id\": \"0000000000000000\",\n        \"rssi\": rssiDbm\n    },\n    \"data\": {\n        \"AField\":       idHex.toUpperCase() + hexData.substring(16, 28).toUpperCase(),\n        \"CField\":       cField,\n        \"CIField\":      ciField,\n        \"ID\":           \"18\" + serialNumber,\n        \"LField\":       lField,\n        \"MField\":       manInt,\n        \"Manufacturer\": manufacturer,\n        \"SerialNumber\": serialNumber\n    },\n    \"raw\":  base64Raw,\n    \"type\": \"wmbus\"\n};\n\nreturn msg;",
+        "func": "// ── FAI wMBus Extractor (MC100 Format Match) ──\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) return null;\n\nconst hexData = msg.payload.toString('hex').toLowerCase();\nconst base64Raw = msg.payload.toString('base64');\n\nif (hexData.length < 50) return null;\n\n// ── PARSE HEADER FIELDS ──\nconst lField = parseInt(hexData.substring(0, 2), 16);\nconst cField = parseInt(hexData.substring(2, 4), 16);\n\n// Manufacturer (bytes 2-3, little-endian → 15-bit decode)\nconst manHex = hexData.substring(6, 8) + hexData.substring(4, 6);\nconst manInt = parseInt(manHex, 16);\nconst manufacturer =\n    String.fromCharCode(((manInt >> 10) & 0x001F) + 64) +\n    String.fromCharCode(((manInt >> 5)  & 0x001F) + 64) +\n    String.fromCharCode((manInt & 0x001F) + 64);\n\n// Device ID (bytes 4-7, little-endian BCD reversal)\nconst idHex = hexData.substring(8, 16);\nconst serialNumber = idHex.substring(6, 8) +\n    idHex.substring(4, 6) +\n    idHex.substring(2, 4) +\n    idHex.substring(0, 2);\n\n// Version and device type bytes\nconst version = parseInt(hexData.substring(16, 18), 16);\nconst ciField  = parseInt(hexData.substring(20, 22), 16);\n\n// Full ID as the MC100 sends it (manufacturer + serial)\nconst fullId = manufacturer + serialNumber;\n\n// RSSI — RC1180 with RSSI mode off means we don't have it;\n// send a reasonable placeholder or omit\nconst rssiDbm = -52; // placeholder; adjust if you enable RSSI on dongle\n\nmsg.topic = `gateway/${gatewaySerial}/wmbus/out`;\nmsg.payload = {\n    \"_meta\": {\n        \"received\": new Date().toISOString().split('.')[0] + '+00:00',\n        \"receiver_id\": \"0000000000000000\",\n        \"rssi\": rssiDbm\n    },\n    \"data\": {\n        \"AField\":       idHex.toUpperCase() + hexData.substring(16, 28).toUpperCase(),\n        \"CField\":       cField,\n        \"CIField\":      ciField,\n        \"ID\":           \"18\" + serialNumber,\n        \"LField\":       lField,\n        \"MField\":       manInt,\n        \"Manufacturer\": manufacturer,\n        \"SerialNumber\": serialNumber\n    },\n    \"raw\":  base64Raw,\n    \"type\": \"wmbus\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2029,6 +2029,33 @@
         "libs": [],
         "x": 680,
         "y": 1500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "37047af017d3965c",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1380,
+        "y": 580,
         "wires": [
             []
         ]
