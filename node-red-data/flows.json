@@ -95,11 +95,12 @@
             "e3730d84bcc3688e",
             "c49885e9d6a9fc61",
             "0d95085cc5ba3a5e",
-            "7c8ff7058b4c4054"
+            "7c8ff7058b4c4054",
+            "1e12dab3fba7c885"
         ],
         "x": 34,
         "y": 659,
-        "w": 1612,
+        "w": 1732,
         "h": 362
     },
     {
@@ -168,7 +169,7 @@
         "id": "683cf0d2d547c4fd",
         "type": "serial-port",
         "name": "Tinymesh",
-        "serialport": "/dev/ttyUSB1",
+        "serialport": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJP7-if00-port0",
         "serialbaud": "19200",
         "databits": "8",
         "parity": "none",
@@ -266,7 +267,7 @@
         "id": "bcc4801ac002ac63",
         "type": "serial-port",
         "name": "WMBUS in",
-        "serialport": "/dev/ttyUSB0",
+        "serialport": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B400T7S1-if00-port0",
         "serialbaud": "19200",
         "databits": 8,
         "parity": "none",
@@ -1142,7 +1143,8 @@
         "y": 760,
         "wires": [
             [
-                "479b96e0273a18b1"
+                "479b96e0273a18b1",
+                "1e12dab3fba7c885"
             ]
         ]
     },
@@ -2059,5 +2061,22 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "1e12dab3fba7c885",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1660,
+        "y": 840,
+        "wires": []
     }
 ]

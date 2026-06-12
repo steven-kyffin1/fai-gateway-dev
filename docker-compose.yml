@@ -36,50 +36,51 @@ services:
         python -u /app/ups_watchdog.py"
 
   mbusd:
-    build: ./mbusd
-    container_name: fai-mbusd
-    restart: unless-stopped
-    privileged: true
-    devices:
-      - "/dev/ttyACM2:/dev/ttyACM_METER"
-    ports:
-      - "5020:5020"
-    healthcheck:
-      test: ["CMD-SHELL", "netstat -ln | grep 5020 || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 15s
+      build: ./mbusd
+      container_name: fai-mbusd
+      restart: unless-stopped
+      privileged: true
+      volumes:
+        - /dev:/dev  # The magic hot-plugging soft-mount
+      environment:
+        - RS485_PORT=/dev/serial/by-id/usb-WCH.CN_USB_Quad_Serial_BD65A1ABCD-if00     
+      ports:
+        - "5020:5020"
+      healthcheck:
+        test: ["CMD-SHELL", "netstat -ln | grep 5020 || exit 1"]
+        interval: 30s
+        timeout: 10s
+        retries: 3
+        start_period: 15s
 
 
   nodered:
-    build: ./nodered-build
-    container_name: fai-nodered
-    restart: unless-stopped
-    group_add:
-      - "46"  # Critical: Grants Node-RED access to the USB radios
-    devices:
-      - "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJP7-if00-port0:/dev/ttyUSB1"  # Tinymesh USB
-      - "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B400T7S1-if00-port0:/dev/ttyUSB0"  # WMBUS USB
-    volumes:
-      - ./node-red-data:/data
-    env_file:
-      - .env  # This forces Docker to load the file
-    environment:
-      - NODE_RED_ENABLE_SAFE_MODE=false
-      - TZ=UTC
-      - GATEWAY_SERIAL=${GATEWAY_SERIAL}
-      - GATEWAY_HOSTNAME=${GATEWAY_HOSTNAME}
-      - POWER_METER_TYPE=${POWER_METER_TYPE}
-    ports:
-      - "1880:1880"
-    depends_on:
-      mqtt:
-        condition: service_started
-      mbusd:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD-SHELL", "wget -q --spider http://localhost:1880/ || exit 1"]
-      interval: 60s
-      timeout: 10s
-      retries: 3
+      build: ./nodered-build
+      container_name: fai-nodered
+      restart: unless-stopped
+      privileged: true
+      group_add:
+        - "46"  # Critical: Grants Node-RED access to the USB radios
+      volumes:
+        - ./node-red-data:/data
+        - /dev:/dev  # The magic hot-plugging soft-mount
+      env_file:
+        - .env  # This forces Docker to load the file
+      environment:
+        - NODE_RED_ENABLE_SAFE_MODE=false
+        - TZ=UTC
+        - GATEWAY_SERIAL=${GATEWAY_SERIAL}
+        - GATEWAY_HOSTNAME=${GATEWAY_HOSTNAME}
+        - POWER_METER_TYPE=${POWER_METER_TYPE}
+      ports:
+        - "1880:1880"
+      depends_on:
+        mqtt:
+          condition: service_started
+        mbusd:
+          condition: service_started  # Loosened so Node-RED boots even if Modbus is unplugged!
+      healthcheck:
+        test: ["CMD-SHELL", "wget -q --spider http://localhost:1880/ || exit 1"]
+        interval: 60s
+        timeout: 10s
+        retries: 3

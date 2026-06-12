@@ -11,4 +11,9 @@ RUN apk add --no-cache libstdc++ && \
     adduser root dialout
 
 COPY --from=builder /usr/bin/mbusd /usr/bin/mbusd
-CMD ["mbusd", "-d", "-p", "/dev/ttyACM_METER", "-s", "9600", "-m", "8N1", "-P", "5020", "-t", "2000"]
+
+# Set a fallback, but allow docker-compose to override it
+ENV RS485_PORT="/dev/ttyACM0"
+
+# Use 'sh -c' so the environment variable expands correctly when the container boots
+CMD sh -c "mbusd -d -p ${RS485_PORT} -s 9600 -m 8N1 -P 5020 -t 2000"
