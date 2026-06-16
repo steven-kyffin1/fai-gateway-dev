@@ -18,8 +18,8 @@ def is_on_backup(bus):
         # If it is 1, the capacitor is actively discharging to keep the system alive.
         return (swapped_status & 0x0001) != 0
     except Exception as e:
-        # Ignore random I2C noise so we don't accidentally shut down
-        return False 
+        # FIX: Return None instead of False so we don't reset the counter on I2C noise!
+        return None 
 
 def shutdown_host():
     print("CRITICAL: MAIN POWER LOST! SuperCAP backup engaged.")
@@ -33,17 +33,20 @@ def shutdown_host():
     
     # 2. Tell Linux to gracefully halt (stop the OS, unmount drives, but don't cut main power yet)
     os.system("dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 org.freedesktop.login1.Manager.Halt boolean:true")
+
 if __name__ == "__main__":
     print(f"🛡️ Starting SuperCAP UPS Watchdog (Production Mode) on I2C bus {BUS_NUMBER}...")
     
-    # Debounce counter: Power must be gone for 5 full seconds to trigger shutdown
+    # Debounce counter: Power must be gone for 20 seconds to trigger shutdown
     backup_counter = 0
-    TRIGGER_THRESHOLD = 20  
+    TRIGGER_THRESHOLD = 5  
     
     try:
         with SMBus(BUS_NUMBER) as bus:
             while True:
-                if is_on_backup(bus):
+                state = is_on_backup(bus)
+                
+                if state is True:
                     backup_counter += 1
                     print(f"WARNING: Operating on capacitor backup power! ({backup_counter}/{TRIGGER_THRESHOLD})")
                     
@@ -51,10 +54,16 @@ if __name__ == "__main__":
                         shutdown_host()
                         # Sleep for 60s so the script doesn't spam the shutdown command while the OS halts
                         time.sleep(60) 
-                else:
+                        
+                elif state is False:
                     if backup_counter > 0:
                         print("✅ Main power restored. Aborting shutdown sequence.")
                     backup_counter = 0
+                    
+                elif state is None:
+                    # I2C Noise detected! Do nothing. Do not increment, do not reset.
+                    if backup_counter > 0:
+                        print(f"⚠️ I2C noise detected. Holding counter at {backup_counter}")
                 
                 time.sleep(1)
                 
