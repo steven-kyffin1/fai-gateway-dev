@@ -204,9 +204,27 @@ else
     usermod -aG i2c $REAL_USER
 fi
 
+# USB Hub Stability: Disable autosuspend and LPM
+if [ ! -f /etc/udev/rules.d/50-disable-usb-autosuspend.rules ]; then
+    cat <<'EOF' > /etc/udev/rules.d/50-disable-usb-autosuspend.rules
+ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend_delay_ms", ATTR{power/autosuspend_delay_ms}="-1"
+ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="on"
+EOF
+    udevadm control --reload-rules
+    udevadm trigger
+fi
+
+# Kernel parameters: global autosuspend off + VIA Labs hub LPM quirk
+if ! grep -q "usbcore.quirks=2109:2817:k" /boot/firmware/cmdline.txt; then
+    # Remove any previous partial attempt first
+    sed -i 's/usbcore.autosuspend=-1//g' /boot/firmware/cmdline.txt
+    sed -i '$ s/$/ usbcore.autosuspend=-1 usbcore.quirks=2109:2817:k/' /boot/firmware/cmdline.txt
+    echo "Kernel USB parameters applied."
+fi
+
 echo "I2C configured. (Note: group changes take effect on next login or reboot)"
 echo ""
-echo "--- ✅ BOOTSTRAP COMPLETE ---"
+echo "--- ✅BOOSTRAP COMPLETE ---"
 echo "Identity: $NEW_HOSTNAME"
 echo "Gateway Serial: $FINAL_SERIAL"
 echo "Meter Configured: $METER_TYPE"

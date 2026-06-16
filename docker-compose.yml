@@ -64,6 +64,7 @@ services:
       volumes:
         - ./node-red-data:/data
         - /dev:/dev  # The magic hot-plugging soft-mount
+        - /dev/serial:/dev/serial
       env_file:
         - .env  # This forces Docker to load the file
       environment:
