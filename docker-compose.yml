@@ -25,7 +25,7 @@ services:
       restart: always
       privileged: true 
       volumes:
-        - ./scripts/ups_watchdog.py:/app/ups_watchdog.py:ro # 'ro'  ensures the container cannot modify your host script.
+        - ./scripts/ups_watchdog.py:/app/ups_watchdog.py:ro # 'ro' ensures the container cannot modify your host script.
         - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket 
       devices:
         - "/dev/i2c-6:/dev/i2c-6" 
@@ -43,7 +43,8 @@ services:
       volumes:
         - /dev:/dev  # The magic hot-plugging soft-mount
       environment:
-        - RS485_PORT=/dev/serial/by-id/usb-WCH.CN_USB_Quad_Serial_BD65A1ABCD-if00     
+        # ZERO-TOUCH UPGRADE: Uses your Bootstrap udev rule instead of a hardcoded silicon ID
+        - RS485_PORT=/dev/RS485_QUAD_1     
       ports:
         - "5020:5020"
       healthcheck:
@@ -52,7 +53,6 @@ services:
         timeout: 10s
         retries: 3
         start_period: 15s
-
 
   nodered:
       build: ./nodered-build
@@ -85,3 +85,69 @@ services:
         interval: 60s
         timeout: 10s
         retries: 3
+
+  # ==========================================
+  # LORAWAN OFFLINE STACK (CHIRPSTACK)
+  # ==========================================
+  lora-forwarder:
+      image: rakwireless/udp-packet-forwarder:latest
+      container_name: lora-forwarder
+      restart: unless-stopped
+      privileged: true
+      # NOTE: network_mode: host has been REMOVED so it stays trapped in the local Docker network
+      volumes:
+        - /dev:/dev  # Soft-mounts the /dev/ttyACM0 radio
+      environment:
+        - MODEL=SX1302
+        - INTERFACE=USB
+        - DEVICE=/dev/ttyACM0
+        # ZERO-TOUCH UPGRADE: Pulls MAC from the .env file dynamically
+        - GATEWAY_EUI=${GATEWAY_SERIAL}
+        # Routes UDP traffic to the local Docker bridge container below, NOT the internet
+        - SERVER_HOST=gateway-bridge
+        - SERVER_PORT=1700
+        - FREQ_BAND=EU868
+
+  gateway-bridge:
+      image: chirpstack/chirpstack-gateway-bridge:4
+      container_name: gateway-bridge
+      restart: unless-stopped
+      ports:
+        - "1700:1700/udp" # Safely exposes the UDP port for the forwarder
+      environment:
+        - INTEGRATION__MQTT__AUTH__GENERIC__SERVER=tcp://mqtt:1883
+      depends_on:
+        - mqtt
+
+  chirpstack-postgres:
+      image: postgres:14-alpine
+      container_name: chirpstack-postgres
+      restart: unless-stopped
+      volumes:
+        - ./chirpstack/postgres:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_PASSWORD=root
+        - POSTGRES_USER=postgres
+        - POSTGRES_DB=postgres
+
+  chirpstack-redis:
+      image: redis:7-alpine
+      container_name: chirpstack-redis
+      restart: unless-stopped
+      volumes:
+        - ./chirpstack/redis:/data
+      command: redis-server --save 300 1 --appendonly yes
+
+  chirpstack:
+      image: chirpstack/chirpstack:4
+      container_name: chirpstack
+      restart: unless-stopped
+      command: -c /etc/chirpstack
+      volumes:
+        - ./chirpstack/configuration/chirpstack:/etc/chirpstack
+      ports:
+        - "8080:8080" # The Web Dashboard
+      depends_on:
+        - chirpstack-postgres
+        - chirpstack-redis
+        - mqtt

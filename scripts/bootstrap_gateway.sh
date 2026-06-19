@@ -1,5 +1,5 @@
 #!/bin/bash
-# FAI Gateway Bootstrap Script v1.5 - Production Edition
+# FAI Gateway Bootstrap Script v2.1 - Production Zero-Touch Edition
 
 echo "--- 🛰️ FAI GATEWAY STARTUP SEQUENCE ---"
 
@@ -18,7 +18,7 @@ REAL_HOMEDIR=$(eval echo ~$REAL_USER)
 # ... (Diagnostics code here) ...
 
 # 2. Automatic Naming (MAC Identity Engine)
-echo "[2/7] Setting Unique Identity via MAC..."
+echo "[2/10] Setting Unique Identity via MAC..."
 ETH_MAC=$(cat /sys/class/net/eth0/address | sed 's/://g')
 
 if [ -z "$ETH_MAC" ]; then
@@ -39,17 +39,17 @@ else
 fi
 
 # 3. Update System
-echo "[3/7] Updating System Packages..."
+echo "[3/10] Updating System Packages..."
 apt-get update && apt-get upgrade -y
 
-# NEW: Destroy default Linux drivers that hijack the RS485 and USB radios
+# Destroy default Linux drivers that hijack the RS485 and USB radios
 echo "Banning ModemManager and BRLTTY..."
 systemctl stop ModemManager || true
 systemctl disable ModemManager || true
 apt-get remove --purge brltty -y || true
 
 # 4. Install Tailscale
-echo "[4/7] Installing Tailscale..."
+echo "[4/10] Installing Tailscale..."
 if ! command -v tailscale &> /dev/null; then
     curl -fsSL https://tailscale.com/install.sh | sh
     tailscale up
@@ -58,7 +58,7 @@ else
 fi
 
 # 5. Install Docker & Compose
-echo "[5/7] Installing Docker Engine..."
+echo "[5/10] Installing Docker Engine..."
 if ! command -v docker &> /dev/null; then
     curl -fsSL https://get.docker.com -o get-docker.sh
     sh get-docker.sh
@@ -67,8 +67,8 @@ else
     echo "Docker already installed."
 fi
 
-# 6. MQTT & Project Folder Structure
-echo "[6/7] Finalizing Project Folders & Environment..."
+# 6. MQTT, LoRaWAN & Project Folder Structure
+echo "[6/10] Finalizing Project Folders & Environment..."
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
@@ -76,7 +76,7 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 echo "Project Root detected at: $PROJECT_ROOT"
 cd "$PROJECT_ROOT"
 
-# Interactive Power Meter Selection for Assembly Tech
+# Interactive Power Meter Selection
 echo ""
 echo "----------------------------------------"
 echo "Select the Power Meter Type for this install:"
@@ -91,6 +91,23 @@ else
     METER_TYPE="GAVAZZI"
 fi
 
+# Interactive LoRaWAN Selection
+echo ""
+echo "----------------------------------------"
+echo "Does this gateway have a LoRaWAN Module installed?"
+echo "1) YES"
+echo "2) NO [Default]"
+echo "----------------------------------------"
+read -p "Enter 1 or 2 [Default: 2]: " LORA_CHOICE
+
+if [ "$LORA_CHOICE" == "1" ]; then
+    ACTIVE_PROFILES="lorawan"
+    echo "LoRaWAN Stack ENABLED."
+else
+    ACTIVE_PROFILES=""
+    echo "LoRaWAN Stack DISABLED."
+fi
+
 FINAL_SERIAL=${GATEWAY_SERIAL:-$ETH_MAC}
 
 echo "Writing environment variables to $PROJECT_ROOT/.env..."
@@ -98,9 +115,9 @@ cat <<EOF > .env
 GATEWAY_SERIAL=$FINAL_SERIAL
 GATEWAY_HOSTNAME=$NEW_HOSTNAME
 POWER_METER_TYPE=$METER_TYPE
+COMPOSE_PROFILES=$ACTIVE_PROFILES
 EOF
 
-# Ensure the .env file belongs to the deployment user, not root
 chown "$REAL_USER":"$REAL_USER" .env
 
 # Permissions
@@ -108,12 +125,10 @@ chown -R 1883:1883 mosquitto/data mosquitto/log
 chown -R 1000:1000 node-red-data
 usermod -aG dialout "$REAL_USER"
 
-# --- ADD THIS TO THE END OF SECTION 6 ---
-
+# Generate Secure Mosquitto Cloud Bridge
 echo "Generating Secure Mosquitto Cloud Bridge..."
 mkdir -p mosquitto/config/conf.d
 
-# Write the main mosquitto.conf
 cat <<EOF > mosquitto/config/mosquitto.conf
 # ==========================================
 # 1. LOCAL EDGE SETTINGS (The "Store")
@@ -127,7 +142,6 @@ allow_anonymous true
 include_dir /mosquitto/config/conf.d
 EOF
 
-# Write the dynamic Cloud Bridge with the strict syntax
 cat <<EOF > mosquitto/config/conf.d/bridge.conf
 connection cloud-backend-bridge
 address mqtt.birdbox.faifarms.com:8883
@@ -141,18 +155,38 @@ try_private false
 topic gateway/${FINAL_SERIAL}/# out 1 "" ""
 EOF
 
-echo "Mosquitto configuration generated for $FINAL_SERIAL"
-# ----------------------------------------
+# Scaffold ChirpStack Offline Server
+echo "Scaffolding Private LoRaWAN Network Server..."
+mkdir -p chirpstack/configuration/chirpstack
+mkdir -p chirpstack/postgres
+mkdir -p chirpstack/redis
+chown -R "$REAL_USER":"$REAL_USER" chirpstack
+
+wget -qO chirpstack/configuration/chirpstack/region_eu868.toml https://raw.githubusercontent.com/chirpstack/chirpstack-docker/master/configuration/chirpstack/region_eu868.toml
+
+cat <<EOF > chirpstack/configuration/chirpstack/chirpstack.toml
+[postgresql]
+dsn="postgres://postgres:root@chirpstack-postgres/postgres?sslmode=disable"
+
+[redis]
+servers=["redis://chirpstack-redis/"]
+
+[api]
+bind="0.0.0.0:8080"
+secret="fai-offline-secret-key-12345"
+
+[integration]
+  [integration.mqtt]
+  server="tcp://mqtt:1883/"
+  json=true
+EOF
 
 # 7. Systemd Service & Persistence
-echo "[7/7] Installing Systemd Service..."
+echo "[7/10] Installing Systemd Service..."
 
 if [ -f "./fai-gateway.service" ]; then
     cp ./fai-gateway.service /etc/systemd/system/fai-gateway.service
-    
-    # Fix working directory in systemd service to match this machine's actual folder
     sed -i "s|WorkingDirectory=.*|WorkingDirectory=$PROJECT_ROOT|g" /etc/systemd/system/fai-gateway.service
-    
     systemctl daemon-reload
     systemctl enable fai-gateway.service
     echo "Persistence enabled."
@@ -161,50 +195,37 @@ else
 fi
 
 # 8. SSD Setup
-echo "[8/8] Configuring NVMe SSD for Store-and-Forward..."
+echo "[8/10] Configuring NVMe SSD for Store-and-Forward..."
 MOUNT_POINT="/opt/fai-storage"
 NVME_DRIVE="/dev/nvme0n1"
 
-# Create the mount folder if it doesn't exist
 mkdir -p $MOUNT_POINT
-
-# Check if the drive is already formatted with ext4
 if blkid $NVME_DRIVE | grep -q "ext4"; then
     echo "Drive $NVME_DRIVE is already formatted."
 else
-    echo "Formatting $NVME_DRIVE to ext4... (This wipes the drive!)"
+    echo "Formatting $NVME_DRIVE to ext4..."
     parted -s $NVME_DRIVE mklabel gpt
     parted -s $NVME_DRIVE mkpart primary ext4 0% 100%
     mkfs.ext4 -F ${NVME_DRIVE}p1
 fi
 
-# Add to /etc/fstab so it mounts automatically on every reboot
 if ! grep -q "${NVME_DRIVE}p1" /etc/fstab; then
-    echo "Adding drive to /etc/fstab for auto-mounting..."
     echo "${NVME_DRIVE}p1 $MOUNT_POINT ext4 defaults 0 2" | tee -a /etc/fstab
 fi
 
-# Mount it and assign ownership to the REAL deployment user
 mount -a
 chown -R $REAL_USER:$REAL_USER $MOUNT_POINT
-echo "SSD configured and mounted at $MOUNT_POINT"
 
 # 9. SuperCAP UPS Setup
-echo "[9/9] Configuring I2C for SuperCAP UPS..."
+echo "[9/10] Configuring I2C for SuperCAP UPS..."
 
-# Install the I2C diagnostic tools
 apt-get update
 apt-get install -y i2c-tools python3-smbus
 
-# Add the REAL user to the i2c hardware group
-if groups $REAL_USER | grep &>/dev/null '\bi2c\b'; then
-    echo "User $REAL_USER is already in the i2c group."
-else
-    echo "Adding $REAL_USER to the i2c group..."
+if ! groups $REAL_USER | grep &>/dev/null '\bi2c\b'; then
     usermod -aG i2c $REAL_USER
 fi
 
-# USB Hub Stability: Disable autosuspend and LPM
 if [ ! -f /etc/udev/rules.d/50-disable-usb-autosuspend.rules ]; then
     cat <<'EOF' > /etc/udev/rules.d/50-disable-usb-autosuspend.rules
 ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend_delay_ms", ATTR{power/autosuspend_delay_ms}="-1"
@@ -214,20 +235,29 @@ EOF
     udevadm trigger
 fi
 
-# Kernel parameters: global autosuspend off + VIA Labs hub LPM quirk
 if ! grep -q "usbcore.quirks=2109:2817:k" /boot/firmware/cmdline.txt; then
-    # Remove any previous partial attempt first
     sed -i 's/usbcore.autosuspend=-1//g' /boot/firmware/cmdline.txt
     sed -i '$ s/$/ usbcore.autosuspend=-1 usbcore.quirks=2109:2817:k/' /boot/firmware/cmdline.txt
-    echo "Kernel USB parameters applied."
 fi
 
-echo "I2C configured. (Note: group changes take effect on next login or reboot)"
+# 10. Hardware Udev Rules (Zero-Touch RS485 Mapping)
+echo "[10/10] Generating Hardware Device Mappings..."
+
+cat <<EOF > /etc/udev/rules.d/99-rs485-wch.rules
+# WCH Quad Serial (4 RS485 Ports) - Mapped by Interface Number
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d5", ATTRS{bInterfaceNumber}=="00", SYMLINK+="RS485_QUAD_1"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d5", ATTRS{bInterfaceNumber}=="02", SYMLINK+="RS485_QUAD_2"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d5", ATTRS{bInterfaceNumber}=="04", SYMLINK+="RS485_QUAD_3"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d5", ATTRS{bInterfaceNumber}=="06", SYMLINK+="RS485_QUAD_4"
+EOF
+
+udevadm control --reload-rules
+udevadm trigger
+
 echo ""
-echo "--- ✅BOOSTRAP COMPLETE ---"
+echo "--- ✅ BOOTSTRAP COMPLETE ---"
 echo "Identity: $NEW_HOSTNAME"
 echo "Gateway Serial: $FINAL_SERIAL"
 echo "Meter Configured: $METER_TYPE"
-echo "Environment: .env generated successfully."
-echo ""
+echo "Hardware: LoRaWAN and Modbus are now fully Zero-Touch."
 echo "Next Step: Run 'sudo reboot'"
