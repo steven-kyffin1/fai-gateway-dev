@@ -263,6 +263,39 @@ EOF
 udevadm control --reload-rules
 udevadm trigger
 
+# =================================================================
+# 11. ZERO-TOUCH CHIRPSTACK AUTO-PROVISIONING
+# =================================================================
+if [ "$ACTIVE_PROFILES" == "lorawan" ]; then
+    echo "[11/11] Booting Stack & Auto-Provisioning ChirpStack..."
+    
+    # 1. Start the systemd service NOW so the Docker containers begin booting
+    systemctl start fai-gateway.service
+    
+    echo -n "Waiting for ChirpStack API to come online (takes ~15-20s)"
+    
+    # 2. The Wait Loop: Pings the login API every 2 seconds until it gets a valid response
+    until curl -s -f -o /dev/null "http://localhost:8080/api/internal/login"; do
+        printf '.'
+        sleep 2
+    done
+    echo ""
+    echo "ChirpStack API is UP! Executing Ghost Admin..."
+    
+    # 3. Make the provision script executable and run it
+    SETUP_SCRIPT="$PROJECT_ROOT/scripts/chirpstack_setup.sh"
+    
+    if [ -f "$SETUP_SCRIPT" ]; then
+        chmod +x "$SETUP_SCRIPT"
+        bash "$SETUP_SCRIPT"
+    else
+        echo "⚠️ WARNING: Could not find $SETUP_SCRIPT. Skipping auto-provisioning."
+    fi
+else
+    echo "[11/11] LoRaWAN Disabled. Skipping ChirpStack Auto-Provisioning."
+fi
+# =================================================================
+
 echo ""
 echo "--- ✅ BOOTSTRAP COMPLETE ---"
 echo "Identity: $NEW_HOSTNAME"
