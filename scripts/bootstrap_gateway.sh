@@ -169,7 +169,11 @@ CREATE EXTENSION IF NOT EXISTS hstore;
 EOF
 # --------------------------
 
-chown -R "$REAL_USER":"$REAL_USER" chirpstack
+# Set strict Docker UID permissions for Alpine containers
+chown -R "$REAL_USER":"$REAL_USER" chirpstack/configuration
+chown -R 70:70 chirpstack/postgres
+chown -R 70:70 chirpstack/postgres-init
+chown -R 999:999 chirpstack/redis
 
 wget -qO chirpstack/configuration/chirpstack/region_eu868.toml https://raw.githubusercontent.com/chirpstack/chirpstack-docker/master/configuration/chirpstack/region_eu868.toml
 
@@ -272,15 +276,16 @@ if [ "$ACTIVE_PROFILES" == "lorawan" ]; then
     # 1. Start the systemd service NOW so the Docker containers begin booting
     systemctl start fai-gateway.service
     
-    echo -n "Waiting for ChirpStack API to come online (takes ~15-20s)"
+    echo -n "Waiting for ChirpStack to come online (takes ~15-20s)"
     
-    # 2. The Wait Loop: Pings the login API every 2 seconds until it gets a valid response
-    until curl -s -f -o /dev/null "http://localhost:8080/api/internal/login"; do
+    # Ping the Web UI on 8080 to see if the container has finished booting
+    until curl -s -f -o /dev/null "http://localhost:8080/"; do
         printf '.'
         sleep 2
     done
+    
     echo ""
-    echo "ChirpStack API is UP! Executing Ghost Admin..."
+    echo "ChirpStack is UP! Executing Ghost Admin..."
     
     # 3. Make the provision script executable and run it
     SETUP_SCRIPT="$PROJECT_ROOT/scripts/chirpstack_setup.sh"
