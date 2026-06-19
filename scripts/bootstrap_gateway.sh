@@ -159,7 +159,16 @@ EOF
 echo "Scaffolding Private LoRaWAN Network Server..."
 mkdir -p chirpstack/configuration/chirpstack
 mkdir -p chirpstack/postgres
+mkdir -p chirpstack/postgres-init  # <--- ADD THIS LINE!
 mkdir -p chirpstack/redis
+
+echo "Generating PostgreSQL extension initializers..."
+cat <<EOF > chirpstack/postgres-init/01-extensions.sql
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+CREATE EXTENSION IF NOT EXISTS hstore;
+EOF
+# --------------------------
+
 chown -R "$REAL_USER":"$REAL_USER" chirpstack
 
 wget -qO chirpstack/configuration/chirpstack/region_eu868.toml https://raw.githubusercontent.com/chirpstack/chirpstack-docker/master/configuration/chirpstack/region_eu868.toml
