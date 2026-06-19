@@ -115,13 +115,12 @@
         },
         "nodes": [
             "81706964859001bb",
-            "771a91e17adff194",
-            "bfb158dd46e687ea"
+            "771a91e17adff194"
         ],
         "x": 34,
-        "y": 499,
-        "w": 912,
-        "h": 122
+        "y": 539,
+        "w": 752,
+        "h": 82
     },
     {
         "id": "5014da80cd5e927f",
@@ -166,10 +165,30 @@
         "h": 262
     },
     {
+        "id": "a3a62aaa37101276",
+        "type": "group",
+        "z": "3738026cb3832ee1",
+        "name": "ShedSensor LoRa",
+        "style": {
+            "fill": "#e3f3d3",
+            "fill-opacity": "0.54",
+            "label": true
+        },
+        "nodes": [
+            "57061788d08a630e",
+            "f441c60b44d5944c",
+            "d24e215607c36d4f"
+        ],
+        "x": 34,
+        "y": 179,
+        "w": 512,
+        "h": 142
+    },
+    {
         "id": "683cf0d2d547c4fd",
         "type": "serial-port",
         "name": "Tinymesh",
-        "serialport": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJP7-if00-port0",
+        "serialport": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJOW-if00-port0",
         "serialbaud": "19200",
         "databits": "8",
         "parity": "none",
@@ -267,7 +286,7 @@
         "id": "bcc4801ac002ac63",
         "type": "serial-port",
         "name": "WMBUS in",
-        "serialport": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B400T7S1-if00-port0",
+        "serialport": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B400T7S7-if00-port0",
         "serialbaud": "19200",
         "databits": 8,
         "parity": "none",
@@ -289,7 +308,7 @@
         "env": [
             {
                 "name": "GATEWAY_SERIAL",
-                "value": "88a29eab6420",
+                "value": "d83adde45b6f",
                 "type": "str"
             }
         ],
@@ -608,8 +627,7 @@
         "y": 580,
         "wires": [
             [
-                "479b96e0273a18b1",
-                "bfb158dd46e687ea"
+                "479b96e0273a18b1"
             ]
         ]
     },
@@ -2063,10 +2081,33 @@
         ]
     },
     {
-        "id": "bfb158dd46e687ea",
+        "id": "57061788d08a630e",
+        "type": "mqtt in",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "",
+        "topic": "application/+/device/+/event/up",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "b78b8561ebd93ffc",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 220,
+        "wires": [
+            [
+                "f441c60b44d5944c",
+                "d24e215607c36d4f"
+            ]
+        ]
+    },
+    {
+        "id": "f441c60b44d5944c",
         "type": "debug",
         "z": "3738026cb3832ee1",
-        "g": "febc9982bb1406d1",
+        "g": "a3a62aaa37101276",
         "name": "debug 1",
         "active": true,
         "tosidebar": true,
@@ -2075,8 +2116,27 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 840,
-        "y": 540,
+        "x": 440,
+        "y": 220,
         "wires": []
+    },
+    {
+        "id": "d24e215607c36d4f",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "LoRa Parser",
+        "func": "// ── FAI Gateway Parser (v5.0 - Spec-Accurate Tinymesh Forger) ──\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\n// 1. Verify this is a valid ChirpStack Uplink packet\nif (!msg.payload || !msg.payload.deviceInfo || !msg.payload.data) {\n    return null; \n}\n\n// 2. Map the LoRa DevEUI to the 4-byte Tinymesh UID\nconst devEui = msg.payload.deviceInfo.devEui;\nconst uidHex = devEui.slice(-8); \nconst dynamicUid = parseInt(uidHex, 16);\n\n// 3. Decode the LoRa Base64 payload into readable ASCII (\"T25.4H50.0W12.5\")\nconst asciiData = Buffer.from(msg.payload.data, 'base64').toString('ascii');\n\nconst tMatch = asciiData.match(/T([\\d\\.\\-]+)/);\nconst hMatch = asciiData.match(/H([\\d\\.\\-]+)/);\nconst wMatch = asciiData.match(/W([\\d\\.\\-]+)/);\n\nconst temp = tMatch ? parseFloat(tMatch[1]) : 0.0;\nconst hum = hMatch ? parseFloat(hMatch[1]) : 0.0;\nconst weight = wMatch ? parseFloat(wMatch[1]) : 0.0;\n\n// Extract RSSI\nlet bestRssi = -120;\nif (msg.payload.rxInfo && msg.payload.rxInfo.length > 0) {\n    bestRssi = Math.max(...msg.payload.rxInfo.map(rx => rx.rssi));\n}\nconst rawRssi = Math.abs(bestRssi); \nconst timestamp = (msg.payload.time || new Date().toISOString()).split('.')[0] + '+00:00';\nconst fCnt = msg.payload.fCnt || 0;\n\nconst outMessages = [];\n\n// ==========================================\n// FORGE PACKET 1: TYPE 0x01 (ENVIRONMENTAL)\n// Length: 58 Bytes | Signature: 013a\n// ==========================================\nconst envBuf = Buffer.alloc(58, 0); \nenvBuf.writeUInt8(0x01, 0); // Byte 0: Type\nenvBuf.writeUInt8(0x3a, 1); // Byte 1: Length (58)\n\n// Map to EXACT offsets from the sensors.h specification using Float32 Little-Endian\nenvBuf.writeFloatLE(temp, 6);   // Bytes 6-9: AirTemperature\nenvBuf.writeFloatLE(hum, 18);   // Bytes 18-21: Humidity\n\noutMessages.push({\n    topic: `gateway/${gatewaySerial}/tinymesh/out`,\n    payload: {\n        \"_meta\": { \"received\": timestamp },\n        \"block\": 0,\n        \"data\": envBuf.toString('hex'), \n        \"detail\": \"serial\",\n        \"hops\": 1,\n        \"latency\": 2,\n        \"network_lvl\": 1,\n        \"packet_num\": fCnt,\n        \"rssi\": rawRssi,\n        \"sid\": TARGET_CLOUD_SID,\n        \"type\": \"event\",\n        \"uid\": dynamicUid\n    }\n});\n\n// ==========================================\n// FORGE PACKET 2: TYPE 0x02 (WEIGHT ARRAY)\n// Length: 106 Bytes | Signature: 026a\n// ==========================================\nif (wMatch) {\n    const wBuf = Buffer.alloc(106, 0);\n    wBuf.writeUInt8(0x02, 0); // Byte 0: Type\n    wBuf.writeUInt8(0x6a, 1); // Byte 1: Length (106)\n    \n    // The spec requires an array of 50 Unsigned 16-bit integers starting at Byte 6.\n    // We convert the Arduino's float weight to an integer (often grams or raw ADC)\n    // and flood all 50 samples with the same value so the cloud's averaging math stays perfect.\n    const wInt = Math.abs(Math.round(weight)); \n    \n    for (let i = 0; i < 50; i++) {\n        wBuf.writeUInt16LE(wInt, 6 + (i * 2));\n    }\n\n    outMessages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": timestamp },\n            \"block\": 0,\n            \"data\": wBuf.toString('hex'), \n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": fCnt + 1, // Offset the packet number slightly so cloud doesn't flag as duplicate\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    });\n}\n\n// Return as an array of arrays to send both messages sequentially out of Output 1\nreturn [ outMessages ];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 280,
+        "wires": [
+            []
+        ]
     }
 ]
