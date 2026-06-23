@@ -19,24 +19,14 @@ REAL_HOMEDIR=$(eval echo ~$REAL_USER)
 
 # 2. Automatic Naming (MAC Identity Engine)
 echo "[2/10] Setting Unique Identity via MAC..."
-ETH_MAC=$(cat /sys/class/net/eth0/address | sed 's/://g')
+RAW_MAC=$(cat /sys/class/net/eth0/address | sed 's/://g')
 
-if [ -z "$ETH_MAC" ]; then
-    echo "ERROR: Could not find Ethernet MAC. Falling back to CPU Serial."
-    ETH_MAC=$(cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2 | tr -d '0')
+if [ -z "$RAW_MAC" ]; then
+    RAW_MAC=$(cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2 | tr -d '0')
 fi
 
-SHORT_ID=${ETH_MAC: -8}
-NEW_HOSTNAME="fai-gw-$SHORT_ID"
-CURRENT_HOSTNAME=$(hostname)
-
-if [ "$NEW_HOSTNAME" != "$CURRENT_HOSTNAME" ]; then
-    echo "Renaming: $CURRENT_HOSTNAME -> $NEW_HOSTNAME"
-    hostnamectl set-hostname "$NEW_HOSTNAME"
-    sed -i "s/127.0.1.1.*$CURRENT_HOSTNAME/127.0.1.1\t$NEW_HOSTNAME/g" /etc/hosts
-else
-    echo "Identity verified: $NEW_HOSTNAME"
-fi
+# Zero-pad the 12-char MAC to reach the 16-char EUI requirement
+ETH_MAC="0000$RAW_MAC"
 
 # 3. Update System
 echo "[3/10] Updating System Packages..."
@@ -175,9 +165,19 @@ chown -R 70:70 chirpstack/postgres
 chown -R 70:70 chirpstack/postgres-init
 chown -R 999:999 chirpstack/redis
 
-wget -qO chirpstack/configuration/chirpstack/region_eu868.toml https://raw.githubusercontent.com/chirpstack/chirpstack-docker/master/configuration/chirpstack/region_eu868.toml
+# 1. Copy our verified local template to the config folder
+if [ -f "$PROJECT_ROOT/chirpstack/configuration/chirpstack/region_eu868.toml" ]; then
+    cp "$PROJECT_ROOT/chirpstack/configuration//chirpstack/region_eu868.toml" chirpstack/configuration/chirpstack/region_eu868.toml
+else
+    echo "⚠️ ERROR: Could not find chirpstack/configuration/chirpstack/region_eu868.toml. Please ensure it exists in your repo."
+    exit 1
+fi
 
 cat <<EOF > chirpstack/configuration/chirpstack/chirpstack.toml
+[network]
+net_id="000000"
+enabled_regions=["eu868"]
+
 [postgresql]
 dsn="postgres://postgres:root@chirpstack-postgres/postgres?sslmode=disable"
 
@@ -287,12 +287,14 @@ if [ "$ACTIVE_PROFILES" == "lorawan" ]; then
     echo ""
     echo "ChirpStack is UP! Executing Ghost Admin..."
     
+    
     # 3. Make the provision script executable and run it
     SETUP_SCRIPT="$PROJECT_ROOT/scripts/chirpstack_setup.sh"
     
     if [ -f "$SETUP_SCRIPT" ]; then
         chmod +x "$SETUP_SCRIPT"
-        bash "$SETUP_SCRIPT"
+        # Execute from the project root so it can find .env
+        (cd "$PROJECT_ROOT" && sudo bash "$SETUP_SCRIPT")
     else
         echo "⚠️ WARNING: Could not find $SETUP_SCRIPT. Skipping auto-provisioning."
     fi

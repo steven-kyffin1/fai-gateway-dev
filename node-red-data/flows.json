@@ -177,11 +177,12 @@
         "nodes": [
             "57061788d08a630e",
             "f441c60b44d5944c",
-            "d24e215607c36d4f"
+            "d24e215607c36d4f",
+            "5742a1e67e4071bc"
         ],
         "x": 34,
         "y": 179,
-        "w": 512,
+        "w": 712,
         "h": 142
     },
     {
@@ -308,7 +309,7 @@
         "env": [
             {
                 "name": "GATEWAY_SERIAL",
-                "value": "d83adde45b6f",
+                "value": "0000d83adde45b6f",
                 "type": "str"
             }
         ],
@@ -496,7 +497,38 @@
         "name": "",
         "broker": "fai-mqtt",
         "port": 1883,
-        "clientid": "nodered-local",
+        "clientid": "nodered",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "473037bbac0aa9aa",
+        "type": "mqtt-broker",
+        "name": "LoRa MQTT",
+        "broker": "mqtt",
+        "port": 1883,
+        "clientid": "",
         "autoConnect": true,
         "usetls": false,
         "protocolVersion": 4,
@@ -2088,8 +2120,8 @@
         "name": "",
         "topic": "application/+/device/+/event/up",
         "qos": "2",
-        "datatype": "auto-detect",
-        "broker": "b78b8561ebd93ffc",
+        "datatype": "json",
+        "broker": "473037bbac0aa9aa",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -2098,8 +2130,8 @@
         "y": 220,
         "wires": [
             [
-                "f441c60b44d5944c",
-                "d24e215607c36d4f"
+                "d24e215607c36d4f",
+                "5742a1e67e4071bc"
             ]
         ]
     },
@@ -2116,8 +2148,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 440,
-        "y": 220,
+        "x": 640,
+        "y": 280,
         "wires": []
     },
     {
@@ -2136,7 +2168,27 @@
         "x": 450,
         "y": 280,
         "wires": [
-            []
+            [
+                "f441c60b44d5944c",
+                "479b96e0273a18b1"
+            ]
         ]
+    },
+    {
+        "id": "5742a1e67e4071bc",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 220,
+        "wires": []
     }
 ]

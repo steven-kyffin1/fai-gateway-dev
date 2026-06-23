@@ -91,3 +91,33 @@ fi
 
 echo ""
 echo "--- 🎉 Auto-Provisioning Complete ---"
+
+# ==========================================
+# 7. Auto-Register the Gateway
+# ==========================================
+echo "Registering Gateway in ChirpStack..."
+
+# Source the .env file to get GATEWAY_SERIAL
+if [ -f ".env" ]; then
+    export $(grep -v '^#' .env | xargs)
+else
+    echo "⚠️  ERROR: .env file not found. Skipping Gateway registration."
+    exit 1
+fi
+
+GW_RESP=$(grpcurl -plaintext -H "authorization: Bearer $TOKEN" -d "{
+    \"gateway\": {
+        \"tenantId\": \"$TENANT_ID\",
+        \"gatewayId\": \"$GATEWAY_SERIAL\",
+        \"name\": \"$GATEWAY_HOSTNAME\",
+        \"description\": \"Auto-Provisioned Zero-Touch Gateway\"
+    }
+}" localhost:8080 api.GatewayService/Create 2>&1)
+
+if echo "$GW_RESP" | grep -q '""'; then
+    echo "✅ Gateway Registered Successfully!"
+elif echo "$GW_RESP" | grep -qi "already exists\|duplicate"; then
+    echo "ℹ️  Gateway already exists, skipping."
+else
+    echo "⚠️  Unexpected response: $GW_RESP"
+fi
