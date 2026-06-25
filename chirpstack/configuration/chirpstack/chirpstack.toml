@@ -1,0 +1,20 @@
+[network]
+net_id="000000"
+enabled_regions=["eu868"]
+
+[postgresql]
+dsn="postgres://postgres:root@chirpstack-postgres/postgres?sslmode=disable"
+
+[redis]
+servers=["redis://chirpstack-redis/"]
+
+[api]
+bind="0.0.0.0:8080"
+secret="fai-offline-secret-key-12345"
+
+[integration]
+  enabled=["mqtt"]
+  
+  [integration.mqtt]
+  server="tcp://mqtt:1883/"
+  json=true
