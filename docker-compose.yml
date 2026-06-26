@@ -25,48 +25,96 @@ services:
       restart: always
       privileged: true 
       volumes:
-        - ./scripts/ups_watchdog.py:/app/ups_watchdog.py:ro # 'ro' ensures the container cannot modify your host script.
+        - ./scripts/ups_watchdog.py:/app/ups_watchdog.py:ro
         - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket 
       devices:
         - "/dev/i2c-6:/dev/i2c-6" 
-      # Automatically install the I2C library and DBUS tool before running the script
       command: >
         sh -c "apt-get update && apt-get install -y dbus && 
         pip install smbus2 && 
         python -u /app/ups_watchdog.py"
 
+  # ==========================================
+  # RS-485 MODBUS SERVICES (USB QUAD HUB)
+  # ==========================================
+
+  # ── 1. Power Meters (Hub Port 1) ──
   mbusd:
       build: ./mbusd
       container_name: fai-mbusd
       restart: unless-stopped
       privileged: true
       volumes:
-        - /dev:/dev  # The magic hot-plugging soft-mount
+        - /dev:/dev
       environment:
-        # ZERO-TOUCH UPGRADE: Uses your Bootstrap udev rule instead of a hardcoded silicon ID
-        - RS485_PORT=/dev/RS485_QUAD_1     
+        - RS485_PORT=/dev/RS485_QUAD_1  
+        #- RS485_PORT=/dev/ttyACM1   
       ports:
         - "5020:5020"
       healthcheck:
-        test: ["CMD-SHELL", "netstat -ln | grep 5020 || exit 1"]
+        # FIXED: Alpine natively supports 'nc -z' for TCP port checking
+        test: ["CMD-SHELL", "nc -z 127.0.0.1 5020 || exit 1"]
         interval: 30s
         timeout: 10s
         retries: 3
         start_period: 15s
 
+  # ── 2. Silo Junction Box 1 (Hub Port 3) ──
+  mbusd-weight-3:
+      build: ./mbusd
+      container_name: fai-mbusd-weight-3
+      restart: unless-stopped
+      privileged: true
+      volumes:
+        - /dev:/dev
+      # FIXED: Removed the invalid '-t 2000' syntax
+      #command: sh -c "mbusd -d -p /dev/ttyACM3 -s 19200 -m 8N1 -P 5021"
+      command: sh -c "mbusd -d -p /dev/RS485_QUAD_3 -s 19200 -m 8N1 -P 5021"
+      ports:
+        - "5021:5021"
+      healthcheck:
+        test: ["CMD-SHELL", "nc -z 127.0.0.1 5021 || exit 1"]
+        interval: 30s
+        timeout: 10s
+        retries: 3
+        start_period: 15s
+
+  # ── 3. Silo Junction Box 2 (Hub Port 4) ──
+  mbusd-weight-4:
+      build: ./mbusd
+      container_name: fai-mbusd-weight-4
+      restart: unless-stopped
+      privileged: true
+      volumes:
+        - /dev:/dev
+      # FIXED: Removed the invalid '-t 2000' syntax
+      #command: sh -c "mbusd -d -p /dev/ttyACM4 -s 19200 -m 8N1 -P 5022"
+      command: sh -c "mbusd -d -p /dev/RS485_QUAD_4 -s 19200 -m 8N1 -P 5022"
+      ports:
+        - "5022:5022"
+      healthcheck:
+        test: ["CMD-SHELL", "nc -z 127.0.0.1 5022 || exit 1"]
+        interval: 30s
+        timeout: 10s
+        retries: 3
+        start_period: 15s
+
+  # ==========================================
+  # NODE-RED EDGE ENGINE
+  # ==========================================
   nodered:
       build: ./nodered-build
       container_name: fai-nodered
       restart: unless-stopped
       privileged: true
       group_add:
-        - "46"  # Critical: Grants Node-RED access to the USB radios
+        - "46" 
       volumes:
         - ./node-red-data:/data
-        - /dev:/dev  # The magic hot-plugging soft-mount
+        - /dev:/dev 
         - /dev/serial:/dev/serial
       env_file:
-        - .env  # This forces Docker to load the file
+        - .env
       environment:
         - NODE_RED_ENABLE_SAFE_MODE=false
         - TZ=UTC
@@ -79,7 +127,11 @@ services:
         mqtt:
           condition: service_started
         mbusd:
-          condition: service_started  # Loosened so Node-RED boots even if Modbus is unplugged!
+          condition: service_started 
+        mbusd-weight-3:
+          condition: service_started
+        mbusd-weight-4:
+          condition: service_started
       healthcheck:
         test: ["CMD-SHELL", "wget -q --spider http://localhost:1880/ || exit 1"]
         interval: 60s
@@ -96,7 +148,7 @@ services:
     restart: unless-stopped
     privileged: true
     volumes:
-      - /dev:/dev  # Soft-mounts the /dev/ttyACM0 radio
+      - /dev:/dev
     environment:
       - MODEL=SX1302
       - INTERFACE=USB
@@ -149,7 +201,7 @@ services:
     volumes:
       - ./chirpstack/configuration/chirpstack:/etc/chirpstack
     ports:
-      - "8080:8080" # The Web Dashboard
+      - "8080:8080" 
     depends_on:
       - chirpstack-postgres
       - chirpstack-redis

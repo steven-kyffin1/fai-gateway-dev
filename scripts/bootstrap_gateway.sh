@@ -258,10 +258,10 @@ echo "[10/10] Generating Hardware Device Mappings..."
 
 cat <<EOF > /etc/udev/rules.d/99-rs485-wch.rules
 # WCH Quad Serial (4 RS485 Ports) - Mapped by Interface Number
-SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d5", ATTRS{bInterfaceNumber}=="00", SYMLINK+="RS485_QUAD_1"
-SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d5", ATTRS{bInterfaceNumber}=="02", SYMLINK+="RS485_QUAD_2"
-SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d5", ATTRS{bInterfaceNumber}=="04", SYMLINK+="RS485_QUAD_3"
-SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d5", ATTRS{bInterfaceNumber}=="06", SYMLINK+="RS485_QUAD_4"
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="1a86", ENV{ID_MODEL_ID}=="55d5", ENV{ID_USB_INTERFACE_NUM}=="00", SYMLINK+="RS485_QUAD_1"
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="1a86", ENV{ID_MODEL_ID}=="55d5", ENV{ID_USB_INTERFACE_NUM}=="02", SYMLINK+="RS485_QUAD_2"
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="1a86", ENV{ID_MODEL_ID}=="55d5", ENV{ID_USB_INTERFACE_NUM}=="04", SYMLINK+="RS485_QUAD_3"
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="1a86", ENV{ID_MODEL_ID}=="55d5", ENV{ID_USB_INTERFACE_NUM}=="06", SYMLINK+="RS485_QUAD_4"
 EOF
 
 udevadm control --reload-rules

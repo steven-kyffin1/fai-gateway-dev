@@ -28,12 +28,16 @@
             "7944cc5e36abae4b",
             "57272a9eba0c6efd",
             "a61fd9ce84ae778d",
-            "87c34af15b4d9e67"
+            "87c34af15b4d9e67",
+            "5baa06e0f6dac846",
+            "1bea3bf5ab4bfcec",
+            "b7f6d0af323aa309",
+            "8accce955e87939d"
         ],
         "x": 34,
         "y": 1059,
-        "w": 912,
-        "h": 202
+        "w": 1072,
+        "h": 242
     },
     {
         "id": "group_calib",
@@ -58,12 +62,18 @@
             "5b486b5f72868d45",
             "2bff9a925e919ced",
             "75741b364a09e9ee",
-            "d1556d3cb5fbfa9e"
+            "d1556d3cb5fbfa9e",
+            "5cc51e1bab3fd5cc",
+            "50495e2410b68366",
+            "4709234755ae6897",
+            "03b0298fa84d3f48",
+            "fdfc870d7afc30fe",
+            "385d90a9e35b7872"
         ],
         "x": 34,
         "y": 1279,
-        "w": 772,
-        "h": 322
+        "w": 1052,
+        "h": 482
     },
     {
         "id": "f39362f0cc4d435f",
@@ -159,8 +169,8 @@
             "d6059965c1fc1a18",
             "be65e38005890391"
         ],
-        "x": 374,
-        "y": 1739,
+        "x": 274,
+        "y": 1899,
         "w": 772,
         "h": 262
     },
@@ -176,14 +186,13 @@
         },
         "nodes": [
             "57061788d08a630e",
-            "f441c60b44d5944c",
             "76085a3613dbbd92",
             "a56fba19e34d6c7c",
             "c96e6411ef124a35"
         ],
         "x": 34,
         "y": 99,
-        "w": 872,
+        "w": 592,
         "h": 202
     },
     {
@@ -555,6 +564,66 @@
         "sessionExpiry": ""
     },
     {
+        "id": "4bb58d809ecde0ee",
+        "type": "modbus-client",
+        "name": "mbusd-weight-port-3",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "mbusd-weight-3",
+        "tcpPort": "5021",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "6cb3960ddc98e75c",
+        "type": "modbus-client",
+        "name": "mbusd-weight-port-4",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "mbusd-weight-4",
+        "tcpPort": "5022",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
         "id": "3795322861042bc3",
         "type": "serial in",
         "z": "3738026cb3832ee1",
@@ -690,8 +759,8 @@
         "ioFile": "",
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
-        "x": 510,
-        "y": 1780,
+        "x": 410,
+        "y": 1940,
         "wires": [
             [
                 "d6059965c1fc1a18"
@@ -725,8 +794,8 @@
         "ioFile": "",
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
-        "x": 510,
-        "y": 1840,
+        "x": 410,
+        "y": 2000,
         "wires": [
             [
                 "d6059965c1fc1a18"
@@ -762,8 +831,8 @@
         "ioFile": "",
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
-        "x": 530,
-        "y": 1900,
+        "x": 430,
+        "y": 2060,
         "wires": [
             [
                 "d6059965c1fc1a18"
@@ -797,8 +866,8 @@
         "ioFile": "",
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
-        "x": 530,
-        "y": 1960,
+        "x": 430,
+        "y": 2120,
         "wires": [
             [
                 "d6059965c1fc1a18"
@@ -828,8 +897,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 800,
-        "y": 1840,
+        "x": 700,
+        "y": 2000,
         "wires": [
             [
                 "be65e38005890391"
@@ -849,8 +918,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1020,
-        "y": 1840,
+        "x": 920,
+        "y": 2000,
         "wires": [
             []
         ]
@@ -1432,7 +1501,7 @@
         "dataType": "HoldingRegister",
         "adr": "40",
         "quantity": "2",
-        "server": "",
+        "server": "4bb58d809ecde0ee",
         "useIOFile": false,
         "ioFile": "",
         "useIOForPayload": false,
@@ -1448,7 +1517,7 @@
                 "parse_weight"
             ],
             [
-                "5e24a7fa58d31074"
+                "b7f6d0af323aa309"
             ]
         ]
     },
@@ -1488,8 +1557,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 830,
-        "y": 1100,
+        "x": 970,
+        "y": 1120,
         "wires": []
     },
     {
@@ -1514,7 +1583,7 @@
         "topic": "topic",
         "topicType": "msg",
         "x": 170,
-        "y": 1320,
+        "y": 1380,
         "wires": [
             [
                 "format_zero"
@@ -1543,7 +1612,7 @@
         "topic": "topic",
         "topicType": "msg",
         "x": 180,
-        "y": 1380,
+        "y": 1440,
         "wires": [
             [
                 "format_load"
@@ -1573,7 +1642,7 @@
         "step": 1,
         "className": "",
         "x": 190,
-        "y": 1500,
+        "y": 1560,
         "wires": [
             []
         ]
@@ -1584,28 +1653,7 @@
         "z": "3738026cb3832ee1",
         "g": "group_calib",
         "name": "Format 0x7FFFFFFF",
-        "func": "// The manual requires sending 0x7FFFFFFF to trigger calibration.\n// We split this into two 16-bit Modbus registers:\n// High: 0x7FFF (32767)\n// Low:  0xFFFF (65535)\nmsg.payload = [32767, 65535];\n// Grab the silo selected in the UI dropdown, default to 1 if empty\nmsg.unitid = flow.get(\"activeCalibrationSilo\") || 1; \nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 440,
-        "y": 1320,
-        "wires": [
-            [
-                "modbus_write_zero"
-            ]
-        ]
-    },
-    {
-        "id": "format_load",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Format 0x7FFFFFFF",
-        "func": "msg.payload = [32767, 65535];\n// Grab the silo selected in the UI dropdown, default to 1 if empty\nmsg.unitid = flow.get(\"activeCalibrationSilo\") || 1; \nreturn msg;",
+        "func": "// The manual requires sending 0x7FFFFFFF to trigger calibration.\n// We split this into two 16-bit Modbus registers:\n// High: 0x7FFF (32767)\n// Low:  0xFFFF (65535)\nmsg.payload = [32767, 65535];\n// Safely parse the dropdown string into an integer Unit ID\nmsg.unitid = parseInt(flow.get(\"activeCalibrationSilo\")) || 1; \n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -1616,7 +1664,28 @@
         "y": 1380,
         "wires": [
             [
-                "modbus_write_load"
+                "03b0298fa84d3f48"
+            ]
+        ]
+    },
+    {
+        "id": "format_load",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Format 0x7FFFFFFF",
+        "func": "msg.payload = [32767, 65535];\n// Safely parse the dropdown string into an integer Unit ID\nmsg.unitid = parseInt(flow.get(\"activeCalibrationSilo\")) || 1; \n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1440,
+        "wires": [
+            [
+                "fdfc870d7afc30fe"
             ]
         ]
     },
@@ -1626,7 +1695,7 @@
         "z": "3738026cb3832ee1",
         "g": "group_calib",
         "name": "Convert to 32-bit Array",
-        "func": "msg.payload = msg.payload.weight;\nlet val = parseInt(msg.payload);\n\n// Convert the user's weight input into two 16-bit Modbus words\nlet highWord = (val >> 16) & 0xFFFF;\nlet lowWord = val & 0xFFFF;\n\nmsg.payload = [highWord, lowWord];\n// Grab the silo selected in the UI dropdown, default to 1 if empty\nmsg.unitid = flow.get(\"activeCalibrationSilo\") || 1;\nreturn msg;",
+        "func": "msg.payload = msg.payload.weight;\nlet val = parseInt(msg.payload);\n\n// Safety guard: prevent NaN or negative nominal values\nif (isNaN(val) || val <= 0) return null; \n\n// Convert the user's weight input into two 16-bit Modbus words\nlet highWord = (val >> 16) & 0xFFFF;\nlet lowWord = val & 0xFFFF;\n\nmsg.payload = [highWord, lowWord];\n\n// Safely parse the dropdown string into an integer Unit ID\nmsg.unitid = parseInt(flow.get(\"activeCalibrationSilo\")) || 1;\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -1634,10 +1703,10 @@
         "finalize": "",
         "libs": [],
         "x": 450,
-        "y": 1440,
+        "y": 1500,
         "wires": [
             [
-                "modbus_write_nov"
+                "385d90a9e35b7872"
             ]
         ]
     },
@@ -1646,7 +1715,7 @@
         "type": "modbus-write",
         "z": "3738026cb3832ee1",
         "g": "group_calib",
-        "name": "Write LDW (Addr 16)",
+        "name": "Silo 1: Write LDW (Addr 16)",
         "showStatusActivities": false,
         "showErrors": false,
         "showWarnings": true,
@@ -1654,12 +1723,12 @@
         "dataType": "MultipleRegisters",
         "adr": "16",
         "quantity": "2",
-        "server": "",
+        "server": "4bb58d809ecde0ee",
         "emptyMsgOnFail": false,
         "keepMsgProperties": false,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 680,
+        "x": 940,
         "y": 1320,
         "wires": [
             [],
@@ -1671,7 +1740,7 @@
         "type": "modbus-write",
         "z": "3738026cb3832ee1",
         "g": "group_calib",
-        "name": "Write LWT (Addr 18)",
+        "name": "Silo 1: Write LWT (Addr 18)",
         "showStatusActivities": false,
         "showErrors": false,
         "showWarnings": true,
@@ -1679,13 +1748,13 @@
         "dataType": "MultipleRegisters",
         "adr": "18",
         "quantity": "2",
-        "server": "",
+        "server": "4bb58d809ecde0ee",
         "emptyMsgOnFail": false,
         "keepMsgProperties": false,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 680,
-        "y": 1380,
+        "x": 940,
+        "y": 1420,
         "wires": [
             [],
             []
@@ -1696,7 +1765,7 @@
         "type": "modbus-write",
         "z": "3738026cb3832ee1",
         "g": "group_calib",
-        "name": "Write NOV (Addr 20)",
+        "name": "Silo 1: Write NOV (Addr 20)",
         "showStatusActivities": false,
         "showErrors": false,
         "showWarnings": true,
@@ -1704,13 +1773,13 @@
         "dataType": "MultipleRegisters",
         "adr": "20",
         "quantity": "2",
-        "server": "",
+        "server": "4bb58d809ecde0ee",
         "emptyMsgOnFail": false,
         "keepMsgProperties": false,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 680,
-        "y": 1440,
+        "x": 940,
+        "y": 1540,
         "wires": [
             [],
             []
@@ -1737,7 +1806,7 @@
         "className": "",
         "topicType": "msg",
         "x": 190,
-        "y": 1560,
+        "y": 1620,
         "wires": [
             []
         ]
@@ -1773,7 +1842,7 @@
         "splitLayout": "",
         "className": "",
         "x": 160,
-        "y": 1440,
+        "y": 1500,
         "wires": [
             [
                 "format_nov"
@@ -1785,20 +1854,21 @@
         "type": "function",
         "z": "3738026cb3832ee1",
         "g": "group_telemetry",
-        "name": "Parse 32-bit Weight",
-        "func": "// ── FAI Gateway: Silo Weight Parser (Production) ──\n\n// 1. Get the physical gateway's identity\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// 2. Extract the raw Modbus payload\nlet raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    // 3. Bitwise shift to combine the two 16-bit registers into a 32-bit integer\n    let weight = (raw[0] << 16) | raw[1];\n    \n    // 4. Identify WHICH silo this is based on the Modbus Slave Address (1 to 4)\n    // node-red-contrib-modbus attaches the unitid to the request object automatically\n    let slaveAddress = (msg.modbusRequest && msg.modbusRequest.unitid) ? msg.modbusRequest.unitid : 1; \n    let deviceId = \"silo_\" + slaveAddress.toString().padStart(2, '0'); // e.g., \"silo_01\", \"silo_02\"\n    \n    // 5. Build the clean, decoupled JSON payload for the backend\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight,\n            \"modbus_address\": slaveAddress\n        }\n    };\n    \n    // 6. Route it to the dedicated Silo topic\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    \n    return msg;\n}\n\n// Stop the flow if the reading failed or is empty\nreturn null;",
+        "name": "Silo 2: Parse 32-bit Weight V3",
+        "func": "let raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    let weight = (raw[0] << 16) | raw[1];\n\n    let gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n    // Hardcode the Device ID for Silo 2\n    let deviceId = `${gatewaySerial}-silo2`;\n\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight\n        }\n    };\n\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    return msg;\n}\nreturn null;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
+        "x": 690,
         "y": 1160,
         "wires": [
             [
                 "479b96e0273a18b1",
-                "debug_weight"
+                "debug_weight",
+                "8accce955e87939d"
             ]
         ]
     },
@@ -1812,11 +1882,11 @@
         "showErrors": false,
         "showWarnings": true,
         "logIOActivities": false,
-        "unitid": "2",
+        "unitid": "1",
         "dataType": "HoldingRegister",
         "adr": "40",
         "quantity": "2",
-        "server": "",
+        "server": "6cb3960ddc98e75c",
         "useIOFile": false,
         "ioFile": "",
         "useIOForPayload": false,
@@ -1829,7 +1899,8 @@
         "y": 1140,
         "wires": [
             [
-                "5e24a7fa58d31074"
+                "5e24a7fa58d31074",
+                "a2cfe0ae760aa28d"
             ],
             []
         ]
@@ -1838,6 +1909,7 @@
         "id": "399c5992ea9f0bad",
         "type": "modbus-getter",
         "z": "3738026cb3832ee1",
+        "d": true,
         "g": "group_telemetry",
         "name": "Read Weight (Addr 40) Silo 3",
         "showStatusActivities": false,
@@ -1870,6 +1942,7 @@
         "id": "470317d11e3be29d",
         "type": "modbus-getter",
         "z": "3738026cb3832ee1",
+        "d": true,
         "g": "group_telemetry",
         "name": "Read Weight (Addr 40) Silo 4",
         "showStatusActivities": false,
@@ -1962,6 +2035,7 @@
         "id": "a61fd9ce84ae778d",
         "type": "inject",
         "z": "3738026cb3832ee1",
+        "d": true,
         "g": "group_telemetry",
         "name": "",
         "props": [
@@ -1992,6 +2066,7 @@
         "id": "87c34af15b4d9e67",
         "type": "inject",
         "z": "3738026cb3832ee1",
+        "d": true,
         "g": "group_telemetry",
         "name": "",
         "props": [
@@ -2059,8 +2134,8 @@
         "topic": "topic",
         "topicType": "msg",
         "className": "",
-        "x": 460,
-        "y": 1500,
+        "x": 320,
+        "y": 1720,
         "wires": [
             [
                 "d1556d3cb5fbfa9e"
@@ -2080,8 +2155,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 680,
-        "y": 1500,
+        "x": 540,
+        "y": 1720,
         "wires": [
             []
         ]
@@ -2134,23 +2209,6 @@
                 "c96e6411ef124a35"
             ]
         ]
-    },
-    {
-        "id": "f441c60b44d5944c",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "g": "a3a62aaa37101276",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 800,
-        "y": 260,
-        "wires": []
     },
     {
         "id": "76085a3613dbbd92",
@@ -2207,9 +2265,280 @@
         "y": 260,
         "wires": [
             [
-                "f441c60b44d5944c",
                 "479b96e0273a18b1"
             ]
         ]
+    },
+    {
+        "id": "5baa06e0f6dac846",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "Parse 32-bit Weight v1",
+        "func": "// ── FAI Gateway: Silo Weight Parser (Production) ──\n\n// 1. Get the physical gateway's identity\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// 2. Extract the raw Modbus payload\nlet raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    // 3. Bitwise shift to combine the two 16-bit registers into a 32-bit integer\n    let weight = (raw[0] << 16) | raw[1];\n    \n    // 4. Identify WHICH silo this is based on the Modbus Slave Address (1 to 4)\n    // node-red-contrib-modbus attaches the unitid to the request object automatically\n    let slaveAddress = (msg.modbusRequest && msg.modbusRequest.unitid) ? msg.modbusRequest.unitid : 1; \n    let deviceId = \"silo_\" + slaveAddress.toString().padStart(2, '0'); // e.g., \"silo_01\", \"silo_02\"\n    \n    // 5. Build the clean, decoupled JSON payload for the backend\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight,\n            \"modbus_address\": slaveAddress\n        }\n    };\n    \n    // 6. Route it to the dedicated Silo topic\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    \n    return msg;\n}\n\n// Stop the flow if the reading failed or is empty\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 1220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5cc51e1bab3fd5cc",
+        "type": "modbus-write",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Silo 2: Write LDW (Addr 16)",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MultipleRegisters",
+        "adr": "16",
+        "quantity": "2",
+        "server": "6cb3960ddc98e75c",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 940,
+        "y": 1360,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "50495e2410b68366",
+        "type": "modbus-write",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Silo 2:  Write LWT (Addr 18)",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MultipleRegisters",
+        "adr": "18",
+        "quantity": "2",
+        "server": "6cb3960ddc98e75c",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 940,
+        "y": 1460,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4709234755ae6897",
+        "type": "modbus-write",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Silo 2: Write NOV (Addr 20)",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MultipleRegisters",
+        "adr": "20",
+        "quantity": "2",
+        "server": "6cb3960ddc98e75c",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 940,
+        "y": 1580,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "03b0298fa84d3f48",
+        "type": "switch",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Silo 1/2 Switch",
+        "property": "activeCalibrationSilo",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 660,
+        "y": 1380,
+        "wires": [
+            [
+                "modbus_write_zero"
+            ],
+            [
+                "5cc51e1bab3fd5cc"
+            ]
+        ]
+    },
+    {
+        "id": "fdfc870d7afc30fe",
+        "type": "switch",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Silo 1/2 Switch",
+        "property": "activeCalibrationSilo",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 660,
+        "y": 1440,
+        "wires": [
+            [
+                "modbus_write_load"
+            ],
+            [
+                "50495e2410b68366"
+            ]
+        ]
+    },
+    {
+        "id": "385d90a9e35b7872",
+        "type": "switch",
+        "z": "3738026cb3832ee1",
+        "g": "group_calib",
+        "name": "Silo 1/2 Switch",
+        "property": "activeCalibrationSilo",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 660,
+        "y": 1500,
+        "wires": [
+            [
+                "modbus_write_nov"
+            ],
+            [
+                "4709234755ae6897"
+            ]
+        ]
+    },
+    {
+        "id": "1bea3bf5ab4bfcec",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "Parse 32-bit Weight v2",
+        "func": "// ── FAI Gateway: Silo Weight Parser ──\nlet raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    // 1. Stitch the two 16-bit Modbus registers into a 32-bit signed integer\n    let weight = (raw[0] << 16) | raw[1];\n    \n    // NOTE: If your scale division (DIV) in the JB is set to 0.1kg, \n    // you must divide by 10 here (weight = weight / 10.0). \n    // Assuming DIV = 1kg for now.\n    \n    // 2. Identify identity and Modbus slave address\n    let gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n    let slaveAddress = (msg.modbusRequest && msg.modbusRequest.unitid) ? msg.modbusRequest.unitid : 1; \n    let deviceId = \"silo_\" + slaveAddress.toString().padStart(2, '0');\n    \n    // 3. Build the clean JSON payload\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight,\n            \"modbus_address\": slaveAddress\n        }\n    };\n    \n    // 4. Route it to the dedicated Silo topic\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    \n    return msg;\n}\n\n// Stop the flow if the reading failed or is empty\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 1260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b7f6d0af323aa309",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "Silo 1: Parse 32-bit Weight V3",
+        "func": "let raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    let weight = (raw[0] << 16) | raw[1];\n\n    let gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n    // Hardcode the Device ID for Silo 1\n    let deviceId = `${gatewaySerial}-silo1`;\n\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight\n        }\n    };\n\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    return msg;\n}\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 1100,
+        "wires": [
+            [
+                "debug_weight",
+                "8accce955e87939d"
+            ]
+        ]
+    },
+    {
+        "id": "8accce955e87939d",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "a2cfe0ae760aa28d",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 1060,
+        "wires": []
     }
 ]

@@ -16,4 +16,4 @@ COPY --from=builder /usr/bin/mbusd /usr/bin/mbusd
 ENV RS485_PORT="/dev/ttyACM0"
 
 # Use 'sh -c' so the environment variable expands correctly when the container boots
-CMD sh -c "mbusd -d -p ${RS485_PORT} -s 9600 -m 8N1 -P 5020 -t 2000"
+CMD sh -c "mbusd -d -p ${RS485_PORT} -s 9600 -m 8N1 -P 5020"
