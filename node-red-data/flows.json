@@ -23,21 +23,14 @@
             "debug_weight",
             "5e24a7fa58d31074",
             "43a32c58306da29c",
-            "399c5992ea9f0bad",
-            "470317d11e3be29d",
             "7944cc5e36abae4b",
             "57272a9eba0c6efd",
-            "a61fd9ce84ae778d",
-            "87c34af15b4d9e67",
-            "5baa06e0f6dac846",
-            "1bea3bf5ab4bfcec",
-            "b7f6d0af323aa309",
-            "8accce955e87939d"
+            "b7f6d0af323aa309"
         ],
         "x": 34,
         "y": 1059,
-        "w": 1072,
-        "h": 242
+        "w": 1052,
+        "h": 142
     },
     {
         "id": "group_calib",
@@ -52,14 +45,12 @@
         "nodes": [
             "btn_zero",
             "btn_load",
-            "input_nov",
             "format_zero",
             "format_load",
             "format_nov",
             "modbus_write_zero",
             "modbus_write_load",
             "modbus_write_nov",
-            "5b486b5f72868d45",
             "2bff9a925e919ced",
             "75741b364a09e9ee",
             "d1556d3cb5fbfa9e",
@@ -154,27 +145,6 @@
         "h": 162
     },
     {
-        "id": "14acfddd9b78e00f",
-        "type": "group",
-        "z": "3738026cb3832ee1",
-        "name": "",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "ed90c2419ae077fc",
-            "fb98271132dd59e0",
-            "93c49b83ad60f88f",
-            "2a62321f996547b5",
-            "d6059965c1fc1a18",
-            "be65e38005890391"
-        ],
-        "x": 274,
-        "y": 1899,
-        "w": 772,
-        "h": 262
-    },
-    {
         "id": "a3a62aaa37101276",
         "type": "group",
         "z": "3738026cb3832ee1",
@@ -186,14 +156,12 @@
         },
         "nodes": [
             "57061788d08a630e",
-            "76085a3613dbbd92",
-            "a56fba19e34d6c7c",
             "c96e6411ef124a35"
         ],
         "x": 34,
-        "y": 99,
+        "y": 179,
         "w": 592,
-        "h": 202
+        "h": 122
     },
     {
         "id": "683cf0d2d547c4fd",
@@ -624,6 +592,37 @@
         "showLogs": true
     },
     {
+        "id": "b560f0917a7831f4",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "fai-mqtt",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
         "id": "3795322861042bc3",
         "type": "serial in",
         "z": "3738026cb3832ee1",
@@ -734,197 +733,6 @@
         ]
     },
     {
-        "id": "ed90c2419ae077fc",
-        "type": "modbus-read",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "14acfddd9b78e00f",
-        "name": "Power Meter voltage",
-        "topic": "voltage",
-        "showStatusActivities": false,
-        "logIOActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "0",
-        "quantity": "2",
-        "rate": "5",
-        "rateUnit": "s",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 410,
-        "y": 1940,
-        "wires": [
-            [
-                "d6059965c1fc1a18"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "fb98271132dd59e0",
-        "type": "modbus-read",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "14acfddd9b78e00f",
-        "name": "Power Meter amps",
-        "topic": "amps",
-        "showStatusActivities": false,
-        "logIOActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "12",
-        "quantity": "2",
-        "rate": "7",
-        "rateUnit": "s",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 410,
-        "y": 2000,
-        "wires": [
-            [
-                "d6059965c1fc1a18"
-            ],
-            [
-                "d6059965c1fc1a18"
-            ]
-        ]
-    },
-    {
-        "id": "93c49b83ad60f88f",
-        "type": "modbus-read",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "14acfddd9b78e00f",
-        "name": "Power Meter Addr model",
-        "topic": "model",
-        "showStatusActivities": false,
-        "logIOActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "11",
-        "quantity": "1",
-        "rate": "9",
-        "rateUnit": "s",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 430,
-        "y": 2060,
-        "wires": [
-            [
-                "d6059965c1fc1a18"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "2a62321f996547b5",
-        "type": "modbus-read",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "14acfddd9b78e00f",
-        "name": "Power Meter Addr model",
-        "topic": "serial",
-        "showStatusActivities": false,
-        "logIOActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "20480",
-        "quantity": "7",
-        "rate": "11",
-        "rateUnit": "s",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 430,
-        "y": 2120,
-        "wires": [
-            [
-                "d6059965c1fc1a18"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "d6059965c1fc1a18",
-        "type": "join",
-        "z": "3738026cb3832ee1",
-        "g": "14acfddd9b78e00f",
-        "name": "Modbus Join",
-        "mode": "custom",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "useparts": false,
-        "accumulate": true,
-        "timeout": "20",
-        "count": "4",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "",
-        "reduceFixup": "",
-        "x": 700,
-        "y": 2000,
-        "wires": [
-            [
-                "be65e38005890391"
-            ]
-        ]
-    },
-    {
-        "id": "be65e38005890391",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "14acfddd9b78e00f",
-        "name": "Power meter Parser",
-        "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"Unknown CG Meter\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet modArr = getArray(joined.model);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 0)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[1] << 16) | volArr[0];\n    voltage = rawVolts / 10;\n}\n\n// 2. Parse Amps (Address 12)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[1] << 16) | ampArr[0];\n    amps = rawAmps / 1000;\n}\n\n// 3. Identify Device Type (Address 11)\nif (modArr && modArr.length >= 1) {\n    let modelCode = modArr[0];\n    if (modelCode === 332) partNumber = \"EM330-DIN AV5\";\n    else if (modelCode === 341) partNumber = \"EM340-DIN AV2\";\n    else partNumber = \"Model Code: \" + modelCode;\n}\n\n// 4. Parse Serial Number (Address 20480)\nif (serArr) {\n    serial = \"\";\n    serArr.forEach(reg => {\n        serial += String.fromCharCode(reg & 0xFF); // Extract LSB to ASCII\n    });\n}\n\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- NEW CODE: Build the exact MQTT Topic ---\n// Grab the Gateway Serial from the Docker environment variables\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// Format: gateway/A100000155081224/power/out\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 920,
-        "y": 2000,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "2ec4d64c4d152c47",
         "type": "switch",
         "z": "3738026cb3832ee1",
@@ -978,7 +786,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "10",
+        "repeat": "1",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
@@ -1620,34 +1428,6 @@
         ]
     },
     {
-        "id": "input_nov",
-        "type": "ui_numeric",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_calib",
-        "name": "",
-        "label": "3. Enter Actual Test Weight (kg)",
-        "tooltip": "Hit enter to send to Junction Box",
-        "group": "ui_calib_group",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "wrap": false,
-        "passthru": true,
-        "topic": "topic",
-        "topicType": "msg",
-        "format": "{{value}}",
-        "min": 0,
-        "max": 100000,
-        "step": 1,
-        "className": "",
-        "x": 190,
-        "y": 1560,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "format_zero",
         "type": "function",
         "z": "3738026cb3832ee1",
@@ -1786,32 +1566,6 @@
         ]
     },
     {
-        "id": "5b486b5f72868d45",
-        "type": "ui_text_input",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_calib",
-        "name": "",
-        "label": "3. Enter Actual Test Weight (kg)",
-        "tooltip": "",
-        "group": "ui_calib_group",
-        "order": 5,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "mode": "number",
-        "delay": "0",
-        "topic": "topic",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "msg",
-        "x": 190,
-        "y": 1620,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "2bff9a925e919ced",
         "type": "ui_form",
         "z": "3738026cb3832ee1",
@@ -1867,8 +1621,7 @@
         "wires": [
             [
                 "479b96e0273a18b1",
-                "debug_weight",
-                "8accce955e87939d"
+                "debug_weight"
             ]
         ]
     },
@@ -1899,73 +1652,6 @@
         "y": 1140,
         "wires": [
             [
-                "5e24a7fa58d31074",
-                "a2cfe0ae760aa28d"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "399c5992ea9f0bad",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "Read Weight (Addr 40) Silo 3",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "3",
-        "dataType": "HoldingRegister",
-        "adr": "40",
-        "quantity": "2",
-        "server": "",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "x": 380,
-        "y": 1180,
-        "wires": [
-            [
-                "5e24a7fa58d31074"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "470317d11e3be29d",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "Read Weight (Addr 40) Silo 4",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "4",
-        "dataType": "HoldingRegister",
-        "adr": "40",
-        "quantity": "2",
-        "server": "",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "x": 380,
-        "y": 1220,
-        "wires": [
-            [
                 "5e24a7fa58d31074"
             ],
             []
@@ -1986,7 +1672,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "20",
+        "repeat": "1",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -2016,10 +1702,10 @@
                 "vt": "str"
             }
         ],
-        "repeat": "20",
+        "repeat": "1",
         "crontab": "",
         "once": true,
-        "onceDelay": "5",
+        "onceDelay": "1",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -2028,68 +1714,6 @@
         "wires": [
             [
                 "43a32c58306da29c"
-            ]
-        ]
-    },
-    {
-        "id": "a61fd9ce84ae778d",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "20",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "10",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 1180,
-        "wires": [
-            [
-                "399c5992ea9f0bad"
-            ]
-        ]
-    },
-    {
-        "id": "87c34af15b4d9e67",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "20",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "15",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 1220,
-        "wires": [
-            [
-                "470317d11e3be29d"
             ]
         ]
     },
@@ -2162,33 +1786,6 @@
         ]
     },
     {
-        "id": "37047af017d3965c",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 1380,
-        "y": 580,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "57061788d08a630e",
         "type": "mqtt in",
         "z": "3738026cb3832ee1",
@@ -2211,44 +1808,6 @@
         ]
     },
     {
-        "id": "76085a3613dbbd92",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "a3a62aaa37101276",
-        "name": "LoRa Parser 7.3",
-        "func": "// ── FAI Gateway Parser (v8.0 - The App Awakener) ──\n//\n// Includes all v7.3 fixes (Raw Hex, Little-Endian, GASCO2 Uint32 workaround, \n// 0g weight transmission, and 'now' timestamps).\n//\n// NEW IN v8.0: Forges the 0x04 Device Startup packet to force the Laravel API \n// to flip \"received\": false to true, unlocking the App's UI graphs.\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nif (!msg.payload || !msg.payload.deviceInfo || !msg.payload.data) return null;\n\n// ── UID ──\nconst devEui = msg.payload.deviceInfo.devEui;\nconst uidHex = devEui.slice(-8);\nconst dynamicUid = parseInt(uidHex, 16);\n\n// ── Decode the LoRa binary payload ──\nconst buf = Buffer.from(msg.payload.data, 'base64');\nif (buf.length < 22) return null;\n\nconst temp = buf.readFloatLE(0);\nconst co2 = buf.readUInt16LE(4);\nconst weight = buf.readFloatLE(6);\nconst lux = buf.readFloatLE(10);\nconst humidity = buf.readFloatLE(14);\nconst pressure = buf.readFloatLE(18);\n\n// ── RSSI & Meta ──\nlet bestRssi = -120;\nif (msg.payload.rxInfo && msg.payload.rxInfo.length > 0) {\n    bestRssi = Math.max(...msg.payload.rxInfo.map(rx => rx.rssi));\n}\nconst rawRssi = Math.abs(bestRssi);\nconst timestamp = new Date().toISOString().split('.')[0] + '+00:00';\n\nconst outMessages = [];\n\n// ==========================================\n// PACKET 1: TYPE 0x01 (ENVIRONMENTAL)\n// ==========================================\nconst envBuf = Buffer.alloc(58, 0);\nenvBuf.writeUInt8(0x01, 0);\nenvBuf.writeUInt8(0x3a, 1);\n\nenvBuf.writeFloatLE(temp, 6);\nenvBuf.writeFloatLE(pressure, 10);\nenvBuf.writeFloatLE(temp, 14);\nenvBuf.writeFloatLE(humidity, 18);\nenvBuf.writeUInt32LE(Math.max(0, Math.round(lux)), 22);\nenvBuf.writeUInt32LE(Math.round(co2), 26); // The GASCO2 Workaround\nenvBuf.writeFloatLE(0.0, 30);\nenvBuf.writeFloatLE(0.0, 34);\nenvBuf.writeFloatLE(0.0, 38);\nenvBuf.writeFloatLE(0.0, 42);\nenvBuf.writeFloatLE(0.0, 46);\nenvBuf.writeFloatLE(temp, 50);\nenvBuf.writeFloatLE(temp, 54);\n\noutMessages.push({\n    topic: `gateway/${gatewaySerial}/tinymesh/out`,\n    payload: {\n        \"_meta\": { \"received\": timestamp },\n        \"block\": 0,\n        \"data\": envBuf.toString('hex'),\n        \"detail\": \"serial\",\n        \"hops\": 1,\n        \"latency\": 2,\n        \"network_lvl\": 1,\n        \"packet_num\": Math.floor(Math.random() * 65535),\n        \"rssi\": rawRssi,\n        \"sid\": TARGET_CLOUD_SID,\n        \"type\": \"event\",\n        \"uid\": dynamicUid\n    }\n});\n\n// ==========================================\n// PACKET 2: TYPE 0x02 (WEIGHT ARRAY)\n// ==========================================\n{\n    const wBuf = Buffer.alloc(106, 0);\n    wBuf.writeUInt8(0x02, 0);\n    wBuf.writeUInt8(0x6a, 1);\n\n    const wInt = Math.abs(Math.round(weight));\n    for (let i = 0; i < 50; i++) {\n        wBuf.writeUInt16LE(wInt, 6 + (i * 2));\n    }\n\n    outMessages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": timestamp },\n            \"block\": 0,\n            \"data\": wBuf.toString('hex'),\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    });\n}\n\n// ==========================================\n// PACKET 3: TYPE 0x04 (DEVICE STARTUP / ALIVE)\n// Length: 12 bytes | Signature: 040c\n// ==========================================\n{\n    const aliveBuf = Buffer.alloc(12, 0);\n    aliveBuf.writeUInt8(0x04, 0); // Type\n    aliveBuf.writeUInt8(0x0c, 1); // Length (12)\n\n    // Bytes 2-9: 8-byte Hardware MAC. We inject the 16-char LoRa DevEUI here.\n    const macBuffer = Buffer.from(devEui, 'hex');\n    macBuffer.copy(aliveBuf, 2, 0, 8);\n\n    // Bytes 10-11: Firmware Version (Uint16 LE). Forge version 1 (0x0100).\n    aliveBuf.writeUInt16LE(1, 10);\n\n    outMessages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": timestamp },\n            \"block\": 0,\n            \"data\": aliveBuf.toString('hex'),\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    });\n}\n\nreturn [outMessages];",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "a56fba19e34d6c7c",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "a3a62aaa37101276",
-        "name": "LoRa Parser 7.1",
-        "func": "// ── FAI Gateway Parser (v7.2 - Raw C-Struct Forger, matches sensors.h spec + GASCO2 workaround) ──\n//\n// Key fix vs v6.0: the backend does NOT want JSON in `data`. It wants the raw\n// hex-encoded C-struct (sensor_telegram_t / weight array), exactly like the\n// physical Tinymesh hardware sent it, with detail:\"serial\".\n//\n// Per the official sensors.h spec:\n//   Type 0x01 (Env, 58 bytes): all fields Little-Endian Float32, except\n//     LightALS (bytes 22-25) which is Uint32 LE.\n//   Type 0x02 (Weight, 106 bytes): 50x Uint16 LE samples starting at byte 6.\n//\n// CONFIRMED WORKAROUND: the third-party backend's decoder reads GASCO2\n// (bytes 26-29) as Uint32, not Float32 as the spec documents. We can't patch\n// the backend, so this parser writes GASCO2 as a raw integer to match what\n// the backend actually does, not what the spec says it should do. See the\n// inline comment at that field for the verification details.\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nif (!msg.payload || !msg.payload.deviceInfo || !msg.payload.data) return null;\n\n// ── UID: last 4 bytes of DevEUI, Big-Endian (matches dynamicUid convention) ──\nconst devEui = msg.payload.deviceInfo.devEui;\nconst uidHex = devEui.slice(-8);\nconst dynamicUid = parseInt(uidHex, 16);\n\n// ── Decode the LoRa binary payload ──\n// Payload is now 22 bytes (was 14, was originally 10): the Arduino sketch\n// now also transmits humidity and pressure from the already-installed\n// BME280 (it measures both, the code just wasn't reading them before).\n// Layout, all Little-Endian:\n//   bytes 0-3:   temperature (float)\n//   bytes 4-5:   co2 ppm (uint16)\n//   bytes 6-9:   scale weight (float)\n//   bytes 10-13: light lux (float)\n//   bytes 14-17: humidity %RH (float)   <-- NEW\n//   bytes 18-21: pressure hPa (float)   <-- NEW\nconst buf = Buffer.from(msg.payload.data, 'base64');\nif (buf.length < 22) return null;\n\nconst temp     = buf.readFloatLE(0);   // °C\nconst co2      = buf.readUInt16LE(4);  // ppm\nconst weight   = buf.readFloatLE(6);   // g\nconst lux      = buf.readFloatLE(10);  // lx\nconst humidity = buf.readFloatLE(14);  // %RH\nconst pressure = buf.readFloatLE(18);  // hPa\n\n// ── RSSI & meta (raw integer, matching tinymesh-edge convention: Math.abs) ──\nlet bestRssi = -120;\nif (msg.payload.rxInfo && msg.payload.rxInfo.length > 0) {\n    bestRssi = Math.max(...msg.payload.rxInfo.map(rx => rx.rssi));\n}\nconst rawRssi = Math.abs(bestRssi);\nconst timestamp = (msg.payload.time || new Date().toISOString()).split('.')[0] + '+00:00';\n\nconst outMessages = [];\n\n// ==========================================\n// FORGE PACKET 1: TYPE 0x01 (ENVIRONMENTAL)\n// Length: 58 bytes | Signature: 013a\n// Layout matches sensor_telegram_t exactly, Little-Endian floats per sensors.h spec\n// ==========================================\nconst envBuf = Buffer.alloc(58, 0);\nenvBuf.writeUInt8(0x01, 0); // Byte 0: Type\nenvBuf.writeUInt8(0x3a, 1); // Byte 1: Length (58)\n\n// Bytes 2-5 reserved/unused in struct — left as 0x00\n\nenvBuf.writeFloatLE(temp, 6);    // AirTemperature      (bytes 6-9)\nenvBuf.writeFloatLE(pressure, 10); // AirPressure (bytes 10-13) — now real BME280 hPa reading.\n                                  // UNVERIFIED against backend: AirTemperature at byte 6 is\n                                  // confirmed correct as Float32, but we haven't specifically\n                                  // checked AirPressure. If Grafana shows nonsense here, run the\n                                  // same bit-pattern check used for GASCO2.\nenvBuf.writeFloatLE(temp, 14);   // HumidityTemperature  (bytes 14-17)  — BME280 has one temp sensor,\n                                  // reused here since there's no separate humidity-specific probe\nenvBuf.writeFloatLE(humidity, 18); // Humidity (bytes 18-21) — now real BME280 %RH reading.\n                                  // Also unverified against backend — check Grafana after deploy.\nenvBuf.writeUInt32LE(Math.max(0, Math.round(lux)), 22); // LightALS (bytes 22-25) — now real VEML7700\n                                            // lux data. Written as Uint32 per spec (rounded, floor\n                                            // 0 since lux can't be negative). UNVERIFIED: we found\n                                            // GASCO2 doesn't match its documented type, so once this\n                                            // is live, check Grafana the same way — if LightALS shows\n                                            // a nonsense number, the backend likely also reads this\n                                            // field as a different type than Uint32 and needs the\n                                            // same bit-pattern diagnosis we did for GASCO2.\nenvBuf.writeUInt32LE(Math.round(co2), 26); // GASCO2 (bytes 26-29) — WORKAROUND: spec sheet says\n                                            // Float32 here, but the backend's fixed/third-party\n                                            // decoder actually reads this field as Uint32 (same\n                                            // type as LightALS next to it). Confirmed by reverse-\n                                            // engineering: writing 476.0 as Float32 produced\n                                            // 1139671040 in Grafana — the exact bit pattern of\n                                            // that float reinterpreted as a raw uint32. Since the\n                                            // backend can't be patched, we match its real behavior\n                                            // instead of the documented spec: write the ppm value\n                                            // directly as an integer.\nenvBuf.writeFloatLE(0.0, 30);    // GASTemperature       (bytes 30-33)\nenvBuf.writeFloatLE(0.0, 34);    // GASHumidity          (bytes 34-37)\nenvBuf.writeFloatLE(0.0, 38);    // GASNH3               (bytes 38-41)\nenvBuf.writeFloatLE(0.0, 42);    // GASCO                (bytes 42-45)\nenvBuf.writeFloatLE(0.0, 46);    // GASNO2               (bytes 46-49)\nenvBuf.writeFloatLE(temp, 50);   // BoardTemperature     (bytes 50-53)  — reuse BME280 temp\nenvBuf.writeFloatLE(temp, 54);   // PT100Temperature     (bytes 54-57)  — reuse BME280 temp\n\noutMessages.push({\n    topic: `gateway/${gatewaySerial}/tinymesh/out`,\n    payload: {\n        \"_meta\": { \"received\": timestamp },\n        \"block\": 0,\n        \"data\": envBuf.toString('hex'), // RAW HEX — backend decodes this itself\n        \"detail\": \"serial\",             // matches the proven working contract\n        \"hops\": 1,\n        \"latency\": 2,\n        \"network_lvl\": 1,\n        \"packet_num\": Math.floor(Math.random() * 65535), // bypass cloud dedup\n        \"rssi\": rawRssi,\n        \"sid\": TARGET_CLOUD_SID,\n        \"type\": \"event\",\n        \"uid\": dynamicUid\n    }\n});\n\n// ==========================================\n// FORGE PACKET 2: TYPE 0x02 (WEIGHT ARRAY)\n// Length: 106 bytes | Signature: 026a\n// Array of 50x UInt16, Little-Endian (per reference decoder: \"Payload stays LE\")\n// ==========================================\nif (weight > 0.01 || weight < -0.01) {\n    const wBuf = Buffer.alloc(106, 0);\n    wBuf.writeUInt8(0x02, 0); // Byte 0: Type\n    wBuf.writeUInt8(0x6a, 1); // Byte 1: Length (106)\n\n    const wInt = Math.abs(Math.round(weight));\n\n    for (let i = 0; i < 50; i++) {\n        wBuf.writeUInt16LE(wInt, 6 + (i * 2));\n    }\n\n    outMessages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": timestamp },\n            \"block\": 0,\n            \"data\": wBuf.toString('hex'), // RAW HEX, same as packet 1\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    });\n}\n\nreturn [ outMessages ];",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 460,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "c96e6411ef124a35",
         "type": "function",
         "z": "3738026cb3832ee1",
@@ -2267,25 +1826,6 @@
             [
                 "479b96e0273a18b1"
             ]
-        ]
-    },
-    {
-        "id": "5baa06e0f6dac846",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "group_telemetry",
-        "name": "Parse 32-bit Weight v1",
-        "func": "// ── FAI Gateway: Silo Weight Parser (Production) ──\n\n// 1. Get the physical gateway's identity\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// 2. Extract the raw Modbus payload\nlet raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    // 3. Bitwise shift to combine the two 16-bit registers into a 32-bit integer\n    let weight = (raw[0] << 16) | raw[1];\n    \n    // 4. Identify WHICH silo this is based on the Modbus Slave Address (1 to 4)\n    // node-red-contrib-modbus attaches the unitid to the request object automatically\n    let slaveAddress = (msg.modbusRequest && msg.modbusRequest.unitid) ? msg.modbusRequest.unitid : 1; \n    let deviceId = \"silo_\" + slaveAddress.toString().padStart(2, '0'); // e.g., \"silo_01\", \"silo_02\"\n    \n    // 5. Build the clean, decoupled JSON payload for the backend\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight,\n            \"modbus_address\": slaveAddress\n        }\n    };\n    \n    // 6. Route it to the dedicated Silo topic\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    \n    return msg;\n}\n\n// Stop the flow if the reading failed or is empty\nreturn null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 660,
-        "y": 1220,
-        "wires": [
-            []
         ]
     },
     {
@@ -2466,25 +2006,6 @@
         ]
     },
     {
-        "id": "1bea3bf5ab4bfcec",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "group_telemetry",
-        "name": "Parse 32-bit Weight v2",
-        "func": "// ── FAI Gateway: Silo Weight Parser ──\nlet raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    // 1. Stitch the two 16-bit Modbus registers into a 32-bit signed integer\n    let weight = (raw[0] << 16) | raw[1];\n    \n    // NOTE: If your scale division (DIV) in the JB is set to 0.1kg, \n    // you must divide by 10 here (weight = weight / 10.0). \n    // Assuming DIV = 1kg for now.\n    \n    // 2. Identify identity and Modbus slave address\n    let gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n    let slaveAddress = (msg.modbusRequest && msg.modbusRequest.unitid) ? msg.modbusRequest.unitid : 1; \n    let deviceId = \"silo_\" + slaveAddress.toString().padStart(2, '0');\n    \n    // 3. Build the clean JSON payload\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight,\n            \"modbus_address\": slaveAddress\n        }\n    };\n    \n    // 4. Route it to the dedicated Silo topic\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    \n    return msg;\n}\n\n// Stop the flow if the reading failed or is empty\nreturn null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 660,
-        "y": 1260,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "b7f6d0af323aa309",
         "type": "function",
         "z": "3738026cb3832ee1",
@@ -2501,44 +2022,121 @@
         "y": 1100,
         "wires": [
             [
-                "debug_weight",
-                "8accce955e87939d"
+                "debug_weight"
             ]
         ]
     },
     {
-        "id": "8accce955e87939d",
-        "type": "debug",
+        "id": "ea7983a9f448d1ad",
+        "type": "inject",
         "z": "3738026cb3832ee1",
-        "g": "group_telemetry",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1000,
-        "y": 1200,
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "EMC_TEST_NOISE_EMC_TEST_NOISE_EMC_TEST_NOISE",
+        "payloadType": "str",
+        "x": 90,
+        "y": 2000,
+        "wires": [
+            [
+                "030dbffaec958985",
+                "452a23591190dc73"
+            ]
+        ]
+    },
+    {
+        "id": "030dbffaec958985",
+        "type": "serial out",
+        "z": "3738026cb3832ee1",
+        "name": "Tinymesh EMC Out",
+        "serial": "683cf0d2d547c4fd",
+        "x": 270,
+        "y": 1940,
         "wires": []
     },
     {
-        "id": "a2cfe0ae760aa28d",
-        "type": "debug",
+        "id": "452a23591190dc73",
+        "type": "serial out",
         "z": "3738026cb3832ee1",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 600,
-        "y": 1060,
+        "name": "WMBUS EMC Out",
+        "serial": "bcc4801ac002ac63",
+        "x": 270,
+        "y": 2040,
         "wires": []
+    },
+    {
+        "id": "459b6a25d005317b",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "name": "5s EMC Stress Trigger",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 100,
+        "wires": [
+            [
+                "ce0b43af4a9fb58c"
+            ]
+        ]
+    },
+    {
+        "id": "f91fcf5824032b6b",
+        "type": "mqtt out",
+        "z": "3738026cb3832ee1",
+        "name": "Internal EMC Injection",
+        "topic": "application/1/device/c6ceb21d3fdfb40f/event/up",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "473037bbac0aa9aa",
+        "x": 690,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ce0b43af4a9fb58c",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Format EMC Payload (ChirpStack)",
+        "func": "// Simulate a standard LoRaWAN uplink packet that matches the LoRa Parser 7.2 requirements\n// The parser needs: msg.payload.deviceInfo AND msg.payload.data\n// Data is a 22-byte base64 encoded buffer\n\nconst buf = Buffer.alloc(22, 0);\n// Randomize data to prevent payload deduping\nbuf.writeFloatLE(Math.random() * 30, 0); // Temp\nbuf.writeUInt16LE(400, 4);               // CO2\n\nmsg.payload = {\n    \"deviceInfo\": { \"devEui\": \"c6ceb21d3fdfb40f\" },\n    \"data\": buf.toString('base64'),\n    \"rxInfo\": [{ \"rssi\": -50, \"snr\": 10 }]\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 100,
+        "wires": [
+            [
+                "f91fcf5824032b6b"
+            ]
+        ]
     }
 ]
