@@ -137,12 +137,14 @@
         "nodes": [
             "3795322861042bc3",
             "3e23d6eda29ff93e",
-            "edd0911a555ca093"
+            "edd0911a555ca093",
+            "01c00f94db6f61a8",
+            "d240b7efb392380c"
         ],
         "x": 34,
         "y": 339,
-        "w": 712,
-        "h": 162
+        "w": 802,
+        "h": 202
     },
     {
         "id": "a3a62aaa37101276",
@@ -634,7 +636,8 @@
         "wires": [
             [
                 "3e23d6eda29ff93e",
-                "edd0911a555ca093"
+                "edd0911a555ca093",
+                "01c00f94db6f61a8"
             ]
         ]
     },
@@ -2138,5 +2141,43 @@
                 "f91fcf5824032b6b"
             ]
         ]
+    },
+    {
+        "id": "01c00f94db6f61a8",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
+        "name": "Local Parser with new weight and light sensor",
+        "func": "// ── The Complete 18-Byte Header Parser (Env, Weight, Alive, Light & Spot) ──\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216; \n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload)) incoming = msg.payload.toString('hex');\nelse if (msg.payload && typeof msg.payload.hex === 'string') incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string') incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\n// 1. GARBAGE COLLECTOR\nif (buf.length > 8192) {\n    buf = \"\"; \n    context.set('buf', buf);\n    node.warn(\"Buffer overflow prevented. Flushed garbage data.\");\n    return null;\n}\n\n// 2. OMNI-SIGNATURE SCANNER\nwhile (buf.length > 0) {\n    // Look for all known packet types\n    let sensorIdx = buf.indexOf(\"013a\"); // Type 0x01 (Env), Length 58\n    let weightIdx = buf.indexOf(\"026a\"); // Type 0x02 (Weight Array), Length 106\n    let aliveIdx  = buf.indexOf(\"040c\"); // Type 0x04 (Alive), Length 12\n    let lightIdx  = buf.indexOf(\"070a\"); // Type 0x07 (SEN0562), Length 10\n    let spotIdx   = buf.indexOf(\"0808\"); // Type 0x08 (Weight Spot), Length 8\n\n    let startIndex = -1;\n    let packetType = 0;\n\n    // Find whichever valid signature appears first in the current chunk\n    const indices = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx },\n        { type: 7, idx: lightIdx },\n        { type: 8, idx: spotIdx }\n    ].filter(obj => obj.idx !== -1);\n\n    if (indices.length > 0) {\n        const earliest = indices.reduce((prev, curr) => prev.idx < curr.idx ? prev : curr);\n        startIndex = earliest.idx;\n        packetType = earliest.type;\n    }\n\n    if (startIndex === -1) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break; \n    }\n\n    // 3. EXTRACT THE 18-BYTE PACKET MODE HEADER\n    if (startIndex < 36) {\n        buf = buf.slice(startIndex + 2); \n        continue;\n    }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex); \n    \n    // ── THE BIG-ENDIAN FIX ──\n    const trueUidHex = headerHex.slice(10, 18);\n    let dynamicUid = 0; \n    if (/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0); \n    } else {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n\n    // ── EXTRACT METADATA ──\n    const trueRssiHex = headerHex.slice(18, 20);\n    let rawRssi = parseInt(trueRssiHex, 16);\n    let trueRssi = (rawRssi / 2) - 121; // Match the old Gateway's exact dBm formula\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    // 4. EXTRACT THE PAYLOAD DATA (Little-Endian)\n    let expectedPayloadChars = 0;\n    if (packetType === 1) expectedPayloadChars = 58 * 2;\n    else if (packetType === 2) expectedPayloadChars = 106 * 2;\n    else if (packetType === 4) expectedPayloadChars = 12 * 2;\n    else if (packetType === 7) expectedPayloadChars = 10 * 2;\n    else if (packetType === 8) expectedPayloadChars = 8 * 2;\n\n    if (buf.length < startIndex + expectedPayloadChars) {\n        break; // Wait for the rest of the serial chunk\n    }\n\n    const frameHex = buf.slice(startIndex, startIndex + expectedPayloadChars);\n    buf = buf.slice(startIndex + expectedPayloadChars); \n\n    const bytes = [];\n    for (let i = 0; i < frameHex.length; i += 2) {\n        bytes.push(parseInt(frameHex.slice(i, i + 2), 16));\n    }\n    const view = new DataView(new Uint8Array(bytes).buffer);\n\n    let extractedData = {};\n    let messageDetail = \"unknown\";\n\n    if (packetType === 1) {\n        messageDetail = \"sensor_telemetry\";\n        extractedData = {\n            AirTemperature:      view.getFloat32(6,  true),\n            AirPressure:         view.getFloat32(10, true),\n            HumidityTemperature: view.getFloat32(14, true),\n            Humidity:            view.getFloat32(18, true),\n            LightALS:            view.getUint32(22,  true), \n            GASCO2:              view.getFloat32(26, true),\n            GASTemperature:      view.getFloat32(30, true),\n            GASHumidity:         view.getFloat32(34, true),\n            GASNH3:              view.getFloat32(38, true),\n            GASCO:               view.getFloat32(42, true),\n            GASNO2:              view.getFloat32(46, true),\n            BoardTemperature:    view.getFloat32(50, true),\n            PT100Temperature:    view.getFloat32(54, true)\n        };\n    } else if (packetType === 2) {\n        messageDetail = \"weight_telemetry\";\n        const samples = [];\n        for (let i = 6; i + 1 < bytes.length; i += 2) {\n            samples.push(view.getUint16(i, true)); \n        }\n        extractedData = {\n            count: samples.length,\n            mean_weight: samples.reduce((a, b) => a + b, 0) / samples.length\n        };\n    } else if (packetType === 4) {\n        messageDetail = \"device_startup\";\n        extractedData = {\n            hardware_mac: frameHex.slice(4, 20), \n            firmware: view.getUint16(10, true) \n        };\n    } else if (packetType === 7) {\n        messageDetail = \"lamination_telemetry\";\n        extractedData = {\n            hw_type: view.getUint8(2),\n            firmware: view.getUint16(3, true),\n            lux: Math.round(view.getFloat32(6, true)) // Parses 0x42F9FFFF as Float32 (124.99) and rounds to 125\n        };\n    } else if (packetType === 8) {\n        messageDetail = \"weight_spot\";\n        extractedData = {\n            hw_type: view.getUint8(2),\n            firmware: view.getUint16(3, true),\n            weight_g: view.getInt16(6, true) // Parsed as signed 16-bit to allow for negative scale tare drift\n        };\n    }\n\n    // 5. BUILD THE FAI CLOUD ENVELOPE\n    out.push({\n        topic: `gateway/${gatewayId}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString() },\n            \"block\": 0,\n            \"data\": JSON.stringify(extractedData), \n            \"detail\": messageDetail,               \n            \"hops\": hops,\n            \"latency\": latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": trueRssi, \n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid,  \n            \"raw_hex\": frameHex \n        }\n    });\n}\n\ncontext.set('buf', buf);\n\nif (out.length === 0) return null;\nif (out.length === 1) return out[0];\nreturn [out];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 500,
+        "wires": [
+            [
+                "d240b7efb392380c"
+            ]
+        ]
+    },
+    {
+        "id": "d240b7efb392380c",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 500,
+        "wires": []
     }
 ]
