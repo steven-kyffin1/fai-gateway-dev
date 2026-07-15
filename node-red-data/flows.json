@@ -32,48 +32,14 @@
             "5baa06e0f6dac846",
             "1bea3bf5ab4bfcec",
             "b7f6d0af323aa309",
-            "8accce955e87939d"
+            "9fdd4071c0fc3604",
+            "fde848e9feeba4ca",
+            "6ef0ce2bb6e5975b"
         ],
         "x": 34,
         "y": 1059,
-        "w": 1072,
-        "h": 242
-    },
-    {
-        "id": "group_calib",
-        "type": "group",
-        "z": "3738026cb3832ee1",
-        "name": "2. Tech Calibration Dashboard (Triggered by UI)",
-        "style": {
-            "stroke": "#d4a017",
-            "fill": "#fdf7e3",
-            "label": true
-        },
-        "nodes": [
-            "btn_zero",
-            "btn_load",
-            "input_nov",
-            "format_zero",
-            "format_load",
-            "format_nov",
-            "modbus_write_zero",
-            "modbus_write_load",
-            "modbus_write_nov",
-            "5b486b5f72868d45",
-            "2bff9a925e919ced",
-            "75741b364a09e9ee",
-            "d1556d3cb5fbfa9e",
-            "5cc51e1bab3fd5cc",
-            "50495e2410b68366",
-            "4709234755ae6897",
-            "03b0298fa84d3f48",
-            "fdfc870d7afc30fe",
-            "385d90a9e35b7872"
-        ],
-        "x": 34,
-        "y": 1279,
         "w": 1052,
-        "h": 482
+        "h": 342
     },
     {
         "id": "f39362f0cc4d435f",
@@ -146,33 +112,13 @@
         "nodes": [
             "3795322861042bc3",
             "3e23d6eda29ff93e",
-            "edd0911a555ca093"
+            "edd0911a555ca093",
+            "e30e118b06e7c31e"
         ],
         "x": 34,
         "y": 339,
         "w": 712,
         "h": 162
-    },
-    {
-        "id": "14acfddd9b78e00f",
-        "type": "group",
-        "z": "3738026cb3832ee1",
-        "name": "",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "ed90c2419ae077fc",
-            "fb98271132dd59e0",
-            "93c49b83ad60f88f",
-            "2a62321f996547b5",
-            "d6059965c1fc1a18",
-            "be65e38005890391"
-        ],
-        "x": 274,
-        "y": 1899,
-        "w": 772,
-        "h": 262
     },
     {
         "id": "a3a62aaa37101276",
@@ -186,14 +132,18 @@
         },
         "nodes": [
             "57061788d08a630e",
-            "76085a3613dbbd92",
             "a56fba19e34d6c7c",
-            "c96e6411ef124a35"
+            "c96e6411ef124a35",
+            "02b36d671f86498c",
+            "c42ebcbcc870952d",
+            "2a38ea2466db6a7a",
+            "f0885b7c6ffcd7a2",
+            "c429a319a31374e1"
         ],
         "x": 34,
-        "y": 99,
-        "w": 592,
-        "h": 202
+        "y": 139,
+        "w": 692,
+        "h": 222
     },
     {
         "id": "683cf0d2d547c4fd",
@@ -624,6 +574,16 @@
         "showLogs": true
     },
     {
+        "id": "bf1a2f43b10343c8",
+        "type": "ui_group",
+        "name": "ADS301 Calibration (Replacement)",
+        "tab": "ui_calib_tab",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
         "id": "3795322861042bc3",
         "type": "serial in",
         "z": "3738026cb3832ee1",
@@ -655,7 +615,9 @@
         "x": 410,
         "y": 460,
         "wires": [
-            []
+            [
+                "e30e118b06e7c31e"
+            ]
         ]
     },
     {
@@ -731,197 +693,6 @@
             [
                 "479b96e0273a18b1"
             ]
-        ]
-    },
-    {
-        "id": "ed90c2419ae077fc",
-        "type": "modbus-read",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "14acfddd9b78e00f",
-        "name": "Power Meter voltage",
-        "topic": "voltage",
-        "showStatusActivities": false,
-        "logIOActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "0",
-        "quantity": "2",
-        "rate": "5",
-        "rateUnit": "s",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 410,
-        "y": 1940,
-        "wires": [
-            [
-                "d6059965c1fc1a18"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "fb98271132dd59e0",
-        "type": "modbus-read",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "14acfddd9b78e00f",
-        "name": "Power Meter amps",
-        "topic": "amps",
-        "showStatusActivities": false,
-        "logIOActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "12",
-        "quantity": "2",
-        "rate": "7",
-        "rateUnit": "s",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 410,
-        "y": 2000,
-        "wires": [
-            [
-                "d6059965c1fc1a18"
-            ],
-            [
-                "d6059965c1fc1a18"
-            ]
-        ]
-    },
-    {
-        "id": "93c49b83ad60f88f",
-        "type": "modbus-read",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "14acfddd9b78e00f",
-        "name": "Power Meter Addr model",
-        "topic": "model",
-        "showStatusActivities": false,
-        "logIOActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "11",
-        "quantity": "1",
-        "rate": "9",
-        "rateUnit": "s",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 430,
-        "y": 2060,
-        "wires": [
-            [
-                "d6059965c1fc1a18"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "2a62321f996547b5",
-        "type": "modbus-read",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "14acfddd9b78e00f",
-        "name": "Power Meter Addr model",
-        "topic": "serial",
-        "showStatusActivities": false,
-        "logIOActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "20480",
-        "quantity": "7",
-        "rate": "11",
-        "rateUnit": "s",
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 430,
-        "y": 2120,
-        "wires": [
-            [
-                "d6059965c1fc1a18"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "d6059965c1fc1a18",
-        "type": "join",
-        "z": "3738026cb3832ee1",
-        "g": "14acfddd9b78e00f",
-        "name": "Modbus Join",
-        "mode": "custom",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "useparts": false,
-        "accumulate": true,
-        "timeout": "20",
-        "count": "4",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "",
-        "reduceFixup": "",
-        "x": 700,
-        "y": 2000,
-        "wires": [
-            [
-                "be65e38005890391"
-            ]
-        ]
-    },
-    {
-        "id": "be65e38005890391",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "14acfddd9b78e00f",
-        "name": "Power meter Parser",
-        "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"Unknown CG Meter\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet modArr = getArray(joined.model);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 0)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[1] << 16) | volArr[0];\n    voltage = rawVolts / 10;\n}\n\n// 2. Parse Amps (Address 12)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[1] << 16) | ampArr[0];\n    amps = rawAmps / 1000;\n}\n\n// 3. Identify Device Type (Address 11)\nif (modArr && modArr.length >= 1) {\n    let modelCode = modArr[0];\n    if (modelCode === 332) partNumber = \"EM330-DIN AV5\";\n    else if (modelCode === 341) partNumber = \"EM340-DIN AV2\";\n    else partNumber = \"Model Code: \" + modelCode;\n}\n\n// 4. Parse Serial Number (Address 20480)\nif (serArr) {\n    serial = \"\";\n    serArr.forEach(reg => {\n        serial += String.fromCharCode(reg & 0xFF); // Extract LSB to ASCII\n    });\n}\n\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- NEW CODE: Build the exact MQTT Topic ---\n// Grab the Gateway Serial from the Docker environment variables\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// Format: gateway/A100000155081224/power/out\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 920,
-        "y": 2000,
-        "wires": [
-            []
         ]
     },
     {
@@ -1547,6 +1318,7 @@
         "id": "debug_weight",
         "type": "debug",
         "z": "3738026cb3832ee1",
+        "d": true,
         "g": "group_telemetry",
         "name": "Live Weight",
         "active": true,
@@ -1554,7 +1326,7 @@
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "targetType": "msg",
+        "targetType": "jsonata",
         "statusVal": "",
         "statusType": "auto",
         "x": 970,
@@ -1562,300 +1334,12 @@
         "wires": []
     },
     {
-        "id": "btn_zero",
-        "type": "ui_button",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "",
-        "group": "ui_calib_group",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "1. Set Empty Scale (Zero)",
-        "tooltip": "",
-        "color": "white",
-        "bgcolor": "#d9534f",
-        "className": "",
-        "icon": "",
-        "payload": "zero",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 170,
-        "y": 1380,
-        "wires": [
-            [
-                "format_zero"
-            ]
-        ]
-    },
-    {
-        "id": "btn_load",
-        "type": "ui_button",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "",
-        "group": "ui_calib_group",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "2. Sample Heavy Test Load",
-        "tooltip": "",
-        "color": "white",
-        "bgcolor": "#f0ad4e",
-        "className": "",
-        "icon": "",
-        "payload": "load",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 180,
-        "y": 1440,
-        "wires": [
-            [
-                "format_load"
-            ]
-        ]
-    },
-    {
-        "id": "input_nov",
-        "type": "ui_numeric",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_calib",
-        "name": "",
-        "label": "3. Enter Actual Test Weight (kg)",
-        "tooltip": "Hit enter to send to Junction Box",
-        "group": "ui_calib_group",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "wrap": false,
-        "passthru": true,
-        "topic": "topic",
-        "topicType": "msg",
-        "format": "{{value}}",
-        "min": 0,
-        "max": 100000,
-        "step": 1,
-        "className": "",
-        "x": 190,
-        "y": 1560,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "format_zero",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Format 0x7FFFFFFF",
-        "func": "// The manual requires sending 0x7FFFFFFF to trigger calibration.\n// We split this into two 16-bit Modbus registers:\n// High: 0x7FFF (32767)\n// Low:  0xFFFF (65535)\nmsg.payload = [32767, 65535];\n// Safely parse the dropdown string into an integer Unit ID\nmsg.unitid = parseInt(flow.get(\"activeCalibrationSilo\")) || 1; \n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 440,
-        "y": 1380,
-        "wires": [
-            [
-                "03b0298fa84d3f48"
-            ]
-        ]
-    },
-    {
-        "id": "format_load",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Format 0x7FFFFFFF",
-        "func": "msg.payload = [32767, 65535];\n// Safely parse the dropdown string into an integer Unit ID\nmsg.unitid = parseInt(flow.get(\"activeCalibrationSilo\")) || 1; \n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 440,
-        "y": 1440,
-        "wires": [
-            [
-                "fdfc870d7afc30fe"
-            ]
-        ]
-    },
-    {
-        "id": "format_nov",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Convert to 32-bit Array",
-        "func": "msg.payload = msg.payload.weight;\nlet val = parseInt(msg.payload);\n\n// Safety guard: prevent NaN or negative nominal values\nif (isNaN(val) || val <= 0) return null; \n\n// Convert the user's weight input into two 16-bit Modbus words\nlet highWord = (val >> 16) & 0xFFFF;\nlet lowWord = val & 0xFFFF;\n\nmsg.payload = [highWord, lowWord];\n\n// Safely parse the dropdown string into an integer Unit ID\nmsg.unitid = parseInt(flow.get(\"activeCalibrationSilo\")) || 1;\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 450,
-        "y": 1500,
-        "wires": [
-            [
-                "385d90a9e35b7872"
-            ]
-        ]
-    },
-    {
-        "id": "modbus_write_zero",
-        "type": "modbus-write",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Silo 1: Write LDW (Addr 16)",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "",
-        "dataType": "MultipleRegisters",
-        "adr": "16",
-        "quantity": "2",
-        "server": "4bb58d809ecde0ee",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 940,
-        "y": 1320,
-        "wires": [
-            [],
-            []
-        ]
-    },
-    {
-        "id": "modbus_write_load",
-        "type": "modbus-write",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Silo 1: Write LWT (Addr 18)",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "",
-        "dataType": "MultipleRegisters",
-        "adr": "18",
-        "quantity": "2",
-        "server": "4bb58d809ecde0ee",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 940,
-        "y": 1420,
-        "wires": [
-            [],
-            []
-        ]
-    },
-    {
-        "id": "modbus_write_nov",
-        "type": "modbus-write",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Silo 1: Write NOV (Addr 20)",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "",
-        "dataType": "MultipleRegisters",
-        "adr": "20",
-        "quantity": "2",
-        "server": "4bb58d809ecde0ee",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 940,
-        "y": 1540,
-        "wires": [
-            [],
-            []
-        ]
-    },
-    {
-        "id": "5b486b5f72868d45",
-        "type": "ui_text_input",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_calib",
-        "name": "",
-        "label": "3. Enter Actual Test Weight (kg)",
-        "tooltip": "",
-        "group": "ui_calib_group",
-        "order": 5,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "mode": "number",
-        "delay": "0",
-        "topic": "topic",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "msg",
-        "x": 190,
-        "y": 1620,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "2bff9a925e919ced",
-        "type": "ui_form",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "",
-        "label": "Actual Test Weight (kg)",
-        "group": "ui_calib_group",
-        "order": 6,
-        "width": 0,
-        "height": 0,
-        "options": [
-            {
-                "label": "Actual Test Weight (kg)",
-                "value": "weight",
-                "type": "number",
-                "required": true,
-                "rows": null
-            }
-        ],
-        "formValue": {
-            "weight": ""
-        },
-        "payload": "",
-        "submit": "submit",
-        "cancel": "cancel",
-        "topic": "topic",
-        "topicType": "msg",
-        "splitLayout": "",
-        "className": "",
-        "x": 160,
-        "y": 1500,
-        "wires": [
-            [
-                "format_nov"
-            ]
-        ]
-    },
-    {
         "id": "5e24a7fa58d31074",
         "type": "function",
         "z": "3738026cb3832ee1",
         "g": "group_telemetry",
-        "name": "Silo 2: Parse 32-bit Weight V3",
-        "func": "let raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    let weight = (raw[0] << 16) | raw[1];\n\n    let gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n    // Hardcode the Device ID for Silo 2\n    let deviceId = `${gatewaySerial}-silo2`;\n\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight\n        }\n    };\n\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    return msg;\n}\nreturn null;",
+        "name": "Silo 2: Parse 32-bit Weight V4",
+        "func": "const raw = msg.payload?.data ?? msg.payload;\n\nif (!Array.isArray(raw) || raw.length < 2) {\n    return null;\n}\n\n// ADS301 MSV: two 16-bit words, high word first, signed 32-bit result\nconst highWord = Number(raw[0]) & 0xFFFF;\nconst lowWord = Number(raw[1]) & 0xFFFF;\n\nlet displayUnits = (highWord * 0x10000) + lowWord;\n\nif (displayUnits >= 0x80000000) {\n    displayUnits -= 0x100000000;\n}\n\n// Set to 1 for 1 kg divisions.\n// Set to 10 if the ADS301 is configured for 0.1 kg divisions.\nconst unitsPerKg = 1;\nconst weightKg = displayUnits / unitsPerKg;\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// This parser is permanently for physical Silo 1.\nconst siloNumber = 2;\nconst siloId = String(siloNumber).padStart(2, \"0\");\n\nconst deviceSerialNumber = `${gatewayId}_silo_${siloId}`;\n\n// Match the backend schema exactly.\nmsg.payload = {\n    gateway_id: gatewayId,\n    device_serial_number: deviceSerialNumber,\n    sensor_type: \"silo_weight\",\n    timestamp: new Date().toISOString().replace(/\\.\\d{3}Z$/, \"Z\"),\n    data: {\n        weight_kg: weightKg\n    }\n};\n\nmsg.topic = `gateway/${gatewayId}/silo/${deviceSerialNumber}/telemetry`;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1867,8 +1351,7 @@
         "wires": [
             [
                 "479b96e0273a18b1",
-                "debug_weight",
-                "8accce955e87939d"
+                "debug_weight"
             ]
         ]
     },
@@ -1899,8 +1382,7 @@
         "y": 1140,
         "wires": [
             [
-                "5e24a7fa58d31074",
-                "a2cfe0ae760aa28d"
+                "5e24a7fa58d31074"
             ],
             []
         ]
@@ -2094,101 +1576,6 @@
         ]
     },
     {
-        "id": "75741b364a09e9ee",
-        "type": "ui_dropdown",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "",
-        "label": "Select Silo to Calibrate",
-        "tooltip": "",
-        "place": "Select option",
-        "group": "ui_calib_group",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Silo 1",
-                "value": "1",
-                "type": "str"
-            },
-            {
-                "label": "Silo 2",
-                "value": "2",
-                "type": "str"
-            },
-            {
-                "label": "Silo 3",
-                "value": "3",
-                "type": "str"
-            },
-            {
-                "label": "Silo 4",
-                "value": "4",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "x": 320,
-        "y": 1720,
-        "wires": [
-            [
-                "d1556d3cb5fbfa9e"
-            ]
-        ]
-    },
-    {
-        "id": "d1556d3cb5fbfa9e",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Remember Choice",
-        "func": "flow.set(\"activeCalibrationSilo\", msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 540,
-        "y": 1720,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "37047af017d3965c",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 1380,
-        "y": 580,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "57061788d08a630e",
         "type": "mqtt in",
         "z": "3738026cb3832ee1",
@@ -2208,25 +1595,6 @@
             [
                 "c96e6411ef124a35"
             ]
-        ]
-    },
-    {
-        "id": "76085a3613dbbd92",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "a3a62aaa37101276",
-        "name": "LoRa Parser 7.3",
-        "func": "// ── FAI Gateway Parser (v8.0 - The App Awakener) ──\n//\n// Includes all v7.3 fixes (Raw Hex, Little-Endian, GASCO2 Uint32 workaround, \n// 0g weight transmission, and 'now' timestamps).\n//\n// NEW IN v8.0: Forges the 0x04 Device Startup packet to force the Laravel API \n// to flip \"received\": false to true, unlocking the App's UI graphs.\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nif (!msg.payload || !msg.payload.deviceInfo || !msg.payload.data) return null;\n\n// ── UID ──\nconst devEui = msg.payload.deviceInfo.devEui;\nconst uidHex = devEui.slice(-8);\nconst dynamicUid = parseInt(uidHex, 16);\n\n// ── Decode the LoRa binary payload ──\nconst buf = Buffer.from(msg.payload.data, 'base64');\nif (buf.length < 22) return null;\n\nconst temp = buf.readFloatLE(0);\nconst co2 = buf.readUInt16LE(4);\nconst weight = buf.readFloatLE(6);\nconst lux = buf.readFloatLE(10);\nconst humidity = buf.readFloatLE(14);\nconst pressure = buf.readFloatLE(18);\n\n// ── RSSI & Meta ──\nlet bestRssi = -120;\nif (msg.payload.rxInfo && msg.payload.rxInfo.length > 0) {\n    bestRssi = Math.max(...msg.payload.rxInfo.map(rx => rx.rssi));\n}\nconst rawRssi = Math.abs(bestRssi);\nconst timestamp = new Date().toISOString().split('.')[0] + '+00:00';\n\nconst outMessages = [];\n\n// ==========================================\n// PACKET 1: TYPE 0x01 (ENVIRONMENTAL)\n// ==========================================\nconst envBuf = Buffer.alloc(58, 0);\nenvBuf.writeUInt8(0x01, 0);\nenvBuf.writeUInt8(0x3a, 1);\n\nenvBuf.writeFloatLE(temp, 6);\nenvBuf.writeFloatLE(pressure, 10);\nenvBuf.writeFloatLE(temp, 14);\nenvBuf.writeFloatLE(humidity, 18);\nenvBuf.writeUInt32LE(Math.max(0, Math.round(lux)), 22);\nenvBuf.writeUInt32LE(Math.round(co2), 26); // The GASCO2 Workaround\nenvBuf.writeFloatLE(0.0, 30);\nenvBuf.writeFloatLE(0.0, 34);\nenvBuf.writeFloatLE(0.0, 38);\nenvBuf.writeFloatLE(0.0, 42);\nenvBuf.writeFloatLE(0.0, 46);\nenvBuf.writeFloatLE(temp, 50);\nenvBuf.writeFloatLE(temp, 54);\n\noutMessages.push({\n    topic: `gateway/${gatewaySerial}/tinymesh/out`,\n    payload: {\n        \"_meta\": { \"received\": timestamp },\n        \"block\": 0,\n        \"data\": envBuf.toString('hex'),\n        \"detail\": \"serial\",\n        \"hops\": 1,\n        \"latency\": 2,\n        \"network_lvl\": 1,\n        \"packet_num\": Math.floor(Math.random() * 65535),\n        \"rssi\": rawRssi,\n        \"sid\": TARGET_CLOUD_SID,\n        \"type\": \"event\",\n        \"uid\": dynamicUid\n    }\n});\n\n// ==========================================\n// PACKET 2: TYPE 0x02 (WEIGHT ARRAY)\n// ==========================================\n{\n    const wBuf = Buffer.alloc(106, 0);\n    wBuf.writeUInt8(0x02, 0);\n    wBuf.writeUInt8(0x6a, 1);\n\n    const wInt = Math.abs(Math.round(weight));\n    for (let i = 0; i < 50; i++) {\n        wBuf.writeUInt16LE(wInt, 6 + (i * 2));\n    }\n\n    outMessages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": timestamp },\n            \"block\": 0,\n            \"data\": wBuf.toString('hex'),\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    });\n}\n\n// ==========================================\n// PACKET 3: TYPE 0x04 (DEVICE STARTUP / ALIVE)\n// Length: 12 bytes | Signature: 040c\n// ==========================================\n{\n    const aliveBuf = Buffer.alloc(12, 0);\n    aliveBuf.writeUInt8(0x04, 0); // Type\n    aliveBuf.writeUInt8(0x0c, 1); // Length (12)\n\n    // Bytes 2-9: 8-byte Hardware MAC. We inject the 16-char LoRa DevEUI here.\n    const macBuffer = Buffer.from(devEui, 'hex');\n    macBuffer.copy(aliveBuf, 2, 0, 8);\n\n    // Bytes 10-11: Firmware Version (Uint16 LE). Forge version 1 (0x0100).\n    aliveBuf.writeUInt16LE(1, 10);\n\n    outMessages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": timestamp },\n            \"block\": 0,\n            \"data\": aliveBuf.toString('hex'),\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    });\n}\n\nreturn [outMessages];",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 140,
-        "wires": [
-            []
         ]
     },
     {
@@ -2253,8 +1621,8 @@
         "type": "function",
         "z": "3738026cb3832ee1",
         "g": "a3a62aaa37101276",
-        "name": "LoRa Parser 7.2",
-        "func": "// ── FAI Gateway Parser (v7.3 - Always-send weight, \"now\" timestamp, GASCO2 workaround) ──\n//\n// Key fix vs v6.0: the backend does NOT want JSON in `data`. It wants the raw\n// hex-encoded C-struct (sensor_telegram_t / weight array), exactly like the\n// physical Tinymesh hardware sent it, with detail:\"serial\".\n//\n// Changes in v7.3 (app showed device online but no weight/graph data):\n//   1. Removed the weight>0.01 guard on Packet 2 — always send the weight\n//      array now, including 0g, matching confirmed old-hardware behavior.\n//   2. Timestamp reverted to always-\"now\" (matches proven v3.1 behavior)\n//      instead of preferring ChirpStack's uplink time — removes possible\n//      clock-skew/query-window mismatch as a variable.\n// Note: a \"send a fake 0x04 keep-alive packet to flip online status\" fix\n// was considered and rejected — the device already shows online in the app,\n// so that diagnosis didn't match the actual symptom. Not included here.\n//\n// Per the official sensors.h spec:\n//   Type 0x01 (Env, 58 bytes): all fields Little-Endian Float32, except\n//     LightALS (bytes 22-25) which is Uint32 LE.\n//   Type 0x02 (Weight, 106 bytes): 50x Uint16 LE samples starting at byte 6.\n//\n// CONFIRMED WORKAROUND: the third-party backend's decoder reads GASCO2\n// (bytes 26-29) as Uint32, not Float32 as the spec documents. We can't patch\n// the backend, so this parser writes GASCO2 as a raw integer to match what\n// the backend actually does, not what the spec says it should do. See the\n// inline comment at that field for the verification details.\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nif (!msg.payload || !msg.payload.deviceInfo || !msg.payload.data) return null;\n\n// ── UID: last 4 bytes of DevEUI, Big-Endian (matches dynamicUid convention) ──\nconst devEui = msg.payload.deviceInfo.devEui;\nconst uidHex = devEui.slice(-8);\nconst dynamicUid = parseInt(uidHex, 16);\n\n// ── Decode the LoRa binary payload ──\n// Payload is now 22 bytes (was 14, was originally 10): the Arduino sketch\n// now also transmits humidity and pressure from the already-installed\n// BME280 (it measures both, the code just wasn't reading them before).\n// Layout, all Little-Endian:\n//   bytes 0-3:   temperature (float)\n//   bytes 4-5:   co2 ppm (uint16)\n//   bytes 6-9:   scale weight (float)\n//   bytes 10-13: light lux (float)\n//   bytes 14-17: humidity %RH (float)   <-- NEW\n//   bytes 18-21: pressure hPa (float)   <-- NEW\nconst buf = Buffer.from(msg.payload.data, 'base64');\nif (buf.length < 22) return null;\n\nconst temp     = buf.readFloatLE(0);   // °C\nconst co2      = buf.readUInt16LE(4);  // ppm\nconst weight   = buf.readFloatLE(6);   // g\nconst lux      = buf.readFloatLE(10);  // lx\nconst humidity = buf.readFloatLE(14);  // %RH\nconst pressure = buf.readFloatLE(18);  // hPa\n\n// ── RSSI & meta (raw integer, matching tinymesh-edge convention: Math.abs) ──\nlet bestRssi = -120;\nif (msg.payload.rxInfo && msg.payload.rxInfo.length > 0) {\n    bestRssi = Math.max(...msg.payload.rxInfo.map(rx => rx.rssi));\n}\nconst rawRssi = Math.abs(bestRssi);\n// Timestamp: match the known-working v3.1 behavior exactly. v3.1 always used\n// \"now\" (the time Node-RED processed the packet), never the radio's own\n// embedded timestamp. We previously preferred msg.payload.time (ChirpStack's\n// uplink receive time) as a \"more accurate\" timestamp, but that's an\n// unverified deviation from what's proven to work — if there's any clock\n// skew between the Jetson and the app's backend, or if the app's query\n// window is strict about recency, this could be why weight data silently\n// fails to render in the app even though Grafana (likely more lenient on\n// time range) still shows it. Reverting to \"always now\" removes that as a\n// variable.\nconst timestamp = new Date().toISOString().split('.')[0] + '+00:00';\n\nconst outMessages = [];\n\n// ==========================================\n// FORGE PACKET 1: TYPE 0x01 (ENVIRONMENTAL)\n// Length: 58 bytes | Signature: 013a\n// Layout matches sensor_telegram_t exactly, Little-Endian floats per sensors.h spec\n// ==========================================\nconst envBuf = Buffer.alloc(58, 0);\nenvBuf.writeUInt8(0x01, 0); // Byte 0: Type\nenvBuf.writeUInt8(0x3a, 1); // Byte 1: Length (58)\n\n// Bytes 2-5 reserved/unused in struct — left as 0x00\n\nenvBuf.writeFloatLE(temp, 6);    // AirTemperature      (bytes 6-9)\nenvBuf.writeFloatLE(pressure, 10); // AirPressure (bytes 10-13) — now real BME280 hPa reading.\n                                  // UNVERIFIED against backend: AirTemperature at byte 6 is\n                                  // confirmed correct as Float32, but we haven't specifically\n                                  // checked AirPressure. If Grafana shows nonsense here, run the\n                                  // same bit-pattern check used for GASCO2.\nenvBuf.writeFloatLE(temp, 14);   // HumidityTemperature  (bytes 14-17)  — BME280 has one temp sensor,\n                                  // reused here since there's no separate humidity-specific probe\nenvBuf.writeFloatLE(humidity, 18); // Humidity (bytes 18-21) — now real BME280 %RH reading.\n                                  // Also unverified against backend — check Grafana after deploy.\nenvBuf.writeUInt32LE(Math.max(0, Math.round(lux)), 22); // LightALS (bytes 22-25) — now real VEML7700\n                                            // lux data. Written as Uint32 per spec (rounded, floor\n                                            // 0 since lux can't be negative). UNVERIFIED: we found\n                                            // GASCO2 doesn't match its documented type, so once this\n                                            // is live, check Grafana the same way — if LightALS shows\n                                            // a nonsense number, the backend likely also reads this\n                                            // field as a different type than Uint32 and needs the\n                                            // same bit-pattern diagnosis we did for GASCO2.\nenvBuf.writeUInt32LE(Math.round(co2), 26); // GASCO2 (bytes 26-29) — WORKAROUND: spec sheet says\n                                            // Float32 here, but the backend's fixed/third-party\n                                            // decoder actually reads this field as Uint32 (same\n                                            // type as LightALS next to it). Confirmed by reverse-\n                                            // engineering: writing 476.0 as Float32 produced\n                                            // 1139671040 in Grafana — the exact bit pattern of\n                                            // that float reinterpreted as a raw uint32. Since the\n                                            // backend can't be patched, we match its real behavior\n                                            // instead of the documented spec: write the ppm value\n                                            // directly as an integer.\nenvBuf.writeFloatLE(0.0, 30);    // GASTemperature       (bytes 30-33)\nenvBuf.writeFloatLE(0.0, 34);    // GASHumidity          (bytes 34-37)\nenvBuf.writeFloatLE(0.0, 38);    // GASNH3               (bytes 38-41)\nenvBuf.writeFloatLE(0.0, 42);    // GASCO                (bytes 42-45)\nenvBuf.writeFloatLE(0.0, 46);    // GASNO2               (bytes 46-49)\nenvBuf.writeFloatLE(temp, 50);   // BoardTemperature     (bytes 50-53)  — reuse BME280 temp\nenvBuf.writeFloatLE(temp, 54);   // PT100Temperature     (bytes 54-57)  — reuse BME280 temp\n\noutMessages.push({\n    topic: `gateway/${gatewaySerial}/tinymesh/out`,\n    payload: {\n        \"_meta\": { \"received\": timestamp },\n        \"block\": 0,\n        \"data\": envBuf.toString('hex'), // RAW HEX — backend decodes this itself\n        \"detail\": \"serial\",             // matches the proven working contract\n        \"hops\": 1,\n        \"latency\": 2,\n        \"network_lvl\": 1,\n        \"packet_num\": Math.floor(Math.random() * 65535), // bypass cloud dedup\n        \"rssi\": rawRssi,\n        \"sid\": TARGET_CLOUD_SID,\n        \"type\": \"event\",\n        \"uid\": dynamicUid\n    }\n});\n\n// ==========================================\n// FORGE PACKET 2: TYPE 0x02 (WEIGHT ARRAY)\n// Length: 106 bytes | Signature: 026a\n// Array of 50x UInt16, Little-Endian (per reference decoder: \"Payload stays LE\")\n//\n// NOTE: previously guarded with `if (weight > 0.01 || weight < -0.01)` to\n// skip sending when the scale read ~0g. Removed: confirmed that old hardware\n// always sent weight including 0g, and the app is expected to show the scale\n// dropping to zero (e.g. bird stepped off), not flatline at the last nonzero\n// reading. Always transmit this packet now.\n// ==========================================\n{\n    const wBuf = Buffer.alloc(106, 0);\n    wBuf.writeUInt8(0x02, 0); // Byte 0: Type\n    wBuf.writeUInt8(0x6a, 1); // Byte 1: Length (106)\n\n    const wInt = Math.abs(Math.round(weight));\n\n    for (let i = 0; i < 50; i++) {\n        wBuf.writeUInt16LE(wInt, 6 + (i * 2));\n    }\n\n    outMessages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": timestamp },\n            \"block\": 0,\n            \"data\": wBuf.toString('hex'), // RAW HEX, same as packet 1\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    });\n}\n\nreturn [ outMessages ];",
+        "name": "LoRa Parser 8.5",
+        "func": "// ── FAI Gateway Parser v9.0 — Individual Weight Events ──────────────────────\n//\n// Arduino input:\n//   One 50-byte LoRaWAN packet every approximately 3 minutes.\n//\n//   Byte 0:       protocol version\n//   Byte 1:       number of weight samples\n//   Bytes 2-3:    batch number, UInt16 LE\n//   Bytes 4-39:   18 × weight readings, UInt16 LE\n//   Bytes 40-41:  temperature × 100, Int16 LE\n//   Bytes 42-43:  CO2 ppm, UInt16 LE\n//   Bytes 44-45:  light lux, UInt16 LE\n//   Bytes 46-47:  humidity × 100, UInt16 LE\n//   Bytes 48-49:  pressure × 10, UInt16 LE\n//\n// Weight behaviour:\n//   - The 18 Arduino readings are genuine spot readings taken 10 seconds apart.\n//   - Each valid reading becomes a separate backend Type 0x02 event.\n//   - Each Type 0x02 event contains the one weight repeated across all 50\n//     legacy array positions.\n//   - The 18 backend event timestamps are reconstructed at 10-second intervals.\n//   - 0xFFFF means invalid and that specific event is omitted.\n//   - Genuine 0 g readings are retained.\n//\n// Backend output:\n//   Type 0x01: environmental packet, 58 bytes, signature 013a.\n//   Type 0x02: weight packet, 106 bytes, signature 026a.\n//\n// There is no longer a cross-message weight queue.\n\n// ============================================================================\n// Configuration\n// ============================================================================\n\nconst gatewaySerial =\n    env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nconst TARGET_CLOUD_SID = 16777216;\n\nconst EXPECTED_PAYLOAD_LENGTH = 50;\nconst EXPECTED_VERSION = 1;\n\nconst MAX_WEIGHT_SAMPLES = 18;\nconst WEIGHT_INTERVAL_MS = 10000;\n\nconst INVALID_WEIGHT = 0xFFFF;\n\n// Retain a small duplicate history for each device.\nconst RECENT_MESSAGE_HISTORY = 64;\nconst STATE_NAMESPACE = \"faiParserV90\";\n\n// ============================================================================\n// Validate incoming ChirpStack message\n// ============================================================================\n\nif (\n    !msg.payload ||\n    !msg.payload.deviceInfo ||\n    !msg.payload.deviceInfo.devEui ||\n    msg.payload.data === undefined ||\n    msg.payload.data === null\n) {\n    node.warn(\n        \"Invalid ChirpStack message: required payload fields are missing\"\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Device identity\n// ============================================================================\n\nconst devEui =\n    String(msg.payload.deviceInfo.devEui).toUpperCase();\n\nconst uidHex =\n    devEui.slice(-8);\n\nif (!/^[0-9A-F]{8}$/.test(uidHex)) {\n    node.warn(`Invalid DevEUI: ${devEui}`);\n    return null;\n}\n\nconst dynamicUid =\n    parseInt(uidHex, 16);\n\nif (!Number.isFinite(dynamicUid)) {\n    node.warn(\n        `Unable to calculate UID from DevEUI: ${devEui}`\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Decode compact LoRaWAN payload\n// ============================================================================\n\nlet buf;\n\ntry {\n    if (Buffer.isBuffer(msg.payload.data)) {\n        buf = msg.payload.data;\n    } else {\n        buf = Buffer.from(\n            String(msg.payload.data),\n            \"base64\"\n        );\n    }\n} catch (error) {\n    node.warn(\n        `Unable to decode LoRa payload from ${devEui}: ` +\n        error.message\n    );\n\n    return null;\n}\n\nif (buf.length !== EXPECTED_PAYLOAD_LENGTH) {\n    node.warn(\n        `Unexpected payload length from ${devEui}: ` +\n        `${buf.length} bytes; expected ${EXPECTED_PAYLOAD_LENGTH}`\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Decode header\n// ============================================================================\n\nconst protocolVersion =\n    buf.readUInt8(0);\n\nconst sampleCount =\n    buf.readUInt8(1);\n\nconst batchNumber =\n    buf.readUInt16LE(2);\n\nif (protocolVersion !== EXPECTED_VERSION) {\n    node.warn(\n        `Unsupported payload version from ${devEui}: ` +\n        `${protocolVersion}; expected ${EXPECTED_VERSION}`\n    );\n\n    return null;\n}\n\nif (\n    sampleCount === 0 ||\n    sampleCount > MAX_WEIGHT_SAMPLES\n) {\n    node.warn(\n        `Invalid weight sample count from ${devEui}: ` +\n        sampleCount\n    );\n\n    return null;\n}\n\nif (sampleCount !== MAX_WEIGHT_SAMPLES) {\n    node.warn(\n        `Partial weight batch from ${devEui}: ` +\n        `${sampleCount}/${MAX_WEIGHT_SAMPLES}`\n    );\n}\n\n// ============================================================================\n// Duplicate uplink protection\n// ============================================================================\n//\n// Prefer ChirpStack's frame counter when available. Otherwise use the complete\n// compact payload and Arduino batch number.\n\nconst recentMessagesKey =\n    `${STATE_NAMESPACE}_recent_${devEui}`;\n\nlet recentMessages =\n    global.get(recentMessagesKey);\n\nif (!Array.isArray(recentMessages)) {\n    recentMessages = [];\n}\n\nconst frameCounter =\n    Number(msg.payload.fCnt);\n\nconst messageSignature =\n    Number.isInteger(frameCounter)\n        ? `fcnt:${frameCounter}`\n        : `batch:${batchNumber}:${buf.toString(\"hex\")}`;\n\nif (recentMessages.includes(messageSignature)) {\n    node.warn(\n        `Ignoring duplicate LoRa batch ${batchNumber} ` +\n        `from ${devEui}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `duplicate batch ${batchNumber}`\n    });\n\n    return null;\n}\n\nrecentMessages.push(messageSignature);\n\nif (recentMessages.length > RECENT_MESSAGE_HISTORY) {\n    recentMessages =\n        recentMessages.slice(-RECENT_MESSAGE_HISTORY);\n}\n\nglobal.set(\n    recentMessagesKey,\n    recentMessages\n);\n\n// ============================================================================\n// Decode environmental data\n// ============================================================================\n\nconst temp =\n    buf.readInt16LE(40) / 100.0;\n\nconst co2 =\n    buf.readUInt16LE(42);\n\nconst lux =\n    buf.readUInt16LE(44);\n\nconst humidity =\n    buf.readUInt16LE(46) / 100.0;\n\nconst pressure =\n    buf.readUInt16LE(48) / 10.0;\n\n// ============================================================================\n// RSSI\n// ============================================================================\n\nlet bestRssi = -120;\n\nif (\n    Array.isArray(msg.payload.rxInfo) &&\n    msg.payload.rxInfo.length > 0\n) {\n    const validRssiValues =\n        msg.payload.rxInfo\n            .map(rx => Number(rx.rssi))\n            .filter(value => Number.isFinite(value));\n\n    if (validRssiValues.length > 0) {\n        bestRssi =\n            Math.max(...validRssiValues);\n    }\n}\n\nconst rawRssi =\n    Math.abs(bestRssi);\n\n// ============================================================================\n// Timestamp helpers\n// ============================================================================\n//\n// Preserve the previously proven behaviour by using Node-RED processing time\n// as the time of the newest sample.\n//\n// For an 18-reading batch:\n//\n//   sample 0  = newest time minus 170 seconds\n//   sample 1  = newest time minus 160 seconds\n//   ...\n//   sample 17 = newest time\n\nconst newestSampleTime =\n    new Date();\n\nfunction formatBackendTimestamp(date) {\n    return (\n        date.toISOString().split(\".\")[0] +\n        \"+00:00\"\n    );\n}\n\n// ============================================================================\n// Backend message helper\n// ============================================================================\n\nconst outMessages = [];\n\nconst usedPacketNumbers =\n    new Set();\n\nfunction nextPacketNumber() {\n    let packetNumber;\n\n    do {\n        packetNumber =\n            Math.floor(Math.random() * 65536);\n    } while (usedPacketNumbers.has(packetNumber));\n\n    usedPacketNumbers.add(packetNumber);\n\n    return packetNumber;\n}\n\nfunction makeBackendMessage(\n    hexData,\n    receivedTimestamp\n) {\n    return {\n        topic:\n            `gateway/${gatewaySerial}/tinymesh/out`,\n\n        payload: {\n            \"_meta\": {\n                \"received\": receivedTimestamp\n            },\n\n            \"block\": 0,\n            \"data\": hexData,\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": nextPacketNumber(),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    };\n}\n\n// ============================================================================\n// Forge one Type 0x02 packet for each valid weight reading\n//\n// Type:      0x02\n// Length:    106 bytes\n// Signature: 026a\n// ============================================================================\n\nlet validWeightEvents = 0;\nlet invalidWeightEvents = 0;\nlet genuineZeroEvents = 0;\n\nlet firstValidWeight = null;\nlet lastValidWeight = null;\n\nlet firstWeightTimestamp = null;\nlet lastWeightTimestamp = null;\n\nfor (let i = 0; i < sampleCount; i++) {\n    const weight =\n        buf.readUInt16LE(4 + (i * 2));\n\n    const ageFromNewestMs =\n        (sampleCount - 1 - i) *\n        WEIGHT_INTERVAL_MS;\n\n    const sampleTime =\n        new Date(\n            newestSampleTime.getTime() -\n            ageFromNewestMs\n        );\n\n    const sampleTimestamp =\n        formatBackendTimestamp(sampleTime);\n\n    if (weight === INVALID_WEIGHT) {\n        invalidWeightEvents++;\n\n        node.warn(\n            `Skipping invalid weight — ` +\n            `device=${devEui}, ` +\n            `batch=${batchNumber}, ` +\n            `sample=${i + 1}/${sampleCount}, ` +\n            `timestamp=${sampleTimestamp}`\n        );\n\n        continue;\n    }\n\n    // Preserve genuine zeroes and reserve 0xFFFF for invalid readings.\n    const outputWeight =\n        Math.min(\n            65534,\n            Math.max(\n                0,\n                Math.round(weight)\n            )\n        );\n\n    if (outputWeight === 0) {\n        genuineZeroEvents++;\n    }\n\n    const wBuf =\n        Buffer.alloc(106, 0);\n\n    wBuf.writeUInt8(0x02, 0);\n    wBuf.writeUInt8(0x6A, 1);\n\n    // Bytes 2-5 remain reserved and zero-filled.\n    //\n    // Repeat this single spot reading across the fixed legacy 50-value\n    // structure. The backend associates the complete telegram with the\n    // timestamp above.\n\n    for (let j = 0; j < 50; j++) {\n        wBuf.writeUInt16LE(\n            outputWeight,\n            6 + (j * 2)\n        );\n    }\n\n    outMessages.push(\n        makeBackendMessage(\n            wBuf.toString(\"hex\"),\n            sampleTimestamp\n        )\n    );\n\n    if (firstValidWeight === null) {\n        firstValidWeight =\n            outputWeight;\n\n        firstWeightTimestamp =\n            sampleTimestamp;\n    }\n\n    lastValidWeight =\n        outputWeight;\n\n    lastWeightTimestamp =\n        sampleTimestamp;\n\n    validWeightEvents++;\n}\n\n// ============================================================================\n// Forge Type 0x01 environmental packet\n//\n// Type:      0x01\n// Length:    58 bytes\n// Signature: 013a\n// ============================================================================\n\nconst envBuf =\n    Buffer.alloc(58, 0);\n\nenvBuf.writeUInt8(0x01, 0);\nenvBuf.writeUInt8(0x3A, 1);\n\n// Bytes 2-5 remain reserved and zero-filled.\n\nenvBuf.writeFloatLE(\n    temp,\n    6\n);                                      // AirTemperature\n\nenvBuf.writeFloatLE(\n    pressure,\n    10\n);                                      // AirPressure\n\nenvBuf.writeFloatLE(\n    temp,\n    14\n);                                      // HumidityTemperature\n\nenvBuf.writeFloatLE(\n    humidity,\n    18\n);                                      // Humidity\n\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(\n            0,\n            Math.round(lux)\n        )\n    ),\n    22\n);                                      // LightALS\n\n// Confirmed backend workaround:\n// GASCO2 must be written as UInt32 rather than Float32.\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(\n            0,\n            Math.round(co2)\n        )\n    ),\n    26\n);                                      // GASCO2\n\nenvBuf.writeFloatLE(0.0, 30);            // GASTemperature\nenvBuf.writeFloatLE(0.0, 34);            // GASHumidity\nenvBuf.writeFloatLE(0.0, 38);            // GASNH3\nenvBuf.writeFloatLE(0.0, 42);            // GASCO\nenvBuf.writeFloatLE(0.0, 46);            // GASNO2\nenvBuf.writeFloatLE(temp, 50);           // BoardTemperature\nenvBuf.writeFloatLE(temp, 54);           // PT100Temperature\n\nconst environmentalTimestamp =\n    formatBackendTimestamp(newestSampleTime);\n\n// Add the environmental packet after the chronological weight events.\noutMessages.push(\n    makeBackendMessage(\n        envBuf.toString(\"hex\"),\n        environmentalTimestamp\n    )\n);\n\n// ============================================================================\n// Diagnostics\n// ============================================================================\n\nnode.warn(\n    `BATCH DECODED — ` +\n    `device=${devEui}, ` +\n    `batch=${batchNumber}, ` +\n    `samples=${sampleCount}, ` +\n    `validWeights=${validWeightEvents}, ` +\n    `invalidWeights=${invalidWeightEvents}, ` +\n    `genuineZeros=${genuineZeroEvents}`\n);\n\nif (validWeightEvents > 0) {\n    node.warn(\n        `WEIGHT EVENTS CREATED — ` +\n        `device=${devEui}, ` +\n        `count=${validWeightEvents}, ` +\n        `firstWeight=${firstValidWeight}, ` +\n        `firstTime=${firstWeightTimestamp}, ` +\n        `lastWeight=${lastValidWeight}, ` +\n        `lastTime=${lastWeightTimestamp}`\n    );\n}\n\nnode.warn(\n    `PARSER OUTPUT — ` +\n    `device=${devEui}, ` +\n    `messages=${outMessages.length}, ` +\n    `weightMessages=${validWeightEvents}, ` +\n    `environmentMessages=1`\n);\n\nnode.status({\n    fill:\n        invalidWeightEvents > 0\n            ? \"yellow\"\n            : \"green\",\n\n    shape: \"dot\",\n\n    text:\n        `${validWeightEvents} weights + 1 env`\n});\n\n// ============================================================================\n// Send all generated messages through output 1\n// ============================================================================\n//\n// With 18 valid weights, this sends 19 messages:\n//\n//   18 × Type 0x02 weight packets\n//    1 × Type 0x01 environmental packet\n\nnode.send([outMessages]);\n\nreturn null;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2289,183 +1657,6 @@
         ]
     },
     {
-        "id": "5cc51e1bab3fd5cc",
-        "type": "modbus-write",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Silo 2: Write LDW (Addr 16)",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "",
-        "dataType": "MultipleRegisters",
-        "adr": "16",
-        "quantity": "2",
-        "server": "6cb3960ddc98e75c",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 940,
-        "y": 1360,
-        "wires": [
-            [],
-            []
-        ]
-    },
-    {
-        "id": "50495e2410b68366",
-        "type": "modbus-write",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Silo 2:  Write LWT (Addr 18)",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "",
-        "dataType": "MultipleRegisters",
-        "adr": "18",
-        "quantity": "2",
-        "server": "6cb3960ddc98e75c",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 940,
-        "y": 1460,
-        "wires": [
-            [],
-            []
-        ]
-    },
-    {
-        "id": "4709234755ae6897",
-        "type": "modbus-write",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Silo 2: Write NOV (Addr 20)",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "",
-        "dataType": "MultipleRegisters",
-        "adr": "20",
-        "quantity": "2",
-        "server": "6cb3960ddc98e75c",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 940,
-        "y": 1580,
-        "wires": [
-            [],
-            []
-        ]
-    },
-    {
-        "id": "03b0298fa84d3f48",
-        "type": "switch",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Silo 1/2 Switch",
-        "property": "activeCalibrationSilo",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "2",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 660,
-        "y": 1380,
-        "wires": [
-            [
-                "modbus_write_zero"
-            ],
-            [
-                "5cc51e1bab3fd5cc"
-            ]
-        ]
-    },
-    {
-        "id": "fdfc870d7afc30fe",
-        "type": "switch",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Silo 1/2 Switch",
-        "property": "activeCalibrationSilo",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "2",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 660,
-        "y": 1440,
-        "wires": [
-            [
-                "modbus_write_load"
-            ],
-            [
-                "50495e2410b68366"
-            ]
-        ]
-    },
-    {
-        "id": "385d90a9e35b7872",
-        "type": "switch",
-        "z": "3738026cb3832ee1",
-        "g": "group_calib",
-        "name": "Silo 1/2 Switch",
-        "property": "activeCalibrationSilo",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "2",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 660,
-        "y": 1500,
-        "wires": [
-            [
-                "modbus_write_nov"
-            ],
-            [
-                "4709234755ae6897"
-            ]
-        ]
-    },
-    {
         "id": "1bea3bf5ab4bfcec",
         "type": "function",
         "z": "3738026cb3832ee1",
@@ -2489,8 +1680,8 @@
         "type": "function",
         "z": "3738026cb3832ee1",
         "g": "group_telemetry",
-        "name": "Silo 1: Parse 32-bit Weight V3",
-        "func": "let raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    let weight = (raw[0] << 16) | raw[1];\n\n    let gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n    // Hardcode the Device ID for Silo 1\n    let deviceId = `${gatewaySerial}-silo1`;\n\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight\n        }\n    };\n\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    return msg;\n}\nreturn null;",
+        "name": "Silo 1: Parse 32-bit Weight V4",
+        "func": "const raw = msg.payload?.data ?? msg.payload;\n\nif (!Array.isArray(raw) || raw.length < 2) {\n    return null;\n}\n\n// ADS301 MSV: two 16-bit words, high word first, signed 32-bit result\nconst highWord = Number(raw[0]) & 0xFFFF;\nconst lowWord = Number(raw[1]) & 0xFFFF;\n\nlet displayUnits = (highWord * 0x10000) + lowWord;\n\nif (displayUnits >= 0x80000000) {\n    displayUnits -= 0x100000000;\n}\n\n// Set to 1 for 1 kg divisions.\n// Set to 10 if the ADS301 is configured for 0.1 kg divisions.\nconst unitsPerKg = 1;\nconst weightKg = displayUnits / unitsPerKg;\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// This parser is permanently for physical Silo 1.\nconst siloNumber = 1;\nconst siloId = String(siloNumber).padStart(2, \"0\");\n\nconst deviceSerialNumber = `${gatewayId}_silo_${siloId}`;\n\n// Match the backend schema exactly.\nmsg.payload = {\n    gateway_id: gatewayId,\n    device_serial_number: deviceSerialNumber,\n    sensor_type: \"silo_weight\",\n    timestamp: new Date().toISOString().replace(/\\.\\d{3}Z$/, \"Z\"),\n    data: {\n        weight_kg: weightKg\n    }\n};\n\nmsg.topic = `gateway/${gatewayId}/silo/${deviceSerialNumber}/telemetry`;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2502,43 +1693,554 @@
         "wires": [
             [
                 "debug_weight",
-                "8accce955e87939d"
+                "479b96e0273a18b1"
             ]
         ]
     },
     {
-        "id": "8accce955e87939d",
-        "type": "debug",
+        "id": "9fdd4071c0fc3604",
+        "type": "function",
         "z": "3738026cb3832ee1",
         "g": "group_telemetry",
+        "name": "Silo 1: Parse 32-bit Weight V3",
+        "func": "let raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    let weight = (raw[0] << 16) | raw[1];\n\n    let gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n    // Hardcode the Device ID for Silo 1\n    let deviceId = `${gatewaySerial}-silo1`;\n\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight\n        }\n    };\n\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    return msg;\n}\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3e35b4fe1df24143",
+        "type": "comment",
+        "z": "3738026cb3832ee1",
+        "name": "ADS301 dashboard calibration — replacement for old calibration controls",
+        "info": "Use the Dashboard in this order:\n1. Select Silo 1 or Silo 2.\n2. Ensure selected silo is empty and stable, then press Set Zero.\n3. Add a stable, known test load.\n4. Enter that exact load in kg and press Calibrate Known Weight + Save.\n\nEach command is held to one per second, routes to the correct TCP Modbus server,\nand writes with Unit ID 1. Do not use the old dashboard calibration controls after importing.",
+        "x": 540,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "d78ea0c6cc6a46e0",
+        "type": "ui_dropdown",
+        "z": "3738026cb3832ee1",
+        "name": "Choose calibration silo",
+        "label": "Select silo",
+        "tooltip": "Choose the physical silo to calibrate.",
+        "place": "Choose Silo 1 or Silo 2",
+        "group": "bf1a2f43b10343c8",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Silo 1",
+                "value": "1",
+                "type": "str"
+            },
+            {
+                "label": "Silo 2",
+                "value": "2",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 220,
+        "y": 1560,
+        "wires": [
+            [
+                "74ad24f2d8274eba"
+            ]
+        ]
+    },
+    {
+        "id": "74ad24f2d8274eba",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Remember selected silo",
+        "func": "const silo = String(msg.payload ?? '').trim();\n\nif (!['1', '2'].includes(silo)) {\n    msg.payload = 'Choose Silo 1 or Silo 2.';\n    return msg;\n}\n\nflow.set('ads301CalibrationSilo', silo);\nmsg.payload = `Selected: Silo ${silo}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 1560,
+        "wires": [
+            [
+                "b92613aa21664a40"
+            ]
+        ]
+    },
+    {
+        "id": "9e82656eb5534a6c",
+        "type": "ui_numeric",
+        "z": "3738026cb3832ee1",
+        "name": "Known test weight",
+        "label": "Known test weight (kg)",
+        "tooltip": "Enter the exact stable load that will be on the selected silo.",
+        "group": "bf1a2f43b10343c8",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "topic": "",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": "0.01",
+        "max": "8000000",
+        "step": "1",
+        "className": "",
+        "x": 210,
+        "y": 1620,
+        "wires": [
+            [
+                "d8c321012a4f40ca"
+            ]
+        ]
+    },
+    {
+        "id": "d8c321012a4f40ca",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Remember known weight",
+        "func": "const kg = Number(msg.payload);\n\nif (!Number.isFinite(kg) || kg <= 0) {\n    msg.payload = 'Enter a known test weight greater than zero.';\n    return msg;\n}\n\nflow.set('ads301KnownWeightKg', kg);\nmsg.payload = `Known test weight: ${kg} kg`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 1620,
+        "wires": [
+            [
+                "b92613aa21664a40"
+            ]
+        ]
+    },
+    {
+        "id": "7ba9f265bf904166",
+        "type": "ui_button",
+        "z": "3738026cb3832ee1",
+        "name": "Set zero from dashboard",
+        "group": "bf1a2f43b10343c8",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "1. Set Zero — silo empty & stable",
+        "tooltip": "Samples the empty load point. Do not use this with product or a test weight on the silo.",
+        "color": "white",
+        "bgcolor": "#d9534f",
+        "className": "",
+        "icon": "",
+        "payload": "zero",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 230,
+        "y": 1680,
+        "wires": [
+            [
+                "9837dede03b84a89"
+            ]
+        ]
+    },
+    {
+        "id": "9837dede03b84a89",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Queue Zero sequence",
+        "func": "const silo = String(flow.get('ads301CalibrationSilo') || '');\n\nif (!['1', '2'].includes(silo)) {\n    return [null, { payload: 'Select Silo 1 or Silo 2 before setting zero.' }];\n}\nif (flow.get('ads301CalibrationBusy')) {\n    return [null, { payload: 'A calibration sequence is already running. Wait for it to complete.' }];\n}\n\nflow.set('ads301CalibrationBusy', true);\n\nconst common = { calibrationSilo: silo, calibrationMode: 'zero' };\n\nreturn [[\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for zero`,\n        calibrationAction: `Silo ${silo}: password unlocked for zero`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: sample empty zero (LDW)`,\n        calibrationAction: `Silo ${silo}: zero point sampled`,\n        calibrationLast: true,\n        payload: { value: [32767, 65535], fc: 16, unitid: 1, address: 16, quantity: 2 }\n    }\n], {\n    payload: `Zero calibration queued for Silo ${silo}. Keep it empty and stable.`\n}];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 1680,
+        "wires": [
+            [
+                "fe6171767b904329"
+            ],
+            [
+                "b92613aa21664a40"
+            ]
+        ]
+    },
+    {
+        "id": "ff305cf975264067",
+        "type": "ui_button",
+        "z": "3738026cb3832ee1",
+        "name": "Calibrate known weight from dashboard",
+        "group": "bf1a2f43b10343c8",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "2. Calibrate Known Weight + Save",
+        "tooltip": "With the known weight applied and stable, samples LWT, writes NOV, and saves calibration.",
+        "color": "white",
+        "bgcolor": "#5cb85c",
+        "className": "",
+        "icon": "",
+        "payload": "known-weight",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 280,
+        "y": 1740,
+        "wires": [
+            [
+                "dca53e7245ae4013"
+            ]
+        ]
+    },
+    {
+        "id": "dca53e7245ae4013",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Queue known-load + save sequence",
+        "func": "const silo = String(flow.get('ads301CalibrationSilo') || '');\nconst kg = Number(flow.get('ads301KnownWeightKg'));\n\n// Set to 10 only when the ADS301 is configured to report 0.1 kg display increments.\nconst unitsPerKg = 1;\nconst nominal = Math.round(kg * unitsPerKg);\n\nif (!['1', '2'].includes(silo)) {\n    return [null, { payload: 'Select Silo 1 or Silo 2 before calibrating the known load.' }];\n}\nif (!Number.isSafeInteger(nominal) || nominal <= 0 || nominal > 8000000) {\n    return [null, { payload: 'Enter a valid known test weight before calibrating.' }];\n}\nif (flow.get('ads301CalibrationBusy')) {\n    return [null, { payload: 'A calibration sequence is already running. Wait for it to complete.' }];\n}\n\nflow.set('ads301CalibrationBusy', true);\n\nconst highWord = Math.floor(nominal / 65536);\nconst lowWord = nominal & 0xFFFF;\nconst common = { calibrationSilo: silo, calibrationMode: 'known-weight' };\n\nreturn [[\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for known load`,\n        calibrationAction: `Silo ${silo}: password unlocked for known load`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: sample known load (LWT)`,\n        calibrationAction: `Silo ${silo}: known load sampled`,\n        payload: { value: [32767, 65535], fc: 16, unitid: 1, address: 18, quantity: 2 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for nominal value`,\n        calibrationAction: `Silo ${silo}: password unlocked for nominal value`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: write nominal ${nominal} display units`,\n        calibrationAction: `Silo ${silo}: nominal value ${kg} kg written`,\n        payload: { value: [highWord, lowWord], fc: 16, unitid: 1, address: 20, quantity: 2 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: save calibration (TDD)`,\n        calibrationAction: `Silo ${silo}: calibration saved`,\n        calibrationLast: true,\n        payload: { value: 1, fc: 6, unitid: 1, address: 48, quantity: 1 }\n    }\n], {\n    payload: `Known-load calibration queued for Silo ${silo}: ${kg} kg. Keep the load stable until saved.`\n}];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 1740,
+        "wires": [
+            [
+                "fe6171767b904329"
+            ],
+            [
+                "b92613aa21664a40"
+            ]
+        ]
+    },
+    {
+        "id": "fe6171767b904329",
+        "type": "delay",
+        "z": "3738026cb3832ee1",
+        "name": "One ADS301 command per second",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 1600,
+        "wires": [
+            [
+                "ed3c74943aa245c2"
+            ]
+        ]
+    },
+    {
+        "id": "ed3c74943aa245c2",
+        "type": "switch",
+        "z": "3738026cb3832ee1",
+        "name": "Route to selected silo port",
+        "property": "calibrationSilo",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1370,
+        "y": 1600,
+        "wires": [
+            [
+                "7deb0ca4516b4ad1"
+            ],
+            [
+                "0426fd6d9b454513"
+            ]
+        ]
+    },
+    {
+        "id": "7deb0ca4516b4ad1",
+        "type": "modbus-flex-write",
+        "z": "3738026cb3832ee1",
+        "name": "Silo 1 — ADS301 Flex Write",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "server": "4bb58d809ecde0ee",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": true,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1670,
+        "y": 1570,
+        "wires": [
+            [
+                "61150982a07346db"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "0426fd6d9b454513",
+        "type": "modbus-flex-write",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "name": "Silo 2 — ADS301 Flex Write",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "server": "6cb3960ddc98e75c",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": true,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1670,
+        "y": 1630,
+        "wires": [
+            [
+                "61150982a07346db"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "61150982a07346db",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Show successful command result",
+        "func": "const action = msg.calibrationAction || msg.topic || 'ADS301 write';\n\nif (msg.calibrationLast) {\n    flow.set('ads301CalibrationBusy', false);\n    msg.payload = `✓ ${action} — sequence complete.`;\n} else {\n    msg.payload = `✓ ${action}`;\n}\n\nmsg.topic = 'ADS301 Calibration';\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2000,
+        "y": 1600,
+        "wires": [
+            [
+                "b92613aa21664a40",
+                "020055c64f32407c"
+            ]
+        ]
+    },
+    {
+        "id": "b92613aa21664a40",
+        "type": "ui_text",
+        "z": "3738026cb3832ee1",
+        "group": "bf1a2f43b10343c8",
+        "order": 5,
+        "width": 6,
+        "height": 1,
+        "name": "Calibration status",
+        "label": "Calibration status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1190,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "020055c64f32407c",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "name": "ADS301 dashboard calibration success",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2380,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "e30e118b06e7c31e",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "5014da80cd5e927f",
         "name": "debug 1",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1000,
-        "y": 1200,
+        "x": 550,
+        "y": 460,
         "wires": []
     },
     {
-        "id": "a2cfe0ae760aa28d",
-        "type": "debug",
+        "id": "fde848e9feeba4ca",
+        "type": "function",
         "z": "3738026cb3832ee1",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 600,
-        "y": 1060,
-        "wires": []
+        "g": "group_telemetry",
+        "name": "Silo 1: Parse 32-bit Weight V3",
+        "func": "let raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    let weight = (raw[0] << 16) | raw[1];\n\n    let gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n    // Hardcode the Device ID for Silo 1\n    let deviceId = `${gatewaySerial}_silo_1`;\n\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight\n        }\n    };\n\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    return msg;\n}\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 1300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6ef0ce2bb6e5975b",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "group_telemetry",
+        "name": "Silo 2: Parse 32-bit Weight V3",
+        "func": "let raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    let weight = (raw[0] << 16) | raw[1];\n\n    let gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n    // Hardcode the Device ID for Silo 2\n    let deviceId = `${gatewaySerial}-silo2`;\n\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"device_id\": deviceId,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight\n        }\n    };\n\n    msg.topic = `gateway/${gatewaySerial}/silo/${deviceId}/telemetry`;\n    return msg;\n}\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 1360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "02b36d671f86498c",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "LoRa Parser 7.2",
+        "func": "// ── FAI Gateway Parser (v7.3 - Always-send weight, \"now\" timestamp, GASCO2 workaround) ──\n//\n// Key fix vs v6.0: the backend does NOT want JSON in `data`. It wants the raw\n// hex-encoded C-struct (sensor_telegram_t / weight array), exactly like the\n// physical Tinymesh hardware sent it, with detail:\"serial\".\n//\n// Changes in v7.3 (app showed device online but no weight/graph data):\n//   1. Removed the weight>0.01 guard on Packet 2 — always send the weight\n//      array now, including 0g, matching confirmed old-hardware behavior.\n//   2. Timestamp reverted to always-\"now\" (matches proven v3.1 behavior)\n//      instead of preferring ChirpStack's uplink time — removes possible\n//      clock-skew/query-window mismatch as a variable.\n// Note: a \"send a fake 0x04 keep-alive packet to flip online status\" fix\n// was considered and rejected — the device already shows online in the app,\n// so that diagnosis didn't match the actual symptom. Not included here.\n//\n// Per the official sensors.h spec:\n//   Type 0x01 (Env, 58 bytes): all fields Little-Endian Float32, except\n//     LightALS (bytes 22-25) which is Uint32 LE.\n//   Type 0x02 (Weight, 106 bytes): 50x Uint16 LE samples starting at byte 6.\n//\n// CONFIRMED WORKAROUND: the third-party backend's decoder reads GASCO2\n// (bytes 26-29) as Uint32, not Float32 as the spec documents. We can't patch\n// the backend, so this parser writes GASCO2 as a raw integer to match what\n// the backend actually does, not what the spec says it should do. See the\n// inline comment at that field for the verification details.\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nif (!msg.payload || !msg.payload.deviceInfo || !msg.payload.data) return null;\n\n// ── UID: last 4 bytes of DevEUI, Big-Endian (matches dynamicUid convention) ──\nconst devEui = msg.payload.deviceInfo.devEui;\nconst uidHex = devEui.slice(-8);\nconst dynamicUid = parseInt(uidHex, 16);\n\n// ── Decode the LoRa binary payload ──\n// Payload is now 22 bytes (was 14, was originally 10): the Arduino sketch\n// now also transmits humidity and pressure from the already-installed\n// BME280 (it measures both, the code just wasn't reading them before).\n// Layout, all Little-Endian:\n//   bytes 0-3:   temperature (float)\n//   bytes 4-5:   co2 ppm (uint16)\n//   bytes 6-9:   scale weight (float)\n//   bytes 10-13: light lux (float)\n//   bytes 14-17: humidity %RH (float)   <-- NEW\n//   bytes 18-21: pressure hPa (float)   <-- NEW\nconst buf = Buffer.from(msg.payload.data, 'base64');\nif (buf.length < 22) return null;\n\nconst temp     = buf.readFloatLE(0);   // °C\nconst co2      = buf.readUInt16LE(4);  // ppm\nconst weight   = buf.readFloatLE(6);   // g\nconst lux      = buf.readFloatLE(10);  // lx\nconst humidity = buf.readFloatLE(14);  // %RH\nconst pressure = buf.readFloatLE(18);  // hPa\n\n// ── RSSI & meta (raw integer, matching tinymesh-edge convention: Math.abs) ──\nlet bestRssi = -120;\nif (msg.payload.rxInfo && msg.payload.rxInfo.length > 0) {\n    bestRssi = Math.max(...msg.payload.rxInfo.map(rx => rx.rssi));\n}\nconst rawRssi = Math.abs(bestRssi);\n// Timestamp: match the known-working v3.1 behavior exactly. v3.1 always used\n// \"now\" (the time Node-RED processed the packet), never the radio's own\n// embedded timestamp. We previously preferred msg.payload.time (ChirpStack's\n// uplink receive time) as a \"more accurate\" timestamp, but that's an\n// unverified deviation from what's proven to work — if there's any clock\n// skew between the Jetson and the app's backend, or if the app's query\n// window is strict about recency, this could be why weight data silently\n// fails to render in the app even though Grafana (likely more lenient on\n// time range) still shows it. Reverting to \"always now\" removes that as a\n// variable.\nconst timestamp = new Date().toISOString().split('.')[0] + '+00:00';\n\nconst outMessages = [];\n\n// ==========================================\n// FORGE PACKET 1: TYPE 0x01 (ENVIRONMENTAL)\n// Length: 58 bytes | Signature: 013a\n// Layout matches sensor_telegram_t exactly, Little-Endian floats per sensors.h spec\n// ==========================================\nconst envBuf = Buffer.alloc(58, 0);\nenvBuf.writeUInt8(0x01, 0); // Byte 0: Type\nenvBuf.writeUInt8(0x3a, 1); // Byte 1: Length (58)\n\n// Bytes 2-5 reserved/unused in struct — left as 0x00\n\nenvBuf.writeFloatLE(temp, 6);    // AirTemperature      (bytes 6-9)\nenvBuf.writeFloatLE(pressure, 10); // AirPressure (bytes 10-13) — now real BME280 hPa reading.\n                                  // UNVERIFIED against backend: AirTemperature at byte 6 is\n                                  // confirmed correct as Float32, but we haven't specifically\n                                  // checked AirPressure. If Grafana shows nonsense here, run the\n                                  // same bit-pattern check used for GASCO2.\nenvBuf.writeFloatLE(temp, 14);   // HumidityTemperature  (bytes 14-17)  — BME280 has one temp sensor,\n                                  // reused here since there's no separate humidity-specific probe\nenvBuf.writeFloatLE(humidity, 18); // Humidity (bytes 18-21) — now real BME280 %RH reading.\n                                  // Also unverified against backend — check Grafana after deploy.\nenvBuf.writeUInt32LE(Math.max(0, Math.round(lux)), 22); // LightALS (bytes 22-25) — now real VEML7700\n                                            // lux data. Written as Uint32 per spec (rounded, floor\n                                            // 0 since lux can't be negative). UNVERIFIED: we found\n                                            // GASCO2 doesn't match its documented type, so once this\n                                            // is live, check Grafana the same way — if LightALS shows\n                                            // a nonsense number, the backend likely also reads this\n                                            // field as a different type than Uint32 and needs the\n                                            // same bit-pattern diagnosis we did for GASCO2.\nenvBuf.writeUInt32LE(Math.round(co2), 26); // GASCO2 (bytes 26-29) — WORKAROUND: spec sheet says\n                                            // Float32 here, but the backend's fixed/third-party\n                                            // decoder actually reads this field as Uint32 (same\n                                            // type as LightALS next to it). Confirmed by reverse-\n                                            // engineering: writing 476.0 as Float32 produced\n                                            // 1139671040 in Grafana — the exact bit pattern of\n                                            // that float reinterpreted as a raw uint32. Since the\n                                            // backend can't be patched, we match its real behavior\n                                            // instead of the documented spec: write the ppm value\n                                            // directly as an integer.\nenvBuf.writeFloatLE(0.0, 30);    // GASTemperature       (bytes 30-33)\nenvBuf.writeFloatLE(0.0, 34);    // GASHumidity          (bytes 34-37)\nenvBuf.writeFloatLE(0.0, 38);    // GASNH3               (bytes 38-41)\nenvBuf.writeFloatLE(0.0, 42);    // GASCO                (bytes 42-45)\nenvBuf.writeFloatLE(0.0, 46);    // GASNO2               (bytes 46-49)\nenvBuf.writeFloatLE(temp, 50);   // BoardTemperature     (bytes 50-53)  — reuse BME280 temp\nenvBuf.writeFloatLE(temp, 54);   // PT100Temperature     (bytes 54-57)  — reuse BME280 temp\n\noutMessages.push({\n    topic: `gateway/${gatewaySerial}/tinymesh/out`,\n    payload: {\n        \"_meta\": { \"received\": timestamp },\n        \"block\": 0,\n        \"data\": envBuf.toString('hex'), // RAW HEX — backend decodes this itself\n        \"detail\": \"serial\",             // matches the proven working contract\n        \"hops\": 1,\n        \"latency\": 2,\n        \"network_lvl\": 1,\n        \"packet_num\": Math.floor(Math.random() * 65535), // bypass cloud dedup\n        \"rssi\": rawRssi,\n        \"sid\": TARGET_CLOUD_SID,\n        \"type\": \"event\",\n        \"uid\": dynamicUid\n    }\n});\n\n// ==========================================\n// FORGE PACKET 2: TYPE 0x02 (WEIGHT ARRAY)\n// Length: 106 bytes | Signature: 026a\n// Array of 50x UInt16, Little-Endian (per reference decoder: \"Payload stays LE\")\n//\n// NOTE: previously guarded with `if (weight > 0.01 || weight < -0.01)` to\n// skip sending when the scale read ~0g. Removed: confirmed that old hardware\n// always sent weight including 0g, and the app is expected to show the scale\n// dropping to zero (e.g. bird stepped off), not flatline at the last nonzero\n// reading. Always transmit this packet now.\n// ==========================================\n{\n    const wBuf = Buffer.alloc(106, 0);\n    wBuf.writeUInt8(0x02, 0); // Byte 0: Type\n    wBuf.writeUInt8(0x6a, 1); // Byte 1: Length (106)\n\n    const wInt = Math.abs(Math.round(weight));\n\n    for (let i = 0; i < 50; i++) {\n        wBuf.writeUInt16LE(wInt, 6 + (i * 2));\n    }\n\n    outMessages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": timestamp },\n            \"block\": 0,\n            \"data\": wBuf.toString('hex'), // RAW HEX, same as packet 1\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    });\n}\n\nreturn [ outMessages ];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c42ebcbcc870952d",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "LoRa Parser 8.1",
+        "func": "// ── FAI Gateway Parser v8.0 ─────────────────────────────────────────────────\n//\n// Input from Arduino:\n//   50-byte compact LoRaWAN batch\n//   - 18 genuine weight spot readings, sampled every 10 seconds\n//   - environmental spot readings taken after the weight array is full\n//\n// Output to backend remains unchanged:\n//   Type 0x01: 58-byte environmental sensor_telegram_t\n//   Type 0x02: 106-byte packet containing 50x UInt16 weight readings\n//\n// The backend still receives raw hex C-struct data with detail:\"serial\".\n// No JSON sensor object is placed inside `data`.\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nconst EXPECTED_PAYLOAD_LENGTH = 50;\nconst EXPECTED_VERSION = 1;\nconst MAX_WEIGHT_SAMPLES_PER_BATCH = 18;\nconst INVALID_WEIGHT = 0xFFFF;\n\n// Number of recently processed batch IDs retained per device.\n// This prevents a retried LoRa transmission from duplicating its 18 samples.\nconst RECENT_BATCH_HISTORY = 32;\n\nif (\n    !msg.payload ||\n    !msg.payload.deviceInfo ||\n    !msg.payload.deviceInfo.devEui ||\n    !msg.payload.data\n) {\n    return null;\n}\n\n// ── Device identity ──────────────────────────────────────────────────────────\n\nconst devEui = String(msg.payload.deviceInfo.devEui);\nconst uidHex = devEui.slice(-8);\nconst dynamicUid = parseInt(uidHex, 16);\n\nif (!Number.isFinite(dynamicUid)) {\n    node.warn(`Unable to derive UID from DevEUI: ${devEui}`);\n    return null;\n}\n\n// ── Decode the 50-byte LoRa payload ─────────────────────────────────────────\n\nlet buf;\n\ntry {\n    buf = Buffer.from(msg.payload.data, \"base64\");\n} catch (error) {\n    node.warn(`Could not decode LoRa payload: ${error.message}`);\n    return null;\n}\n\nif (buf.length !== EXPECTED_PAYLOAD_LENGTH) {\n    node.warn(\n        `Unexpected LoRa payload length from ${devEui}: ` +\n        `${buf.length}; expected ${EXPECTED_PAYLOAD_LENGTH}`\n    );\n    return null;\n}\n\nconst protocolVersion = buf.readUInt8(0);\nconst sampleCount = buf.readUInt8(1);\nconst batchNumber = buf.readUInt16LE(2);\n\nif (protocolVersion !== EXPECTED_VERSION) {\n    node.warn(\n        `Unsupported payload version from ${devEui}: ` +\n        `${protocolVersion}`\n    );\n    return null;\n}\n\nif (\n    sampleCount === 0 ||\n    sampleCount > MAX_WEIGHT_SAMPLES_PER_BATCH\n) {\n    node.warn(\n        `Invalid sample count from ${devEui}: ${sampleCount}`\n    );\n    return null;\n}\n\nif (sampleCount !== MAX_WEIGHT_SAMPLES_PER_BATCH) {\n    node.warn(\n        `Partial weight batch from ${devEui}: ` +\n        `${sampleCount}/${MAX_WEIGHT_SAMPLES_PER_BATCH} samples`\n    );\n}\n\n// Environmental values are scaled integers in the LoRa packet.\nconst temp = buf.readInt16LE(40) / 100.0;\nconst co2 = buf.readUInt16LE(42);\nconst lux = buf.readUInt16LE(44);\nconst humidity = buf.readUInt16LE(46) / 100.0;\nconst pressure = buf.readUInt16LE(48) / 10.0;\n\n// ── Retrieve persistent per-device parser state ─────────────────────────────\n//\n// State is separated by DevEUI so several LoRa nodes can use the same parser.\n\nlet parserState = context.get(\"faiBatchParserState\");\n\nif (\n    !parserState ||\n    typeof parserState !== \"object\" ||\n    Array.isArray(parserState)\n) {\n    parserState = {};\n}\n\nlet deviceState = parserState[devEui];\n\nif (\n    !deviceState ||\n    typeof deviceState !== \"object\" ||\n    Array.isArray(deviceState)\n) {\n    deviceState = {\n        weightQueue: [],\n        recentBatchNumbers: []\n    };\n}\n\nif (!Array.isArray(deviceState.weightQueue)) {\n    deviceState.weightQueue = [];\n}\n\nif (!Array.isArray(deviceState.recentBatchNumbers)) {\n    deviceState.recentBatchNumbers = [];\n}\n\n// ── Reject duplicate LoRa batches ───────────────────────────────────────────\n//\n// This matters because the Arduino retains and retries a completed batch if it\n// does not receive +EVT:TX_DONE. The network may occasionally receive both\n// attempts even though the Arduino believed the first attempt failed.\n\nif (deviceState.recentBatchNumbers.includes(batchNumber)) {\n    node.warn(\n        `Ignoring duplicate batch ${batchNumber} from ${devEui}`\n    );\n    return null;\n}\n\ndeviceState.recentBatchNumbers.push(batchNumber);\n\nif (\n    deviceState.recentBatchNumbers.length >\n    RECENT_BATCH_HISTORY\n) {\n    deviceState.recentBatchNumbers =\n        deviceState.recentBatchNumbers.slice(\n            -RECENT_BATCH_HISTORY\n        );\n}\n\n// ── Add genuine weight readings to the device queue ─────────────────────────\n\nlet invalidWeightCount = 0;\n\nfor (let i = 0; i < sampleCount; i++) {\n    const weight = buf.readUInt16LE(4 + (i * 2));\n\n    if (weight === INVALID_WEIGHT) {\n        invalidWeightCount++;\n        continue;\n    }\n\n    // Zero is a genuine measurement and must be retained.\n    deviceState.weightQueue.push(weight);\n}\n\nif (invalidWeightCount > 0) {\n    node.warn(\n        `Batch ${batchNumber} from ${devEui} contained ` +\n        `${invalidWeightCount} invalid scale reading(s)`\n    );\n}\n\n// ── RSSI and timestamp ───────────────────────────────────────────────────────\n\nlet bestRssi = -120;\n\nif (\n    Array.isArray(msg.payload.rxInfo) &&\n    msg.payload.rxInfo.length > 0\n) {\n    const validRssiValues = msg.payload.rxInfo\n        .map(rx => Number(rx.rssi))\n        .filter(value => Number.isFinite(value));\n\n    if (validRssiValues.length > 0) {\n        bestRssi = Math.max(...validRssiValues);\n    }\n}\n\nconst rawRssi = Math.abs(bestRssi);\n\n// Preserve the proven v3.1/v7.3 behaviour: timestamp is the time at which\n// Node-RED processes the received LoRa packet.\nconst timestamp =\n    new Date().toISOString().split(\".\")[0] + \"+00:00\";\n\nconst outMessages = [];\n\nfunction makeBackendMessage(hexData) {\n    return {\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": {\n                \"received\": timestamp\n            },\n            \"block\": 0,\n            \"data\": hexData,\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n\n            // Continue varying this value to avoid the cloud treating two\n            // otherwise similar packets as duplicates.\n            \"packet_num\": Math.floor(Math.random() * 65535),\n\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    };\n}\n\n// ============================================================================\n// FORGE PACKET 1: TYPE 0x01 — ENVIRONMENTAL\n// Length: 58 bytes\n// Signature: 013a\n// ============================================================================\n\nconst envBuf = Buffer.alloc(58, 0);\n\nenvBuf.writeUInt8(0x01, 0);\nenvBuf.writeUInt8(0x3A, 1);\n\n// Bytes 2–5 remain reserved and zero-filled.\n\nenvBuf.writeFloatLE(temp, 6);          // AirTemperature\nenvBuf.writeFloatLE(pressure, 10);     // AirPressure\nenvBuf.writeFloatLE(temp, 14);         // HumidityTemperature\nenvBuf.writeFloatLE(humidity, 18);     // Humidity\n\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(0, Math.round(lux))\n    ),\n    22\n);                                    // LightALS\n\n// Backend workaround: its decoder reads GASCO2 as UInt32 rather than Float32.\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(0, Math.round(co2))\n    ),\n    26\n);                                    // GASCO2\n\nenvBuf.writeFloatLE(0.0, 30);          // GASTemperature\nenvBuf.writeFloatLE(0.0, 34);          // GASHumidity\nenvBuf.writeFloatLE(0.0, 38);          // GASNH3\nenvBuf.writeFloatLE(0.0, 42);          // GASCO\nenvBuf.writeFloatLE(0.0, 46);          // GASNO2\nenvBuf.writeFloatLE(temp, 50);         // BoardTemperature\nenvBuf.writeFloatLE(temp, 54);         // PT100Temperature\n\noutMessages.push(\n    makeBackendMessage(envBuf.toString(\"hex\"))\n);\n\nnode.warn(\n    `WEIGHT QUEUE — device=${devEui}, batch=${batchNumber}, ` +\n    `added=${sampleCount}, invalid=${invalidWeightCount}, ` +\n    `queue=${deviceState.weightQueue.length}/50`\n);\n// ============================================================================\n// FORGE PACKET 2: TYPE 0x02 — 50-SAMPLE WEIGHT ARRAY\n// Length: 106 bytes\n// Signature: 026a\n// ============================================================================\n//\n// One LoRa packet contributes 18 weight readings. The queue is retained across\n// invocations. A backend packet is produced only when 50 genuine samples are\n// available.\n//\n// 50 samples × 10 seconds = 500 seconds = 8 minutes 20 seconds of measurements.\n\nwhile (deviceState.weightQueue.length >= 50) {\n    const weightSamples =\n        deviceState.weightQueue.splice(0, 50);\n\n    const wBuf = Buffer.alloc(106, 0);\n\n    wBuf.writeUInt8(0x02, 0);\n    wBuf.writeUInt8(0x6A, 1);\n\n    // Bytes 2–5 remain reserved and zero-filled.\n\n    for (let i = 0; i < 50; i++) {\n        const weight = Math.min(\n            65535,\n            Math.max(\n                0,\n                Math.round(weightSamples[i])\n            )\n        );\n\n        wBuf.writeUInt16LE(\n            weight,\n            6 + (i * 2)\n        );\n    }\n\n    outMessages.push(\n        makeBackendMessage(wBuf.toString(\"hex\"))\n    );\n}\n\n// ── Save the remaining queue and duplicate history ──────────────────────────\n\nparserState[devEui] = deviceState;\ncontext.set(\"faiBatchParserState\", parserState);\n\n// A one-output Node-RED Function node expects an array containing the list of\n// messages that should be emitted from that output.\nreturn [outMessages];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2a38ea2466db6a7a",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "LoRa Parser 8.2",
+        "func": "// ── FAI Gateway Parser v8.2 ─────────────────────────────────────────────────\n//\n// Arduino LoRaWAN input:\n//   50-byte compact payload containing:\n//     - 18 weight spot readings sampled at 10-second intervals\n//     - One environmental spot reading after the 18th weight reading\n//\n// Backend output remains unchanged:\n//   Type 0x01: 58-byte environmental packet, signature 013a\n//   Type 0x02: 106-byte weight packet, signature 026a\n//\n// Weight handling:\n//   - Genuine 0 g readings are retained.\n//   - Invalid Arduino readings are encoded as 0xFFFF.\n//   - Invalid readings are stored internally as null.\n//   - Every null still occupies one 10-second time slot.\n//   - When producing the fixed UInt16[50] backend array, null values are\n//     replaced using last-observation-carried-forward.\n//   - If there has never been a valid reading, the fallback value is 0.\n//\n// Diagnostics:\n//   - Logs queue length after every LoRa batch.\n//   - Logs when a 106-byte weight packet is created.\n//   - Logs the number and type of emitted backend messages.\n//\n// IMPORTANT:\n//   Configure filesystem-backed Node-RED context storage if pending samples\n//   must survive a Node-RED or Jetson restart.\n\n// ============================================================================\n// Configuration\n// ============================================================================\n\nconst gatewaySerial =\n    env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nconst TARGET_CLOUD_SID = 16777216;\n\nconst EXPECTED_PAYLOAD_LENGTH = 50;\nconst EXPECTED_VERSION = 1;\nconst MAX_WEIGHT_SAMPLES_PER_BATCH = 18;\nconst INVALID_WEIGHT = 0xFFFF;\n\nconst REQUIRED_BACKEND_WEIGHT_SAMPLES = 50;\n\n// Number of recently processed compact payload signatures retained per device.\nconst RECENT_BATCH_HISTORY = 32;\n\n// ============================================================================\n// Validate incoming ChirpStack message\n// ============================================================================\n\nif (\n    !msg.payload ||\n    !msg.payload.deviceInfo ||\n    !msg.payload.deviceInfo.devEui ||\n    msg.payload.data === undefined ||\n    msg.payload.data === null\n) {\n    node.warn(\"Invalid ChirpStack message: required fields are missing\");\n    return null;\n}\n\n// ============================================================================\n// Device identity\n// ============================================================================\n\nconst devEui =\n    String(msg.payload.deviceInfo.devEui).toUpperCase();\n\nconst uidHex = devEui.slice(-8);\n\nif (!/^[0-9A-F]{8}$/.test(uidHex)) {\n    node.warn(`Invalid DevEUI received: ${devEui}`);\n    return null;\n}\n\nconst dynamicUid = parseInt(uidHex, 16);\n\nif (!Number.isFinite(dynamicUid)) {\n    node.warn(`Could not calculate UID from DevEUI: ${devEui}`);\n    return null;\n}\n\n// ============================================================================\n// Decode the Arduino's 50-byte compact LoRa payload\n// ============================================================================\n\nlet buf;\n\ntry {\n    if (Buffer.isBuffer(msg.payload.data)) {\n        buf = msg.payload.data;\n    } else {\n        buf = Buffer.from(\n            String(msg.payload.data),\n            \"base64\"\n        );\n    }\n} catch (error) {\n    node.warn(\n        `Could not decode LoRa payload from ${devEui}: ` +\n        error.message\n    );\n\n    return null;\n}\n\nif (buf.length !== EXPECTED_PAYLOAD_LENGTH) {\n    node.warn(\n        `Unexpected payload length from ${devEui}: ` +\n        `${buf.length} bytes; expected ${EXPECTED_PAYLOAD_LENGTH}`\n    );\n\n    return null;\n}\n\n// Arduino payload layout:\n//\n//   Byte 0:       protocol version\n//   Byte 1:       number of weight samples\n//   Bytes 2-3:    batch number, UInt16 LE\n//   Bytes 4-39:   18 × weight samples, UInt16 LE\n//   Bytes 40-41:  temperature × 100, Int16 LE\n//   Bytes 42-43:  CO2 ppm, UInt16 LE\n//   Bytes 44-45:  light lux, UInt16 LE\n//   Bytes 46-47:  humidity × 100, UInt16 LE\n//   Bytes 48-49:  pressure × 10, UInt16 LE\n\nconst protocolVersion = buf.readUInt8(0);\nconst sampleCount = buf.readUInt8(1);\nconst batchNumber = buf.readUInt16LE(2);\n\nif (protocolVersion !== EXPECTED_VERSION) {\n    node.warn(\n        `Unsupported payload version from ${devEui}: ` +\n        `${protocolVersion}; expected ${EXPECTED_VERSION}`\n    );\n\n    return null;\n}\n\nif (\n    sampleCount === 0 ||\n    sampleCount > MAX_WEIGHT_SAMPLES_PER_BATCH\n) {\n    node.warn(\n        `Invalid weight sample count from ${devEui}: ` +\n        sampleCount\n    );\n\n    return null;\n}\n\nif (sampleCount !== MAX_WEIGHT_SAMPLES_PER_BATCH) {\n    node.warn(\n        `Partial weight batch from ${devEui}: ` +\n        `${sampleCount}/${MAX_WEIGHT_SAMPLES_PER_BATCH}`\n    );\n}\n\n// Environmental values are scaled integers in the compact LoRa packet.\nconst temp = buf.readInt16LE(40) / 100.0;\nconst co2 = buf.readUInt16LE(42);\nconst lux = buf.readUInt16LE(44);\nconst humidity = buf.readUInt16LE(46) / 100.0;\nconst pressure = buf.readUInt16LE(48) / 10.0;\n\n// ============================================================================\n// Retrieve per-device parser state\n// ============================================================================\n\nlet parserState =\n    context.get(\"faiBatchParserState\");\n\nif (\n    !parserState ||\n    typeof parserState !== \"object\" ||\n    Array.isArray(parserState)\n) {\n    parserState = {};\n}\n\nlet deviceState =\n    parserState[devEui];\n\nif (\n    !deviceState ||\n    typeof deviceState !== \"object\" ||\n    Array.isArray(deviceState)\n) {\n    deviceState = {\n        weightQueue: [],\n        recentBatchSignatures: [],\n        outputLastValidWeight: null\n    };\n}\n\nif (!Array.isArray(deviceState.weightQueue)) {\n    deviceState.weightQueue = [];\n}\n\nif (!Array.isArray(deviceState.recentBatchSignatures)) {\n    deviceState.recentBatchSignatures = [];\n}\n\nif (!Number.isFinite(deviceState.outputLastValidWeight)) {\n    deviceState.outputLastValidWeight = null;\n}\n\n// ============================================================================\n// Duplicate batch protection\n// ============================================================================\n//\n// The Arduino retains a batch until the radio reports TX_DONE. In unusual\n// circumstances, the network could receive a retransmitted copy.\n//\n// The signature includes the batch number and complete payload, rather than\n// batch number alone, because the Arduino batch counter restarts after reboot.\n\nconst batchSignature =\n    `${batchNumber}:${buf.toString(\"hex\")}`;\n\nif (\n    deviceState.recentBatchSignatures.includes(\n        batchSignature\n    )\n) {\n    node.warn(\n        `Ignoring duplicate batch ${batchNumber} from ${devEui}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `duplicate batch ${batchNumber}`\n    });\n\n    return null;\n}\n\ndeviceState.recentBatchSignatures.push(\n    batchSignature\n);\n\nif (\n    deviceState.recentBatchSignatures.length >\n    RECENT_BATCH_HISTORY\n) {\n    deviceState.recentBatchSignatures =\n        deviceState.recentBatchSignatures.slice(\n            -RECENT_BATCH_HISTORY\n        );\n}\n\n// ============================================================================\n// Add all received weight time slots to the queue\n// ============================================================================\n//\n// Invalid readings are added as null. They are not discarded.\n//\n// This means every queue position still represents one 10-second sample slot.\n\nlet invalidWeightCount = 0;\nlet validWeightCount = 0;\n\nfor (let i = 0; i < sampleCount; i++) {\n    const weight =\n        buf.readUInt16LE(4 + (i * 2));\n\n    if (weight === INVALID_WEIGHT) {\n        invalidWeightCount++;\n\n        // Preserve the failed 10-second time slot.\n        deviceState.weightQueue.push(null);\n    } else {\n        validWeightCount++;\n\n        // Includes genuine zero-weight readings.\n        deviceState.weightQueue.push(weight);\n    }\n}\n\nif (invalidWeightCount > 0) {\n    node.warn(\n        `Batch ${batchNumber} from ${devEui} contained ` +\n        `${invalidWeightCount} invalid scale reading(s)`\n    );\n}\n\nnode.warn(\n    `WEIGHT QUEUE — device=${devEui}, ` +\n    `batch=${batchNumber}, ` +\n    `added=${sampleCount}, ` +\n    `valid=${validWeightCount}, ` +\n    `invalid=${invalidWeightCount}, ` +\n    `queue=${deviceState.weightQueue.length}/` +\n    `${REQUIRED_BACKEND_WEIGHT_SAMPLES}`\n);\n\n// ============================================================================\n// RSSI\n// ============================================================================\n\nlet bestRssi = -120;\n\nif (\n    Array.isArray(msg.payload.rxInfo) &&\n    msg.payload.rxInfo.length > 0\n) {\n    const validRssiValues =\n        msg.payload.rxInfo\n            .map(rx => Number(rx.rssi))\n            .filter(value => Number.isFinite(value));\n\n    if (validRssiValues.length > 0) {\n        bestRssi = Math.max(...validRssiValues);\n    }\n}\n\nconst rawRssi = Math.abs(bestRssi);\n\n// ============================================================================\n// Backend timestamp\n// ============================================================================\n//\n// Preserve the known-working v3.1/v7.3 behaviour: use the time at which\n// Node-RED processes the packet.\n\nconst timestamp =\n    new Date().toISOString().split(\".\")[0] +\n    \"+00:00\";\n\n// ============================================================================\n// Backend message helper\n// ============================================================================\n\nconst outMessages = [];\n\nfunction makeBackendMessage(hexData) {\n    return {\n        topic:\n            `gateway/${gatewaySerial}/tinymesh/out`,\n\n        payload: {\n            \"_meta\": {\n                \"received\": timestamp\n            },\n\n            \"block\": 0,\n            \"data\": hexData,\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n\n            // Vary this to reduce the chance of backend deduplication.\n            \"packet_num\":\n                Math.floor(Math.random() * 65535),\n\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    };\n}\n\n// ============================================================================\n// FORGE PACKET 1: TYPE 0x01 — ENVIRONMENTAL\n//\n// Backend length: 58 bytes\n// Signature:      013a\n// ============================================================================\n\nconst envBuf = Buffer.alloc(58, 0);\n\nenvBuf.writeUInt8(0x01, 0);\nenvBuf.writeUInt8(0x3A, 1);\n\n// Bytes 2-5 remain reserved and zero-filled.\n\nenvBuf.writeFloatLE(\n    temp,\n    6\n);                                      // AirTemperature\n\nenvBuf.writeFloatLE(\n    pressure,\n    10\n);                                      // AirPressure\n\nenvBuf.writeFloatLE(\n    temp,\n    14\n);                                      // HumidityTemperature\n\nenvBuf.writeFloatLE(\n    humidity,\n    18\n);                                      // Humidity\n\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(0, Math.round(lux))\n    ),\n    22\n);                                      // LightALS\n\n// Confirmed workaround:\n// The third-party backend reads GASCO2 as UInt32 rather than Float32.\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(0, Math.round(co2))\n    ),\n    26\n);                                      // GASCO2\n\nenvBuf.writeFloatLE(0.0, 30);            // GASTemperature\nenvBuf.writeFloatLE(0.0, 34);            // GASHumidity\nenvBuf.writeFloatLE(0.0, 38);            // GASNH3\nenvBuf.writeFloatLE(0.0, 42);            // GASCO\nenvBuf.writeFloatLE(0.0, 46);            // GASNO2\nenvBuf.writeFloatLE(temp, 50);           // BoardTemperature\nenvBuf.writeFloatLE(temp, 54);           // PT100Temperature\n\nconst environmentHex =\n    envBuf.toString(\"hex\");\n\noutMessages.push(\n    makeBackendMessage(environmentHex)\n);\n\n// ============================================================================\n// FORGE PACKET 2: TYPE 0x02 — WEIGHT ARRAY\n//\n// Backend length: 106 bytes\n// Signature:      026a\n//\n// Fifty queue entries represent:\n//\n//   50 × 10 seconds = 500 seconds\n//                   = 8 minutes 20 seconds\n//\n// One or more weight packets are generated whenever enough queued time slots\n// are available.\n// ============================================================================\n\nlet generatedWeightPacketCount = 0;\n\nwhile (\n    deviceState.weightQueue.length >=\n    REQUIRED_BACKEND_WEIGHT_SAMPLES\n) {\n    node.warn(\n        `CREATING WEIGHT PACKET — ` +\n        `device=${devEui}, ` +\n        `queueBefore=${deviceState.weightQueue.length}`\n    );\n\n    const queuedSamples =\n        deviceState.weightQueue.splice(\n            0,\n            REQUIRED_BACKEND_WEIGHT_SAMPLES\n        );\n\n    const wBuf = Buffer.alloc(106, 0);\n\n    wBuf.writeUInt8(0x02, 0);\n    wBuf.writeUInt8(0x6A, 1);\n\n    // Bytes 2-5 remain reserved and zero-filled.\n\n    let carryWeight =\n        Number.isFinite(\n            deviceState.outputLastValidWeight\n        )\n            ? deviceState.outputLastValidWeight\n            : null;\n\n    let substitutedCount = 0;\n    let leadingZeroFallbackCount = 0;\n    let genuineZeroCount = 0;\n\n    for (\n        let i = 0;\n        i < REQUIRED_BACKEND_WEIGHT_SAMPLES;\n        i++\n    ) {\n        const queuedValue =\n            queuedSamples[i];\n\n        let outputWeight;\n\n        if (queuedValue === null) {\n            substitutedCount++;\n\n            if (carryWeight !== null) {\n                // Last-observation-carried-forward.\n                outputWeight = carryWeight;\n            } else {\n                // No earlier valid weight exists.\n                outputWeight = 0;\n                leadingZeroFallbackCount++;\n            }\n        } else {\n            outputWeight = queuedValue;\n            carryWeight = queuedValue;\n\n            if (queuedValue === 0) {\n                genuineZeroCount++;\n            }\n        }\n\n        outputWeight = Math.min(\n            65534,\n            Math.max(\n                0,\n                Math.round(outputWeight)\n            )\n        );\n\n        wBuf.writeUInt16LE(\n            outputWeight,\n            6 + (i * 2)\n        );\n    }\n\n    // Carry the latest genuine measurement into the next output packet.\n    deviceState.outputLastValidWeight =\n        carryWeight;\n\n    const weightHex =\n        wBuf.toString(\"hex\");\n\n    node.warn(\n        `WEIGHT PACKET CREATED — ` +\n        `device=${devEui}, ` +\n        `bytes=${wBuf.length}, ` +\n        `hexChars=${weightHex.length}, ` +\n        `signature=${weightHex.slice(0, 4)}, ` +\n        `firstWeight=${wBuf.readUInt16LE(6)}, ` +\n        `lastWeight=${wBuf.readUInt16LE(104)}, ` +\n        `substituted=${substitutedCount}, ` +\n        `leadingZeroFallbacks=${leadingZeroFallbackCount}, ` +\n        `genuineZeros=${genuineZeroCount}, ` +\n        `queueRemaining=${deviceState.weightQueue.length}`\n    );\n\n    outMessages.push(\n        makeBackendMessage(weightHex)\n    );\n\n    generatedWeightPacketCount++;\n}\n\n// ============================================================================\n// Save parser state before emitting messages\n// ============================================================================\n\nparserState[devEui] = deviceState;\n\ncontext.set(\n    \"faiBatchParserState\",\n    parserState\n);\n\n// ============================================================================\n// Final diagnostics\n// ============================================================================\n\nconst outputSignatures =\n    outMessages.map(message =>\n        String(message.payload.data).slice(0, 4)\n    );\n\nnode.warn(\n    `PARSER OUTPUT — ` +\n    `device=${devEui}, ` +\n    `messages=${outMessages.length}, ` +\n    `signatures=${outputSignatures.join(\",\")}, ` +\n    `weightPackets=${generatedWeightPacketCount}, ` +\n    `queueRemaining=${deviceState.weightQueue.length}`\n);\n\nif (generatedWeightPacketCount > 0) {\n    node.status({\n        fill: \"green\",\n        shape: \"dot\",\n        text:\n            `${outMessages.length} outputs; ` +\n            `${deviceState.weightQueue.length} queued`\n    });\n} else {\n    node.status({\n        fill: \"blue\",\n        shape: \"ring\",\n        text:\n            `${deviceState.weightQueue.length}/50 weights`\n    });\n}\n\n// ============================================================================\n// Explicitly send all generated messages through output 1\n// ============================================================================\n//\n// On most uplinks this sends one environmental message.\n//\n// When 50 weight time slots are available, it sends:\n//   1. Environmental packet beginning 013a\n//   2. Weight packet beginning 026a\n\nnode.send([outMessages]);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f0885b7c6ffcd7a2",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "LoRa Parser 8.3",
+        "func": "// ── FAI Gateway Parser v8.3 ─────────────────────────────────────────────────\n//\n// Fix in v8.3:\n//   Weight queue state is stored in FLOW context using separate per-device\n//   keys. The previous node-context object was not persisting in this flow.\n//\n// Arduino input:\n//   50-byte LoRaWAN payload:\n//     byte 0       version\n//     byte 1       sample count\n//     bytes 2-3    batch number, UInt16 LE\n//     bytes 4-39   18 × weight samples, UInt16 LE\n//     bytes 40-41  temperature × 100, Int16 LE\n//     bytes 42-43  CO2 ppm, UInt16 LE\n//     bytes 44-45  light lux, UInt16 LE\n//     bytes 46-47  humidity × 100, UInt16 LE\n//     bytes 48-49  pressure × 10, UInt16 LE\n//\n// Backend output:\n//   Type 0x01: 58-byte environmental packet beginning 013a\n//   Type 0x02: 106-byte weight packet beginning 026a\n//\n// Invalid weights:\n//   0xFFFF is stored internally as null to preserve the 10-second time slot.\n//   When the backend packet is constructed, missing readings use the previous\n//   valid weight. A genuine zero remains zero.\n\n// ============================================================================\n// Configuration\n// ============================================================================\n\nconst gatewaySerial =\n    env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nconst TARGET_CLOUD_SID = 16777216;\n\nconst EXPECTED_PAYLOAD_LENGTH = 50;\nconst EXPECTED_VERSION = 1;\n\nconst WEIGHTS_PER_LORA_BATCH = 18;\nconst WEIGHTS_PER_BACKEND_PACKET = 50;\n\nconst INVALID_WEIGHT = 0xFFFF;\nconst RECENT_BATCH_HISTORY = 32;\n\n// ============================================================================\n// Validate incoming message\n// ============================================================================\n\nif (\n    !msg.payload ||\n    !msg.payload.deviceInfo ||\n    !msg.payload.deviceInfo.devEui ||\n    msg.payload.data === undefined ||\n    msg.payload.data === null\n) {\n    node.warn(\"Invalid ChirpStack message: required fields missing\");\n    return null;\n}\n\n// ============================================================================\n// Device identity\n// ============================================================================\n\nconst devEui =\n    String(msg.payload.deviceInfo.devEui).toUpperCase();\n\nconst uidHex = devEui.slice(-8);\n\nif (!/^[0-9A-F]{8}$/.test(uidHex)) {\n    node.warn(`Invalid DevEUI: ${devEui}`);\n    return null;\n}\n\nconst dynamicUid = parseInt(uidHex, 16);\n\nif (!Number.isFinite(dynamicUid)) {\n    node.warn(`Unable to derive UID from DevEUI: ${devEui}`);\n    return null;\n}\n\n// ============================================================================\n// Per-device flow-context keys\n// ============================================================================\n//\n// Separate keys are used instead of one shared state object. This prevents\n// accidental replacement of another device's queue and makes persistence\n// easier to diagnose.\n\nconst queueKey =\n    `faiWeightQueue_${devEui}`;\n\nconst recentSignaturesKey =\n    `faiRecentBatchSignatures_${devEui}`;\n\nconst carryWeightKey =\n    `faiOutputLastValidWeight_${devEui}`;\n\n// ============================================================================\n// Decode LoRa payload\n// ============================================================================\n\nlet buf;\n\ntry {\n    if (Buffer.isBuffer(msg.payload.data)) {\n        buf = msg.payload.data;\n    } else {\n        buf = Buffer.from(\n            String(msg.payload.data),\n            \"base64\"\n        );\n    }\n} catch (error) {\n    node.warn(\n        `Failed to decode LoRa payload from ${devEui}: ` +\n        error.message\n    );\n\n    return null;\n}\n\nif (buf.length !== EXPECTED_PAYLOAD_LENGTH) {\n    node.warn(\n        `Unexpected payload length from ${devEui}: ` +\n        `${buf.length}; expected ${EXPECTED_PAYLOAD_LENGTH}`\n    );\n\n    return null;\n}\n\nconst protocolVersion = buf.readUInt8(0);\nconst sampleCount = buf.readUInt8(1);\nconst batchNumber = buf.readUInt16LE(2);\n\nif (protocolVersion !== EXPECTED_VERSION) {\n    node.warn(\n        `Unsupported payload version from ${devEui}: ` +\n        `${protocolVersion}`\n    );\n\n    return null;\n}\n\nif (\n    sampleCount === 0 ||\n    sampleCount > WEIGHTS_PER_LORA_BATCH\n) {\n    node.warn(\n        `Invalid sample count from ${devEui}: ${sampleCount}`\n    );\n\n    return null;\n}\n\nif (sampleCount !== WEIGHTS_PER_LORA_BATCH) {\n    node.warn(\n        `Partial batch from ${devEui}: ` +\n        `${sampleCount}/${WEIGHTS_PER_LORA_BATCH}`\n    );\n}\n\n// Environmental fields\nconst temp =\n    buf.readInt16LE(40) / 100.0;\n\nconst co2 =\n    buf.readUInt16LE(42);\n\nconst lux =\n    buf.readUInt16LE(44);\n\nconst humidity =\n    buf.readUInt16LE(46) / 100.0;\n\nconst pressure =\n    buf.readUInt16LE(48) / 10.0;\n\n// ============================================================================\n// Load state from FLOW context\n// ============================================================================\n\nlet weightQueue =\n    flow.get(queueKey);\n\nif (!Array.isArray(weightQueue)) {\n    weightQueue = [];\n}\n\nlet recentBatchSignatures =\n    flow.get(recentSignaturesKey);\n\nif (!Array.isArray(recentBatchSignatures)) {\n    recentBatchSignatures = [];\n}\n\nlet outputLastValidWeight =\n    flow.get(carryWeightKey);\n\nif (!Number.isFinite(outputLastValidWeight)) {\n    outputLastValidWeight = null;\n}\n\nnode.warn(\n    `STATE LOADED — device=${devEui}, ` +\n    `queueBefore=${weightQueue.length}`\n);\n\n// ============================================================================\n// Duplicate protection\n// ============================================================================\n\nconst batchSignature =\n    `${batchNumber}:${buf.toString(\"hex\")}`;\n\nif (recentBatchSignatures.includes(batchSignature)) {\n    node.warn(\n        `Ignoring duplicate batch ${batchNumber} from ${devEui}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `duplicate batch ${batchNumber}`\n    });\n\n    return null;\n}\n\nrecentBatchSignatures.push(batchSignature);\n\nif (\n    recentBatchSignatures.length >\n    RECENT_BATCH_HISTORY\n) {\n    recentBatchSignatures =\n        recentBatchSignatures.slice(\n            -RECENT_BATCH_HISTORY\n        );\n}\n\n// ============================================================================\n// Add all 10-second weight slots to queue\n// ============================================================================\n\nlet validWeightCount = 0;\nlet invalidWeightCount = 0;\n\nfor (let i = 0; i < sampleCount; i++) {\n    const weight =\n        buf.readUInt16LE(4 + (i * 2));\n\n    if (weight === INVALID_WEIGHT) {\n        invalidWeightCount++;\n\n        // Preserve the position in the 10-second time grid.\n        weightQueue.push(null);\n    } else {\n        validWeightCount++;\n\n        // Includes genuine 0 g measurements.\n        weightQueue.push(weight);\n    }\n}\n\nif (invalidWeightCount > 0) {\n    node.warn(\n        `Batch ${batchNumber} from ${devEui} contained ` +\n        `${invalidWeightCount} invalid scale reading(s)`\n    );\n}\n\nnode.warn(\n    `WEIGHT QUEUE — device=${devEui}, ` +\n    `batch=${batchNumber}, ` +\n    `added=${sampleCount}, ` +\n    `valid=${validWeightCount}, ` +\n    `invalid=${invalidWeightCount}, ` +\n    `queue=${weightQueue.length}/50`\n);\n\n// ============================================================================\n// RSSI and processing timestamp\n// ============================================================================\n\nlet bestRssi = -120;\n\nif (\n    Array.isArray(msg.payload.rxInfo) &&\n    msg.payload.rxInfo.length > 0\n) {\n    const rssiValues =\n        msg.payload.rxInfo\n            .map(rx => Number(rx.rssi))\n            .filter(value => Number.isFinite(value));\n\n    if (rssiValues.length > 0) {\n        bestRssi = Math.max(...rssiValues);\n    }\n}\n\nconst rawRssi =\n    Math.abs(bestRssi);\n\nconst timestamp =\n    new Date().toISOString().split(\".\")[0] +\n    \"+00:00\";\n\n// ============================================================================\n// Backend message helper\n// ============================================================================\n\nconst outMessages = [];\n\nfunction makeBackendMessage(hexData) {\n    return {\n        topic:\n            `gateway/${gatewaySerial}/tinymesh/out`,\n\n        payload: {\n            \"_meta\": {\n                \"received\": timestamp\n            },\n\n            \"block\": 0,\n            \"data\": hexData,\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n\n            \"packet_num\":\n                Math.floor(Math.random() * 65535),\n\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    };\n}\n\n// ============================================================================\n// Forge backend packet 1: environmental\n//\n// Length:    58 bytes\n// Signature: 013a\n// ============================================================================\n\nconst envBuf =\n    Buffer.alloc(58, 0);\n\nenvBuf.writeUInt8(0x01, 0);\nenvBuf.writeUInt8(0x3A, 1);\n\n// Bytes 2-5 are reserved.\n\nenvBuf.writeFloatLE(\n    temp,\n    6\n);                                      // AirTemperature\n\nenvBuf.writeFloatLE(\n    pressure,\n    10\n);                                      // AirPressure\n\nenvBuf.writeFloatLE(\n    temp,\n    14\n);                                      // HumidityTemperature\n\nenvBuf.writeFloatLE(\n    humidity,\n    18\n);                                      // Humidity\n\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(0, Math.round(lux))\n    ),\n    22\n);                                      // LightALS\n\n// Confirmed backend workaround: GASCO2 must be UInt32.\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(0, Math.round(co2))\n    ),\n    26\n);                                      // GASCO2\n\nenvBuf.writeFloatLE(0.0, 30);            // GASTemperature\nenvBuf.writeFloatLE(0.0, 34);            // GASHumidity\nenvBuf.writeFloatLE(0.0, 38);            // GASNH3\nenvBuf.writeFloatLE(0.0, 42);            // GASCO\nenvBuf.writeFloatLE(0.0, 46);            // GASNO2\nenvBuf.writeFloatLE(temp, 50);           // BoardTemperature\nenvBuf.writeFloatLE(temp, 54);           // PT100Temperature\n\noutMessages.push(\n    makeBackendMessage(\n        envBuf.toString(\"hex\")\n    )\n);\n\n// ============================================================================\n// Forge backend packet 2: 50-sample weight array\n//\n// Length:    106 bytes\n// Signature: 026a\n// ============================================================================\n\nlet generatedWeightPacketCount = 0;\n\nwhile (\n    weightQueue.length >=\n    WEIGHTS_PER_BACKEND_PACKET\n) {\n    node.warn(\n        `CREATING WEIGHT PACKET — ` +\n        `device=${devEui}, ` +\n        `queueBefore=${weightQueue.length}`\n    );\n\n    const queuedSamples =\n        weightQueue.splice(\n            0,\n            WEIGHTS_PER_BACKEND_PACKET\n        );\n\n    const wBuf =\n        Buffer.alloc(106, 0);\n\n    wBuf.writeUInt8(0x02, 0);\n    wBuf.writeUInt8(0x6A, 1);\n\n    // Bytes 2-5 are reserved.\n\n    let carryWeight =\n        Number.isFinite(outputLastValidWeight)\n            ? outputLastValidWeight\n            : null;\n\n    let substitutedCount = 0;\n    let leadingZeroFallbackCount = 0;\n    let genuineZeroCount = 0;\n\n    for (\n        let i = 0;\n        i < WEIGHTS_PER_BACKEND_PACKET;\n        i++\n    ) {\n        const queuedValue =\n            queuedSamples[i];\n\n        let outputWeight;\n\n        if (queuedValue === null) {\n            substitutedCount++;\n\n            if (carryWeight !== null) {\n                outputWeight = carryWeight;\n            } else {\n                outputWeight = 0;\n                leadingZeroFallbackCount++;\n            }\n        } else {\n            outputWeight = queuedValue;\n            carryWeight = queuedValue;\n\n            if (queuedValue === 0) {\n                genuineZeroCount++;\n            }\n        }\n\n        outputWeight =\n            Math.min(\n                65534,\n                Math.max(\n                    0,\n                    Math.round(outputWeight)\n                )\n            );\n\n        wBuf.writeUInt16LE(\n            outputWeight,\n            6 + (i * 2)\n        );\n    }\n\n    outputLastValidWeight =\n        carryWeight;\n\n    const weightHex =\n        wBuf.toString(\"hex\");\n\n    node.warn(\n        `WEIGHT PACKET CREATED — ` +\n        `device=${devEui}, ` +\n        `bytes=${wBuf.length}, ` +\n        `hexChars=${weightHex.length}, ` +\n        `signature=${weightHex.slice(0, 4)}, ` +\n        `firstWeight=${wBuf.readUInt16LE(6)}, ` +\n        `lastWeight=${wBuf.readUInt16LE(104)}, ` +\n        `substituted=${substitutedCount}, ` +\n        `leadingZeroFallbacks=${leadingZeroFallbackCount}, ` +\n        `genuineZeros=${genuineZeroCount}, ` +\n        `queueRemaining=${weightQueue.length}`\n    );\n\n    outMessages.push(\n        makeBackendMessage(weightHex)\n    );\n\n    generatedWeightPacketCount++;\n}\n\n// ============================================================================\n// Save state to FLOW context\n// ============================================================================\n\nflow.set(\n    queueKey,\n    weightQueue\n);\n\nflow.set(\n    recentSignaturesKey,\n    recentBatchSignatures\n);\n\nflow.set(\n    carryWeightKey,\n    outputLastValidWeight\n);\n\n// Read it back immediately to verify persistence.\nconst savedQueue =\n    flow.get(queueKey);\n\nconst savedQueueLength =\n    Array.isArray(savedQueue)\n        ? savedQueue.length\n        : -1;\n\nnode.warn(\n    `STATE SAVED — device=${devEui}, ` +\n    `queueSaved=${savedQueueLength}`\n);\n\n// ============================================================================\n// Output diagnostics\n// ============================================================================\n\nconst outputSignatures =\n    outMessages.map(message =>\n        String(message.payload.data).slice(0, 4)\n    );\n\nnode.warn(\n    `PARSER OUTPUT — ` +\n    `device=${devEui}, ` +\n    `messages=${outMessages.length}, ` +\n    `signatures=${outputSignatures.join(\",\")}, ` +\n    `weightPackets=${generatedWeightPacketCount}, ` +\n    `queueRemaining=${weightQueue.length}`\n);\n\nif (generatedWeightPacketCount > 0) {\n    node.status({\n        fill: \"green\",\n        shape: \"dot\",\n        text:\n            `${generatedWeightPacketCount} weight packet; ` +\n            `${weightQueue.length} queued`\n    });\n} else {\n    node.status({\n        fill: \"blue\",\n        shape: \"ring\",\n        text:\n            `${weightQueue.length}/50 weights`\n    });\n}\n\n// ============================================================================\n// Send all messages through output 1\n// ============================================================================\n\nnode.send([outMessages]);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c429a319a31374e1",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "LoRa Parser 8.4",
+        "func": "// ── FAI Gateway Parser v8.4 — Global State ──────────────────────────────────\n//\n// Main change:\n//   Weight queue, duplicate history and carry-forward weight are stored in\n//   GLOBAL context using separate per-device keys.\n//\n// Arduino input:\n//   50-byte compact LoRaWAN payload:\n//\n//     Byte 0:       protocol version\n//     Byte 1:       number of weight samples\n//     Bytes 2-3:    batch number, UInt16 LE\n//     Bytes 4-39:   18 × weight samples, UInt16 LE\n//     Bytes 40-41:  temperature × 100, Int16 LE\n//     Bytes 42-43:  CO2 ppm, UInt16 LE\n//     Bytes 44-45:  light lux, UInt16 LE\n//     Bytes 46-47:  humidity × 100, UInt16 LE\n//     Bytes 48-49:  pressure × 10, UInt16 LE\n//\n// Backend output:\n//\n//   Environmental:\n//     Type 0x01\n//     Length 58 bytes\n//     Signature 013a\n//\n//   Weight:\n//     Type 0x02\n//     Length 106 bytes\n//     50 × UInt16 LE weight samples\n//     Signature 026a\n//\n// Missing weight handling:\n//\n//   0xFFFF is stored internally as null.\n//   The null still occupies one 10-second position in the time series.\n//   When the backend packet is constructed, the previous valid reading is\n//   carried forward. If no previous valid reading exists, zero is used.\n//\n// Genuine zero-weight readings remain genuine zeroes.\n\n// ============================================================================\n// Configuration\n// ============================================================================\n\nconst gatewaySerial =\n    env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nconst TARGET_CLOUD_SID = 16777216;\n\nconst EXPECTED_PAYLOAD_LENGTH = 50;\nconst EXPECTED_VERSION = 1;\n\nconst WEIGHTS_PER_LORA_BATCH = 18;\nconst WEIGHTS_PER_BACKEND_PACKET = 50;\n\nconst INVALID_WEIGHT = 0xFFFF;\nconst RECENT_BATCH_HISTORY = 32;\n\n// New namespace prevents stale state from older parser versions being loaded.\nconst STATE_NAMESPACE = \"faiParserV84\";\n\n// ============================================================================\n// Validate incoming ChirpStack message\n// ============================================================================\n\nif (\n    !msg.payload ||\n    !msg.payload.deviceInfo ||\n    !msg.payload.deviceInfo.devEui ||\n    msg.payload.data === undefined ||\n    msg.payload.data === null\n) {\n    node.warn(\n        \"Invalid ChirpStack message: required payload fields are missing\"\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Device identity\n// ============================================================================\n\nconst devEui =\n    String(msg.payload.deviceInfo.devEui).toUpperCase();\n\nconst uidHex =\n    devEui.slice(-8);\n\nif (!/^[0-9A-F]{8}$/.test(uidHex)) {\n    node.warn(\n        `Invalid DevEUI received: ${devEui}`\n    );\n\n    return null;\n}\n\nconst dynamicUid =\n    parseInt(uidHex, 16);\n\nif (!Number.isFinite(dynamicUid)) {\n    node.warn(\n        `Unable to calculate UID from DevEUI: ${devEui}`\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Global context keys\n// ============================================================================\n\nconst queueKey =\n    `${STATE_NAMESPACE}_weightQueue_${devEui}`;\n\nconst signaturesKey =\n    `${STATE_NAMESPACE}_recentSignatures_${devEui}`;\n\nconst carryWeightKey =\n    `${STATE_NAMESPACE}_carryWeight_${devEui}`;\n\n// ============================================================================\n// Decode the compact LoRaWAN payload\n// ============================================================================\n\nlet buf;\n\ntry {\n    if (Buffer.isBuffer(msg.payload.data)) {\n        buf = msg.payload.data;\n    } else {\n        buf = Buffer.from(\n            String(msg.payload.data),\n            \"base64\"\n        );\n    }\n} catch (error) {\n    node.warn(\n        `Unable to decode LoRa payload from ${devEui}: ` +\n        error.message\n    );\n\n    return null;\n}\n\nif (buf.length !== EXPECTED_PAYLOAD_LENGTH) {\n    node.warn(\n        `Unexpected LoRa payload length from ${devEui}: ` +\n        `${buf.length} bytes; expected ${EXPECTED_PAYLOAD_LENGTH}`\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Read compact-payload header\n// ============================================================================\n\nconst protocolVersion =\n    buf.readUInt8(0);\n\nconst sampleCount =\n    buf.readUInt8(1);\n\nconst batchNumber =\n    buf.readUInt16LE(2);\n\nif (protocolVersion !== EXPECTED_VERSION) {\n    node.warn(\n        `Unsupported protocol version from ${devEui}: ` +\n        `${protocolVersion}; expected ${EXPECTED_VERSION}`\n    );\n\n    return null;\n}\n\nif (\n    sampleCount === 0 ||\n    sampleCount > WEIGHTS_PER_LORA_BATCH\n) {\n    node.warn(\n        `Invalid weight sample count from ${devEui}: ` +\n        sampleCount\n    );\n\n    return null;\n}\n\nif (sampleCount !== WEIGHTS_PER_LORA_BATCH) {\n    node.warn(\n        `Partial LoRa weight batch from ${devEui}: ` +\n        `${sampleCount}/${WEIGHTS_PER_LORA_BATCH}`\n    );\n}\n\n// ============================================================================\n// Decode environmental fields\n// ============================================================================\n\nconst temp =\n    buf.readInt16LE(40) / 100.0;\n\nconst co2 =\n    buf.readUInt16LE(42);\n\nconst lux =\n    buf.readUInt16LE(44);\n\nconst humidity =\n    buf.readUInt16LE(46) / 100.0;\n\nconst pressure =\n    buf.readUInt16LE(48) / 10.0;\n\n// ============================================================================\n// Load GLOBAL per-device state\n// ============================================================================\n\nlet weightQueue =\n    global.get(queueKey);\n\nif (!Array.isArray(weightQueue)) {\n    weightQueue = [];\n}\n\nlet recentBatchSignatures =\n    global.get(signaturesKey);\n\nif (!Array.isArray(recentBatchSignatures)) {\n    recentBatchSignatures = [];\n}\n\nlet outputLastValidWeight =\n    global.get(carryWeightKey);\n\nif (!Number.isFinite(outputLastValidWeight)) {\n    outputLastValidWeight = null;\n}\n\nnode.warn(\n    `GLOBAL STATE LOADED — ` +\n    `device=${devEui}, ` +\n    `batch=${batchNumber}, ` +\n    `queueBefore=${weightQueue.length}`\n);\n\n// ============================================================================\n// Duplicate protection\n// ============================================================================\n//\n// The Arduino retains a packet until the RAK radio reports TX_DONE.\n// In unusual circumstances, the same LoRa payload may therefore arrive twice.\n//\n// Batch number alone is not sufficient because it restarts after an Arduino\n// reboot. The complete payload is included in the signature.\n\nconst batchSignature =\n    `${batchNumber}:${buf.toString(\"hex\")}`;\n\nif (\n    recentBatchSignatures.includes(batchSignature)\n) {\n    node.warn(\n        `Ignoring duplicate batch ${batchNumber} from ${devEui}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `duplicate batch ${batchNumber}`\n    });\n\n    return null;\n}\n\nrecentBatchSignatures.push(batchSignature);\n\nif (\n    recentBatchSignatures.length >\n    RECENT_BATCH_HISTORY\n) {\n    recentBatchSignatures =\n        recentBatchSignatures.slice(\n            -RECENT_BATCH_HISTORY\n        );\n}\n\n// ============================================================================\n// Add all weight time slots to the global queue\n// ============================================================================\n//\n// Every array position represents one 10-second interval.\n//\n// Invalid readings are added as null rather than being discarded, so the\n// time grid is not compressed.\n\nlet validWeightCount = 0;\nlet invalidWeightCount = 0;\n\nfor (let i = 0; i < sampleCount; i++) {\n    const weight =\n        buf.readUInt16LE(4 + (i * 2));\n\n    if (weight === INVALID_WEIGHT) {\n        invalidWeightCount++;\n\n        weightQueue.push(null);\n    } else {\n        validWeightCount++;\n\n        // Includes genuine zero-weight readings.\n        weightQueue.push(weight);\n    }\n}\n\nif (invalidWeightCount > 0) {\n    node.warn(\n        `Batch ${batchNumber} from ${devEui} contained ` +\n        `${invalidWeightCount} invalid scale reading(s)`\n    );\n}\n\nnode.warn(\n    `WEIGHT QUEUE — ` +\n    `device=${devEui}, ` +\n    `batch=${batchNumber}, ` +\n    `added=${sampleCount}, ` +\n    `valid=${validWeightCount}, ` +\n    `invalid=${invalidWeightCount}, ` +\n    `queue=${weightQueue.length}/${WEIGHTS_PER_BACKEND_PACKET}`\n);\n\n// ============================================================================\n// RSSI\n// ============================================================================\n\nlet bestRssi = -120;\n\nif (\n    Array.isArray(msg.payload.rxInfo) &&\n    msg.payload.rxInfo.length > 0\n) {\n    const validRssiValues =\n        msg.payload.rxInfo\n            .map(rx => Number(rx.rssi))\n            .filter(value => Number.isFinite(value));\n\n    if (validRssiValues.length > 0) {\n        bestRssi =\n            Math.max(...validRssiValues);\n    }\n}\n\nconst rawRssi =\n    Math.abs(bestRssi);\n\n// ============================================================================\n// Backend timestamp\n// ============================================================================\n//\n// Preserve the known-working behaviour: use the time at which Node-RED\n// processes the received LoRaWAN message.\n\nconst timestamp =\n    new Date().toISOString().split(\".\")[0] +\n    \"+00:00\";\n\n// ============================================================================\n// Backend message helper\n// ============================================================================\n\nconst outMessages = [];\n\nfunction makeBackendMessage(hexData) {\n    return {\n        topic:\n            `gateway/${gatewaySerial}/tinymesh/out`,\n\n        payload: {\n            \"_meta\": {\n                \"received\": timestamp\n            },\n\n            \"block\": 0,\n            \"data\": hexData,\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n\n            \"packet_num\":\n                Math.floor(Math.random() * 65535),\n\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    };\n}\n\n// ============================================================================\n// Forge Packet 1: environmental\n//\n// Type:      0x01\n// Length:    58 bytes\n// Signature: 013a\n// ============================================================================\n\nconst envBuf =\n    Buffer.alloc(58, 0);\n\nenvBuf.writeUInt8(0x01, 0);\nenvBuf.writeUInt8(0x3A, 1);\n\n// Bytes 2-5 remain reserved and zero-filled.\n\nenvBuf.writeFloatLE(\n    temp,\n    6\n);                                      // AirTemperature\n\nenvBuf.writeFloatLE(\n    pressure,\n    10\n);                                      // AirPressure\n\nenvBuf.writeFloatLE(\n    temp,\n    14\n);                                      // HumidityTemperature\n\nenvBuf.writeFloatLE(\n    humidity,\n    18\n);                                      // Humidity\n\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(\n            0,\n            Math.round(lux)\n        )\n    ),\n    22\n);                                      // LightALS\n\n// Confirmed backend workaround:\n// GASCO2 must be written as UInt32, not Float32.\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(\n            0,\n            Math.round(co2)\n        )\n    ),\n    26\n);                                      // GASCO2\n\nenvBuf.writeFloatLE(0.0, 30);            // GASTemperature\nenvBuf.writeFloatLE(0.0, 34);            // GASHumidity\nenvBuf.writeFloatLE(0.0, 38);            // GASNH3\nenvBuf.writeFloatLE(0.0, 42);            // GASCO\nenvBuf.writeFloatLE(0.0, 46);            // GASNO2\nenvBuf.writeFloatLE(temp, 50);           // BoardTemperature\nenvBuf.writeFloatLE(temp, 54);           // PT100Temperature\n\nconst environmentHex =\n    envBuf.toString(\"hex\");\n\noutMessages.push(\n    makeBackendMessage(environmentHex)\n);\n\n// ============================================================================\n// Forge Packet 2: 50-sample weight array\n//\n// Type:      0x02\n// Length:    106 bytes\n// Signature: 026a\n//\n// Fifty values represent:\n//   50 × 10 seconds = 500 seconds = 8 minutes 20 seconds\n// ============================================================================\n\nlet generatedWeightPacketCount = 0;\n\nwhile (\n    weightQueue.length >=\n    WEIGHTS_PER_BACKEND_PACKET\n) {\n    node.warn(\n        `CREATING WEIGHT PACKET — ` +\n        `device=${devEui}, ` +\n        `queueBefore=${weightQueue.length}`\n    );\n\n    const queuedSamples =\n        weightQueue.splice(\n            0,\n            WEIGHTS_PER_BACKEND_PACKET\n        );\n\n    const wBuf =\n        Buffer.alloc(106, 0);\n\n    wBuf.writeUInt8(0x02, 0);\n    wBuf.writeUInt8(0x6A, 1);\n\n    // Bytes 2-5 remain reserved and zero-filled.\n\n    let carryWeight =\n        Number.isFinite(outputLastValidWeight)\n            ? outputLastValidWeight\n            : null;\n\n    let substitutedCount = 0;\n    let leadingZeroFallbackCount = 0;\n    let genuineZeroCount = 0;\n\n    for (\n        let i = 0;\n        i < WEIGHTS_PER_BACKEND_PACKET;\n        i++\n    ) {\n        const queuedValue =\n            queuedSamples[i];\n\n        let outputWeight;\n\n        if (queuedValue === null) {\n            substitutedCount++;\n\n            if (carryWeight !== null) {\n                // Last valid observation carried forward.\n                outputWeight = carryWeight;\n            } else {\n                // No genuine earlier reading is available.\n                outputWeight = 0;\n                leadingZeroFallbackCount++;\n            }\n        } else {\n            outputWeight = queuedValue;\n            carryWeight = queuedValue;\n\n            if (queuedValue === 0) {\n                genuineZeroCount++;\n            }\n        }\n\n        outputWeight =\n            Math.min(\n                65534,\n                Math.max(\n                    0,\n                    Math.round(outputWeight)\n                )\n            );\n\n        wBuf.writeUInt16LE(\n            outputWeight,\n            6 + (i * 2)\n        );\n    }\n\n    outputLastValidWeight =\n        carryWeight;\n\n    const weightHex =\n        wBuf.toString(\"hex\");\n\n    node.warn(\n        `WEIGHT PACKET CREATED — ` +\n        `device=${devEui}, ` +\n        `bytes=${wBuf.length}, ` +\n        `hexChars=${weightHex.length}, ` +\n        `signature=${weightHex.slice(0, 4)}, ` +\n        `firstWeight=${wBuf.readUInt16LE(6)}, ` +\n        `lastWeight=${wBuf.readUInt16LE(104)}, ` +\n        `substituted=${substitutedCount}, ` +\n        `leadingZeroFallbacks=${leadingZeroFallbackCount}, ` +\n        `genuineZeros=${genuineZeroCount}, ` +\n        `queueRemaining=${weightQueue.length}`\n    );\n\n    outMessages.push(\n        makeBackendMessage(weightHex)\n    );\n\n    generatedWeightPacketCount++;\n}\n\n// ============================================================================\n// Save per-device state to GLOBAL context\n// ============================================================================\n\nglobal.set(\n    queueKey,\n    weightQueue\n);\n\nglobal.set(\n    signaturesKey,\n    recentBatchSignatures\n);\n\nglobal.set(\n    carryWeightKey,\n    outputLastValidWeight\n);\n\n// Read state back immediately to verify that the write succeeded.\nconst savedQueue =\n    global.get(queueKey);\n\nconst savedSignatures =\n    global.get(signaturesKey);\n\nconst savedCarryWeight =\n    global.get(carryWeightKey);\n\nconst savedQueueLength =\n    Array.isArray(savedQueue)\n        ? savedQueue.length\n        : -1;\n\nconst savedSignatureCount =\n    Array.isArray(savedSignatures)\n        ? savedSignatures.length\n        : -1;\n\nnode.warn(\n    `GLOBAL STATE SAVED — ` +\n    `device=${devEui}, ` +\n    `queueSaved=${savedQueueLength}, ` +\n    `signaturesSaved=${savedSignatureCount}, ` +\n    `carryWeight=${Number.isFinite(savedCarryWeight) ? savedCarryWeight : \"none\"}`\n);\n\n// ============================================================================\n// Output diagnostics\n// ============================================================================\n\nconst outputSignatures =\n    outMessages.map(\n        outputMessage =>\n            String(\n                outputMessage.payload.data\n            ).slice(0, 4)\n    );\n\nnode.warn(\n    `PARSER OUTPUT — ` +\n    `device=${devEui}, ` +\n    `messages=${outMessages.length}, ` +\n    `signatures=${outputSignatures.join(\",\")}, ` +\n    `weightPackets=${generatedWeightPacketCount}, ` +\n    `queueRemaining=${weightQueue.length}`\n);\n\nif (generatedWeightPacketCount > 0) {\n    node.status({\n        fill: \"green\",\n        shape: \"dot\",\n        text:\n            `${generatedWeightPacketCount} weight packet; ` +\n            `${weightQueue.length} queued`\n    });\n} else {\n    node.status({\n        fill: \"blue\",\n        shape: \"ring\",\n        text:\n            `${weightQueue.length}/50 weights`\n    });\n}\n\n// ============================================================================\n// Send every generated message through output 1\n// ============================================================================\n//\n// Normally:\n//   one 013a environmental message.\n//\n// When 50 weight slots are available:\n//   one 013a environmental message;\n//   one 026a weight message.\n\nnode.send([outMessages]);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 140,
+        "y": 280,
+        "wires": [
+            []
+        ]
     }
 ]
