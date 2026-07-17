@@ -2,252 +2,424 @@
 """
 FAI Gateway — EMC/LVD Test Liveness Monitor
 ============================================
-Runs on the HOST (not in Docker) so it survives container failures.
-Polls all critical processes every 1 second and writes:
-  - Live coloured terminal output (for the test engineer watching in real time)
-  - Append-only timestamped log → /opt/fai-storage/emc_test.log (on NVMe SSD)
+Runs on the host so it remains available if an application container fails.
+Polls critical services every second and writes:
 
-Monitored:
-  Tier 1 — Infrastructure:  Docker containers, mbusd TCP port, MQTT broker
-  Tier 2 — Data flow:       Tinymesh last-message age, wMBus last-message age,
-                             Modbus last-response age (via MQTT subscription)
+  - Live coloured terminal status
+  - Append-only timestamped log:
+      /opt/fai-storage/emc/emc_test.log
 
-Usage:
-  pip3 install paho-mqtt docker --break-system-packages
-  python3 emc_monitor.py
+Monitored data flows:
 
-  Optional flags:
-    --log /path/to/file.log   Override log path (default: /opt/fai-storage/emc_test.log)
-    --interval 1.0            Poll interval in seconds (default: 1.0)
-    --mqtt-host localhost      MQTT broker host (default: localhost)
-    --mqtt-port 1883           MQTT broker port (default: 1883)
-    --no-colour               Disable ANSI colour (e.g. for serial console capture)
+  - LoRaWAN:          application/+/device/+/event/up
+  - TinyMesh:         gateway/+/tinymesh/out
+  - wM-Bus:           gateway/+/wmbus/out
+  - Modbus power:     gateway/+/power/out
+
+Install dependencies with Debian packages:
+
+  sudo apt update
+  sudo apt install -y python3-paho-mqtt python3-docker
+
+Run:
+
+  python3 ~/fai-gateway-dev/emc_monitor.py
+
+Optional flags:
+
+  --log /path/to/file.log
+  --interval 1.0
+  --mqtt-host localhost
+  --mqtt-port 1883
+  --no-colour
 """
 
+from __future__ import annotations
+
 import argparse
-import datetime
+import datetime as dt
+import os
 import socket
 import sys
 import threading
 import time
-import os
+from typing import Any
 
 try:
     import paho.mqtt.client as mqtt
 except ImportError:
-    print("ERROR: paho-mqtt not installed. Run:")
-    print("  pip3 install paho-mqtt --break-system-packages")
+    print("ERROR: paho-mqtt is not installed. Run:")
+    print("  sudo apt update")
+    print("  sudo apt install -y python3-paho-mqtt")
     sys.exit(1)
 
 try:
     import docker
 except ImportError:
-    print("ERROR: docker SDK not installed. Run:")
-    print("  pip3 install docker --break-system-packages")
+    print("ERROR: the Docker Python SDK is not installed. Run:")
+    print("  sudo apt update")
+    print("  sudo apt install -y python3-docker")
     sys.exit(1)
 
-# ── Configuration ──────────────────────────────────────────────────────────────
 
-DEFAULT_LOG_PATH   = "/opt/fai-storage/emc_test.log"
-POLL_INTERVAL      = 1.0   # seconds
+# ── Configuration ─────────────────────────────────────────────────────────────
 
-# Containers to check — name → acceptable states
-# Containers to check — name → acceptable states
+DEFAULT_LOG_PATH = "/opt/fai-storage/emc/emc_test.log"
+POLL_INTERVAL = 1.0
+
+# Container name -> acceptable Docker states.
 CONTAINERS = {
-    "fai-mqtt":          ["running"],
-    "fai-nodered":       ["running"],
-    "fai-mbusd":         ["running"],
-    "emc-burner":        ["running", "restarting"], # Restarting is valid due to the shell loop
-    "fai-watchdog":      ["running"],
-    "ups-watchdog":      ["running"],
+    # Core application
+    "fai-mqtt": ["running"],
+    "fai-nodered": ["running"],
+    "fai-watchdog": ["running"],
+    "ups-watchdog": ["running"],
+
+    # Modbus gateways
+    "fai-mbusd": ["running"],
+    "fai-mbusd-weight-3": ["running"],
+    "fai-mbusd-weight-4": ["running"],
+
+    # LoRaWAN stack
+    "lora-forwarder": ["running"],
+    "gateway-bridge": ["running"],
+    "chirpstack": ["running"],
+    "chirpstack-postgres": ["running"],
+    "chirpstack-redis": ["running"],
 }
 
-# TCP probes — label → (host, port)
+# TCP probe label -> (host, port).
+# These checks are unchanged from the previous monitor.
 TCP_PROBES = {
-    "mbusd:5020": ("127.0.0.1", 5020),
-    "mqtt:1883":  ("127.0.0.1", 1883),
+    "mqtt:1883": ("127.0.0.1", 1883),
     "nodered:1880": ("127.0.0.1", 1880),
+    "modbus-power:5020": ("127.0.0.1", 5020),
+    "modbus-silo-1:5021": ("127.0.0.1", 5021),
+    "modbus-silo-2:5022": ("127.0.0.1", 5022),
+    "chirpstack:8080": ("127.0.0.1", 8080),
 }
 
-# MQTT topics to subscribe to for data-flow liveness
-# These must match what your Node-RED flows actually publish
-MQTT_FLOW_TOPICS = {
-    "tinymesh": "gateway/+/tinymesh/out",
-    "wmbus":    "gateway/+/wmbus/out",
-    "power":    "gateway/+/power/out",
+# Data-flow name -> MQTT topic and maximum allowed message age.
+# The LoRaWAN topic is the raw ChirpStack uplink topic, so it remains separate
+# from the converted TinyMesh-compatible output generated by the LoRa parser.
+MQTT_FLOWS = {
+    "lorawan": {
+        "topic": "application/+/device/+/event/up",
+        "stale_after": 6.0,
+    },
+    "tinymesh": {
+        "topic": "gateway/+/tinymesh/out",
+        "stale_after": 10.0,
+    },
+    "wmbus": {
+        "topic": "gateway/+/wmbus/out",
+        "stale_after": 6.0,
+    },
+    "power": {
+        "topic": "gateway/+/power/out",
+        "stale_after": 3.0,
+    },
 }
 
-# Max age (seconds) before a data flow is flagged as stale
-STALE_THRESHOLD = 300   # 5 minutes — adjust to your sensor transmit interval
 
-# ── ANSI colours ───────────────────────────────────────────────────────────────
+# ── ANSI colours ──────────────────────────────────────────────────────────────
 
 class C:
-    RESET  = "\033[0m"
-    BOLD   = "\033[1m"
-    GREEN  = "\033[92m"
+    RESET = "\033[0m"
+    BOLD = "\033[1m"
+    GREEN = "\033[92m"
     YELLOW = "\033[93m"
-    RED    = "\033[91m"
-    CYAN   = "\033[96m"
-    WHITE  = "\033[97m"
-    GREY   = "\033[90m"
+    RED = "\033[91m"
+    CYAN = "\033[96m"
+    GREY = "\033[90m"
+
 
 USE_COLOUR = True
 
-def ok(s):    return f"{C.GREEN}{s}{C.RESET}"   if USE_COLOUR else s
-def warn(s):  return f"{C.YELLOW}{s}{C.RESET}"  if USE_COLOUR else s
-def fail(s):  return f"{C.RED}{C.BOLD}{s}{C.RESET}" if USE_COLOUR else s
-def info(s):  return f"{C.CYAN}{s}{C.RESET}"    if USE_COLOUR else s
-def grey(s):  return f"{C.GREY}{s}{C.RESET}"    if USE_COLOUR else s
 
-# ── State (written by MQTT thread, read by poll loop) ─────────────────────────
+def ok(value: str) -> str:
+    return f"{C.GREEN}{value}{C.RESET}" if USE_COLOUR else value
+
+
+def warn(value: str) -> str:
+    return f"{C.YELLOW}{value}{C.RESET}" if USE_COLOUR else value
+
+
+def fail(value: str) -> str:
+    return f"{C.RED}{C.BOLD}{value}{C.RESET}" if USE_COLOUR else value
+
+
+def info(value: str) -> str:
+    return f"{C.CYAN}{value}{C.RESET}" if USE_COLOUR else value
+
+
+def grey(value: str) -> str:
+    return f"{C.GREY}{value}{C.RESET}" if USE_COLOUR else value
+
+
+# ── Shared MQTT state ─────────────────────────────────────────────────────────
 
 _lock = threading.Lock()
-_last_seen = {k: None for k in MQTT_FLOW_TOPICS}   # flow_name → datetime | None
+_last_seen: dict[str, dt.datetime | None] = {
+    name: None for name in MQTT_FLOWS
+}
 _mqtt_connected = False
 
-# ── MQTT subscriber (runs in background thread) ────────────────────────────────
 
-def on_connect(client, userdata, flags, reason_code, properties):
+# ── MQTT subscriber ───────────────────────────────────────────────────────────
+
+
+def _reason_code_is_success(reason_code: Any) -> bool:
+    """Support integer reason codes and Paho reason-code objects."""
+    try:
+        return int(reason_code) == 0
+    except (TypeError, ValueError):
+        return str(reason_code).lower() in {"0", "success"}
+
+
+def on_connect(
+    client: mqtt.Client,
+    userdata: Any,
+    flags: Any,
+    reason_code: Any,
+    properties: Any = None,
+) -> None:
+    del userdata, flags, properties
     global _mqtt_connected
-    if reason_code == 0:
-        _mqtt_connected = True
-        for topic in MQTT_FLOW_TOPICS.values():
-            client.subscribe(topic)
-    else:
+
+    connected = _reason_code_is_success(reason_code)
+    with _lock:
+        _mqtt_connected = connected
+
+    if connected:
+        for config in MQTT_FLOWS.values():
+            client.subscribe(config["topic"], qos=0)
+
+
+def on_disconnect(client: mqtt.Client, userdata: Any, *args: Any) -> None:
+    del client, userdata, args
+    global _mqtt_connected
+    with _lock:
         _mqtt_connected = False
 
-def on_disconnect(client, userdata, disconnect_flags, reason_code, properties):
-    global _mqtt_connected
-    _mqtt_connected = False
 
-def on_message(client, userdata, msg):
-    now = datetime.datetime.utcnow()
+def _topic_matches(topic: str, pattern: str) -> bool:
+    """Match MQTT topic patterns containing + and # wildcards."""
+    topic_parts = topic.split("/")
+    pattern_parts = pattern.split("/")
+
+    for index, pattern_part in enumerate(pattern_parts):
+        if pattern_part == "#":
+            return True
+        if index >= len(topic_parts):
+            return False
+        if pattern_part != "+" and pattern_part != topic_parts[index]:
+            return False
+
+    return len(topic_parts) == len(pattern_parts)
+
+
+def on_message(client: mqtt.Client, userdata: Any, msg: mqtt.MQTTMessage) -> None:
+    del client, userdata
+    now = dt.datetime.now(dt.timezone.utc)
+
     with _lock:
-        for name, topic_pattern in MQTT_FLOW_TOPICS.items():
-            # Convert wildcard pattern to a simple prefix match
-            prefix = topic_pattern.replace("/+/", "/").split("/+")[0]
-            if msg.topic.startswith(prefix.split("/+")[0]) or \
-               _topic_matches(msg.topic, topic_pattern):
+        for name, config in MQTT_FLOWS.items():
+            if _topic_matches(msg.topic, config["topic"]):
                 _last_seen[name] = now
+                break
 
-def _topic_matches(topic, pattern):
-    """Minimal MQTT single-level wildcard matcher for + only."""
-    tp = topic.split("/")
-    pp = pattern.split("/")
-    if len(tp) != len(pp):
-        return False
-    return all(p == "+" or p == t for t, p in zip(tp, pp))
 
-def start_mqtt_subscriber(host, port):
-    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id="emc-monitor")
-    client.on_connect    = on_connect
-    client.on_disconnect = on_disconnect
-    client.on_message    = on_message
+def create_mqtt_client() -> mqtt.Client:
+    """Create a client compatible with Paho MQTT 1.x and 2.x."""
     try:
-        client.connect(host, port, keepalive=10)
-    except Exception:
-        pass   # will show as MQTT disconnected in the poll loop
-    client.loop_start()
+        # Paho MQTT 2.x callback API.
+        client = mqtt.Client(
+            mqtt.CallbackAPIVersion.VERSION2,
+            client_id="emc-monitor",
+        )
+    except AttributeError:
+        # Debian Bookworm currently provides Paho MQTT 1.x.
+        client = mqtt.Client(client_id="emc-monitor")
+
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.on_message = on_message
+    client.reconnect_delay_set(min_delay=1, max_delay=10)
     return client
 
-# ── Check functions ────────────────────────────────────────────────────────────
 
-def check_containers(docker_client):
-    results = {}
+def start_mqtt_subscriber(host: str, port: int) -> mqtt.Client:
+    client = create_mqtt_client()
+
     try:
-        containers = {c.name: c for c in docker_client.containers.list(all=True)}
-        for name, good_states in CONTAINERS.items():
-            if name not in containers:
+        client.connect_async(host, port, keepalive=10)
+        client.loop_start()
+    except Exception as exc:
+        print(warn(f"MQTT subscriber start warning: {exc}"))
+
+    return client
+
+
+# ── Check functions ───────────────────────────────────────────────────────────
+
+
+def check_containers(docker_client: Any) -> dict[str, tuple[Any, ...]]:
+    results: dict[str, tuple[Any, ...]] = {}
+
+    try:
+        available = {
+            container.name: container
+            for container in docker_client.containers.list(all=True)
+        }
+
+        for name, acceptable_states in CONTAINERS.items():
+            if name not in available:
                 results[name] = ("MISSING", None)
-            else:
-                c = containers[name]
-                state  = c.status          # running / exited / restarting …
-                health = None
-                if c.attrs.get("State", {}).get("Health"):
-                    health = c.attrs["State"]["Health"]["Status"]  # healthy/unhealthy/starting
-                ok_state = state in good_states
-                results[name] = ("OK" if ok_state else "FAIL", state, health)
-    except Exception as e:
+                continue
+
+            container = available[name]
+            state = container.status
+            health = None
+
+            health_data = container.attrs.get("State", {}).get("Health")
+            if health_data:
+                health = health_data.get("Status")
+
+            state_ok = state in acceptable_states
+            health_ok = health not in {"unhealthy"}
+            result = "OK" if state_ok and health_ok else "FAIL"
+            results[name] = (result, state, health)
+
+    except Exception as exc:
         for name in CONTAINERS:
-            results[name] = ("ERROR", str(e))
+            results[name] = ("ERROR", str(exc))
+
     return results
 
-def check_tcp(label, host, port, timeout=1.0):
+
+def check_tcp(host: str, port: int, timeout: float = 1.0) -> str:
     try:
         with socket.create_connection((host, port), timeout=timeout):
             return "OK"
-    except Exception:
+    except OSError:
         return "FAIL"
 
-def check_data_flows():
-    now = datetime.datetime.utcnow()
-    results = {}
+
+def check_data_flows() -> dict[str, tuple[str, float | None, float]]:
+    now = dt.datetime.now(dt.timezone.utc)
+    results: dict[str, tuple[str, float | None, float]] = {}
+
     with _lock:
-        for name, last in _last_seen.items():
-            if last is None:
-                results[name] = ("WAITING", None)   # never seen since monitor started
-            else:
-                age = (now - last).total_seconds()
-                if age <= STALE_THRESHOLD:
-                    results[name] = ("OK", age)
-                else:
-                    results[name] = ("STALE", age)
+        for name, last_seen in _last_seen.items():
+            stale_after = float(MQTT_FLOWS[name]["stale_after"])
+
+            if last_seen is None:
+                results[name] = ("WAITING", None, stale_after)
+                continue
+
+            age = (now - last_seen).total_seconds()
+            state = "OK" if age <= stale_after else "STALE"
+            results[name] = (state, age, stale_after)
+
     return results
 
-# ── Formatting helpers ─────────────────────────────────────────────────────────
 
-def fmt_container(name, result):
+def mqtt_is_connected() -> bool:
+    with _lock:
+        return _mqtt_connected
+
+
+# ── Formatting helpers ────────────────────────────────────────────────────────
+
+
+def fmt_container(name: str, result: tuple[Any, ...]) -> str:
     if result[0] == "MISSING":
         return f"  {fail('✗ MISSING')}  {name}"
+
     if result[0] == "ERROR":
         return f"  {fail('✗ ERROR')}    {name}: {result[1]}"
-    status  = result[1]
-    health  = result[2] if len(result) > 2 else None
-    is_ok   = result[0] == "OK"
-    sym     = ok("✓") if is_ok else fail("✗")
-    h_str   = ""
+
+    status = result[1]
+    health = result[2] if len(result) > 2 else None
+    is_ok = result[0] == "OK"
+    symbol = ok("✓") if is_ok else fail("✗")
+
+    health_text = ""
     if health:
         if health == "healthy":
-            h_str = f"  {ok('healthy')}"
+            health_text = f"  {ok('healthy')}"
         elif health == "starting":
-            h_str = f"  {warn('starting')}"
+            health_text = f"  {warn('starting')}"
         else:
-            h_str = f"  {fail(health)}"
-    status_str = ok(status) if is_ok else fail(status)
-    return f"  {sym} {name:<20} {status_str}{h_str}"
+            health_text = f"  {fail(health)}"
 
-def fmt_tcp(label, result):
-    sym = ok("✓") if result == "OK" else fail("✗")
-    val = ok(result) if result == "OK" else fail(result)
-    return f"  {sym} {label:<18} {val}"
+    state_text = ok(status) if is_ok else fail(status)
+    return f"  {symbol} {name:<20} {state_text}{health_text}"
 
-def fmt_flow(name, result):
-    state, age = result[0], result[1]
+
+def fmt_tcp(label: str, result: str) -> str:
+    symbol = ok("✓") if result == "OK" else fail("✗")
+    value = ok(result) if result == "OK" else fail(result)
+    return f"  {symbol} {label:<18} {value}"
+
+
+def fmt_flow(name: str, result: tuple[str, float | None, float]) -> str:
+    state, age, stale_after = result
+
     if state == "WAITING":
-        return f"  {warn('?')} {name:<12} {warn('WAITING')}  {grey('(no data yet)')}"
-    if state == "OK":
-        return f"  {ok('✓')} {name:<12} {ok('LIVE')}     {grey(f'({age:.0f}s ago)')}"
-    # STALE
-    return f"  {fail('✗')} {name:<12} {fail('STALE')}    {grey(f'({age:.0f}s ago)')}"
+        return (
+            f"  {warn('?')} {name:<14} {warn('WAITING')}  "
+            f"{grey(f'(limit {stale_after:.0f}s)')}"
+        )
 
-def overall_status(container_results, tcp_results, flow_results):
-    any_fail = (
-        any(r[0] != "OK" for r in container_results.values()) or
-        any(v == "FAIL" for v in tcp_results.values()) or
-        any(r[0] == "STALE" for r in flow_results.values())
+    if state == "OK":
+        return (
+            f"  {ok('✓')} {name:<14} {ok('LIVE')}     "
+            f"{grey(f'({age:.1f}s ago; limit {stale_after:.0f}s)')}"
+        )
+
+    return (
+        f"  {fail('✗')} {name:<14} {fail('STALE')}    "
+        f"{grey(f'({age:.1f}s ago; limit {stale_after:.0f}s)')}"
     )
-    any_warn = any(r[0] == "WAITING" for r in flow_results.values())
-    if any_fail:
+
+
+def overall_status(
+    container_results: dict[str, tuple[Any, ...]],
+    tcp_results: dict[str, str],
+    flow_results: dict[str, tuple[str, float | None, float]],
+    mqtt_connected: bool,
+) -> str:
+    any_failure = (
+        any(result[0] != "OK" for result in container_results.values())
+        or any(result == "FAIL" for result in tcp_results.values())
+        or any(result[0] == "STALE" for result in flow_results.values())
+        or not mqtt_connected
+    )
+
+    any_warning = any(
+        result[0] == "WAITING" for result in flow_results.values()
+    )
+
+    if any_failure:
         return fail("● FAIL")
-    if any_warn:
+    if any_warning:
         return warn("◐ WARN")
     return ok("● PASS")
 
-# ── Plain-text line for log file (no ANSI) ────────────────────────────────────
 
-def log_line(ts, container_results, tcp_results, flow_results):
-    parts = [ts]
+# ── Plain-text log line ───────────────────────────────────────────────────────
+
+
+def log_line(
+    timestamp: str,
+    container_results: dict[str, tuple[Any, ...]],
+    tcp_results: dict[str, str],
+    flow_results: dict[str, tuple[str, float | None, float]],
+    mqtt_connected: bool,
+) -> str:
+    parts = [timestamp]
 
     for name, result in container_results.items():
         if result[0] == "MISSING":
@@ -264,105 +436,163 @@ def log_line(ts, container_results, tcp_results, flow_results):
     for label, result in tcp_results.items():
         parts.append(f"tcp:{label}={result}")
 
+    parts.append(f"mqtt-subscriber={'OK' if mqtt_connected else 'FAIL'}")
+
     for name, result in flow_results.items():
-        state, age = result[0], result[1]
-        if age is not None:
-            parts.append(f"flow:{name}={state}({age:.0f}s)")
+        state, age, stale_after = result
+        if age is None:
+            parts.append(
+                f"flow:{name}={state}(limit={stale_after:.0f}s)"
+            )
         else:
-            parts.append(f"flow:{name}={state}")
+            parts.append(
+                f"flow:{name}={state}({age:.1f}s,limit={stale_after:.0f}s)"
+            )
 
     return "  ".join(parts)
 
-# ── Main loop ──────────────────────────────────────────────────────────────────
 
-def main():
+# ── Main loop ─────────────────────────────────────────────────────────────────
+
+
+def main() -> None:
     global USE_COLOUR
 
-    parser = argparse.ArgumentParser(description="FAI Gateway EMC Test Monitor")
-    parser.add_argument("--log",       default=DEFAULT_LOG_PATH)
-    parser.add_argument("--interval",  type=float, default=POLL_INTERVAL)
+    parser = argparse.ArgumentParser(
+        description="FAI Gateway EMC Test Monitor"
+    )
+    parser.add_argument("--log", default=DEFAULT_LOG_PATH)
+    parser.add_argument("--interval", type=float, default=POLL_INTERVAL)
     parser.add_argument("--mqtt-host", default="localhost")
     parser.add_argument("--mqtt-port", type=int, default=1883)
     parser.add_argument("--no-colour", action="store_true")
     args = parser.parse_args()
 
+    if args.interval <= 0:
+        parser.error("--interval must be greater than zero")
+
     if args.no_colour:
         USE_COLOUR = False
 
-    # Ensure log directory exists on NVMe
-    os.makedirs(os.path.dirname(args.log), exist_ok=True)
+    log_directory = os.path.dirname(os.path.abspath(args.log))
+    os.makedirs(log_directory, exist_ok=True)
 
-    print(info(f"\nFAI Gateway EMC/LVD Test Monitor"))
+    threshold_summary = ", ".join(
+        f"{name}={config['stale_after']:.0f}s"
+        for name, config in MQTT_FLOWS.items()
+    )
+
+    started = dt.datetime.now(dt.timezone.utc)
+
+    print(info("\nFAI Gateway EMC/LVD Test Monitor"))
     print(grey(f"  Log → {args.log}"))
-    print(grey(f"  Poll interval: {args.interval}s  |  Stale threshold: {STALE_THRESHOLD}s"))
+    print(grey(f"  Poll interval: {args.interval}s"))
+    print(grey(f"  Flow limits: {threshold_summary}"))
     print(grey(f"  MQTT: {args.mqtt_host}:{args.mqtt_port}"))
-    print(grey(f"  Started: {datetime.datetime.utcnow().isoformat()}Z\n"))
+    print(grey(f"  Started: {started.isoformat()}\n"))
 
-    docker_client = docker.from_env()
-    mqtt_client   = start_mqtt_subscriber(args.mqtt_host, args.mqtt_port)
+    try:
+        docker_client = docker.from_env()
+    except Exception as exc:
+        print(fail(f"Unable to initialise Docker client: {exc}"))
+        sys.exit(1)
 
-    # Write log header
-    with open(args.log, "a") as f:
-        f.write(f"\n# ── EMC test session started {datetime.datetime.utcnow().isoformat()}Z ──\n")
-        f.write(f"# Containers: {', '.join(CONTAINERS.keys())}\n")
-        f.write(f"# TCP probes: {', '.join(TCP_PROBES.keys())}\n")
-        f.write(f"# Data flows: {', '.join(MQTT_FLOW_TOPICS.keys())}\n")
-        f.write(f"# Poll interval: {args.interval}s  Stale threshold: {STALE_THRESHOLD}s\n#\n")
+    mqtt_client = start_mqtt_subscriber(args.mqtt_host, args.mqtt_port)
+
+    with open(args.log, "a", encoding="utf-8") as log_file:
+        log_file.write(
+            f"\n# ── EMC test session started {started.isoformat()} ──\n"
+        )
+        log_file.write(f"# Containers: {', '.join(CONTAINERS)}\n")
+        log_file.write(f"# TCP probes: {', '.join(TCP_PROBES)}\n")
+        for name, config in MQTT_FLOWS.items():
+            log_file.write(
+                f"# Flow {name}: topic={config['topic']} "
+                f"stale_after={config['stale_after']:.0f}s\n"
+            )
+        log_file.write(f"# Poll interval: {args.interval}s\n#\n")
 
     iteration = 0
+
     try:
         while True:
-            t0 = time.monotonic()
-            now_utc = datetime.datetime.utcnow()
-            ts = now_utc.strftime("%Y-%m-%dT%H:%M:%S")
+            cycle_started = time.monotonic()
+            now = dt.datetime.now(dt.timezone.utc)
+            timestamp = now.strftime("%Y-%m-%dT%H:%M:%SZ")
 
             container_results = check_containers(docker_client)
-            tcp_results       = {l: check_tcp(l, h, p) for l, (h, p) in TCP_PROBES.items()}
-            flow_results      = check_data_flows()
+            tcp_results = {
+                label: check_tcp(host, port)
+                for label, (host, port) in TCP_PROBES.items()
+            }
+            flow_results = check_data_flows()
+            connected = mqtt_is_connected()
 
-            status = overall_status(container_results, tcp_results, flow_results)
+            status = overall_status(
+                container_results,
+                tcp_results,
+                flow_results,
+                connected,
+            )
 
-            # Clear terminal and redraw every poll (clean display)
             if USE_COLOUR:
-                print("\033[2J\033[H", end="")   # clear screen, cursor home
+                print("\033[2J\033[H", end="")
 
-            print(f"{info(ts+'Z')}   {status}\n")
+            print(f"{info(timestamp)}   {status}\n")
 
-            print(f"{C.BOLD if USE_COLOUR else ''}── Containers ──{C.RESET if USE_COLOUR else ''}")
+            heading_start = C.BOLD if USE_COLOUR else ""
+            heading_end = C.RESET if USE_COLOUR else ""
+
+            print(f"{heading_start}── Containers ──{heading_end}")
             for name, result in container_results.items():
                 print(fmt_container(name, result))
 
-            print(f"\n{C.BOLD if USE_COLOUR else ''}── TCP Probes ──{C.RESET if USE_COLOUR else ''}")
+            print(f"\n{heading_start}── TCP Probes ──{heading_end}")
             for label, result in tcp_results.items():
                 print(fmt_tcp(label, result))
 
-            print(f"\n{C.BOLD if USE_COLOUR else ''}── Data Flows ──{C.RESET if USE_COLOUR else ''}")
+            print(f"\n{heading_start}── Data Flows ──{heading_end}")
             for name, result in flow_results.items():
                 print(fmt_flow(name, result))
 
-            mqtt_sym = ok("✓ connected") if _mqtt_connected else warn("✗ disconnected")
-            print(f"\n  MQTT subscriber: {mqtt_sym}")
+            mqtt_status = (
+                ok("✓ connected") if connected else fail("✗ disconnected")
+            )
+            print(f"\n  MQTT subscriber: {mqtt_status}")
             print(grey(f"\n  [poll #{iteration}  Ctrl-C to stop]"))
 
-            # Append to log (plain text, no ANSI)
-            line = log_line(ts, container_results, tcp_results, flow_results)
-            with open(args.log, "a") as f:
-                f.write(line + "\n")
+            line = log_line(
+                timestamp,
+                container_results,
+                tcp_results,
+                flow_results,
+                connected,
+            )
+            with open(args.log, "a", encoding="utf-8") as log_file:
+                log_file.write(line + "\n")
 
             iteration += 1
 
-            # Sleep for remainder of interval
-            elapsed = time.monotonic() - t0
-            sleep_for = max(0.0, args.interval - elapsed)
-            time.sleep(sleep_for)
+            elapsed = time.monotonic() - cycle_started
+            time.sleep(max(0.0, args.interval - elapsed))
 
     except KeyboardInterrupt:
-        end_ts = datetime.datetime.utcnow().isoformat()
-        print(f"\n{grey('Monitor stopped: ' + end_ts + 'Z')}")
-        with open(args.log, "a") as f:
-            f.write(f"# ── Session ended {end_ts}Z  ({iteration} samples) ──\n\n")
+        ended = dt.datetime.now(dt.timezone.utc)
+        print(f"\n{grey('Monitor stopped: ' + ended.isoformat())}")
+
+        with open(args.log, "a", encoding="utf-8") as log_file:
+            log_file.write(
+                f"# ── Session ended {ended.isoformat()} "
+                f"({iteration} samples) ──\n\n"
+            )
+
+    finally:
         mqtt_client.loop_stop()
-        mqtt_client.disconnect()
+        try:
+            mqtt_client.disconnect()
+        except Exception:
+            pass
+
 
 if __name__ == "__main__":
     main()

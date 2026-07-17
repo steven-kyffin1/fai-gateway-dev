@@ -8,6 +8,20 @@
         "env": []
     },
     {
+        "id": "61c0ff1f6e5e2101",
+        "type": "tab",
+        "label": "WMBUS EMC Test",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c731d38b621d4001",
+        "type": "tab",
+        "label": "Silo 1 Modbus EMC Test",
+        "disabled": false,
+        "info": "Polls ADS301 register 40 every second and publishes a heartbeat after each successful Modbus response."
+    },
+    {
         "id": "group_telemetry",
         "type": "group",
         "z": "3738026cb3832ee1",
@@ -169,7 +183,7 @@
         "id": "683cf0d2d547c4fd",
         "type": "serial-port",
         "name": "Tinymesh",
-        "serialport": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJOW-if00-port0",
+        "serialport": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJOI-if00-port0",
         "serialbaud": "19200",
         "databits": "8",
         "parity": "none",
@@ -289,7 +303,7 @@
         "env": [
             {
                 "name": "GATEWAY_SERIAL",
-                "value": "0000d83adde45b6f",
+                "value": "000088a29eab6191",
                 "type": "str"
             }
         ],
@@ -625,6 +639,36 @@
         "sessionExpiry": ""
     },
     {
+        "id": "29fd0d733b014010",
+        "type": "modbus-client",
+        "name": "Silo 1 EMC — mbusd-weight-3",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "mbusd-weight-3",
+        "tcpPort": "5021",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": false,
+        "showErrors": true,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
         "id": "3795322861042bc3",
         "type": "serial in",
         "z": "3738026cb3832ee1",
@@ -685,6 +729,7 @@
         "id": "81706964859001bb",
         "type": "serial in",
         "z": "3738026cb3832ee1",
+        "d": true,
         "g": "febc9982bb1406d1",
         "name": "WMBUS In",
         "serial": "bcc4801ac002ac63",
@@ -718,6 +763,7 @@
         "id": "771a91e17adff194",
         "type": "function",
         "z": "3738026cb3832ee1",
+        "d": true,
         "g": "febc9982bb1406d1",
         "name": "WMBUS parser 5.2",
         "func": "// ── FAI wMBus Extractor (MC100 Format Match) ──\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) return null;\n\nconst hexData = msg.payload.toString('hex').toLowerCase();\nconst base64Raw = msg.payload.toString('base64');\n\nif (hexData.length < 50) return null;\n\n// ── PARSE HEADER FIELDS ──\nconst lField = parseInt(hexData.substring(0, 2), 16);\nconst cField = parseInt(hexData.substring(2, 4), 16);\n\n// Manufacturer (bytes 2-3, little-endian → 15-bit decode)\nconst manHex = hexData.substring(6, 8) + hexData.substring(4, 6);\nconst manInt = parseInt(manHex, 16);\nconst manufacturer =\n    String.fromCharCode(((manInt >> 10) & 0x001F) + 64) +\n    String.fromCharCode(((manInt >> 5)  & 0x001F) + 64) +\n    String.fromCharCode((manInt & 0x001F) + 64);\n\n// Device ID (bytes 4-7, little-endian BCD reversal)\nconst idHex = hexData.substring(8, 16);\nconst serialNumber = idHex.substring(6, 8) +\n    idHex.substring(4, 6) +\n    idHex.substring(2, 4) +\n    idHex.substring(0, 2);\n\n// Version and device type bytes\nconst version = parseInt(hexData.substring(16, 18), 16);\nconst ciField  = parseInt(hexData.substring(20, 22), 16);\n\n// Full ID as the MC100 sends it (manufacturer + serial)\nconst fullId = manufacturer + serialNumber;\n\n// RSSI — RC1180 with RSSI mode off means we don't have it;\n// send a reasonable placeholder or omit\nconst rssiDbm = -52; // placeholder; adjust if you enable RSSI on dongle\n\nmsg.topic = `gateway/${gatewaySerial}/wmbus/out`;\nmsg.payload = {\n    \"_meta\": {\n        \"received\": new Date().toISOString().split('.')[0] + '+00:00',\n        \"receiver_id\": \"0000000000000000\",\n        \"rssi\": rssiDbm\n    },\n    \"data\": {\n        \"AField\":       idHex.toUpperCase() + hexData.substring(16, 28).toUpperCase(),\n        \"CField\":       cField,\n        \"CIField\":      ciField,\n        \"ID\":           \"18\" + serialNumber,\n        \"LField\":       lField,\n        \"MField\":       manInt,\n        \"Manufacturer\": manufacturer,\n        \"SerialNumber\": serialNumber\n    },\n    \"raw\":  base64Raw,\n    \"type\": \"wmbus\"\n};\n\nreturn msg;",
@@ -1664,6 +1710,7 @@
         "id": "7944cc5e36abae4b",
         "type": "inject",
         "z": "3738026cb3832ee1",
+        "d": true,
         "g": "group_telemetry",
         "name": "",
         "props": [
@@ -1694,6 +1741,7 @@
         "id": "57272a9eba0c6efd",
         "type": "inject",
         "z": "3738026cb3832ee1",
+        "d": true,
         "g": "group_telemetry",
         "name": "",
         "props": [
@@ -2033,6 +2081,7 @@
         "id": "ea7983a9f448d1ad",
         "type": "inject",
         "z": "3738026cb3832ee1",
+        "d": true,
         "name": "",
         "props": [
             {
@@ -2063,6 +2112,7 @@
         "id": "030dbffaec958985",
         "type": "serial out",
         "z": "3738026cb3832ee1",
+        "d": true,
         "name": "Tinymesh EMC Out",
         "serial": "683cf0d2d547c4fd",
         "x": 270,
@@ -2073,6 +2123,7 @@
         "id": "452a23591190dc73",
         "type": "serial out",
         "z": "3738026cb3832ee1",
+        "d": true,
         "name": "WMBUS EMC Out",
         "serial": "bcc4801ac002ac63",
         "x": 270,
@@ -2118,7 +2169,7 @@
         "correl": "",
         "expiry": "",
         "broker": "473037bbac0aa9aa",
-        "x": 690,
+        "x": 700,
         "y": 100,
         "wires": []
     },
@@ -2178,6 +2229,268 @@
         "statusType": "auto",
         "x": 730,
         "y": 500,
+        "wires": []
+    },
+    {
+        "id": "b47e197bea680102",
+        "type": "serial in",
+        "z": "61c0ff1f6e5e2101",
+        "name": "WMBUS EMC Raw In",
+        "serial": "bcc4801ac002ac63",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "52ba29789e7d0103",
+                "be070cfd14fd0104"
+            ]
+        ]
+    },
+    {
+        "id": "52ba29789e7d0103",
+        "type": "function",
+        "z": "61c0ff1f6e5e2101",
+        "name": "WMBUS EMC Publisher",
+        "func": "const gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) {\n    try {\n        msg.payload = Buffer.from(msg.payload);\n    } catch (err) {\n        node.error(\"wMBus payload is not a Buffer\", msg);\n        return null;\n    }\n}\n\nconst frame = msg.payload;\n\nif (frame.length < 11) {\n    node.warn(`Discarding short wMBus frame: ${frame.length} bytes`);\n    return null;\n}\n\nconst sequence = (context.get(\"sequence\") || 0) + 1;\ncontext.set(\"sequence\", sequence);\n\nconst lField = frame[0];\nconst cField = frame[1];\nconst manufacturerValue = frame[2] | (frame[3] << 8);\n\nconst manufacturer =\n    String.fromCharCode(((manufacturerValue >> 10) & 0x1f) + 64) +\n    String.fromCharCode(((manufacturerValue >> 5) & 0x1f) + 64) +\n    String.fromCharCode((manufacturerValue & 0x1f) + 64);\n\nconst serialNumber = Buffer.from([\n    frame[7],\n    frame[6],\n    frame[5],\n    frame[4]\n]).toString(\"hex\").toUpperCase();\n\nmsg.topic = `gateway/${gatewaySerial}/wmbus/out`;\nmsg.payload = {\n    \"_meta\": {\n        \"received\": new Date().toISOString(),\n        \"receiver_id\": \"RC1180-B400T7S7\",\n        \"byte_length\": frame.length,\n        \"emc_sequence\": sequence\n    },\n    \"data\": {\n        \"LField\": lField,\n        \"CField\": cField,\n        \"MField\": manufacturerValue,\n        \"Manufacturer\": manufacturer,\n        \"SerialNumber\": serialNumber,\n        \"Version\": frame[8],\n        \"DeviceType\": frame[9],\n        \"CIField\": frame[10]\n    },\n    \"raw\": frame.toString(\"base64\"),\n    \"hex\": frame.toString(\"hex\").toUpperCase(),\n    \"type\": \"wmbus\"\n};\n\nnode.status({\n    fill: \"green\",\n    shape: \"dot\",\n    text: `${frame.length} bytes · #${sequence}`\n});\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 120,
+        "wires": [
+            [
+                "690d094e48a70105",
+                "5ed741be28db0106"
+            ]
+        ]
+    },
+    {
+        "id": "690d094e48a70105",
+        "type": "mqtt out",
+        "z": "61c0ff1f6e5e2101",
+        "name": "WMBUS EMC MQTT",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b78b8561ebd93ffc",
+        "x": 720,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "be070cfd14fd0104",
+        "type": "debug",
+        "z": "61c0ff1f6e5e2101",
+        "name": "Raw wMBus buffer",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "5ed741be28db0106",
+        "type": "debug",
+        "z": "61c0ff1f6e5e2101",
+        "name": "Published wMBus message",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "5ab461591eb64002",
+        "type": "inject",
+        "z": "c731d38b621d4001",
+        "name": "Poll every 1 second",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "8c2e38a6955c4003"
+            ]
+        ]
+    },
+    {
+        "id": "8c2e38a6955c4003",
+        "type": "modbus-getter",
+        "z": "c731d38b621d4001",
+        "name": "Read Silo 1 Weight — Register 40",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "40",
+        "quantity": "2",
+        "server": "29fd0d733b014010",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": true,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 420,
+        "y": 120,
+        "wires": [
+            [
+                "6068f3aa2b954004"
+            ],
+            [
+                "b02b2fbad9f44005"
+            ]
+        ]
+    },
+    {
+        "id": "6068f3aa2b954004",
+        "type": "function",
+        "z": "c731d38b621d4001",
+        "name": "Create successful-read heartbeat",
+        "func": "const registers = Array.isArray(msg.payload?.data)\n    ? msg.payload.data\n    : Array.isArray(msg.payload)\n        ? msg.payload\n        : null;\n\nif (!registers || registers.length < 2) {\n    node.warn(\"Modbus response did not contain two registers\");\n    return null;\n}\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst sequence = (context.get(\"sequence\") || 0) + 1;\nconst received = new Date().toISOString();\n\ncontext.set(\"sequence\", sequence);\n\n// JavaScript bitwise operations produce a signed 32-bit value.\nconst weight = (registers[0] << 16) | registers[1];\n\nmsg.topic = `gateway/${gatewaySerial}/modbus/silo1/emc`;\nmsg.payload = {\n    received,\n    sequence,\n    status: \"ok\",\n    interface: \"modbus-rtu\",\n    device: \"ADS301-silo-1\",\n    unit_id: 1,\n    function: \"read-holding-registers\",\n    register: 40,\n    quantity: 2,\n    registers: [registers[0], registers[1]],\n    weight_raw: weight\n};\n\nnode.status({\n    fill: \"green\",\n    shape: \"dot\",\n    text: `OK #${sequence}`\n});\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 100,
+        "wires": [
+            [
+                "6e15f1b663554006",
+                "ea88f39e85904007"
+            ]
+        ]
+    },
+    {
+        "id": "b02b2fbad9f44005",
+        "type": "function",
+        "z": "c731d38b621d4001",
+        "name": "Create Modbus error message",
+        "func": "const gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst errors = (context.get(\"errors\") || 0) + 1;\ncontext.set(\"errors\", errors);\n\nlet detail = \"Modbus read failed\";\n\ntry {\n    if (msg.error?.message) detail = msg.error.message;\n    else if (msg.payload?.message) detail = msg.payload.message;\n    else if (typeof msg.payload === \"string\") detail = msg.payload;\n} catch (_) {\n    // Keep default detail.\n}\n\nmsg.topic = `gateway/${gatewaySerial}/modbus/silo1/emc/error`;\nmsg.payload = {\n    received: new Date().toISOString(),\n    status: \"error\",\n    error_count: errors,\n    interface: \"modbus-rtu\",\n    device: \"ADS301-silo-1\",\n    unit_id: 1,\n    register: 40,\n    detail\n};\n\nnode.status({\n    fill: \"red\",\n    shape: \"ring\",\n    text: `Error #${errors}`\n});\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 180,
+        "wires": [
+            [
+                "32ad965236ba4008",
+                "9951f7821b4c4009"
+            ]
+        ]
+    },
+    {
+        "id": "6e15f1b663554006",
+        "type": "mqtt out",
+        "z": "c731d38b621d4001",
+        "name": "Publish Modbus EMC heartbeat",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "application/json",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b78b8561ebd93ffc",
+        "x": 1050,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ea88f39e85904007",
+        "type": "debug",
+        "z": "c731d38b621d4001",
+        "name": "Successful Modbus reads",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "32ad965236ba4008",
+        "type": "mqtt out",
+        "z": "c731d38b621d4001",
+        "name": "Publish Modbus EMC error",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "application/json",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b78b8561ebd93ffc",
+        "x": 1030,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "9951f7821b4c4009",
+        "type": "debug",
+        "z": "c731d38b621d4001",
+        "name": "Modbus read errors",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 220,
         "wires": []
     }
 ]

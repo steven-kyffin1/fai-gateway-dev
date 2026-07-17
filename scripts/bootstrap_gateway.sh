@@ -28,6 +28,12 @@ fi
 # Zero-pad the 12-char MAC to reach the 16-char EUI requirement
 ETH_MAC="0000$RAW_MAC"
 
+# Generate hostname from the final eight characters of the Ethernet MAC
+NEW_HOSTNAME="fai-gw-${RAW_MAC: -8}"
+
+echo "Setting hostname to: $NEW_HOSTNAME"
+hostnamectl set-hostname "$NEW_HOSTNAME"
+
 # 3. Update System
 echo "[3/10] Updating System Packages..."
 apt-get update && apt-get upgrade -y
@@ -165,13 +171,14 @@ chown -R 70:70 chirpstack/postgres
 chown -R 70:70 chirpstack/postgres-init
 chown -R 999:999 chirpstack/redis
 
-# 1. Copy our verified local template to the config folder
-if [ -f "$PROJECT_ROOT/chirpstack/configuration/chirpstack/region_eu868.toml" ]; then
-    cp "$PROJECT_ROOT/chirpstack/configuration//chirpstack/region_eu868.toml" chirpstack/configuration/chirpstack/region_eu868.toml
-else
-    echo "⚠️ ERROR: Could not find chirpstack/configuration/chirpstack/region_eu868.toml. Please ensure it exists in your repo."
+REGION_CONFIG="$PROJECT_ROOT/chirpstack/configuration/chirpstack/region_eu868.toml"
+
+if [ ! -f "$REGION_CONFIG" ]; then
+    echo "ERROR: Could not find $REGION_CONFIG"
     exit 1
 fi
+
+echo "Using EU868 region configuration: $REGION_CONFIG"
 
 cat <<EOF > chirpstack/configuration/chirpstack/chirpstack.toml
 [network]
@@ -197,15 +204,45 @@ EOF
 # 7. Systemd Service & Persistence
 echo "[7/10] Installing Systemd Service..."
 
-if [ -f "./fai-gateway.service" ]; then
-    cp ./fai-gateway.service /etc/systemd/system/fai-gateway.service
-    sed -i "s|WorkingDirectory=.*|WorkingDirectory=$PROJECT_ROOT|g" /etc/systemd/system/fai-gateway.service
-    systemctl daemon-reload
-    systemctl enable fai-gateway.service
-    echo "Persistence enabled."
-else
-    echo "ERROR: Could not find fai-gateway.service in $PROJECT_ROOT"
+SERVICE_SOURCE=""
+
+for candidate in \
+    "$PROJECT_ROOT/fai-gateway.service" \
+    "$SCRIPT_DIR/fai-gateway.service" \
+    "$PROJECT_ROOT/scripts/fai-gateway.service"
+do
+    if [ -f "$candidate" ]; then
+        SERVICE_SOURCE="$candidate"
+        break
+    fi
+done
+
+if [ -z "$SERVICE_SOURCE" ]; then
+    echo "ERROR: fai-gateway.service could not be found."
+    echo "Searched:"
+    echo "  $PROJECT_ROOT/fai-gateway.service"
+    echo "  $SCRIPT_DIR/fai-gateway.service"
+    echo "  $PROJECT_ROOT/scripts/fai-gateway.service"
+    exit 1
 fi
+
+echo "Installing service from: $SERVICE_SOURCE"
+
+cp "$SERVICE_SOURCE" /etc/systemd/system/fai-gateway.service
+
+sed -i \
+    "s|^WorkingDirectory=.*|WorkingDirectory=$PROJECT_ROOT|" \
+    /etc/systemd/system/fai-gateway.service
+
+systemctl daemon-reload
+systemctl enable fai-gateway.service
+
+if ! systemctl cat fai-gateway.service >/dev/null 2>&1; then
+    echo "ERROR: fai-gateway.service was not installed correctly."
+    exit 1
+fi
+
+echo "Persistence enabled."
 
 # 8. SSD Setup
 echo "[8/10] Configuring NVMe SSD for Store-and-Forward..."
@@ -270,33 +307,58 @@ udevadm trigger
 # =================================================================
 # 11. ZERO-TOUCH CHIRPSTACK AUTO-PROVISIONING
 # =================================================================
-if [ "$ACTIVE_PROFILES" == "lorawan" ]; then
+
+if [ "$ACTIVE_PROFILES" = "lorawan" ]; then
     echo "[11/11] Booting Stack & Auto-Provisioning ChirpStack..."
-    
-    # 1. Start the systemd service NOW so the Docker containers begin booting
-    systemctl start fai-gateway.service
-    
-    echo -n "Waiting for ChirpStack to come online (takes ~15-20s)"
-    
-    # Ping the Web UI on 8080 to see if the container has finished booting
-    until curl -s -f -o /dev/null "http://localhost:8080/"; do
+
+    if ! systemctl start fai-gateway.service; then
+        echo "ERROR: Failed to start fai-gateway.service."
+        systemctl status fai-gateway.service --no-pager || true
+        journalctl -u fai-gateway.service -n 100 --no-pager || true
+        exit 1
+    fi
+
+    echo -n "Waiting for ChirpStack to come online"
+
+    CHIRPSTACK_READY=false
+
+    for attempt in $(seq 1 60); do
+        if curl -fsS -o /dev/null "http://127.0.0.1:8080/"; then
+            CHIRPSTACK_READY=true
+            break
+        fi
+
         printf '.'
         sleep 2
     done
-    
+
     echo ""
+
+    if [ "$CHIRPSTACK_READY" != "true" ]; then
+        echo "ERROR: ChirpStack did not become ready within 120 seconds."
+        docker compose ps || true
+        docker compose logs --tail=100 chirpstack || true
+        exit 1
+    fi
+
     echo "ChirpStack is UP! Executing Ghost Admin..."
-    
-    
-    # 3. Make the provision script executable and run it
+
     SETUP_SCRIPT="$PROJECT_ROOT/scripts/chirpstack_setup.sh"
-    
-    if [ -f "$SETUP_SCRIPT" ]; then
-        chmod +x "$SETUP_SCRIPT"
-        # Execute from the project root so it can find .env
-        (cd "$PROJECT_ROOT" && sudo bash "$SETUP_SCRIPT")
-    else
-        echo "⚠️ WARNING: Could not find $SETUP_SCRIPT. Skipping auto-provisioning."
+
+    if [ ! -f "$SETUP_SCRIPT" ]; then
+        echo "ERROR: Could not find $SETUP_SCRIPT."
+        exit 1
+    fi
+
+    chmod +x "$SETUP_SCRIPT"
+
+    # The bootstrap is already running as root, so sudo is unnecessary.
+    if ! (
+        cd "$PROJECT_ROOT"
+        bash "$SETUP_SCRIPT"
+    ); then
+        echo "ERROR: ChirpStack auto-provisioning failed."
+        exit 1
     fi
 else
     echo "[11/11] LoRaWAN Disabled. Skipping ChirpStack Auto-Provisioning."

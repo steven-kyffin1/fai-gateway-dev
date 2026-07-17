@@ -34,3 +34,4 @@ scripts/mosquitto/
 chirpstack/postgres/
 chirpstack/postgres-init/
 chirpstack/redis/
+__pycache__/

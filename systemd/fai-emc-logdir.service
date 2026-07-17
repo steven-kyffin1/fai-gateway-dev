@@ -1,0 +1,12 @@
+[Unit]
+Description=Prepare FAI EMC log directory
+After=local-fs.target
+RequiresMountsFor=/opt/fai-storage
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/install -d -o recomputer -g recomputer -m 0775 /opt/fai-storage/emc
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
