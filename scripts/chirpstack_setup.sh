@@ -105,16 +105,19 @@ else
     exit 1
 fi
 
+GW_NAME="${GATEWAY_HOSTNAME:-$GATEWAY_SERIAL}"
+
 GW_RESP=$(grpcurl -plaintext -H "authorization: Bearer $TOKEN" -d "{
     \"gateway\": {
         \"tenantId\": \"$TENANT_ID\",
         \"gatewayId\": \"$GATEWAY_SERIAL\",
-        \"name\": \"$GATEWAY_HOSTNAME\",
-        \"description\": \"Auto-Provisioned Zero-Touch Gateway\"
+        \"name\": \"$GW_NAME\",
+        \"description\": \"Auto-Provisioned Zero-Touch Gateway\",
+        \"downlinkPriority\": 1
     }
 }" localhost:8080 api.GatewayService/Create 2>&1)
 
-if echo "$GW_RESP" | grep -q '""'; then
+if [ "$GW_RESP" = "{}" ] || echo "$GW_RESP" | grep -q '"id"'; then
     echo "✅ Gateway Registered Successfully!"
 elif echo "$GW_RESP" | grep -qi "already exists\|duplicate"; then
     echo "ℹ️  Gateway already exists, skipping."

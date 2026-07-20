@@ -99,6 +99,15 @@ else
 fi
 
 FINAL_SERIAL=${GATEWAY_SERIAL:-$ETH_MAC}
+NEW_HOSTNAME=${NEW_HOSTNAME:-fai-gw-${FINAL_SERIAL: -8}}
+
+echo "Setting hostname to $NEW_HOSTNAME..."
+hostnamectl set-hostname "$NEW_HOSTNAME" || true
+
+# Keep /etc/hosts aligned with hostname so sudo does not warn:
+# "unable to resolve host"
+sed -i '/^127\.0\.1\.1/d' /etc/hosts
+echo "127.0.1.1   $NEW_HOSTNAME" >> /etc/hosts
 
 echo "Writing environment variables to $PROJECT_ROOT/.env..."
 cat <<EOF > .env
@@ -197,15 +206,29 @@ EOF
 # 7. Systemd Service & Persistence
 echo "[7/10] Installing Systemd Service..."
 
-if [ -f "./fai-gateway.service" ]; then
-    cp ./fai-gateway.service /etc/systemd/system/fai-gateway.service
-    sed -i "s|WorkingDirectory=.*|WorkingDirectory=$PROJECT_ROOT|g" /etc/systemd/system/fai-gateway.service
-    systemctl daemon-reload
-    systemctl enable fai-gateway.service
-    echo "Persistence enabled."
-else
-    echo "ERROR: Could not find fai-gateway.service in $PROJECT_ROOT"
-fi
+cat > /etc/systemd/system/fai-gateway.service <<EOF
+[Unit]
+Description=FAI Gateway Docker Compose Stack
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=$PROJECT_ROOT
+EnvironmentFile=$PROJECT_ROOT/.env
+ExecStart=/usr/bin/docker compose up -d --remove-orphans
+ExecStop=/usr/bin/docker compose down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable fai-gateway.service
+echo "Persistence enabled."
 
 # 8. SSD Setup
 echo "[8/10] Configuring NVMe SSD for Store-and-Forward..."
