@@ -13,6 +13,7 @@ bind="0.0.0.0:8080"
 secret="fai-offline-secret-key-12345"
 
 [integration]
+enabled=["mqtt"]
   [integration.mqtt]
   server="tcp://mqtt:1883/"
   json=true
