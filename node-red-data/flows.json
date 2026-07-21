@@ -66,7 +66,8 @@
             "e3730d84bcc3688e",
             "c49885e9d6a9fc61",
             "0d95085cc5ba3a5e",
-            "7c8ff7058b4c4054"
+            "7c8ff7058b4c4054",
+            "bd0bbb07a30d97f8"
         ],
         "x": 34,
         "y": 659,
@@ -127,12 +128,13 @@
         },
         "nodes": [
             "57061788d08a630e",
-            "c96e6411ef124a35"
+            "c96e6411ef124a35",
+            "a1f3e3a2e1336bda"
         ],
         "x": 34,
         "y": 179,
-        "w": 592,
-        "h": 82
+        "w": 612,
+        "h": 142
     },
     {
         "id": "2ba8c5099f662f10",
@@ -1111,7 +1113,8 @@
         "y": 920,
         "wires": [
             [
-                "479b96e0273a18b1"
+                "479b96e0273a18b1",
+                "bd0bbb07a30d97f8"
             ]
         ]
     },
@@ -1639,7 +1642,8 @@
         "y": 220,
         "wires": [
             [
-                "479b96e0273a18b1"
+                "479b96e0273a18b1",
+                "a1f3e3a2e1336bda"
             ]
         ]
     },
@@ -2060,7 +2064,6 @@
         "id": "e30e118b06e7c31e",
         "type": "debug",
         "z": "3738026cb3832ee1",
-        "d": true,
         "g": "5014da80cd5e927f",
         "name": "debug 1",
         "active": true,
@@ -2071,8 +2074,42 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
+        "x": 580,
         "y": 460,
+        "wires": []
+    },
+    {
+        "id": "a1f3e3a2e1336bda",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "bd0bbb07a30d97f8",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "f39362f0cc4d435f",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1540,
+        "y": 960,
         "wires": []
     }
 ]
