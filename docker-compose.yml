@@ -3,6 +3,8 @@ services:
     image: eclipse-mosquitto:latest
     container_name: fai-mqtt
     restart: unless-stopped
+    dns:
+      - 100.100.100.100
     ports:
       - "1883:1883"
     volumes:

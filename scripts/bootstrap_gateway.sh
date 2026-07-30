@@ -1,5 +1,8 @@
 #!/bin/bash
-# FAI Gateway Bootstrap Script v2.1 - Production Zero-Touch Edition
+# FAI Gateway Bootstrap - Production Zero-Touch Edition
+
+GATEWAY_VERSION="2.4.1"
+echo "--- 🛰️ FAI GATEWAY v${GATEWAY_VERSION} STARTUP SEQUENCE ---"
 
 echo "--- 🛰️ FAI GATEWAY STARTUP SEQUENCE ---"
 
@@ -144,15 +147,27 @@ EOF
 cat <<EOF > mosquitto/config/conf.d/bridge.conf
 connection cloud-backend-bridge
 address mqtt.birdbox.faifarms.com:8883
+
 remote_clientid ${FINAL_SERIAL}
+local_clientid local.${FINAL_SERIAL}.cloud-backend-bridge
 remote_username ${FINAL_SERIAL}
+
 bridge_protocol_version mqttv311
 bridge_cafile /etc/ssl/certs/ca-certificates.crt
-bridge_insecure true
+bridge_insecure false
+
 cleansession false
 try_private false
+start_type automatic
+restart_timeout 5 30
+
 topic gateway/${FINAL_SERIAL}/# out 1 "" ""
 EOF
+
+# Allow the deployment user to maintain the Mosquitto configuration
+chown -R "$REAL_USER:$REAL_USER" mosquitto/config
+find mosquitto/config -type d -exec chmod 755 {} \;
+find mosquitto/config -type f -exec chmod 644 {} \;
 
 # Scaffold ChirpStack Offline Server
 echo "Scaffolding Private LoRaWAN Network Server..."
@@ -209,10 +224,10 @@ echo "[7/10] Installing Systemd Service..."
 
 cat > /etc/systemd/system/fai-gateway.service <<EOF
 [Unit]
-Description=FAI Gateway Docker Compose Stack
+Description=FAI Gateway Docker Stack
 Requires=docker.service
-After=docker.service network-online.target
-Wants=network-online.target
+Wants=network-online.target tailscaled.service
+After=docker.service network-online.target tailscaled.service
 
 [Service]
 Type=oneshot
@@ -220,8 +235,10 @@ RemainAfterExit=yes
 WorkingDirectory=$PROJECT_ROOT
 EnvironmentFile=$PROJECT_ROOT/.env
 ExecStart=/usr/bin/docker compose up -d --remove-orphans
-ExecStop=/usr/bin/docker compose down
+ExecStop=/usr/bin/docker compose stop
 TimeoutStartSec=0
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
