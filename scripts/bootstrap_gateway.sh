@@ -1,7 +1,7 @@
 #!/bin/bash
 # FAI Gateway Bootstrap - Production Zero-Touch Edition
 
-GATEWAY_VERSION="2.4.1"
+GATEWAY_VERSION="2.4.2"
 echo "--- 🛰️ FAI GATEWAY v${GATEWAY_VERSION} STARTUP SEQUENCE ---"
 
 echo "--- 🛰️ FAI GATEWAY STARTUP SEQUENCE ---"
@@ -91,11 +91,28 @@ echo "Does this gateway have a LoRaWAN Module installed?"
 echo "1) YES"
 echo "2) NO [Default]"
 echo "----------------------------------------"
-read -p "Enter 1 or 2 [Default: 2]: " LORA_CHOICE
+read -r -p "Enter 1 or 2 [Default: 2]: " LORA_CHOICE
 
-if [ "$LORA_CHOICE" == "1" ]; then
+LORAWAN_WATER_METERS=false
+
+if [ "$LORA_CHOICE" = "1" ]; then
     ACTIVE_PROFILES="lorawan"
     echo "LoRaWAN Stack ENABLED."
+
+    echo ""
+    echo "----------------------------------------"
+    echo "Will this gateway receive LoRaWAN water meters?"
+    echo "1) YES"
+    echo "2) NO [Default]"
+    echo "----------------------------------------"
+    read -r -p "Enter 1 or 2 [Default: 2]: " WATER_LORA_CHOICE
+
+    if [ "$WATER_LORA_CHOICE" = "1" ]; then
+        LORAWAN_WATER_METERS=true
+        echo "LoRaWAN water-meter support ENABLED."
+    else
+        echo "LoRaWAN water-meter support DISABLED."
+    fi
 else
     ACTIVE_PROFILES=""
     echo "LoRaWAN Stack DISABLED."
@@ -118,6 +135,7 @@ GATEWAY_SERIAL=$FINAL_SERIAL
 GATEWAY_HOSTNAME=$NEW_HOSTNAME
 POWER_METER_TYPE=$METER_TYPE
 COMPOSE_PROFILES=$ACTIVE_PROFILES
+LORAWAN_WATER_METERS=$LORAWAN_WATER_METERS
 EOF
 
 chown "$REAL_USER":"$REAL_USER" .env
@@ -335,7 +353,7 @@ if [ "$ACTIVE_PROFILES" == "lorawan" ]; then
     if [ -f "$SETUP_SCRIPT" ]; then
         chmod +x "$SETUP_SCRIPT"
         # Execute from the project root so it can find .env
-        (cd "$PROJECT_ROOT" && sudo bash "$SETUP_SCRIPT")
+        (cd "$PROJECT_ROOT" && bash "$SETUP_SCRIPT")
     else
         echo "⚠️ WARNING: Could not find $SETUP_SCRIPT. Skipping auto-provisioning."
     fi
