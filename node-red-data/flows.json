@@ -31,8 +31,8 @@
             "87c34af15b4d9e67",
             "b7f6d0af323aa309"
         ],
-        "x": 34,
-        "y": 1059,
+        "x": 194,
+        "y": 3219,
         "w": 1052,
         "h": 202
     },
@@ -108,8 +108,7 @@
         "nodes": [
             "3795322861042bc3",
             "3e23d6eda29ff93e",
-            "edd0911a555ca093",
-            "e30e118b06e7c31e"
+            "edd0911a555ca093"
         ],
         "x": 34,
         "y": 339,
@@ -129,19 +128,20 @@
         "nodes": [
             "57061788d08a630e",
             "c96e6411ef124a35",
-            "a1f3e3a2e1336bda",
             "2d0e2b27a9187374",
             "4f44d9e4310d5588",
             "87aa47cc136f336a",
             "027f325576280c94",
             "7e52c868fd492d08",
             "a5a75db8e96fde8a",
-            "85cc5eeb2e7b0080"
+            "6e1df4a95aa1b1f9",
+            "b53b1a5fd06b4b39",
+            "449d3fb8efadacc7"
         ],
         "x": 34,
         "y": -1,
         "w": 1292,
-        "h": 362
+        "h": 322
     },
     {
         "id": "2ba8c5099f662f10",
@@ -157,10 +157,10 @@
             "color": "#767676"
         },
         "nodes": [
-            "3e35b4fe1df24143",
-            "d78ea0c6cc6a46e0",
-            "74ad24f2d8274eba",
             "9e82656eb5534a6c",
+            "d78ea0c6cc6a46e0",
+            "3e35b4fe1df24143",
+            "74ad24f2d8274eba",
             "d8c321012a4f40ca",
             "7ba9f265bf904166",
             "9837dede03b84a89",
@@ -174,80 +174,85 @@
             "b92613aa21664a40",
             "020055c64f32407c"
         ],
-        "x": 14,
-        "y": 1339,
+        "x": 214,
+        "y": 3459,
         "w": 2492,
         "h": 362
     },
     {
-        "id": "e85c1defedd28255",
+        "id": "35c85549ab8e7922",
         "type": "group",
         "z": "3738026cb3832ee1",
-        "name": "ADS301 shared-bus addressing, calibration and telemetry",
         "style": {
-            "stroke": "#3f92a6",
-            "fill": "#eff2f6",
-            "label": true
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#767676"
         },
         "nodes": [
-            "655f170227ab2d42",
-            "ebb48d61cc401a5e",
-            "db046d86818f86ef",
-            "fefb8bfa3d06a923",
-            "50be7c4b55ae9d1c",
-            "5b11f75222d7f209",
-            "0c8be041da9b15c8",
-            "3c6c544918843c0e",
-            "fca6f51f158754b1",
-            "8cea171b521e6264",
-            "a101c7dade81b3a4",
-            "c3a942b5afd1fe2b",
-            "593f343034c4b656",
-            "c1b818dd436d79b3",
-            "19c6aa7e08b6d26e",
-            "239edac4ceddbb01",
-            "0e0d90a703ca442e",
-            "8743c4c3a16a88e5",
-            "613807e28bd8b6df",
-            "f95359d54aff4e9c",
-            "e011e3c116d91751",
-            "57de7d6d8a85e021",
-            "7cbe2e15c2aecff9",
-            "44acd8c2dcb58ff3",
-            "fc2a3313f46cdf8e",
-            "d811a762afee051b",
-            "f8786acf04c085cb",
-            "0ff3adb7ec9ebca0",
-            "5b777c5f831c9be4",
-            "dddee115923c9b88",
-            "ab1f25c22c6d30b0",
-            "d7debe9f4ce7b8f4",
-            "fe6c482cc5da4286",
-            "9b9a2ac9134478d4",
-            "f98262df6721c5ae",
-            "fad9909f03370292",
-            "3f1dca5195f3660e",
-            "b12015205f579dd3",
-            "4f31ad191770f9cf",
-            "edfdbb460d6cc7d1",
-            "724dbba39140d90d",
-            "796470aca1b02304",
-            "a24dc364bb011353",
-            "1d6d0c6aaaf1f66a",
-            "bca0534ad4350602",
-            "0dadaf3db39a027e",
-            "c3597bcf882c4b49",
-            "23cb6e03daa692a8",
-            "b2741a0378f561bb",
-            "9df6c41c5957ec1c",
-            "e9167a088bf01888",
-            "6f1d4d706df70c82",
-            "bebb480d4a798ab5"
+            "15cee9a93c2e6c38",
+            "9a6f449831faa756",
+            "c27964af8bf6225d",
+            "822f2d58ede5aaa0",
+            "d5c636614eaea494",
+            "b7999274d42a8490",
+            "bde244a04e7b3dc7",
+            "278f9173442df191",
+            "3858427b71906a62",
+            "ec4d321f40016031",
+            "89dbb858ccd79a37",
+            "515c942cc5151238",
+            "13701716f10f6336",
+            "9535cb863c9c8f8f",
+            "27086ab2d045dfcc",
+            "df701e384f4a394b",
+            "e73aae40757011ca",
+            "4b9c6b6d566b07cf",
+            "f4af018071157fe0",
+            "89bb95965960e4b4",
+            "f5653f8c8376e7b6",
+            "5f435cb09ab848ca",
+            "977e3152870c0e93",
+            "a1de40347dae74ba",
+            "decaa390f2ec9119",
+            "b6b05b2367b32d73",
+            "e307cc54a3f6331f",
+            "cb5acd6d07846b76",
+            "8508b7dae03d86f1",
+            "6323974d2bb3a96f",
+            "0143d493d9f0797f",
+            "12f53333b24286fe",
+            "261f898087d112af",
+            "dd2a885670b40625",
+            "178a282b0252440f",
+            "37a85d3ca4894182",
+            "25f433e99efba297",
+            "8b475a05c409e81a",
+            "58cc998df4b004c8",
+            "a40ed8134de54924",
+            "82f07040e6a283a3",
+            "b689a92c6df548ce",
+            "5fe39e619441f6a3",
+            "91a650048ebf85d7",
+            "3f6a031f17bf556d",
+            "9a34c841ed226199",
+            "d90cc664cbc9159c",
+            "2ef906cd0cb069dc",
+            "ab4aa0467c74859b",
+            "bff27e46d19cd6b9",
+            "c58c0bed3f47a73b",
+            "da5a9645203adfad",
+            "93a7b797f8b357ce",
+            "1dcfb15384764427",
+            "b82ff135049249dd"
         ],
-        "x": 14,
-        "y": 1919,
-        "w": 2372,
-        "h": 922
+        "x": 74,
+        "y": 1699,
+        "w": 3372,
+        "h": 1082
     },
     {
         "id": "683cf0d2d547c4fd",
@@ -729,9 +734,7 @@
         "x": 410,
         "y": 460,
         "wires": [
-            [
-                "e30e118b06e7c31e"
-            ]
+            []
         ]
     },
     {
@@ -784,8 +787,8 @@
         "correl": "",
         "expiry": "",
         "broker": "b78b8561ebd93ffc",
-        "x": 1450,
-        "y": 280,
+        "x": 3310,
+        "y": 1480,
         "wires": []
     },
     {
@@ -1397,8 +1400,8 @@
         "delayOnStart": false,
         "enableDeformedMessages": false,
         "startDelayTime": "",
-        "x": 380,
-        "y": 1100,
+        "x": 540,
+        "y": 3260,
         "wires": [
             [
                 "parse_weight"
@@ -1422,8 +1425,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
-        "y": 1100,
+        "x": 810,
+        "y": 3260,
         "wires": [
             [
                 "debug_weight"
@@ -1445,8 +1448,8 @@
         "targetType": "jsonata",
         "statusVal": "",
         "statusType": "auto",
-        "x": 970,
-        "y": 1120,
+        "x": 1130,
+        "y": 3280,
         "wires": []
     },
     {
@@ -1463,8 +1466,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 690,
-        "y": 1160,
+        "x": 850,
+        "y": 3320,
         "wires": [
             [
                 "479b96e0273a18b1",
@@ -1496,8 +1499,8 @@
         "delayOnStart": false,
         "enableDeformedMessages": false,
         "startDelayTime": "",
-        "x": 380,
-        "y": 1140,
+        "x": 540,
+        "y": 3300,
         "wires": [
             [
                 "5e24a7fa58d31074"
@@ -1529,8 +1532,8 @@
         "delayOnStart": false,
         "enableDeformedMessages": false,
         "startDelayTime": "",
-        "x": 380,
-        "y": 1180,
+        "x": 540,
+        "y": 3340,
         "wires": [
             [
                 "5e24a7fa58d31074"
@@ -1562,8 +1565,8 @@
         "delayOnStart": false,
         "enableDeformedMessages": false,
         "startDelayTime": "",
-        "x": 380,
-        "y": 1220,
+        "x": 540,
+        "y": 3380,
         "wires": [
             [
                 "5e24a7fa58d31074"
@@ -1594,8 +1597,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 1100,
+        "x": 310,
+        "y": 3260,
         "wires": [
             [
                 "modbus_read_weight"
@@ -1625,8 +1628,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 1140,
+        "x": 310,
+        "y": 3300,
         "wires": [
             [
                 "43a32c58306da29c"
@@ -1656,8 +1659,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 1180,
+        "x": 310,
+        "y": 3340,
         "wires": [
             [
                 "399c5992ea9f0bad"
@@ -1687,8 +1690,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 1220,
+        "x": 310,
+        "y": 3380,
         "wires": [
             [
                 "470317d11e3be29d"
@@ -1734,8 +1737,7 @@
         "y": 200,
         "wires": [
             [
-                "479b96e0273a18b1",
-                "a1f3e3a2e1336bda"
+                "479b96e0273a18b1"
             ]
         ]
     },
@@ -1753,459 +1755,14 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 690,
-        "y": 1100,
+        "x": 850,
+        "y": 3260,
         "wires": [
             [
                 "debug_weight",
                 "479b96e0273a18b1"
             ]
         ]
-    },
-    {
-        "id": "3e35b4fe1df24143",
-        "type": "comment",
-        "z": "3738026cb3832ee1",
-        "g": "2ba8c5099f662f10",
-        "name": "ADS301 dashboard calibration — replacement for old calibration controls",
-        "info": "Use the Dashboard in this order:\n1. Select Silo 1 or Silo 2.\n2. Ensure selected silo is empty and stable, then press Set Zero.\n3. Add a stable, known test load.\n4. Enter that exact load in kg and press Calibrate Known Weight + Save.\n\nEach command is held to one per second, routes to the correct TCP Modbus server,\nand writes with Unit ID 1. Do not use the old dashboard calibration controls after importing.",
-        "x": 460,
-        "y": 1380,
-        "wires": []
-    },
-    {
-        "id": "d78ea0c6cc6a46e0",
-        "type": "ui_dropdown",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Choose calibration silo",
-        "label": "Select silo",
-        "tooltip": "Choose the physical silo to calibrate.",
-        "place": "Choose Silo 1 or Silo 2",
-        "group": "bf1a2f43b10343c8",
-        "order": 1,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Silo 1",
-                "value": "1",
-                "type": "str"
-            },
-            {
-                "label": "Silo 2",
-                "value": "2",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "topicType": "str",
-        "className": "",
-        "x": 140,
-        "y": 1480,
-        "wires": [
-            [
-                "74ad24f2d8274eba"
-            ]
-        ]
-    },
-    {
-        "id": "74ad24f2d8274eba",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Remember selected silo",
-        "func": "const silo = String(msg.payload ?? '').trim();\n\nif (!['1', '2'].includes(silo)) {\n    msg.payload = 'Choose Silo 1 or Silo 2.';\n    return msg;\n}\n\nflow.set('ads301CalibrationSilo', silo);\nmsg.payload = `Selected: Silo ${silo}`;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 550,
-        "y": 1480,
-        "wires": [
-            [
-                "b92613aa21664a40"
-            ]
-        ]
-    },
-    {
-        "id": "9e82656eb5534a6c",
-        "type": "ui_numeric",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Known test weight",
-        "label": "Known test weight (kg)",
-        "tooltip": "Enter the exact stable load that will be on the selected silo.",
-        "group": "bf1a2f43b10343c8",
-        "order": 2,
-        "width": 6,
-        "height": 1,
-        "wrap": false,
-        "passthru": false,
-        "topic": "",
-        "topicType": "str",
-        "format": "{{value}}",
-        "min": "0.01",
-        "max": "8000000",
-        "step": "1",
-        "className": "",
-        "x": 130,
-        "y": 1540,
-        "wires": [
-            [
-                "d8c321012a4f40ca"
-            ]
-        ]
-    },
-    {
-        "id": "d8c321012a4f40ca",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Remember known weight",
-        "func": "const kg = Number(msg.payload);\n\nif (!Number.isFinite(kg) || kg <= 0) {\n    msg.payload = 'Enter a known test weight greater than zero.';\n    return msg;\n}\n\nflow.set('ads301KnownWeightKg', kg);\nmsg.payload = `Known test weight: ${kg} kg`;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 550,
-        "y": 1540,
-        "wires": [
-            [
-                "b92613aa21664a40"
-            ]
-        ]
-    },
-    {
-        "id": "7ba9f265bf904166",
-        "type": "ui_button",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Set zero from dashboard",
-        "group": "bf1a2f43b10343c8",
-        "order": 3,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "label": "1. Set Zero — silo empty & stable",
-        "tooltip": "Samples the empty load point. Do not use this with product or a test weight on the silo.",
-        "color": "white",
-        "bgcolor": "#d9534f",
-        "className": "",
-        "icon": "",
-        "payload": "zero",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 150,
-        "y": 1600,
-        "wires": [
-            [
-                "9837dede03b84a89"
-            ]
-        ]
-    },
-    {
-        "id": "9837dede03b84a89",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Queue Zero sequence",
-        "func": "const silo = String(flow.get('ads301CalibrationSilo') || '');\n\nif (!['1', '2'].includes(silo)) {\n    return [null, { payload: 'Select Silo 1 or Silo 2 before setting zero.' }];\n}\nif (flow.get('ads301CalibrationBusy')) {\n    return [null, { payload: 'A calibration sequence is already running. Wait for it to complete.' }];\n}\n\nflow.set('ads301CalibrationBusy', true);\n\nconst common = { calibrationSilo: silo, calibrationMode: 'zero' };\n\nreturn [[\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for zero`,\n        calibrationAction: `Silo ${silo}: password unlocked for zero`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: sample empty zero (LDW)`,\n        calibrationAction: `Silo ${silo}: zero point sampled`,\n        calibrationLast: true,\n        payload: { value: [32767, 65535], fc: 16, unitid: 1, address: 16, quantity: 2 }\n    }\n], {\n    payload: `Zero calibration queued for Silo ${silo}. Keep it empty and stable.`\n}];",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 540,
-        "y": 1600,
-        "wires": [
-            [
-                "fe6171767b904329"
-            ],
-            [
-                "b92613aa21664a40"
-            ]
-        ]
-    },
-    {
-        "id": "ff305cf975264067",
-        "type": "ui_button",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Calibrate known weight from dashboard",
-        "group": "bf1a2f43b10343c8",
-        "order": 4,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "label": "2. Calibrate Known Weight + Save",
-        "tooltip": "With the known weight applied and stable, samples LWT, writes NOV, and saves calibration.",
-        "color": "white",
-        "bgcolor": "#5cb85c",
-        "className": "",
-        "icon": "",
-        "payload": "known-weight",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 200,
-        "y": 1660,
-        "wires": [
-            [
-                "dca53e7245ae4013"
-            ]
-        ]
-    },
-    {
-        "id": "dca53e7245ae4013",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Queue known-load + save sequence",
-        "func": "const silo = String(flow.get('ads301CalibrationSilo') || '');\nconst kg = Number(flow.get('ads301KnownWeightKg'));\n\n// Set to 10 only when the ADS301 is configured to report 0.1 kg display increments.\nconst unitsPerKg = 1;\nconst nominal = Math.round(kg * unitsPerKg);\n\nif (!['1', '2'].includes(silo)) {\n    return [null, { payload: 'Select Silo 1 or Silo 2 before calibrating the known load.' }];\n}\nif (!Number.isSafeInteger(nominal) || nominal <= 0 || nominal > 8000000) {\n    return [null, { payload: 'Enter a valid known test weight before calibrating.' }];\n}\nif (flow.get('ads301CalibrationBusy')) {\n    return [null, { payload: 'A calibration sequence is already running. Wait for it to complete.' }];\n}\n\nflow.set('ads301CalibrationBusy', true);\n\nconst highWord = Math.floor(nominal / 65536);\nconst lowWord = nominal & 0xFFFF;\nconst common = { calibrationSilo: silo, calibrationMode: 'known-weight' };\n\nreturn [[\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for known load`,\n        calibrationAction: `Silo ${silo}: password unlocked for known load`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: sample known load (LWT)`,\n        calibrationAction: `Silo ${silo}: known load sampled`,\n        payload: { value: [32767, 65535], fc: 16, unitid: 1, address: 18, quantity: 2 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for nominal value`,\n        calibrationAction: `Silo ${silo}: password unlocked for nominal value`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: write nominal ${nominal} display units`,\n        calibrationAction: `Silo ${silo}: nominal value ${kg} kg written`,\n        payload: { value: [highWord, lowWord], fc: 16, unitid: 1, address: 20, quantity: 2 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: save calibration (TDD)`,\n        calibrationAction: `Silo ${silo}: calibration saved`,\n        calibrationLast: true,\n        payload: { value: 1, fc: 6, unitid: 1, address: 48, quantity: 1 }\n    }\n], {\n    payload: `Known-load calibration queued for Silo ${silo}: ${kg} kg. Keep the load stable until saved.`\n}];",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 590,
-        "y": 1660,
-        "wires": [
-            [
-                "fe6171767b904329"
-            ],
-            [
-                "b92613aa21664a40"
-            ]
-        ]
-    },
-    {
-        "id": "fe6171767b904329",
-        "type": "delay",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "One ADS301 command per second",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1000,
-        "y": 1520,
-        "wires": [
-            [
-                "ed3c74943aa245c2"
-            ]
-        ]
-    },
-    {
-        "id": "ed3c74943aa245c2",
-        "type": "switch",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Route to selected silo port",
-        "property": "calibrationSilo",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "2",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 1290,
-        "y": 1520,
-        "wires": [
-            [
-                "7deb0ca4516b4ad1"
-            ],
-            [
-                "0426fd6d9b454513"
-            ]
-        ]
-    },
-    {
-        "id": "7deb0ca4516b4ad1",
-        "type": "modbus-flex-write",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Silo 1 — ADS301 Flex Write",
-        "showStatusActivities": true,
-        "showErrors": true,
-        "showWarnings": true,
-        "server": "4bb58d809ecde0ee",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": true,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 1590,
-        "y": 1490,
-        "wires": [
-            [
-                "61150982a07346db"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "0426fd6d9b454513",
-        "type": "modbus-flex-write",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Silo 2 — ADS301 Flex Write",
-        "showStatusActivities": true,
-        "showErrors": true,
-        "showWarnings": true,
-        "server": "6cb3960ddc98e75c",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": true,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 1590,
-        "y": 1550,
-        "wires": [
-            [
-                "61150982a07346db"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "61150982a07346db",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Show successful command result",
-        "func": "const action = msg.calibrationAction || msg.topic || 'ADS301 write';\n\nif (msg.calibrationLast) {\n    flow.set('ads301CalibrationBusy', false);\n    msg.payload = `✓ ${action} — sequence complete.`;\n} else {\n    msg.payload = `✓ ${action}`;\n}\n\nmsg.topic = 'ADS301 Calibration';\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1920,
-        "y": 1520,
-        "wires": [
-            [
-                "b92613aa21664a40",
-                "020055c64f32407c"
-            ]
-        ]
-    },
-    {
-        "id": "b92613aa21664a40",
-        "type": "ui_text",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "group": "bf1a2f43b10343c8",
-        "order": 5,
-        "width": 6,
-        "height": 1,
-        "name": "Calibration status",
-        "label": "Calibration status",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": "",
-        "color": "#000000",
-        "x": 1110,
-        "y": 1620,
-        "wires": []
-    },
-    {
-        "id": "020055c64f32407c",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "ADS301 dashboard calibration success",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2300,
-        "y": 1520,
-        "wires": []
-    },
-    {
-        "id": "e30e118b06e7c31e",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "g": "5014da80cd5e927f",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 580,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "a1f3e3a2e1336bda",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "g": "a3a62aaa37101276",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 920,
-        "y": 160,
-        "wires": []
     },
     {
         "id": "bd0bbb07a30d97f8",
@@ -2224,1303 +1781,6 @@
         "statusType": "auto",
         "x": 1540,
         "y": 960,
-        "wires": []
-    },
-    {
-        "id": "655f170227ab2d42",
-        "type": "comment",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "ADS301 DAISY CHAIN — disable old ADS301 polling/calibration before use",
-        "info": "This replacement is for two ADS301 boxes on one RS-485 bus using the existing mbusd-weight-port-3 client.\n\nLogical identity is independent of Modbus address:\nSilo 1 always publishes <gateway>_silo_01\nSilo 2 always publishes <gateway>_silo_02\n\nIMPORTANT ADDRESSING PROCEDURE:\nIf both boxes currently have the same Modbus address, physically isolate one box from the RS-485 bus before assigning a new address. Shared 24 V power may remain, but disconnect the target/non-target RA, RB and GND as appropriate so only one device can answer.\n\nThe address-assignment tool changes the address of the currently addressed ADS301 channel and saves it with TDD=1. For this project it is intended to address the master/total-weight channel used at MSV register 40. It does not automatically renumber every internal slave channel.",
-        "x": 510,
-        "y": 1960,
-        "wires": []
-    },
-    {
-        "id": "ebb48d61cc401a5e",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Initialise ADS301 addresses",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "1",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 180,
-        "y": 2020,
-        "wires": [
-            [
-                "db046d86818f86ef"
-            ]
-        ]
-    },
-    {
-        "id": "db046d86818f86ef",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Load address mapping",
-        "func": "function valid(v){ return Number.isInteger(v) && v >= 1 && v <= 96; }\nlet s1 = Number(env.get('ADS301_SILO_1_UNIT_ID') || 1);\nlet s2 = Number(env.get('ADS301_SILO_2_UNIT_ID') || 0);\nif (!valid(s1)) s1 = 1;\nif (!valid(s2)) s2 = 0;\nflow.set('ads301Silo1UnitId', s1);\nflow.set('ads301Silo2UnitId', s2);\nflow.set('ads301MapCandidate1', s1);\nflow.set('ads301MapCandidate2', s2);\n\nconst zero1 = flow.get('ads301LastZeroSilo1');\nconst zero2 = flow.get('ads301LastZeroSilo2');\nconst zeroText = record => record?.timestamp\n    ? `${record.timestamp} UTC — Modbus Unit ${record.unitId}`\n    : 'No zero timestamp recorded in this Node-RED context.';\n\nreturn [\n  {payload:s1},\n  {payload:s2},\n  {payload:`Shared bus mapping loaded: Silo 1 = Unit ${s1}; Silo 2 = ${s2 || 'NOT SET'}.`},\n  {payload:zeroText(zero1)},\n  {payload:zeroText(zero2)}\n];",
-        "outputs": 5,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 2020,
-        "wires": [
-            [
-                "fefb8bfa3d06a923"
-            ],
-            [
-                "50be7c4b55ae9d1c"
-            ],
-            [
-                "9df6c41c5957ec1c"
-            ],
-            [
-                "23cb6e03daa692a8"
-            ],
-            [
-                "b2741a0378f561bb"
-            ]
-        ]
-    },
-    {
-        "id": "fefb8bfa3d06a923",
-        "type": "ui_text_input",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Logical Silo 1 Unit ID",
-        "label": "Silo 1 Modbus Unit ID",
-        "tooltip": "Type the master/total-weight Modbus address assigned to logical Silo 1.",
-        "group": "ads301daisyui01",
-        "order": 2,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "mode": "text",
-        "delay": "300",
-        "topic": "",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 160,
-        "y": 2080,
-        "wires": [
-            [
-                "5b11f75222d7f209"
-            ]
-        ]
-    },
-    {
-        "id": "5b11f75222d7f209",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Remember Silo 1 mapping",
-        "func": "const value = Number(String(msg.payload ?? '').trim());\nflow.set('ads301MapCandidate1', value);\nreturn null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 2080,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "50be7c4b55ae9d1c",
-        "type": "ui_text_input",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Logical Silo 2 Unit ID",
-        "label": "Silo 2 Modbus Unit ID",
-        "tooltip": "Type the master/total-weight Modbus address assigned to logical Silo 2.",
-        "group": "ads301daisyui01",
-        "order": 3,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "mode": "text",
-        "delay": "300",
-        "topic": "",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 160,
-        "y": 2140,
-        "wires": [
-            [
-                "0c8be041da9b15c8"
-            ]
-        ]
-    },
-    {
-        "id": "0c8be041da9b15c8",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Remember Silo 2 mapping",
-        "func": "const value = Number(String(msg.payload ?? '').trim());\nflow.set('ads301MapCandidate2', value);\nreturn null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 2140,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "3c6c544918843c0e",
-        "type": "ui_button",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Apply logical mapping",
-        "group": "ads301daisyui01",
-        "order": 4,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "label": "Apply Silo-to-Unit mapping",
-        "tooltip": "Updates Node-RED routing only; does not change the ADS301 address.",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "apply",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 170,
-        "y": 2200,
-        "wires": [
-            [
-                "fca6f51f158754b1"
-            ]
-        ]
-    },
-    {
-        "id": "fca6f51f158754b1",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Validate and apply mapping",
-        "func": "const s1 = Number(flow.get('ads301MapCandidate1'));\nconst s2 = Number(flow.get('ads301MapCandidate2'));\nconst valid = v => Number.isInteger(v) && v >= 1 && v <= 96;\n\nmsg.requestPurpose = 'addressing';\n\nif (!valid(s1) || !valid(s2)) {\n  msg.payload = '✗ Mapping not applied: type valid Unit IDs from 1 to 96 for both silos.';\n  return msg;\n}\nif (s1 === s2) {\n  msg.payload = '✗ Mapping not applied: Silo 1 and Silo 2 cannot use the same Modbus Unit ID on one RS-485 bus.';\n  return msg;\n}\n\nflow.set('ads301Silo1UnitId', s1);\nflow.set('ads301Silo2UnitId', s2);\nmsg.payload = `✓ Mapping applied in Node-RED: Silo 1 = Unit ${s1}; Silo 2 = Unit ${s2}. ` +\n              'This changes Node-RED routing only; it does not change either ADS301 address.';\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 510,
-        "y": 2200,
-        "wires": [
-            [
-                "9df6c41c5957ec1c"
-            ]
-        ]
-    },
-    {
-        "id": "8cea171b521e6264",
-        "type": "ui_dropdown",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Address target logical silo",
-        "label": "Address assignment target",
-        "tooltip": "Select which logical silo mapping will be updated after verification.",
-        "place": "Choose Silo 1 or Silo 2",
-        "group": "ads301daisyui01",
-        "order": 5,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Silo 1",
-                "value": "1",
-                "type": "str"
-            },
-            {
-                "label": "Silo 2",
-                "value": "2",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "topicType": "str",
-        "className": "",
-        "x": 170,
-        "y": 2280,
-        "wires": [
-            [
-                "a101c7dade81b3a4"
-            ]
-        ]
-    },
-    {
-        "id": "a101c7dade81b3a4",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Remember address target",
-        "func": "flow.set('ads301AddressTargetSilo', String(msg.payload)); return null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 2280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c3a942b5afd1fe2b",
-        "type": "ui_text_input",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Current ADS301 address",
-        "label": "Current Modbus address",
-        "tooltip": "Type the address currently used by the isolated ADS301.",
-        "group": "ads301daisyui01",
-        "order": 6,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "mode": "text",
-        "delay": "300",
-        "topic": "",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 160,
-        "y": 2340,
-        "wires": [
-            [
-                "593f343034c4b656"
-            ]
-        ]
-    },
-    {
-        "id": "593f343034c4b656",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Remember current address",
-        "func": "const value = Number(String(msg.payload ?? '').trim());\nflow.set('ads301CurrentAddress', value);\nreturn null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 2340,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c1b818dd436d79b3",
-        "type": "ui_text_input",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "New ADS301 address",
-        "label": "New Modbus address",
-        "tooltip": "Type the new unique address to assign to the isolated ADS301.",
-        "group": "ads301daisyui01",
-        "order": 7,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "mode": "text",
-        "delay": "300",
-        "topic": "",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 160,
-        "y": 2400,
-        "wires": [
-            [
-                "19c6aa7e08b6d26e"
-            ]
-        ]
-    },
-    {
-        "id": "19c6aa7e08b6d26e",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Remember new address",
-        "func": "const value = Number(String(msg.payload ?? '').trim());\nflow.set('ads301NewAddress', value);\nreturn null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 2400,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "239edac4ceddbb01",
-        "type": "ui_switch",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Confirm ADS301 isolated",
-        "label": "Target ADS301 isolated from duplicate-address devices",
-        "tooltip": "Required before changing ADR. Only one device may answer at the current address.",
-        "group": "ads301daisyui01",
-        "order": 8,
-        "width": 6,
-        "height": 1,
-        "passthru": true,
-        "decouple": "false",
-        "topic": "",
-        "topicType": "str",
-        "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
-        "officon": "",
-        "offcolor": "",
-        "animate": false,
-        "x": 230,
-        "y": 2460,
-        "wires": [
-            [
-                "0e0d90a703ca442e"
-            ]
-        ]
-    },
-    {
-        "id": "0e0d90a703ca442e",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Remember isolation confirmation",
-        "func": "flow.set('ads301AddressIsolated', msg.payload === true); return null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 560,
-        "y": 2460,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "8743c4c3a16a88e5",
-        "type": "ui_button",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Assign ADS301 address",
-        "group": "ads301daisyui01",
-        "order": 9,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "label": "Assign new address + save + verify",
-        "tooltip": "Writes ADR at register 0, saves using TDD=1, then reads ADR from the new Unit ID.",
-        "color": "white",
-        "bgcolor": "#f0ad4e",
-        "className": "",
-        "icon": "",
-        "payload": "assign",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 190,
-        "y": 2520,
-        "wires": [
-            [
-                "613807e28bd8b6df"
-            ]
-        ]
-    },
-    {
-        "id": "613807e28bd8b6df",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Queue ADR change, save and verify",
-        "func": "const target = String(flow.get('ads301AddressTargetSilo') || '');\nconst current = Number(flow.get('ads301CurrentAddress'));\nconst next = Number(flow.get('ads301NewAddress'));\nconst isolated = flow.get('ads301AddressIsolated') === true;\nconst valid = v => Number.isInteger(v) && v >= 1 && v <= 96;\nif (!['1','2'].includes(target)) return [null,{payload:'Select Silo 1 or Silo 2 as the address target.'}];\nif (!valid(current) || !valid(next)) return [null,{payload:'Current and new addresses must be integers from 1 to 96.'}];\nif (current === next) return [null,{payload:'Current and new addresses are the same.'}];\nif (!isolated) return [null,{payload:'Do not continue: isolate the target ADS301 from any device using the same current address.'}];\nif (flow.get('ads301BusBusy')) return [null,{payload:'ADS301 bus operation already running.'}];\nflow.set('ads301BusBusy', true);\nconst common = {addressTargetSilo:target,oldUnitId:current,newUnitId:next,requestPurpose:'addressing'};\nreturn [[\n { ...common, modbusAction:'write', requestPurpose:'addressing', addressStep:'ADR', calibrationAction:`Write ADR ${current} → ${next}`, payload:{value:next,fc:6,unitid:current,address:0,quantity:1}},\n { ...common, modbusAction:'write', requestPurpose:'addressing', addressStep:'TDD', calibrationAction:`Save new address ${next}`, payload:{value:1,fc:6,unitid:next,address:48,quantity:1}},\n { ...common, modbusAction:'read', requestPurpose:'verify-address', addressStep:'VERIFY', payload:{fc:3,unitid:next,address:0,quantity:1}}\n], {requestPurpose:'addressing',payload:`✓ Address change queued for logical Silo ${target}: Unit ${current} → Unit ${next}. Wait for the verification result before reconnecting the other ADS301.`}];",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 550,
-        "y": 2520,
-        "wires": [
-            [
-                "f95359d54aff4e9c"
-            ],
-            [
-                "9df6c41c5957ec1c"
-            ]
-        ]
-    },
-    {
-        "id": "f95359d54aff4e9c",
-        "type": "delay",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "One address command per 2 seconds",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "2",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 940,
-        "y": 2520,
-        "wires": [
-            [
-                "e011e3c116d91751"
-            ]
-        ]
-    },
-    {
-        "id": "e011e3c116d91751",
-        "type": "switch",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Write or read ADS301",
-        "property": "modbusAction",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "write",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "read",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 1240,
-        "y": 2520,
-        "wires": [
-            [
-                "57de7d6d8a85e021"
-            ],
-            [
-                "7cbe2e15c2aecff9"
-            ]
-        ]
-    },
-    {
-        "id": "57de7d6d8a85e021",
-        "type": "modbus-flex-write",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "ADS301 shared-bus Flex Write",
-        "showStatusActivities": true,
-        "showErrors": true,
-        "showWarnings": true,
-        "server": "4bb58d809ecde0ee",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": true,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 1560,
-        "y": 2480,
-        "wires": [
-            [
-                "d811a762afee051b"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "7cbe2e15c2aecff9",
-        "type": "modbus-flex-getter",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "ADS301 shared-bus Flex Read",
-        "showStatusActivities": false,
-        "showErrors": true,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "server": "4bb58d809ecde0ee",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": true,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 1560,
-        "y": 2560,
-        "wires": [
-            [
-                "44acd8c2dcb58ff3"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "d811a762afee051b",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Show ADS301 write result",
-        "func": "const action = msg.calibrationAction || msg.topic || 'ADS301 write';\nlet zeroSilo1 = null;\nlet zeroSilo2 = null;\n\nif (msg.calibrationLast) {\n    flow.set('ads301BusBusy', false);\n\n    if (msg.calibrationMode === 'zero') {\n        const silo = Number(msg.logicalSilo);\n        const timestamp = new Date().toISOString().replace(/\\.\\d{3}Z$/, 'Z');\n        const unitId = Number(msg.ads301UnitId ?? msg.unitid ?? msg.payload?.unitid);\n        const record = { silo, timestamp, unitId };\n        flow.set(`ads301LastZeroSilo${silo}`, record);\n\n        const display = `${timestamp} UTC — Modbus Unit ${unitId}`;\n        if (silo === 1) zeroSilo1 = { payload: display };\n        if (silo === 2) zeroSilo2 = { payload: display };\n\n        msg.payload = `✓ ${action} — sequence complete. Zero recorded for Silo ${silo} at ${timestamp} UTC (Unit ${unitId}).`;\n        return [msg, zeroSilo1, zeroSilo2];\n    }\n\n    msg.payload = `✓ ${action} — sequence complete.`;\n    return [msg, null, null];\n}\n\nmsg.payload = `✓ ${action}`;\nreturn [msg, null, null];",
-        "outputs": 3,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1890,
-        "y": 2480,
-        "wires": [
-            [
-                "9df6c41c5957ec1c",
-                "edfdbb460d6cc7d1"
-            ],
-            [
-                "23cb6e03daa692a8"
-            ],
-            [
-                "b2741a0378f561bb"
-            ]
-        ]
-    },
-    {
-        "id": "44acd8c2dcb58ff3",
-        "type": "switch",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Route ADS301 read response",
-        "property": "requestPurpose",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "verify-address",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "telemetry",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 1890,
-        "y": 2560,
-        "wires": [
-            [
-                "fc2a3313f46cdf8e"
-            ],
-            [
-                "1d6d0c6aaaf1f66a"
-            ]
-        ]
-    },
-    {
-        "id": "fc2a3313f46cdf8e",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Verify ADR and update logical mapping",
-        "func": "const raw = msg.payload?.data ?? msg.payload;\nconst value = Array.isArray(raw) ? Number(raw[0]) : Number(raw?.value ?? raw);\nconst expected = Number(msg.newUnitId);\nconst target = String(msg.addressTargetSilo || '');\nflow.set('ads301BusBusy', false);\nmsg.requestPurpose = 'verify-address';\nflow.set('ads301AddressIsolated', false);\nif (value !== expected) {\n  msg.payload = `✗ Address verification failed. Expected ${expected}, read ${Number.isFinite(value) ? value : 'no value'}.`;\n  return [msg,null,null];\n}\nif (target === '1') {\n  flow.set('ads301Silo1UnitId', expected);\n  flow.set('ads301MapCandidate1', expected);\n} else if (target === '2') {\n  flow.set('ads301Silo2UnitId', expected);\n  flow.set('ads301MapCandidate2', expected);\n}\nmsg.payload = `✓ Address verified: logical Silo ${target} now uses Modbus Unit ${expected}. Reconnect the other ADS301 and apply/check the mapping.`;\nreturn [msg, target === '1' ? {payload:expected} : null, target === '2' ? {payload:expected} : null];",
-        "outputs": 3,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 2190,
-        "y": 2540,
-        "wires": [
-            [
-                "9df6c41c5957ec1c",
-                "edfdbb460d6cc7d1"
-            ],
-            [
-                "fefb8bfa3d06a923"
-            ],
-            [
-                "50be7c4b55ae9d1c"
-            ]
-        ]
-    },
-    {
-        "id": "f8786acf04c085cb",
-        "type": "catch",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Catch ADS301 Modbus errors",
-        "scope": [
-            "57de7d6d8a85e021",
-            "7cbe2e15c2aecff9"
-        ],
-        "uncaught": false,
-        "x": 1570,
-        "y": 2620,
-        "wires": [
-            [
-                "0ff3adb7ec9ebca0"
-            ]
-        ]
-    },
-    {
-        "id": "0ff3adb7ec9ebca0",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Clear ADS301 busy state on error",
-        "func": "flow.set('ads301BusBusy', false);\nconst text = msg.error?.message || msg.payload || 'ADS301 Modbus operation failed.';\nmsg.requestPurpose = msg.requestPurpose || 'addressing';\nmsg.payload = `✗ ${text}`;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1890,
-        "y": 2620,
-        "wires": [
-            [
-                "9df6c41c5957ec1c",
-                "edfdbb460d6cc7d1"
-            ]
-        ]
-    },
-    {
-        "id": "5b777c5f831c9be4",
-        "type": "ui_dropdown",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Choose calibration silo",
-        "label": "Calibration silo",
-        "tooltip": "Select the logical silo. The flow resolves it to the configured Modbus address.",
-        "place": "Choose Silo 1 or Silo 2",
-        "group": "ads301daisyui01",
-        "order": 12,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Silo 1",
-                "value": "1",
-                "type": "str"
-            },
-            {
-                "label": "Silo 2",
-                "value": "2",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "topicType": "str",
-        "className": "",
-        "x": 160,
-        "y": 2620,
-        "wires": [
-            [
-                "dddee115923c9b88"
-            ]
-        ]
-    },
-    {
-        "id": "dddee115923c9b88",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Remember calibration silo",
-        "func": "const silo = String(msg.payload || '');\nif (!['1','2'].includes(silo)) return null;\nflow.set('ads301CalibrationSilo', silo);\nmsg.requestPurpose = 'calibration';\nmsg.calibrationSilo = silo;\nmsg.payload = `Selected logical Silo ${silo} for calibration.`;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 2620,
-        "wires": [
-            [
-                "9df6c41c5957ec1c"
-            ]
-        ]
-    },
-    {
-        "id": "ab1f25c22c6d30b0",
-        "type": "ui_text_input",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Known test weight",
-        "label": "Known test weight (kg)",
-        "tooltip": "Type the exact known load. The default flow is configured for whole kilograms.",
-        "group": "ads301daisyui01",
-        "order": 13,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "mode": "text",
-        "delay": "300",
-        "topic": "",
-        "sendOnBlur": true,
-        "className": "",
-        "topicType": "str",
-        "x": 160,
-        "y": 2680,
-        "wires": [
-            [
-                "d7debe9f4ce7b8f4"
-            ]
-        ]
-    },
-    {
-        "id": "d7debe9f4ce7b8f4",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Remember known weight",
-        "func": "const text = String(msg.payload ?? '').trim();\nconst kg = Number(text);\nmsg.requestPurpose = 'calibration';\nif (!Number.isFinite(kg) || kg <= 0) {\n    msg.payload = '✗ Type a valid known weight greater than zero.';\n    return msg;\n}\nflow.set('ads301KnownWeightKg', kg);\nmsg.payload = `Known test weight entered: ${kg} kg.`;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 2680,
-        "wires": [
-            [
-                "9df6c41c5957ec1c"
-            ]
-        ]
-    },
-    {
-        "id": "fe6c482cc5da4286",
-        "type": "ui_button",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Set zero",
-        "group": "ads301daisyui01",
-        "order": 14,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "label": "1. Set Zero — empty & stable",
-        "tooltip": "SPW then LDW for the selected logical silo.",
-        "color": "white",
-        "bgcolor": "#d9534f",
-        "className": "",
-        "icon": "",
-        "payload": "zero",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 140,
-        "y": 2740,
-        "wires": [
-            [
-                "9b9a2ac9134478d4"
-            ]
-        ]
-    },
-    {
-        "id": "9b9a2ac9134478d4",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Queue shared-bus zero sequence",
-        "func": "const silo = String(flow.get('ads301CalibrationSilo') || '');\nif (!['1','2'].includes(silo)) return [null,{payload:'Select a calibration silo first.'}];\nif (flow.get('ads301BusBusy')) return [null,{payload:'ADS301 bus operation already running.'}];\nflow.set('ads301BusBusy', true);\nconst common = {logicalSilo:Number(silo),calibrationSilo:silo,requestPurpose:'calibration',calibrationMode:'zero'};\nreturn [[\n {...common,modbusAction:'write',calibrationAction:`Silo ${silo}: password unlocked for zero`,payload:{value:21930,fc:6,unitid:1,address:49,quantity:1}},\n {...common,modbusAction:'write',calibrationAction:`Silo ${silo}: zero point sampled`,calibrationLast:true,payload:{value:[32767,65535],fc:16,unitid:1,address:16,quantity:2}}\n],{requestPurpose:'calibration',calibrationSilo:silo,payload:`✓ Zero sequence queued for logical Silo ${silo}. Keep the silo empty and stable until completion is confirmed.`}];",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 2740,
-        "wires": [
-            [
-                "3f1dca5195f3660e"
-            ],
-            [
-                "9df6c41c5957ec1c"
-            ]
-        ]
-    },
-    {
-        "id": "f98262df6721c5ae",
-        "type": "ui_button",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Calibrate known load",
-        "group": "ads301daisyui01",
-        "order": 15,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "label": "2. Calibrate Known Weight + Save",
-        "tooltip": "SPW, LWT, SPW, NOV and TDD for the selected logical silo.",
-        "color": "white",
-        "bgcolor": "#5cb85c",
-        "className": "",
-        "icon": "",
-        "payload": "known",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 180,
-        "y": 2800,
-        "wires": [
-            [
-                "fad9909f03370292"
-            ]
-        ]
-    },
-    {
-        "id": "fad9909f03370292",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Queue shared-bus known-load sequence",
-        "func": "const silo = String(flow.get('ads301CalibrationSilo') || '');\nconst kg = Number(flow.get('ads301KnownWeightKg'));\nconst unitsPerKg = Number(env.get('ADS301_UNITS_PER_KG') || 1);\nconst nominalRaw = kg * unitsPerKg;\nconst nominal = Math.round(nominalRaw);\nif (!['1','2'].includes(silo)) return [null,{payload:'Select a calibration silo first.'}];\nif (!Number.isFinite(unitsPerKg) || unitsPerKg <= 0) return [null,{payload:'ADS301_UNITS_PER_KG is invalid.'}];\nif (Math.abs(nominalRaw - nominal) > 0.000001) return [null,{payload:`The entered weight does not match the configured resolution (${unitsPerKg} display units per kg).`}];\nif (!Number.isSafeInteger(nominal) || nominal <= 0 || nominal > 8000000) return [null,{payload:'Type a valid known weight within the ADS301 range.'}];\nif (flow.get('ads301BusBusy')) return [null,{payload:'ADS301 bus operation already running.'}];\nflow.set('ads301BusBusy', true);\nconst hi = Math.floor(nominal / 65536);\nconst lo = nominal & 0xFFFF;\nconst common = {logicalSilo:Number(silo),calibrationSilo:silo,requestPurpose:'calibration',calibrationMode:'known-weight'};\nreturn [[\n {...common,modbusAction:'write',calibrationAction:`Silo ${silo}: password unlocked for known load`,payload:{value:21930,fc:6,unitid:1,address:49,quantity:1}},\n {...common,modbusAction:'write',calibrationAction:`Silo ${silo}: known load sampled`,payload:{value:[32767,65535],fc:16,unitid:1,address:18,quantity:2}},\n {...common,modbusAction:'write',calibrationAction:`Silo ${silo}: password unlocked for NOV`,payload:{value:21930,fc:6,unitid:1,address:49,quantity:1}},\n {...common,modbusAction:'write',calibrationAction:`Silo ${silo}: nominal value ${kg} kg written`,payload:{value:[hi,lo],fc:16,unitid:1,address:20,quantity:2}},\n {...common,modbusAction:'write',calibrationAction:`Silo ${silo}: calibration saved`,calibrationLast:true,payload:{value:1,fc:6,unitid:1,address:48,quantity:1}}\n],{requestPurpose:'calibration',calibrationSilo:silo,payload:`✓ Known-load sequence queued for logical Silo ${silo}: ${kg} kg. Keep the load stable until save is confirmed.`}];",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 520,
-        "y": 2800,
-        "wires": [
-            [
-                "3f1dca5195f3660e"
-            ],
-            [
-                "9df6c41c5957ec1c"
-            ]
-        ]
-    },
-    {
-        "id": "3f1dca5195f3660e",
-        "type": "delay",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "One calibration command per second",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 900,
-        "y": 2760,
-        "wires": [
-            [
-                "b12015205f579dd3"
-            ]
-        ]
-    },
-    {
-        "id": "b12015205f579dd3",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Resolve logical silo to shared-bus Unit ID",
-        "func": "const silo = Number(msg.logicalSilo);\nconst unitid = silo === 1 ? Number(flow.get('ads301Silo1UnitId')) : Number(flow.get('ads301Silo2UnitId'));\nif (![1,2].includes(silo) || !Number.isInteger(unitid) || unitid < 1 || unitid > 96) {\n  flow.set('ads301BusBusy', false);\n  msg.payload = `No valid Modbus Unit ID mapped for logical Silo ${silo}.`;\n  return [null,msg];\n}\nmsg.payload.unitid = unitid;\nmsg.unitid = unitid;\nmsg.ads301UnitId = unitid;\nreturn [msg,null];",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1250,
-        "y": 2760,
-        "wires": [
-            [
-                "57de7d6d8a85e021"
-            ],
-            [
-                "9df6c41c5957ec1c"
-            ]
-        ]
-    },
-    {
-        "id": "724dbba39140d90d",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Poll logical Silo 1",
-        "props": [
-            {
-                "p": "logicalSilo",
-                "v": "1",
-                "vt": "num"
-            }
-        ],
-        "repeat": "20",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "3",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 810,
-        "y": 2040,
-        "wires": [
-            [
-                "a24dc364bb011353"
-            ]
-        ]
-    },
-    {
-        "id": "796470aca1b02304",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Poll logical Silo 2",
-        "props": [
-            {
-                "p": "logicalSilo",
-                "v": "2",
-                "vt": "num"
-            }
-        ],
-        "repeat": "20",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "13",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 810,
-        "y": 2100,
-        "wires": [
-            [
-                "a24dc364bb011353"
-            ]
-        ]
-    },
-    {
-        "id": "a24dc364bb011353",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Build shared-bus MSV read",
-        "func": "if (flow.get('ads301BusBusy')) return null;\nconst silo = Number(msg.logicalSilo);\nconst unitid = silo === 1 ? Number(flow.get('ads301Silo1UnitId')) : Number(flow.get('ads301Silo2UnitId'));\nif (![1,2].includes(silo) || !Number.isInteger(unitid) || unitid < 1 || unitid > 96) return null;\nmsg.requestPurpose = 'telemetry';\nmsg.ads301UnitId = unitid;\nmsg.payload = {fc:3,unitid,address:40,quantity:2};\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1100,
-        "y": 2070,
-        "wires": [
-            [
-                "7cbe2e15c2aecff9"
-            ]
-        ]
-    },
-    {
-        "id": "1d6d0c6aaaf1f66a",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Parse ADS301 and publish logical silo",
-        "func": "const raw = msg.payload?.data ?? msg.payload;\nif (!Array.isArray(raw) || raw.length < 2) return null;\nconst silo = Number(msg.logicalSilo);\nif (![1,2].includes(silo)) return null;\nconst high = Number(raw[0]) & 0xFFFF;\nconst low = Number(raw[1]) & 0xFFFF;\nlet value = (high * 0x10000) + low;\nif (value >= 0x80000000) value -= 0x100000000;\nconst unitsPerKg = Number(env.get('ADS301_UNITS_PER_KG') || 1);\nif (!Number.isFinite(unitsPerKg) || unitsPerKg <= 0) return null;\nconst gatewayId = env.get('GATEWAY_SERIAL') || 'UNKNOWN_GW';\nconst siloId = String(silo).padStart(2,'0');\nconst deviceSerialNumber = `${gatewayId}_silo_${siloId}`;\nmsg.payload = {\n  gateway_id: gatewayId,\n  device_serial_number: deviceSerialNumber,\n  sensor_type: 'silo_weight',\n  timestamp: new Date().toISOString().replace(/\\.\\d{3}Z$/,'Z'),\n  data: {weight_kg: value / unitsPerKg}\n};\nmsg.topic = `gateway/${gatewayId}/silo/${deviceSerialNumber}/telemetry`;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 2210,
-        "y": 2620,
-        "wires": [
-            [
-                "bca0534ad4350602"
-            ]
-        ]
-    },
-    {
-        "id": "4f31ad191770f9cf",
-        "type": "ui_text",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "group": "ads301daisyui01",
-        "order": 19,
-        "width": 6,
-        "height": 2,
-        "name": "Last ADS301 action",
-        "label": "Last ADS301 action",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 2120,
-        "y": 2700,
-        "wires": []
-    },
-    {
-        "id": "edfdbb460d6cc7d1",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "e85c1defedd28255",
-        "name": "ADS301 daisy-chain commissioning",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2120,
-        "y": 2760,
-        "wires": []
-    },
-    {
-        "id": "bca0534ad4350602",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "e85c1defedd28255",
-        "name": "ADS301 logical silo telemetry",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2210,
-        "y": 2660,
-        "wires": []
-    },
-    {
-        "id": "0dadaf3db39a027e",
-        "type": "ui_template",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "group": "ads301daisyui01",
-        "name": "Addressing instructions",
-        "order": 1,
-        "width": 6,
-        "height": 5,
-        "format": "<div style=\"line-height:1.45; white-space:normal;\"><b>Commissioning — assign and map the two ADS301 addresses</b><br>Both junction boxes share one RS-485 cable, so they must use different Modbus addresses.<br><br><b>Normal example:</b> Silo 1 = Unit 1; Silo 2 = Unit 12.<br>If both boxes currently use the same address, disconnect one box from RA/RB before changing the other. Only one ADS301 may answer at the current address.<br><br><b>Assign new address</b> changes the ADS301 itself. <b>Apply Silo-to-Unit mapping</b> tells Node-RED which address belongs to Silo 1 and Silo 2.</div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 170,
-        "y": 2050,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c3597bcf882c4b49",
-        "type": "ui_template",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "group": "ads301daisyui01",
-        "name": "Calibration instructions",
-        "order": 11,
-        "width": 6,
-        "height": 5,
-        "format": "<div style=\"line-height:1.45; white-space:normal;\"><b>Calibration — completed in two separate visits if required</b><br><b>1. Empty silo:</b> select the silo, make sure it is empty and stable, then press <i>Set Zero</i>. The completion time is recorded below.<br><br><b>2. Later, with a known load:</b> select the same silo, type the exact known weight, wait for the load to stabilise, then press <i>Calibrate Known Weight + Save</i>.<br><br>Do not press Set Zero while the silo contains feed. The zero timestamp confirms which silo was zeroed and when the ADS301 acknowledged the final zero command.</div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 170,
-        "y": 2610,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "23cb6e03daa692a8",
-        "type": "ui_text",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "group": "ads301daisyui01",
-        "order": 17,
-        "width": 6,
-        "height": 1,
-        "name": "Last zero — Silo 1",
-        "label": "Last zero — Silo 1",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1890,
-        "y": 2710,
-        "wires": []
-    },
-    {
-        "id": "b2741a0378f561bb",
-        "type": "ui_text",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "group": "ads301daisyui01",
-        "order": 18,
-        "width": 6,
-        "height": 1,
-        "name": "Last zero — Silo 2",
-        "label": "Last zero — Silo 2",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1890,
-        "y": 2750,
-        "wires": []
-    },
-    {
-        "id": "9df6c41c5957ec1c",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "name": "Route and display ADS301 feedback",
-        "func": "const text = typeof msg.payload === 'string'\n    ? msg.payload\n    : JSON.stringify(msg.payload ?? '');\n\nmsg.payload = text;\n\nconst lower = text.toLowerCase();\nconst isError = text.startsWith('✗') ||\n    /failed|invalid|cannot|do not continue|not set|must be|already running/.test(lower);\n\nconst isAddress = msg.requestPurpose === 'addressing' ||\n    msg.requestPurpose === 'verify-address' ||\n    msg.addressTargetSilo !== undefined ||\n    /address|mapping|modbus unit|shared bus mapping/.test(lower);\n\nconst isCalibration = msg.requestPurpose === 'calibration' ||\n    msg.calibrationMode !== undefined ||\n    msg.calibrationSilo !== undefined ||\n    /calibration|zero|known test weight|known-load/.test(lower);\n\nconst significant = isError ||\n    /applied|queued|verified|sequence complete|recorded|saved/.test(lower);\n\nconst toast = significant ? {\n    ...msg,\n    topic: isError ? 'ADS301 error' : 'ADS301 update',\n    payload: text\n} : null;\n\nreturn [\n    isAddress ? {...msg} : null,\n    isCalibration ? {...msg} : null,\n    {...msg},\n    toast\n];",
-        "outputs": 4,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1870,
-        "y": 2720,
-        "wires": [
-            [
-                "e9167a088bf01888"
-            ],
-            [
-                "6f1d4d706df70c82"
-            ],
-            [
-                "4f31ad191770f9cf"
-            ],
-            [
-                "bebb480d4a798ab5"
-            ]
-        ]
-    },
-    {
-        "id": "e9167a088bf01888",
-        "type": "ui_text",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "group": "ads301daisyui01",
-        "order": 10,
-        "width": 6,
-        "height": 2,
-        "name": "Addressing feedback",
-        "label": "Addressing feedback",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 2100,
-        "y": 2580,
-        "wires": []
-    },
-    {
-        "id": "6f1d4d706df70c82",
-        "type": "ui_text",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "group": "ads301daisyui01",
-        "order": 16,
-        "width": 6,
-        "height": 2,
-        "name": "Calibration feedback",
-        "label": "Calibration feedback",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 2100,
-        "y": 2660,
-        "wires": []
-    },
-    {
-        "id": "bebb480d4a798ab5",
-        "type": "ui_toast",
-        "z": "3738026cb3832ee1",
-        "g": "e85c1defedd28255",
-        "position": "top right",
-        "displayTime": "5",
-        "highlight": "",
-        "sendall": true,
-        "outputs": 0,
-        "ok": "OK",
-        "cancel": "",
-        "raw": false,
-        "className": "",
-        "topic": "",
-        "name": "ADS301 action notification",
-        "x": 2140,
-        "y": 2740,
         "wires": []
     },
     {
@@ -3586,9 +1846,7 @@
             [
                 "027f325576280c94"
             ],
-            [
-                "85cc5eeb2e7b0080"
-            ]
+            []
         ]
     },
     {
@@ -3618,7 +1876,7 @@
         "z": "3738026cb3832ee1",
         "g": "a3a62aaa37101276",
         "name": "Hydrodigit Decoder",
-        "func": "// ── FAI HYDRODIGIT LoRaWAN Decoder v1.0 ─────────────────────────────────────\n//\n// Input:\n//   msg.waterMeter from \"HYDRODIGIT Raw Intake\"\n//\n// Behaviour:\n//   - Uses a ChirpStack decoded object when available.\n//   - Preserves the original LoRaWAN payload.\n//   - Produces a common water-meter structure.\n//   - Does not fabricate readings when the payload format is unknown.\n//\n// Once the B METERS payload specification or a real packet is available,\n// decodeHydrodigitRaw() can be completed without changing the rest of the flow.\n\n// ============================================================================\n// Validate input\n// ============================================================================\n\nif (\n    !msg.waterMeter ||\n    !msg.waterMeter.raw ||\n    !msg.waterMeter.raw.base64\n) {\n    node.warn(\n        \"HYDRODIGIT Decoder: msg.waterMeter.raw is missing\"\n    );\n\n    return null;\n}\n\nconst meter = msg.waterMeter;\n\n// ============================================================================\n// Helpers\n// ============================================================================\n\nfunction getPath(object, path) {\n    if (\n        !object ||\n        typeof object !== \"object\"\n    ) {\n        return undefined;\n    }\n\n    return path\n        .split(\".\")\n        .reduce(\n            (value, key) =>\n                value !== undefined &&\n                value !== null\n                    ? value[key]\n                    : undefined,\n            object\n        );\n}\n\nfunction firstNumber(object, paths) {\n    for (const path of paths) {\n        const value =\n            Number(getPath(object, path));\n\n        if (Number.isFinite(value)) {\n            return value;\n        }\n    }\n\n    return null;\n}\n\nfunction firstBoolean(object, paths) {\n    for (const path of paths) {\n        const value =\n            getPath(object, path);\n\n        if (typeof value === \"boolean\") {\n            return value;\n        }\n\n        if (\n            value === 1 ||\n            value === \"1\" ||\n            String(value).toLowerCase() === \"true\"\n        ) {\n            return true;\n        }\n\n        if (\n            value === 0 ||\n            value === \"0\" ||\n            String(value).toLowerCase() === \"false\"\n        ) {\n            return false;\n        }\n    }\n\n    return null;\n}\n\n// ============================================================================\n// Raw B METERS decoder placeholder\n// ============================================================================\n//\n// Do not guess the HYDRODIGIT byte layout.\n//\n// This function will be replaced once we have:\n//   - the B METERS LoRaWAN payload specification; or\n//   - a real payload plus its confirmed decoded values.\n\nfunction decodeHydrodigitRaw(\n    rawBuffer,\n    fPort\n) {\n    void rawBuffer;\n    void fPort;\n\n    return null;\n}\n\n// ============================================================================\n// Obtain decoded data\n// ============================================================================\n\nlet decoded = null;\n\nif (\n    meter.vendorDecoded &&\n    typeof meter.vendorDecoded === \"object\" &&\n    !Array.isArray(meter.vendorDecoded)\n) {\n    decoded = meter.vendorDecoded;\n} else {\n    let rawBuffer;\n\n    try {\n        rawBuffer =\n            Buffer.from(\n                meter.raw.base64,\n                \"base64\"\n            );\n    } catch (error) {\n        node.warn(\n            \"HYDRODIGIT Decoder: invalid Base64 payload — \" +\n            error.message\n        );\n\n        return null;\n    }\n\n    decoded =\n        decodeHydrodigitRaw(\n            rawBuffer,\n            meter.lorawan\n                ? meter.lorawan.fPort\n                : null\n        );\n}\n\n// ============================================================================\n// No decoder available yet\n// ============================================================================\n\nif (\n    !decoded ||\n    typeof decoded !== \"object\"\n) {\n    meter.decodeStatus = \"raw_only\";\n    meter.decodeError =\n        \"HYDRODIGIT payload specification not yet configured\";\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text:\n            `${meter.meterSerial || meter.devEui}: raw only`\n    });\n\n    node.warn(\n        `HYDRODIGIT raw packet captured — ` +\n        `device=${meter.devEui}, ` +\n        `port=${meter.lorawan?.fPort ?? \"unknown\"}, ` +\n        `length=${meter.raw.length}, ` +\n        `hex=${meter.raw.hex}`\n    );\n\n    return msg;\n}\n\n// ============================================================================\n// Normalise decoded values\n// ============================================================================\n\n// Prefer explicitly named cubic-metre fields.\nlet totalVolumeM3 =\n    firstNumber(\n        decoded,\n        [\n            \"totalVolumeM3\",\n            \"total_volume_m3\",\n            \"total_m3\",\n            \"volume_total_m3\",\n            \"meter.totalVolumeM3\",\n            \"meter.total_volume_m3\"\n        ]\n    );\n\n// Alternatively accept an explicitly named litre total.\nif (totalVolumeM3 === null) {\n    const totalVolumeLitres =\n        firstNumber(\n            decoded,\n            [\n                \"totalVolumeLitres\",\n                \"total_volume_l\",\n                \"total_litres\",\n                \"volume_total_l\",\n                \"meter.totalVolumeLitres\"\n            ]\n        );\n\n    if (totalVolumeLitres !== null) {\n        totalVolumeM3 =\n            totalVolumeLitres / 1000.0;\n    }\n}\n\nconst intervalVolumeLitres =\n    firstNumber(\n        decoded,\n        [\n            \"intervalVolumeLitres\",\n            \"interval_volume_l\",\n            \"delta_volume_l\",\n            \"consumption_litres\",\n            \"meter.intervalVolumeLitres\"\n        ]\n    );\n\nconst flowRateM3PerHour =\n    firstNumber(\n        decoded,\n        [\n            \"flowRateM3PerHour\",\n            \"flow_rate_m3h\",\n            \"flow_m3_h\",\n            \"meter.flowRateM3PerHour\"\n        ]\n    );\n\nconst waterTemperatureC =\n    firstNumber(\n        decoded,\n        [\n            \"waterTemperatureC\",\n            \"water_temperature_c\",\n            \"temperature_c\",\n            \"meter.waterTemperatureC\"\n        ]\n    );\n\n// ============================================================================\n// Store normalised result\n// ============================================================================\n\nmeter.vendorDecoded = decoded;\n\nmeter.readings = {\n    totalVolumeM3,\n    intervalVolumeLitres,\n    flowRateM3PerHour,\n    waterTemperatureC\n};\n\nmeter.alarms = {\n    leak:\n        firstBoolean(\n            decoded,\n            [\n                \"leak\",\n                \"leak_alarm\",\n                \"alarms.leak\"\n            ]\n        ),\n\n    burst:\n        firstBoolean(\n            decoded,\n            [\n                \"burst\",\n                \"burst_alarm\",\n                \"alarms.burst\"\n            ]\n        ),\n\n    reverseFlow:\n        firstBoolean(\n            decoded,\n            [\n                \"reverseFlow\",\n                \"reverse_flow\",\n                \"alarms.reverseFlow\"\n            ]\n        ),\n\n    overflow:\n        firstBoolean(\n            decoded,\n            [\n                \"overflow\",\n                \"overflow_alarm\",\n                \"alarms.overflow\"\n            ]\n        ),\n\n    tamper:\n        firstBoolean(\n            decoded,\n            [\n                \"tamper\",\n                \"tamper_alarm\",\n                \"alarms.tamper\"\n            ]\n        ),\n\n    batteryLow:\n        firstBoolean(\n            decoded,\n            [\n                \"batteryLow\",\n                \"battery_low\",\n                \"alarms.batteryLow\"\n            ]\n        )\n};\n\nmeter.decodeStatus =\n    Number.isFinite(totalVolumeM3)\n        ? \"decoded\"\n        : \"partial\";\n\nmeter.decodeError =\n    meter.decodeStatus === \"decoded\"\n        ? null\n        : \"Decoded object did not contain a recognised total-volume field\";\n\nnode.status({\n    fill:\n        meter.decodeStatus === \"decoded\"\n            ? \"green\"\n            : \"yellow\",\n\n    shape:\n        meter.decodeStatus === \"decoded\"\n            ? \"dot\"\n            : \"ring\",\n\n    text:\n        `${meter.meterSerial || meter.devEui}: ` +\n        meter.decodeStatus\n});\n\nreturn msg;",
+        "func": "// ── FAI HYDRODIGIT LoRaWAN Decoder v1.0 ─────────────────────────────────────\n//\n// Input:\n//   msg.waterMeter from \"HYDRODIGIT Raw Intake\"\n//\n// Behaviour:\n//   - Uses a ChirpStack decoded object when available.\n//   - Preserves the original LoRaWAN payload.\n//   - Produces a common water-meter structure.\n//   - Does not fabricate readings when the payload format is unknown.\n//\n// Once the B METERS payload specification or a real packet is available,\n// decodeHydrodigitRaw() can be completed without changing the rest of the flow.\n\n// ============================================================================\n// Validate input\n// ============================================================================\n\nif (\n    !msg.waterMeter ||\n    !msg.waterMeter.raw ||\n    !msg.waterMeter.raw.base64\n) {\n    node.warn(\n        \"HYDRODIGIT Decoder: msg.waterMeter.raw is missing\"\n    );\n\n    return null;\n}\n\nconst meter = msg.waterMeter;\n\n// ============================================================================\n// Helpers\n// ============================================================================\n\nfunction getPath(object, path) {\n    if (\n        !object ||\n        typeof object !== \"object\"\n    ) {\n        return undefined;\n    }\n\n    return path\n        .split(\".\")\n        .reduce(\n            (value, key) =>\n                value !== undefined &&\n                value !== null\n                    ? value[key]\n                    : undefined,\n            object\n        );\n}\n\nfunction firstNumber(object, paths) {\n    for (const path of paths) {\n        const value =\n            Number(getPath(object, path));\n\n        if (Number.isFinite(value)) {\n            return value;\n        }\n    }\n\n    return null;\n}\n\nfunction firstBoolean(object, paths) {\n    for (const path of paths) {\n        const value =\n            getPath(object, path);\n\n        if (typeof value === \"boolean\") {\n            return value;\n        }\n\n        if (\n            value === 1 ||\n            value === \"1\" ||\n            String(value).toLowerCase() === \"true\"\n        ) {\n            return true;\n        }\n\n        if (\n            value === 0 ||\n            value === \"0\" ||\n            String(value).toLowerCase() === \"false\"\n        ) {\n            return false;\n        }\n    }\n\n    return null;\n}\n\n// ============================================================================\n// Raw B METERS decoder placeholder\n// ============================================================================\n//\n// Do not guess the HYDRODIGIT byte layout.\n//\n// This function will be replaced once we have:\n//   - the B METERS LoRaWAN payload specification; or\n//   - a real payload plus its confirmed decoded values.\n\nfunction decodeHydrodigitRaw(rawBuffer, fPort) {\n    if (!Buffer.isBuffer(rawBuffer)) {\n        return null;\n    }\n\n    // HYDRODIGIT current-reading packets use FPort 1\n    // and contain 9 bytes, or 11 when temperature is enabled.\n    if (\n        fPort !== 1 ||\n        (rawBuffer.length !== 9 &&\n         rawBuffer.length !== 11) ||\n        rawBuffer[0] !== 0x45\n    ) {\n        return null;\n    }\n\n    // Byte 4 contains the upper nibble of both counters:\n    // upper nibble = total-volume counter\n    // lower nibble = reverse-flow counter\n    const combinedCounterByte = rawBuffer[4];\n\n    const totalVolumeLitres =\n        rawBuffer[1] +\n        (rawBuffer[2] * 0x100) +\n        (rawBuffer[3] * 0x10000) +\n        (((combinedCounterByte >> 4) & 0x0F) *\n            0x1000000);\n\n    const reverseFlowLitres =\n        rawBuffer[5] +\n        (rawBuffer[6] * 0x100) +\n        (rawBuffer[7] * 0x10000) +\n        ((combinedCounterByte & 0x0F) *\n            0x1000000);\n\n    const flags = rawBuffer[8];\n\n    const decoded = {\n        totalVolumeLitres,\n        reverseFlowLitres,\n\n        diameterMm:\n            (flags & 0x40) !== 0\n                ? 20\n                : 15,\n\n        medium:\n            (flags & 0x80) !== 0\n                ? \"hot_water\"\n                : \"cold_water\",\n\n        alarms: {\n            leak:\n                (flags & 0x01) !== 0,\n\n            wrongInstallation:\n                (flags & 0x02) !== 0,\n\n            overflow:\n                (flags & 0x04) !== 0,\n\n            burst:\n                (flags & 0x08) !== 0,\n\n            reverseFlow:\n                (flags & 0x10) !== 0,\n\n            batteryLow:\n                (flags & 0x20) !== 0\n        }\n    };\n\n    if (rawBuffer.length === 11) {\n        decoded.waterTemperatureC =\n            rawBuffer.readInt16BE(9) / 10.0;\n    }\n\n    return decoded;\n}\n\n// ============================================================================\n// Obtain decoded data\n// ============================================================================\n\nlet decoded = null;\n\nif (\n    meter.vendorDecoded &&\n    typeof meter.vendorDecoded === \"object\" &&\n    !Array.isArray(meter.vendorDecoded)\n) {\n    decoded = meter.vendorDecoded;\n} else {\n    let rawBuffer;\n\n    try {\n        rawBuffer =\n            Buffer.from(\n                meter.raw.base64,\n                \"base64\"\n            );\n    } catch (error) {\n        node.warn(\n            \"HYDRODIGIT Decoder: invalid Base64 payload — \" +\n            error.message\n        );\n\n        return null;\n    }\n\n    decoded =\n        decodeHydrodigitRaw(\n            rawBuffer,\n            meter.lorawan\n                ? meter.lorawan.fPort\n                : null\n        );\n}\n\n// ============================================================================\n// No decoder available yet\n// ============================================================================\n\nif (\n    !decoded ||\n    typeof decoded !== \"object\"\n) {\n    meter.decodeStatus = \"raw_only\";\n    meter.decodeError =\n        \"HYDRODIGIT payload specification not yet configured\";\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text:\n            `${meter.meterSerial || meter.devEui}: raw only`\n    });\n\n    node.warn(\n        `HYDRODIGIT raw packet captured — ` +\n        `device=${meter.devEui}, ` +\n        `port=${meter.lorawan?.fPort ?? \"unknown\"}, ` +\n        `length=${meter.raw.length}, ` +\n        `hex=${meter.raw.hex}`\n    );\n\n    return msg;\n}\n\n// ============================================================================\n// Normalise decoded values\n// ============================================================================\n\n// Prefer explicitly named cubic-metre fields.\nlet totalVolumeM3 =\n    firstNumber(\n        decoded,\n        [\n            \"totalVolumeM3\",\n            \"total_volume_m3\",\n            \"total_m3\",\n            \"volume_total_m3\",\n            \"meter.totalVolumeM3\",\n            \"meter.total_volume_m3\"\n        ]\n    );\n\n// Alternatively accept an explicitly named litre total.\nif (totalVolumeM3 === null) {\n    const totalVolumeLitres =\n        firstNumber(\n            decoded,\n            [\n                \"totalVolumeLitres\",\n                \"total_volume_l\",\n                \"total_litres\",\n                \"volume_total_l\",\n                \"meter.totalVolumeLitres\"\n            ]\n        );\n\n    if (totalVolumeLitres !== null) {\n        totalVolumeM3 =\n            totalVolumeLitres / 1000.0;\n    }\n}\n\nconst intervalVolumeLitres =\n    firstNumber(\n        decoded,\n        [\n            \"intervalVolumeLitres\",\n            \"interval_volume_l\",\n            \"delta_volume_l\",\n            \"consumption_litres\",\n            \"meter.intervalVolumeLitres\"\n        ]\n    );\n\nconst flowRateM3PerHour =\n    firstNumber(\n        decoded,\n        [\n            \"flowRateM3PerHour\",\n            \"flow_rate_m3h\",\n            \"flow_m3_h\",\n            \"meter.flowRateM3PerHour\"\n        ]\n    );\n\nconst waterTemperatureC =\n    firstNumber(\n        decoded,\n        [\n            \"waterTemperatureC\",\n            \"water_temperature_c\",\n            \"temperature_c\",\n            \"meter.waterTemperatureC\"\n        ]\n    );\n\n// ============================================================================\n// Store normalised result\n// ============================================================================\n\nmeter.vendorDecoded = decoded;\n\nmeter.readings = {\n    totalVolumeM3,\n    intervalVolumeLitres,\n    flowRateM3PerHour,\n    waterTemperatureC\n};\n\nmeter.alarms = {\n    leak:\n        firstBoolean(\n            decoded,\n            [\n                \"leak\",\n                \"leak_alarm\",\n                \"alarms.leak\"\n            ]\n        ),\n\n    burst:\n        firstBoolean(\n            decoded,\n            [\n                \"burst\",\n                \"burst_alarm\",\n                \"alarms.burst\"\n            ]\n        ),\n\n    reverseFlow:\n        firstBoolean(\n            decoded,\n            [\n                \"reverseFlow\",\n                \"reverse_flow\",\n                \"alarms.reverseFlow\"\n            ]\n        ),\n\n    overflow:\n        firstBoolean(\n            decoded,\n            [\n                \"overflow\",\n                \"overflow_alarm\",\n                \"alarms.overflow\"\n            ]\n        ),\n\n    tamper:\n        firstBoolean(\n            decoded,\n            [\n                \"tamper\",\n                \"tamper_alarm\",\n                \"alarms.tamper\"\n            ]\n        ),\n\n    batteryLow:\n        firstBoolean(\n            decoded,\n            [\n                \"batteryLow\",\n                \"battery_low\",\n                \"alarms.batteryLow\"\n            ]\n        )\n};\n\nmeter.decodeStatus =\n    Number.isFinite(totalVolumeM3)\n        ? \"decoded\"\n        : \"partial\";\n\nmeter.decodeError =\n    meter.decodeStatus === \"decoded\"\n        ? null\n        : \"Decoded object did not contain a recognised total-volume field\";\n\nnode.status({\n    fill:\n        meter.decodeStatus === \"decoded\"\n            ? \"green\"\n            : \"yellow\",\n\n    shape:\n        meter.decodeStatus === \"decoded\"\n            ? \"dot\"\n            : \"ring\",\n\n    text:\n        `${meter.meterSerial || meter.devEui}: ` +\n        meter.decodeStatus\n});\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3655,11 +1913,1410 @@
         ]
     },
     {
-        "id": "85cc5eeb2e7b0080",
+        "id": "15cee9a93c2e6c38",
+        "type": "comment",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "ADS301 DAISY CHAIN — multichannel silo telemetry",
+        "info": "Each physical ADS301 exposes multiple channel addresses on the same RS-485 bus.\n\nFor normal silo telemetry Node-RED does NOT require the ADS301 master address. Instead, one responding Unit ID from each physical junction box is used as the ACCESS Unit ID. Node-RED reads the ADS301 multichannel register block (0x1001 onward), sums the configured active load-cell channels, and publishes one logical silo value.\n\nLogical identity remains fixed:\nSilo 1 -> <gateway>_silo_01\nSilo 2 -> <gateway>_silo_02\n\nAll channel addresses across both physical ADS301 boxes must still be unique when both boxes share the bus.",
+        "x": 540,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "9a6f449831faa756",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Initialise ADS301 MASTER mapping",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 1960,
+        "wires": [
+            [
+                "c27964af8bf6225d"
+            ]
+        ]
+    },
+    {
+        "id": "c27964af8bf6225d",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Load ADS301 access mapping",
+        "func": "function validUnit(v){ return Number.isInteger(v) && v >= 1 && v <= 96; }\nfunction validChannels(v){ return Number.isInteger(v) && v >= 1 && v <= 10; }\n\nlet s1 = Number(env.get('ADS301_SILO_1_ACCESS_UNIT_ID') || 0);\nlet s2 = Number(env.get('ADS301_SILO_2_ACCESS_UNIT_ID') || 0);\nlet c1 = Number(env.get('ADS301_SILO_1_CHANNELS') || 4);\nlet c2 = Number(env.get('ADS301_SILO_2_CHANNELS') || 4);\n\nif (!validUnit(s1)) s1 = 0;\nif (!validUnit(s2)) s2 = 0;\nif (!validChannels(c1)) c1 = 4;\nif (!validChannels(c2)) c2 = 4;\n\nflow.set('ads301Silo1AccessUnitId', s1);\nflow.set('ads301Silo2AccessUnitId', s2);\nflow.set('ads301Silo1Channels', c1);\nflow.set('ads301Silo2Channels', c2);\n\nflow.set('ads301MapCandidate1', s1);\nflow.set('ads301MapCandidate2', s2);\nflow.set('ads301ChannelsCandidate1', c1);\nflow.set('ads301ChannelsCandidate2', c2);\n\nconst zero1 = flow.get('ads301LastZeroSilo1');\nconst zero2 = flow.get('ads301LastZeroSilo2');\n\nconst zeroText = record => record?.timestamp\n    ? `${record.timestamp} UTC — Access Unit ${record.unitId}; raw sum ${record.rawSum}`\n    : 'No software zero recorded in this Node-RED context.';\n\nconst mapText =\n    `ADS301 mapping loaded: ` +\n    `Silo 1 = ${s1 ? `Access Unit ${s1}, ${c1} channels` : 'NOT SET'}; ` +\n    `Silo 2 = ${s2 ? `Access Unit ${s2}, ${c2} channels` : 'NOT SET'}.`;\n\nreturn [\n  {payload:s1 || ''},\n  {payload:s2 || ''},\n  {payload:mapText},\n  {payload:zeroText(zero1)},\n  {payload:zeroText(zero2)},\n  {payload:c1},\n  {payload:c2}\n];",
+        "outputs": 7,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 1940,
+        "wires": [
+            [
+                "822f2d58ede5aaa0"
+            ],
+            [
+                "b7999274d42a8490"
+            ],
+            [
+                "9a34c841ed226199"
+            ],
+            [
+                "91a650048ebf85d7"
+            ],
+            [
+                "3f6a031f17bf556d"
+            ],
+            [
+                "bff27e46d19cd6b9"
+            ],
+            [
+                "da5a9645203adfad"
+            ]
+        ]
+    },
+    {
+        "id": "822f2d58ede5aaa0",
+        "type": "ui_text_input",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Silo 1 ADS301 Access Unit ID",
+        "label": "Silo 1 ADS301 Access Unit ID",
+        "tooltip": "Any responding Unit ID belonging to the physical Silo 1 ADS301. Leave blank if Silo 1 is not connected.",
+        "group": "ads301daisyui01",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "mode": "text",
+        "delay": "300",
+        "topic": "",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1130,
+        "y": 1900,
+        "wires": [
+            [
+                "d5c636614eaea494"
+            ]
+        ]
+    },
+    {
+        "id": "d5c636614eaea494",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Remember Silo 1 access Unit",
+        "func": "const value = Number(String(msg.payload ?? '').trim());\nflow.set('ads301MapCandidate1', value);\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 1900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b7999274d42a8490",
+        "type": "ui_text_input",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Silo 2 ADS301 Access Unit ID",
+        "label": "Silo 2 ADS301 Access Unit ID",
+        "tooltip": "Any responding Unit ID belonging to the physical Silo 2 ADS301. For the current isolated box, Unit 1 is valid.",
+        "group": "ads301daisyui01",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "mode": "text",
+        "delay": "300",
+        "topic": "",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1130,
+        "y": 1940,
+        "wires": [
+            [
+                "bde244a04e7b3dc7"
+            ]
+        ]
+    },
+    {
+        "id": "bde244a04e7b3dc7",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Remember Silo 2 access Unit",
+        "func": "const value = Number(String(msg.payload ?? '').trim());\nflow.set('ads301MapCandidate2', value);\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 1940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "278f9173442df191",
+        "type": "ui_button",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Apply ADS301 access mapping",
+        "group": "ads301daisyui01",
+        "order": 6,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Apply ADS301 silo mapping",
+        "tooltip": "Maps each logical silo to one access Unit ID and the number of active load-cell channels.",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "apply",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 280,
+        "y": 2140,
+        "wires": [
+            [
+                "3858427b71906a62"
+            ]
+        ]
+    },
+    {
+        "id": "3858427b71906a62",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Validate and apply ADS301 mapping",
+        "func": "const s1 = Number(flow.get('ads301MapCandidate1')) || 0;\nconst s2 = Number(flow.get('ads301MapCandidate2')) || 0;\nconst c1 = Number(flow.get('ads301ChannelsCandidate1'));\nconst c2 = Number(flow.get('ads301ChannelsCandidate2'));\n\nconst validUnit = v => Number.isInteger(v) && v >= 1 && v <= 96;\nconst validChannels = v => Number.isInteger(v) && v >= 1 && v <= 10;\n\nmsg.requestPurpose = 'mapping';\n\nif (s1 !== 0 && !validUnit(s1)) {\n  msg.payload = '✗ Silo 1 Access Unit must be blank or an integer from 1 to 96.';\n  return msg;\n}\nif (s2 !== 0 && !validUnit(s2)) {\n  msg.payload = '✗ Silo 2 Access Unit must be blank or an integer from 1 to 96.';\n  return msg;\n}\nif (s1 === 0 && s2 === 0) {\n  msg.payload = '✗ Set at least one ADS301 Access Unit ID.';\n  return msg;\n}\nif (s1 !== 0 && s2 !== 0 && s1 === s2) {\n  msg.payload = '✗ Silo 1 and Silo 2 cannot use the same Access Unit when both boxes are connected.';\n  return msg;\n}\nif (s1 !== 0 && !validChannels(c1)) {\n  msg.payload = '✗ Silo 1 active channel count must be 1 to 10.';\n  return msg;\n}\nif (s2 !== 0 && !validChannels(c2)) {\n  msg.payload = '✗ Silo 2 active channel count must be 1 to 10.';\n  return msg;\n}\n\nflow.set('ads301Silo1AccessUnitId', s1);\nflow.set('ads301Silo2AccessUnitId', s2);\nflow.set('ads301Silo1Channels', validChannels(c1) ? c1 : 4);\nflow.set('ads301Silo2Channels', validChannels(c2) ? c2 : 4);\n\nmsg.payload =\n  `✓ ADS301 mapping applied: ` +\n  `Silo 1 = ${s1 ? `Access Unit ${s1}, ${c1} channels` : 'NOT SET'}; ` +\n  `Silo 2 = ${s2 ? `Access Unit ${s2}, ${c2} channels` : 'NOT SET'}.`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 2140,
+        "wires": [
+            [
+                "9a34c841ed226199"
+            ]
+        ]
+    },
+    {
+        "id": "ec4d321f40016031",
+        "type": "ui_text_input",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Current channel address",
+        "label": "Current channel Modbus address",
+        "tooltip": "Address of the ONE isolated ADS301 master/slave channel being changed.",
+        "group": "ads301daisyui01",
+        "order": 7,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "mode": "text",
+        "delay": "300",
+        "topic": "",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 270,
+        "y": 2280,
+        "wires": [
+            [
+                "89dbb858ccd79a37"
+            ]
+        ]
+    },
+    {
+        "id": "89dbb858ccd79a37",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Remember current channel address",
+        "func": "const value = Number(String(msg.payload ?? '').trim());\nflow.set('ads301CurrentAddress', value);\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 2280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "515c942cc5151238",
+        "type": "ui_text_input",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "New channel address",
+        "label": "New channel Modbus address",
+        "tooltip": "New unique address for this ONE channel.",
+        "group": "ads301daisyui01",
+        "order": 8,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "mode": "text",
+        "delay": "300",
+        "topic": "",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 270,
+        "y": 2340,
+        "wires": [
+            [
+                "13701716f10f6336"
+            ]
+        ]
+    },
+    {
+        "id": "13701716f10f6336",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Remember new channel address",
+        "func": "const value = Number(String(msg.payload ?? '').trim());\nflow.set('ads301NewAddress', value);\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 2340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9535cb863c9c8f8f",
+        "type": "ui_switch",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Confirm ADS301 isolated",
+        "label": "Target junction box isolated from address collisions",
+        "tooltip": "Required before changing ADR. Isolate the physical junction box from any other ADS301 box that may contain the same Unit ID.",
+        "group": "ads301daisyui01",
+        "order": 9,
+        "width": 6,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "x": 2650,
+        "y": 2500,
+        "wires": [
+            [
+                "27086ab2d045dfcc"
+            ]
+        ]
+    },
+    {
+        "id": "27086ab2d045dfcc",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Remember isolation confirmation",
+        "func": "flow.set('ads301AddressIsolated', msg.payload === true); return null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2940,
+        "y": 2500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "df701e384f4a394b",
+        "type": "ui_button",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Assign one channel address",
+        "group": "ads301daisyui01",
+        "order": 10,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Assign ONE channel address + save + verify",
+        "tooltip": "Changes one ADS301 master/slave channel only. Repeat for every responding channel when renumbering a box.",
+        "color": "white",
+        "bgcolor": "#f0ad4e",
+        "className": "",
+        "icon": "",
+        "payload": "assign",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 300,
+        "y": 2460,
+        "wires": [
+            [
+                "e73aae40757011ca"
+            ]
+        ]
+    },
+    {
+        "id": "e73aae40757011ca",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Queue one-channel ADR change, save and verify",
+        "func": "const current = Number(flow.get('ads301CurrentAddress'));\nconst next = Number(flow.get('ads301NewAddress'));\nconst isolated = flow.get('ads301AddressIsolated') === true;\nconst valid = v => Number.isInteger(v) && v >= 1 && v <= 96;\n\nif (!valid(current) || !valid(next)) {\n    return [null,{requestPurpose:'addressing',payload:'Current and new addresses must be integers from 1 to 96.'}];\n}\nif (current === next) {\n    return [null,{requestPurpose:'addressing',payload:'Current and new addresses are the same.'}];\n}\nif (!isolated) {\n    return [null,{requestPurpose:'addressing',payload:'Do not continue: isolate the target junction box from any other device that may use the same current address.'}];\n}\nif (flow.get('ads301BusBusy')) {\n    return [null,{requestPurpose:'addressing',payload:'ADS301 bus operation already running.'}];\n}\n\nflow.set('ads301BusBusy', true);\n\nconst common = {\n    oldUnitId: current,\n    newUnitId: next,\n    requestPurpose: 'addressing'\n};\n\nreturn [[\n    {\n        ...common,\n        modbusAction:'write',\n        addressStep:'ADR',\n        calibrationAction:`Write channel ADR ${current} → ${next}`,\n        payload:{value:next,fc:6,unitid:current,address:0,quantity:1}\n    },\n    {\n        ...common,\n        modbusAction:'write',\n        addressStep:'TDD',\n        calibrationAction:`Save channel address ${next}`,\n        payload:{value:1,fc:6,unitid:next,address:48,quantity:1}\n    },\n    {\n        ...common,\n        modbusAction:'read',\n        requestPurpose:'verify-address',\n        addressStep:'VERIFY',\n        payload:{fc:3,unitid:next,address:0,quantity:1}\n    }\n], {\n    requestPurpose:'addressing',\n    payload:`✓ Channel address change queued: Unit ${current} → Unit ${next}. This does NOT change the logical silo ADS301 Access Unit mapping.`\n}];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 2460,
+        "wires": [
+            [
+                "4b9c6b6d566b07cf"
+            ],
+            [
+                "9a34c841ed226199"
+            ]
+        ]
+    },
+    {
+        "id": "4b9c6b6d566b07cf",
+        "type": "delay",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "One address command per 2 seconds",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "2",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1050,
+        "y": 2460,
+        "wires": [
+            [
+                "f4af018071157fe0"
+            ]
+        ]
+    },
+    {
+        "id": "f4af018071157fe0",
+        "type": "switch",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Write or read ADS301",
+        "property": "modbusAction",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "write",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "read",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1350,
+        "y": 2460,
+        "wires": [
+            [
+                "89bb95965960e4b4"
+            ],
+            [
+                "f5653f8c8376e7b6"
+            ]
+        ]
+    },
+    {
+        "id": "89bb95965960e4b4",
+        "type": "modbus-flex-write",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "ADS301 shared-bus Flex Write",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "server": "4bb58d809ecde0ee",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": true,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1670,
+        "y": 2420,
+        "wires": [
+            [
+                "5f435cb09ab848ca"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f5653f8c8376e7b6",
+        "type": "modbus-flex-getter",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "ADS301 shared-bus Flex Read",
+        "showStatusActivities": false,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "server": "4bb58d809ecde0ee",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": true,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1670,
+        "y": 2500,
+        "wires": [
+            [
+                "977e3152870c0e93"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "5f435cb09ab848ca",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Show ADS301 write result",
+        "func": "const action = msg.calibrationAction || msg.topic || 'ADS301 write';\nlet zeroSilo1 = null;\nlet zeroSilo2 = null;\n\nif (msg.calibrationLast) {\n    flow.set('ads301BusBusy', false);\n\n    if (msg.calibrationMode === 'zero') {\n        const silo = Number(msg.logicalSilo);\n        const timestamp = new Date().toISOString().replace(/\\.\\d{3}Z$/, 'Z');\n        const unitId = Number(msg.ads301UnitId ?? msg.unitid ?? msg.payload?.unitid);\n        const record = { silo, timestamp, unitId };\n        flow.set(`ads301LastZeroSilo${silo}`, record);\n\n        const display = `${timestamp} UTC — Modbus Unit ${unitId}`;\n        if (silo === 1) zeroSilo1 = { payload: display };\n        if (silo === 2) zeroSilo2 = { payload: display };\n\n        msg.payload = `✓ ${action} — sequence complete. Zero recorded for Silo ${silo} at ${timestamp} UTC (Unit ${unitId}).`;\n        return [msg, zeroSilo1, zeroSilo2];\n    }\n\n    msg.payload = `✓ ${action} — sequence complete.`;\n    return [msg, null, null];\n}\n\nmsg.payload = `✓ ${action}`;\nreturn [msg, null, null];",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2000,
+        "y": 2420,
+        "wires": [
+            [
+                "9a34c841ed226199",
+                "a40ed8134de54924"
+            ],
+            [
+                "91a650048ebf85d7"
+            ],
+            [
+                "3f6a031f17bf556d"
+            ]
+        ]
+    },
+    {
+        "id": "977e3152870c0e93",
+        "type": "switch",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Route ADS301 read response",
+        "property": "requestPurpose",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "verify-address",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "telemetry",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "software-zero",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "software-known",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 2000,
+        "y": 2500,
+        "wires": [
+            [
+                "a1de40347dae74ba"
+            ],
+            [
+                "8b475a05c409e81a"
+            ],
+            [
+                "1dcfb15384764427"
+            ],
+            [
+                "b82ff135049249dd"
+            ]
+        ]
+    },
+    {
+        "id": "a1de40347dae74ba",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Verify one-channel ADR",
+        "func": "const raw = msg.payload?.data ?? msg.payload;\nconst value = Array.isArray(raw) ? Number(raw[0]) : Number(raw?.value ?? raw);\nconst expected = Number(msg.newUnitId);\n\nflow.set('ads301BusBusy', false);\nflow.set('ads301AddressIsolated', false);\nmsg.requestPurpose = 'verify-address';\n\nconst resetSwitch = {payload:false};\n\nif (value !== expected) {\n    msg.payload = `✗ Address verification failed. Expected ${expected}, read ${Number.isFinite(value) ? value : 'no value'}.`;\n    return [msg, resetSwitch];\n}\n\nmsg.payload = `✓ Channel address verified at Unit ${expected}. ` +\n              'Isolation confirmation has been reset; confirm it again before changing another channel. ' +\n              'Update the Silo ADS301 Access Unit mapping separately if required.';\nreturn [msg, resetSwitch];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2310,
+        "y": 2480,
+        "wires": [
+            [
+                "9a34c841ed226199",
+                "a40ed8134de54924"
+            ],
+            [
+                "9535cb863c9c8f8f"
+            ]
+        ]
+    },
+    {
+        "id": "decaa390f2ec9119",
+        "type": "catch",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Catch ADS301 Modbus errors",
+        "scope": [
+            "89bb95965960e4b4",
+            "f5653f8c8376e7b6"
+        ],
+        "uncaught": false,
+        "x": 1680,
+        "y": 2560,
+        "wires": [
+            [
+                "b6b05b2367b32d73"
+            ]
+        ]
+    },
+    {
+        "id": "b6b05b2367b32d73",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Clear ADS301 busy state on error",
+        "func": "flow.set('ads301BusBusy', false);\nflow.set('ads301AddressIsolated', false);\n\nconst text = msg.error?.message || msg.payload || 'ADS301 Modbus operation failed.';\nmsg.requestPurpose = msg.requestPurpose || 'operation';\nmsg.payload = `✗ ${text}`;\n\nreturn [msg, {payload:false}];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2000,
+        "y": 2560,
+        "wires": [
+            [
+                "9a34c841ed226199",
+                "a40ed8134de54924"
+            ],
+            [
+                "9535cb863c9c8f8f"
+            ]
+        ]
+    },
+    {
+        "id": "e307cc54a3f6331f",
+        "type": "ui_dropdown",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Choose calibration silo",
+        "label": "Calibration silo",
+        "tooltip": "Select the logical silo. The flow resolves it to the configured Modbus address.",
+        "place": "Choose Silo 1 or Silo 2",
+        "group": "ads301daisyui01",
+        "order": 12,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Silo 1",
+                "value": "1",
+                "type": "str"
+            },
+            {
+                "label": "Silo 2",
+                "value": "2",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 270,
+        "y": 2560,
+        "wires": [
+            [
+                "cb5acd6d07846b76"
+            ]
+        ]
+    },
+    {
+        "id": "cb5acd6d07846b76",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Remember calibration silo",
+        "func": "const silo = String(msg.payload || '');\nif (!['1','2'].includes(silo)) return null;\nflow.set('ads301CalibrationSilo', silo);\nmsg.requestPurpose = 'calibration';\nmsg.calibrationSilo = silo;\nmsg.payload = `Selected logical Silo ${silo} for calibration.`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 2560,
+        "wires": [
+            [
+                "9a34c841ed226199"
+            ]
+        ]
+    },
+    {
+        "id": "8508b7dae03d86f1",
+        "type": "ui_text_input",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Known test weight",
+        "label": "Known test weight (kg)",
+        "tooltip": "Type the exact known load. The default flow is configured for whole kilograms.",
+        "group": "ads301daisyui01",
+        "order": 13,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "mode": "text",
+        "delay": "300",
+        "topic": "",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 270,
+        "y": 2620,
+        "wires": [
+            [
+                "6323974d2bb3a96f"
+            ]
+        ]
+    },
+    {
+        "id": "6323974d2bb3a96f",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Remember known weight",
+        "func": "const text = String(msg.payload ?? '').trim();\nconst kg = Number(text);\nmsg.requestPurpose = 'calibration';\nif (!Number.isFinite(kg) || kg <= 0) {\n    msg.payload = '✗ Type a valid known weight greater than zero.';\n    return msg;\n}\nflow.set('ads301KnownWeightKg', kg);\nmsg.payload = `Known test weight entered: ${kg} kg.`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 2620,
+        "wires": [
+            [
+                "9a34c841ed226199"
+            ]
+        ]
+    },
+    {
+        "id": "0143d493d9f0797f",
+        "type": "ui_button",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Set zero",
+        "group": "ads301daisyui01",
+        "order": 14,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "1. Set Software Zero — empty & stable",
+        "tooltip": "Reads and sums all configured channels for the selected silo and stores the raw zero.",
+        "color": "white",
+        "bgcolor": "#d9534f",
+        "className": "",
+        "icon": "",
+        "payload": "zero",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 250,
+        "y": 2680,
+        "wires": [
+            [
+                "12f53333b24286fe"
+            ]
+        ]
+    },
+    {
+        "id": "12f53333b24286fe",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Build software-zero multichannel read",
+        "func": "const silo = Number(flow.get('ads301CalibrationSilo'));\nif (![1,2].includes(silo)) return [null,{requestPurpose:'calibration',payload:'Select a calibration silo first.'}];\nif (flow.get('ads301BusBusy')) return [null,{requestPurpose:'calibration',payload:'ADS301 bus operation already running.'}];\n\nconst unitid = silo === 1\n    ? Number(flow.get('ads301Silo1AccessUnitId'))\n    : Number(flow.get('ads301Silo2AccessUnitId'));\n\nconst channels = silo === 1\n    ? Number(flow.get('ads301Silo1Channels'))\n    : Number(flow.get('ads301Silo2Channels'));\n\nif (!Number.isInteger(unitid) || unitid < 1 || unitid > 96)\n    return [null,{requestPurpose:'calibration',payload:`No ADS301 Access Unit mapped for Silo ${silo}.`}];\n\nif (!Number.isInteger(channels) || channels < 1 || channels > 10)\n    return [null,{requestPurpose:'calibration',payload:`Invalid active channel count for Silo ${silo}.`}];\n\nflow.set('ads301BusBusy', true);\n\nreturn [{\n    logicalSilo:silo,\n    requestPurpose:'software-zero',\n    ads301AccessUnitId:unitid,\n    ads301ChannelCount:channels,\n    payload:{fc:3,unitid,address:0x1001,quantity:channels*2}\n}, {\n    requestPurpose:'calibration',\n    payload:`✓ Reading ${channels} channels from Silo ${silo} Access Unit ${unitid} for software zero.`\n}];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 2680,
+        "wires": [
+            [
+                "f5653f8c8376e7b6"
+            ],
+            [
+                "9a34c841ed226199"
+            ]
+        ]
+    },
+    {
+        "id": "261f898087d112af",
+        "type": "ui_button",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Calibrate known load",
+        "group": "ads301daisyui01",
+        "order": 15,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "2. Calibrate Known Weight",
+        "tooltip": "Reads and sums the configured channels and calculates a whole-silo scale factor.",
+        "color": "white",
+        "bgcolor": "#5cb85c",
+        "className": "",
+        "icon": "",
+        "payload": "known",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 290,
+        "y": 2740,
+        "wires": [
+            [
+                "dd2a885670b40625"
+            ]
+        ]
+    },
+    {
+        "id": "dd2a885670b40625",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Build known-load multichannel read",
+        "func": "const silo = Number(flow.get('ads301CalibrationSilo'));\nconst kg = Number(flow.get('ads301KnownWeightKg'));\n\nif (![1,2].includes(silo)) return [null,{requestPurpose:'calibration',payload:'Select a calibration silo first.'}];\nif (!Number.isFinite(kg) || kg <= 0) return [null,{requestPurpose:'calibration',payload:'Enter a valid known weight first.'}];\nif (flow.get('ads301BusBusy')) return [null,{requestPurpose:'calibration',payload:'ADS301 bus operation already running.'}];\n\nconst unitid = silo === 1\n    ? Number(flow.get('ads301Silo1AccessUnitId'))\n    : Number(flow.get('ads301Silo2AccessUnitId'));\n\nconst channels = silo === 1\n    ? Number(flow.get('ads301Silo1Channels'))\n    : Number(flow.get('ads301Silo2Channels'));\n\nif (!Number.isInteger(unitid) || unitid < 1 || unitid > 96)\n    return [null,{requestPurpose:'calibration',payload:`No ADS301 Access Unit mapped for Silo ${silo}.`}];\n\nif (!Number.isInteger(channels) || channels < 1 || channels > 10)\n    return [null,{requestPurpose:'calibration',payload:`Invalid active channel count for Silo ${silo}.`}];\n\nif (!Number.isFinite(flow.get(`ads301SoftwareZeroSilo${silo}`)))\n    return [null,{requestPurpose:'calibration',payload:`Set the software zero for Silo ${silo} before known-load calibration.`}];\n\nflow.set('ads301BusBusy', true);\n\nreturn [{\n    logicalSilo:silo,\n    requestPurpose:'software-known',\n    ads301AccessUnitId:unitid,\n    ads301ChannelCount:channels,\n    ads301KnownWeightKg:kg,\n    payload:{fc:3,unitid,address:0x1001,quantity:channels*2}\n}, {\n    requestPurpose:'calibration',\n    payload:`✓ Reading ${channels} channels from Silo ${silo} for ${kg} kg software calibration.`\n}];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 2740,
+        "wires": [
+            [
+                "f5653f8c8376e7b6"
+            ],
+            [
+                "9a34c841ed226199"
+            ]
+        ]
+    },
+    {
+        "id": "178a282b0252440f",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Poll logical Silo 1",
+        "props": [
+            {
+                "p": "logicalSilo",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "topic": "",
+        "x": 1030,
+        "y": 1760,
+        "wires": [
+            [
+                "25f433e99efba297"
+            ]
+        ]
+    },
+    {
+        "id": "37a85d3ca4894182",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Poll logical Silo 2",
+        "props": [
+            {
+                "p": "logicalSilo",
+                "v": "2",
+                "vt": "num"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "13",
+        "topic": "",
+        "x": 1030,
+        "y": 1800,
+        "wires": [
+            [
+                "25f433e99efba297"
+            ]
+        ]
+    },
+    {
+        "id": "25f433e99efba297",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Build ADS301 multichannel read",
+        "func": "if (flow.get('ads301BusBusy')) return null;\n\nconst silo = Number(msg.logicalSilo);\nif (![1,2].includes(silo)) return null;\n\nconst unitid = silo === 1\n    ? Number(flow.get('ads301Silo1AccessUnitId'))\n    : Number(flow.get('ads301Silo2AccessUnitId'));\n\nconst channels = silo === 1\n    ? Number(flow.get('ads301Silo1Channels'))\n    : Number(flow.get('ads301Silo2Channels'));\n\nif (!Number.isInteger(unitid) || unitid < 1 || unitid > 96) return null;\nif (!Number.isInteger(channels) || channels < 1 || channels > 10) return null;\n\nmsg.requestPurpose = 'telemetry';\nmsg.ads301UnitId = unitid;\nmsg.ads301AccessUnitId = unitid;\nmsg.ads301ChannelCount = channels;\n\n// 0x1001 = first multichannel measured-value register.\n// Each channel occupies 2 holding registers (signed int32).\nmsg.payload = {\n    fc: 3,\n    unitid,\n    address: 0x1001,\n    quantity: channels * 2\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 1780,
+        "wires": [
+            [
+                "f5653f8c8376e7b6"
+            ]
+        ]
+    },
+    {
+        "id": "8b475a05c409e81a",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Sum ADS301 channels and publish logical silo",
+        "func": "const raw = msg.payload?.data ?? msg.payload;\nconst silo = Number(msg.logicalSilo);\nconst channels = Number(msg.ads301ChannelCount);\n\nif (![1,2].includes(silo)) return null;\nif (!Array.isArray(raw) || !Number.isInteger(channels) || channels < 1 || channels > 10) return null;\nif (raw.length < channels * 2) return null;\n\nconst values = [];\n\nfor (let ch = 0; ch < channels; ch++) {\n    const high = Number(raw[ch * 2]) & 0xFFFF;\n    const low = Number(raw[ch * 2 + 1]) & 0xFFFF;\n\n    let value = (high * 0x10000) + low;\n    if (value >= 0x80000000) value -= 0x100000000;\n\n    values.push(value);\n}\n\nconst rawSum = values.reduce((a,b) => a + b, 0);\n\n// If a software two-point calibration exists, use it.\n// Otherwise retain the existing ADS301_UNITS_PER_KG fallback.\nconst zero = flow.get(`ads301SoftwareZeroSilo${silo}`);\nconst scale = Number(flow.get(`ads301SoftwareScaleSilo${silo}`));\n\nlet weightKg;\nlet calibrated = false;\n\nif (Number.isFinite(zero) && Number.isFinite(scale) && scale !== 0) {\n    weightKg = (rawSum - zero) * scale;\n    calibrated = true;\n} else {\n    const unitsPerKg = Number(env.get('ADS301_UNITS_PER_KG') || 1);\n    if (!Number.isFinite(unitsPerKg) || unitsPerKg <= 0) return null;\n    weightKg = rawSum / unitsPerKg;\n}\n\nconst gatewayId = env.get('GATEWAY_SERIAL') || 'UNKNOWN_GW';\nconst siloId = String(silo).padStart(2,'0');\nconst deviceSerialNumber = `${gatewayId}_silo_${siloId}`;\n\nmsg.ads301ChannelValues = values;\nmsg.ads301RawSum = rawSum;\nmsg.ads301SoftwareCalibrated = calibrated;\n\nmsg.payload = {\n  gateway_id: gatewayId,\n  device_serial_number: deviceSerialNumber,\n  sensor_type: 'silo_weight',\n  timestamp: new Date().toISOString().replace(/\\.\\d{3}Z$/,'Z'),\n  data: {weight_kg: weightKg}\n};\n\nmsg.topic = `gateway/${gatewayId}/silo/${deviceSerialNumber}/telemetry`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2740,
+        "y": 2580,
+        "wires": [
+            [
+                "82f07040e6a283a3",
+                "479b96e0273a18b1"
+            ]
+        ]
+    },
+    {
+        "id": "58cc998df4b004c8",
+        "type": "ui_text",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "group": "ads301daisyui01",
+        "order": 19,
+        "width": 6,
+        "height": 2,
+        "name": "Last ADS301 action",
+        "label": "Last ADS301 action",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 3270,
+        "y": 2240,
+        "wires": []
+    },
+    {
+        "id": "a40ed8134de54924",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "ADS301 daisy-chain commissioning",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2810,
+        "y": 2720,
+        "wires": []
+    },
+    {
+        "id": "82f07040e6a283a3",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "ADS301 logical silo telemetry",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3060,
+        "y": 2580,
+        "wires": []
+    },
+    {
+        "id": "b689a92c6df548ce",
+        "type": "ui_template",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "group": "ads301daisyui01",
+        "name": "ADS301 multichannel commissioning instructions",
+        "order": 1,
+        "width": 6,
+        "height": 5,
+        "format": "<div style=\"line-height:1.45; white-space:normal;\"><b>Commissioning — ADS301 multichannel mapping</b><br>Each physical ADS301 has several Modbus channel addresses. <b>You do not need to identify or enter a MASTER address here.</b><br><br><b>Access Unit ID:</b> enter any responding Unit ID belonging to that physical junction box. Node-RED uses it to read the ADS301 multichannel register block and sums the configured active channels.<br><br><b>Current test setup:</b> with only the Silo 2 box connected, use <b>Silo 2 Access Unit = 1</b> and <b>Active channels = 4</b>. Leave Silo 1 blank until its box is connected/configured.<br><br>When both junction boxes share the RS-485 bus, every channel address across both boxes must be unique.</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 290,
+        "y": 1840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5fe39e619441f6a3",
+        "type": "ui_template",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "group": "ads301daisyui01",
+        "name": "Calibration instructions",
+        "order": 11,
+        "width": 6,
+        "height": 5,
+        "format": "<div style=\"line-height:1.45; white-space:normal;\"><b>Calibration — whole-silo software calibration</b><br><b>1. Empty silo:</b> select the silo and press <i>Set Zero</i>. Node-RED reads all configured ADS301 channels and stores their summed raw zero.<br><br><b>2. Known load:</b> later, enter the exact known silo load and press <i>Calibrate Known Weight</i>. Node-RED calculates the scale factor from the summed channel values.<br><br>No ADS301 master channel is required for these two operations.</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 240,
+        "y": 1900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "91a650048ebf85d7",
+        "type": "ui_text",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "group": "ads301daisyui01",
+        "order": 17,
+        "width": 6,
+        "height": 1,
+        "name": "Last zero — Silo 1",
+        "label": "Last zero — Silo 1",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 3270,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "3f6a031f17bf556d",
+        "type": "ui_text",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "group": "ads301daisyui01",
+        "order": 18,
+        "width": 6,
+        "height": 1,
+        "name": "Last zero — Silo 2",
+        "label": "Last zero — Silo 2",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 3270,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "9a34c841ed226199",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Route and display ADS301 feedback",
+        "func": "const text = typeof msg.payload === 'string'\n    ? msg.payload\n    : JSON.stringify(msg.payload ?? '');\n\nmsg.payload = text;\n\nconst lower = text.toLowerCase();\nconst isError = text.startsWith('✗') ||\n    /failed|invalid|cannot|do not continue|not set|must be|already running/.test(lower);\n\nconst isAddress = msg.requestPurpose === 'addressing' ||\n    msg.requestPurpose === 'verify-address' ||\n    msg.requestPurpose === 'mapping' ||\n    /address|mapping|modbus unit|master unit/.test(lower);\n\nconst isCalibration = msg.requestPurpose === 'calibration' ||\n    msg.calibrationMode !== undefined ||\n    msg.calibrationSilo !== undefined ||\n    /calibration|zero|known test weight|known-load/.test(lower);\n\nconst significant = isError ||\n    /applied|queued|verified|sequence complete|recorded|saved/.test(lower);\n\nconst toast = significant ? {\n    ...msg,\n    topic: isError ? 'ADS301 error' : 'ADS301 update',\n    payload: text\n} : null;\n\nreturn [\n    isAddress ? {...msg} : null,\n    isCalibration ? {...msg} : null,\n    {...msg},\n    toast\n];",
+        "outputs": 4,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2790,
+        "y": 2240,
+        "wires": [
+            [
+                "d90cc664cbc9159c"
+            ],
+            [
+                "2ef906cd0cb069dc"
+            ],
+            [
+                "58cc998df4b004c8"
+            ],
+            [
+                "ab4aa0467c74859b"
+            ]
+        ]
+    },
+    {
+        "id": "d90cc664cbc9159c",
+        "type": "ui_text",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "group": "ads301daisyui01",
+        "order": 10,
+        "width": 6,
+        "height": 2,
+        "name": "Addressing feedback",
+        "label": "Addressing feedback",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 3280,
+        "y": 2160,
+        "wires": []
+    },
+    {
+        "id": "2ef906cd0cb069dc",
+        "type": "ui_text",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "group": "ads301daisyui01",
+        "order": 16,
+        "width": 6,
+        "height": 2,
+        "name": "Calibration feedback",
+        "label": "Calibration feedback",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 3280,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "ab4aa0467c74859b",
+        "type": "ui_toast",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "position": "top right",
+        "displayTime": "5",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "ADS301 action notification",
+        "x": 3300,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "bff27e46d19cd6b9",
+        "type": "ui_text_input",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Silo 1 active channels",
+        "label": "Silo 1 active load-cell channels",
+        "tooltip": "Number of active ADS301 load-cell channels to sum, 1 to 10. Normally 4 for this installation.",
+        "group": "ads301daisyui01",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "mode": "text",
+        "delay": "300",
+        "topic": "",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1100,
+        "y": 2040,
+        "wires": [
+            [
+                "c58c0bed3f47a73b"
+            ]
+        ]
+    },
+    {
+        "id": "c58c0bed3f47a73b",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Remember Silo 1 channel count",
+        "func": "const v=Number(String(msg.payload??'').trim()); flow.set('ads301ChannelsCandidate1',v); return null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 2040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "da5a9645203adfad",
+        "type": "ui_text_input",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Silo 2 active channels",
+        "label": "Silo 2 active load-cell channels",
+        "tooltip": "Number of active ADS301 load-cell channels to sum, 1 to 10. The current box has 4 active channels.",
+        "group": "ads301daisyui01",
+        "order": 5,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "mode": "text",
+        "delay": "300",
+        "topic": "",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1100,
+        "y": 2080,
+        "wires": [
+            [
+                "93a7b797f8b357ce"
+            ]
+        ]
+    },
+    {
+        "id": "93a7b797f8b357ce",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Remember Silo 2 channel count",
+        "func": "const v=Number(String(msg.payload??'').trim()); flow.set('ads301ChannelsCandidate2',v); return null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 2080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1dcfb15384764427",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Capture software zero",
+        "func": "const raw = msg.payload?.data ?? msg.payload;\nconst silo = Number(msg.logicalSilo);\nconst channels = Number(msg.ads301ChannelCount);\n\nflow.set('ads301BusBusy', false);\n\nif (![1,2].includes(silo) || !Array.isArray(raw) || raw.length < channels*2) {\n    msg.requestPurpose='calibration';\n    msg.payload='✗ Could not read enough ADS301 channel values for zero.';\n    return [msg,null,null];\n}\n\nconst values=[];\nfor (let ch=0; ch<channels; ch++) {\n    const high=Number(raw[ch*2]) & 0xFFFF;\n    const low=Number(raw[ch*2+1]) & 0xFFFF;\n    let v=(high*0x10000)+low;\n    if (v>=0x80000000) v-=0x100000000;\n    values.push(v);\n}\nconst rawSum=values.reduce((a,b)=>a+b,0);\nconst timestamp=new Date().toISOString().replace(/\\.\\d{3}Z$/,'Z');\n\nflow.set(`ads301SoftwareZeroSilo${silo}`, rawSum);\nflow.set(`ads301SoftwareScaleSilo${silo}`, null);\n\nconst record={silo,timestamp,unitId:Number(msg.ads301AccessUnitId),rawSum,channels};\nflow.set(`ads301LastZeroSilo${silo}`,record);\n\nmsg.requestPurpose='calibration';\nmsg.payload=`✓ Software zero saved for Silo ${silo}: raw sum ${rawSum} from ${channels} channels.`;\n\nconst display={payload:`${timestamp} UTC — Access Unit ${record.unitId}; raw sum ${rawSum}`};\nreturn [\n    msg,\n    silo===1 ? display : null,\n    silo===2 ? display : null\n];",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2380,
+        "y": 2120,
+        "wires": [
+            [
+                "9a34c841ed226199",
+                "a40ed8134de54924"
+            ],
+            [
+                "91a650048ebf85d7"
+            ],
+            [
+                "3f6a031f17bf556d"
+            ]
+        ]
+    },
+    {
+        "id": "b82ff135049249dd",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "35c85549ab8e7922",
+        "name": "Capture known load and calculate scale",
+        "func": "const raw = msg.payload?.data ?? msg.payload;\nconst silo = Number(msg.logicalSilo);\nconst channels = Number(msg.ads301ChannelCount);\nconst kg = Number(msg.ads301KnownWeightKg);\nconst zero = Number(flow.get(`ads301SoftwareZeroSilo${silo}`));\n\nflow.set('ads301BusBusy', false);\n\nif (![1,2].includes(silo) || !Array.isArray(raw) || raw.length < channels*2) {\n    msg.requestPurpose='calibration';\n    msg.payload='✗ Could not read enough ADS301 channel values for known-load calibration.';\n    return msg;\n}\n\nif (!Number.isFinite(zero) || !Number.isFinite(kg) || kg <= 0) {\n    msg.requestPurpose='calibration';\n    msg.payload='✗ Missing software zero or known weight.';\n    return msg;\n}\n\nconst values=[];\nfor (let ch=0; ch<channels; ch++) {\n    const high=Number(raw[ch*2]) & 0xFFFF;\n    const low=Number(raw[ch*2+1]) & 0xFFFF;\n    let v=(high*0x10000)+low;\n    if (v>=0x80000000) v-=0x100000000;\n    values.push(v);\n}\nconst rawSum=values.reduce((a,b)=>a+b,0);\nconst delta=rawSum-zero;\n\nif (!Number.isFinite(delta) || delta===0) {\n    msg.requestPurpose='calibration';\n    msg.payload='✗ Known-load calibration failed: loaded raw sum equals zero raw sum.';\n    return msg;\n}\n\nconst scale=kg/delta;\nflow.set(`ads301SoftwareScaleSilo${silo}`,scale);\nflow.set(`ads301SoftwareKnownRawSilo${silo}`,rawSum);\nflow.set(`ads301SoftwareKnownKgSilo${silo}`,kg);\n\nmsg.requestPurpose='calibration';\nmsg.payload=`✓ Software calibration saved for Silo ${silo}: ${kg} kg over raw delta ${delta}; scale=${scale} kg/raw-unit.`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2340,
+        "y": 2720,
+        "wires": [
+            [
+                "9a34c841ed226199",
+                "a40ed8134de54924"
+            ]
+        ]
+    },
+    {
+        "id": "6e1df4a95aa1b1f9",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "b53b1a5fd06b4b39"
+            ]
+        ]
+    },
+    {
+        "id": "b53b1a5fd06b4b39",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "Calibration Clear Function",
+        "func": "flow.set('ads301SoftwareZeroSilo2', null);\nflow.set('ads301SoftwareScaleSilo2', null);\n\nmsg.payload = \"Silo 2 software calibration cleared\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "449d3fb8efadacc7"
+            ]
+        ]
+    },
+    {
+        "id": "449d3fb8efadacc7",
         "type": "debug",
         "z": "3738026cb3832ee1",
         "g": "a3a62aaa37101276",
-        "name": "debug 4",
+        "name": "debug 6",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -3667,8 +3324,418 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 700,
-        "y": 320,
+        "x": 600,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9e82656eb5534a6c",
+        "type": "ui_numeric",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Known test weight",
+        "label": "Known test weight (kg)",
+        "tooltip": "Enter the exact stable load that will be on the selected silo.",
+        "group": "bf1a2f43b10343c8",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "wrap": false,
+        "passthru": false,
+        "topic": "",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": "0.01",
+        "max": "8000000",
+        "step": "1",
+        "className": "",
+        "x": 330,
+        "y": 3660,
+        "wires": [
+            [
+                "d8c321012a4f40ca"
+            ]
+        ]
+    },
+    {
+        "id": "d78ea0c6cc6a46e0",
+        "type": "ui_dropdown",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Choose calibration silo",
+        "label": "Select silo",
+        "tooltip": "Choose the physical silo to calibrate.",
+        "place": "Choose Silo 1 or Silo 2",
+        "group": "bf1a2f43b10343c8",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Silo 1",
+                "value": "1",
+                "type": "str"
+            },
+            {
+                "label": "Silo 2",
+                "value": "2",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 340,
+        "y": 3600,
+        "wires": [
+            [
+                "74ad24f2d8274eba"
+            ]
+        ]
+    },
+    {
+        "id": "3e35b4fe1df24143",
+        "type": "comment",
+        "z": "3738026cb3832ee1",
+        "g": "2ba8c5099f662f10",
+        "name": "ADS301 dashboard calibration — replacement for old calibration controls",
+        "info": "Use the Dashboard in this order:\n1. Select Silo 1 or Silo 2.\n2. Ensure selected silo is empty and stable, then press Set Zero.\n3. Add a stable, known test load.\n4. Enter that exact load in kg and press Calibrate Known Weight + Save.\n\nEach command is held to one per second, routes to the correct TCP Modbus server,\nand writes with Unit ID 1. Do not use the old dashboard calibration controls after importing.",
+        "x": 660,
+        "y": 3500,
+        "wires": []
+    },
+    {
+        "id": "74ad24f2d8274eba",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Remember selected silo",
+        "func": "const silo = String(msg.payload ?? '').trim();\n\nif (!['1', '2'].includes(silo)) {\n    msg.payload = 'Choose Silo 1 or Silo 2.';\n    return msg;\n}\n\nflow.set('ads301CalibrationSilo', silo);\nmsg.payload = `Selected: Silo ${silo}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 3600,
+        "wires": [
+            [
+                "b92613aa21664a40"
+            ]
+        ]
+    },
+    {
+        "id": "d8c321012a4f40ca",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Remember known weight",
+        "func": "const kg = Number(msg.payload);\n\nif (!Number.isFinite(kg) || kg <= 0) {\n    msg.payload = 'Enter a known test weight greater than zero.';\n    return msg;\n}\n\nflow.set('ads301KnownWeightKg', kg);\nmsg.payload = `Known test weight: ${kg} kg`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 3660,
+        "wires": [
+            [
+                "b92613aa21664a40"
+            ]
+        ]
+    },
+    {
+        "id": "7ba9f265bf904166",
+        "type": "ui_button",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Set zero from dashboard",
+        "group": "bf1a2f43b10343c8",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "1. Set Zero — silo empty & stable",
+        "tooltip": "Samples the empty load point. Do not use this with product or a test weight on the silo.",
+        "color": "white",
+        "bgcolor": "#d9534f",
+        "className": "",
+        "icon": "",
+        "payload": "zero",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 350,
+        "y": 3720,
+        "wires": [
+            [
+                "9837dede03b84a89"
+            ]
+        ]
+    },
+    {
+        "id": "9837dede03b84a89",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Queue Zero sequence",
+        "func": "const silo = String(flow.get('ads301CalibrationSilo') || '');\n\nif (!['1', '2'].includes(silo)) {\n    return [null, { payload: 'Select Silo 1 or Silo 2 before setting zero.' }];\n}\nif (flow.get('ads301CalibrationBusy')) {\n    return [null, { payload: 'A calibration sequence is already running. Wait for it to complete.' }];\n}\n\nflow.set('ads301CalibrationBusy', true);\n\nconst common = { calibrationSilo: silo, calibrationMode: 'zero' };\n\nreturn [[\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for zero`,\n        calibrationAction: `Silo ${silo}: password unlocked for zero`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: sample empty zero (LDW)`,\n        calibrationAction: `Silo ${silo}: zero point sampled`,\n        calibrationLast: true,\n        payload: { value: [32767, 65535], fc: 16, unitid: 1, address: 16, quantity: 2 }\n    }\n], {\n    payload: `Zero calibration queued for Silo ${silo}. Keep it empty and stable.`\n}];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 3720,
+        "wires": [
+            [
+                "fe6171767b904329"
+            ],
+            [
+                "b92613aa21664a40"
+            ]
+        ]
+    },
+    {
+        "id": "ff305cf975264067",
+        "type": "ui_button",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Calibrate known weight from dashboard",
+        "group": "bf1a2f43b10343c8",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "2. Calibrate Known Weight + Save",
+        "tooltip": "With the known weight applied and stable, samples LWT, writes NOV, and saves calibration.",
+        "color": "white",
+        "bgcolor": "#5cb85c",
+        "className": "",
+        "icon": "",
+        "payload": "known-weight",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 400,
+        "y": 3780,
+        "wires": [
+            [
+                "dca53e7245ae4013"
+            ]
+        ]
+    },
+    {
+        "id": "dca53e7245ae4013",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Queue known-load + save sequence",
+        "func": "const silo = String(flow.get('ads301CalibrationSilo') || '');\nconst kg = Number(flow.get('ads301KnownWeightKg'));\n\n// Set to 10 only when the ADS301 is configured to report 0.1 kg display increments.\nconst unitsPerKg = 1;\nconst nominal = Math.round(kg * unitsPerKg);\n\nif (!['1', '2'].includes(silo)) {\n    return [null, { payload: 'Select Silo 1 or Silo 2 before calibrating the known load.' }];\n}\nif (!Number.isSafeInteger(nominal) || nominal <= 0 || nominal > 8000000) {\n    return [null, { payload: 'Enter a valid known test weight before calibrating.' }];\n}\nif (flow.get('ads301CalibrationBusy')) {\n    return [null, { payload: 'A calibration sequence is already running. Wait for it to complete.' }];\n}\n\nflow.set('ads301CalibrationBusy', true);\n\nconst highWord = Math.floor(nominal / 65536);\nconst lowWord = nominal & 0xFFFF;\nconst common = { calibrationSilo: silo, calibrationMode: 'known-weight' };\n\nreturn [[\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for known load`,\n        calibrationAction: `Silo ${silo}: password unlocked for known load`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: sample known load (LWT)`,\n        calibrationAction: `Silo ${silo}: known load sampled`,\n        payload: { value: [32767, 65535], fc: 16, unitid: 1, address: 18, quantity: 2 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for nominal value`,\n        calibrationAction: `Silo ${silo}: password unlocked for nominal value`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: write nominal ${nominal} display units`,\n        calibrationAction: `Silo ${silo}: nominal value ${kg} kg written`,\n        payload: { value: [highWord, lowWord], fc: 16, unitid: 1, address: 20, quantity: 2 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: save calibration (TDD)`,\n        calibrationAction: `Silo ${silo}: calibration saved`,\n        calibrationLast: true,\n        payload: { value: 1, fc: 6, unitid: 1, address: 48, quantity: 1 }\n    }\n], {\n    payload: `Known-load calibration queued for Silo ${silo}: ${kg} kg. Keep the load stable until saved.`\n}];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 3780,
+        "wires": [
+            [
+                "fe6171767b904329"
+            ],
+            [
+                "b92613aa21664a40"
+            ]
+        ]
+    },
+    {
+        "id": "fe6171767b904329",
+        "type": "delay",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "One ADS301 command per second",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1200,
+        "y": 3640,
+        "wires": [
+            [
+                "ed3c74943aa245c2"
+            ]
+        ]
+    },
+    {
+        "id": "ed3c74943aa245c2",
+        "type": "switch",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Route to selected silo port",
+        "property": "calibrationSilo",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1490,
+        "y": 3640,
+        "wires": [
+            [
+                "7deb0ca4516b4ad1"
+            ],
+            [
+                "0426fd6d9b454513"
+            ]
+        ]
+    },
+    {
+        "id": "7deb0ca4516b4ad1",
+        "type": "modbus-flex-write",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Silo 1 — ADS301 Flex Write",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "server": "4bb58d809ecde0ee",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": true,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1790,
+        "y": 3610,
+        "wires": [
+            [
+                "61150982a07346db"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "0426fd6d9b454513",
+        "type": "modbus-flex-write",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Silo 2 — ADS301 Flex Write",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "server": "6cb3960ddc98e75c",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": true,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1790,
+        "y": 3670,
+        "wires": [
+            [
+                "61150982a07346db"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "61150982a07346db",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "Show successful command result",
+        "func": "const action = msg.calibrationAction || msg.topic || 'ADS301 write';\n\nif (msg.calibrationLast) {\n    flow.set('ads301CalibrationBusy', false);\n    msg.payload = `✓ ${action} — sequence complete.`;\n} else {\n    msg.payload = `✓ ${action}`;\n}\n\nmsg.topic = 'ADS301 Calibration';\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2120,
+        "y": 3640,
+        "wires": [
+            [
+                "b92613aa21664a40",
+                "020055c64f32407c"
+            ]
+        ]
+    },
+    {
+        "id": "b92613aa21664a40",
+        "type": "ui_text",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "group": "bf1a2f43b10343c8",
+        "order": 5,
+        "width": 6,
+        "height": 1,
+        "name": "Calibration status",
+        "label": "Calibration status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 1310,
+        "y": 3740,
+        "wires": []
+    },
+    {
+        "id": "020055c64f32407c",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "d": true,
+        "g": "2ba8c5099f662f10",
+        "name": "ADS301 dashboard calibration success",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2500,
+        "y": 3640,
         "wires": []
     }
 ]
