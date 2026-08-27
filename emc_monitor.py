@@ -108,7 +108,7 @@ MQTT_FLOWS = {
         "stale_after": 6.0,
     },
     "tinymesh": {
-        "topic": "gateway/+/tinymesh/out",
+        "topic": "gateway/+/tinymesh/rx",
         "stale_after": 10.0,
     },
     "wmbus": {

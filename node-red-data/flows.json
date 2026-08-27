@@ -153,11 +153,11 @@
             "3e23d6eda29ff93e",
             "edd0911a555ca093",
             "01c00f94db6f61a8",
-            "d240b7efb392380c"
+            "2f8caae27a65034c"
         ],
         "x": 34,
         "y": 339,
-        "w": 802,
+        "w": 712,
         "h": 202
     },
     {
@@ -681,7 +681,8 @@
             [
                 "3e23d6eda29ff93e",
                 "edd0911a555ca093",
-                "01c00f94db6f61a8"
+                "01c00f94db6f61a8",
+                "2f8caae27a65034c"
             ]
         ]
     },
@@ -2209,27 +2210,29 @@
         "x": 470,
         "y": 500,
         "wires": [
-            [
-                "d240b7efb392380c"
-            ]
+            []
         ]
     },
     {
-        "id": "d240b7efb392380c",
-        "type": "debug",
+        "id": "2f8caae27a65034c",
+        "type": "function",
         "z": "3738026cb3832ee1",
         "g": "5014da80cd5e927f",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 730,
-        "y": 500,
-        "wires": []
+        "name": "function 1",
+        "func": "const gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) {\n    return null;\n}\n\nlet buf = context.get(\"emcTinyMeshBuffer\");\n\nif (!Buffer.isBuffer(buf)) {\n    buf = Buffer.alloc(0);\n}\n\nbuf = Buffer.concat([buf, msg.payload]);\n\nconst messages = [];\n\nwhile (buf.length > 0) {\n    const frameLength = buf[0];\n\n    // Reject implausible values and move forward one byte.\n    if (frameLength < 10 || frameLength > 200) {\n        buf = buf.subarray(1);\n        continue;\n    }\n\n    if (buf.length < frameLength) {\n        break;\n    }\n\n    const frame = buf.subarray(0, frameLength);\n    buf = buf.subarray(frameLength);\n\n    // New TinyMesh EMC firmware frame.\n    if (frameLength === 78) {\n        messages.push({\n            topic: `gateway/${gatewaySerial}/tinymesh/rx`,\n            payload: {\n                received: new Date().toISOString(),\n                frame_length: frameLength,\n                sequence: frame.length > 13 ? frame[13] : null\n            }\n        });\n    }\n}\n\ncontext.set(\"emcTinyMeshBuffer\", buf);\n\nreturn messages.length ? [messages] : null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 440,
+        "wires": [
+            [
+                "479b96e0273a18b1"
+            ]
+        ]
     },
     {
         "id": "b47e197bea680102",
