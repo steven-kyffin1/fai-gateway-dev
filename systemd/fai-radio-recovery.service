@@ -16,7 +16,7 @@ RestartSec=3
 TimeoutStopSec=15
 NoNewPrivileges=true
 PrivateTmp=true
-ProtectHome=true
+ProtectHome=read-only
 ProtectSystem=full
 ReadWritePaths=/opt/fai-storage/emc
 

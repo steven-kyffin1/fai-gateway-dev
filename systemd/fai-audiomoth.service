@@ -17,7 +17,7 @@ TimeoutStopSec=80
 RuntimeDirectory=fai-audiomoth
 NoNewPrivileges=true
 PrivateTmp=true
-ProtectHome=true
+ProtectHome=read-only
 ProtectSystem=full
 ReadWritePaths=/opt/fai-storage/audio /opt/fai-storage/emc
 
