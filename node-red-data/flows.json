@@ -15,6 +15,13 @@
         "info": ""
     },
     {
+        "id": "a300000000000000",
+        "type": "tab",
+        "label": "Gateway Recovery Health",
+        "disabled": false,
+        "info": "Functional health endpoint used by Docker and the host recovery supervisor."
+    },
+    {
         "id": "c731d38b621d4001",
         "type": "tab",
         "label": "Silo 1 Modbus EMC Test",
@@ -153,11 +160,11 @@
             "3e23d6eda29ff93e",
             "edd0911a555ca093",
             "01c00f94db6f61a8",
-            "2f8caae27a65034c"
+            "d240b7efb392380c"
         ],
         "x": 34,
         "y": 339,
-        "w": 712,
+        "w": 802,
         "h": 202
     },
     {
@@ -550,13 +557,13 @@
     {
         "id": "4bb58d809ecde0ee",
         "type": "modbus-client",
-        "name": "mbusd-weight-port-3",
+        "name": "mbusd-silo (shared isolated channel 2)",
         "clienttype": "tcp",
         "bufferCommands": true,
         "stateLogEnabled": false,
         "queueLogEnabled": false,
         "failureLogEnabled": true,
-        "tcpHost": "mbusd-weight-3",
+        "tcpHost": "mbusd-silo",
         "tcpPort": "5021",
         "tcpType": "DEFAULT",
         "serialPort": "/dev/ttyUSB",
@@ -580,14 +587,14 @@
     {
         "id": "6cb3960ddc98e75c",
         "type": "modbus-client",
-        "name": "mbusd-weight-port-4",
+        "name": "mbusd-silo alias for silo 2",
         "clienttype": "tcp",
         "bufferCommands": true,
         "stateLogEnabled": false,
         "queueLogEnabled": false,
         "failureLogEnabled": true,
-        "tcpHost": "mbusd-weight-4",
-        "tcpPort": "5022",
+        "tcpHost": "mbusd-silo",
+        "tcpPort": "5021",
         "tcpType": "DEFAULT",
         "serialPort": "/dev/ttyUSB",
         "serialType": "RTU-BUFFERD",
@@ -641,13 +648,13 @@
     {
         "id": "29fd0d733b014010",
         "type": "modbus-client",
-        "name": "Silo 1 EMC — mbusd-weight-3",
+        "name": "Silo 1 EMC — shared mbusd-silo",
         "clienttype": "tcp",
         "bufferCommands": true,
         "stateLogEnabled": false,
         "queueLogEnabled": false,
         "failureLogEnabled": true,
-        "tcpHost": "mbusd-weight-3",
+        "tcpHost": "mbusd-silo",
         "tcpPort": "5021",
         "tcpType": "DEFAULT",
         "serialPort": "/dev/ttyUSB",
@@ -682,9 +689,147 @@
                 "3e23d6eda29ff93e",
                 "edd0911a555ca093",
                 "01c00f94db6f61a8",
-                "2f8caae27a65034c"
+                "a100000000000001",
+                "a100000000000007"
             ]
         ]
+    },
+    {
+        "id": "a100000000000001",
+        "type": "trigger",
+        "z": "3738026cb3832ee1",
+        "name": "TinyMesh 10s data watchdog",
+        "op1": "",
+        "op2": "{\"source\":\"data_watchdog\",\"reason\":\"no TinyMesh data for 10 seconds\"}",
+        "op1type": "nul",
+        "op2type": "json",
+        "duration": "10",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 390,
+        "y": 300,
+        "wires": [
+            [
+                "a100000000000002"
+            ]
+        ]
+    },
+    {
+        "id": "a100000000000002",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Recover TinyMesh serial port",
+        "func": "const request = msg.payload || {};\nconst source = request.source || \"unknown\";\nconst emcMode = String(env.get(\"EMC_TEST_MODE\") || \"false\").toLowerCase() === \"true\";\n\n// A passive receiver can legitimately have no traffic in production.\n// Only use data freshness as a recovery trigger during the controlled EMC test.\nif (source === \"data_watchdog\" && !emcMode) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"stale recovery disabled outside EMC mode\" });\n    return null;\n}\n\nconst now = Date.now();\nconst cooldownMs = 60000;\nconst lastRecovery = context.get(\"lastRecovery\") || 0;\nif (now - lastRecovery < cooldownMs) {\n    node.status({ fill: \"yellow\", shape: \"ring\", text: \"recovery cooldown\" });\n    return null;\n}\ncontext.set(\"lastRecovery\", now);\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst recoveryId = `tinymesh-${now}`;\nconst eventTopic = `gateway/${gatewaySerial}/health/recovery`;\nconst baseEvent = {\n    timestamp: new Date(now).toISOString(),\n    recovery_id: recoveryId,\n    interface: \"tinymesh\",\n    source,\n    reason: request.reason || \"serial recovery requested\"\n};\n\nnode.status({ fill: \"yellow\", shape: \"dot\", text: \"closing serial port\" });\nnode.send([\n    { payload: { enabled: false }, recovery_id: recoveryId },\n    { topic: eventTopic, payload: { ...baseEvent, action: \"serial_close\" }, qos: 1 }\n]);\n\nsetTimeout(() => {\n    node.status({ fill: \"green\", shape: \"dot\", text: \"serial port reopened\" });\n    node.send([\n        { payload: { enabled: true }, recovery_id: recoveryId },\n        {\n            topic: eventTopic,\n            payload: { ...baseEvent, timestamp: new Date().toISOString(), action: \"serial_reopen\" },\n            qos: 1\n        }\n    ]);\n}, 1000);\n\nreturn null;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 300,
+        "wires": [
+            [
+                "a100000000000003"
+            ],
+            [
+                "479b96e0273a18b1"
+            ]
+        ]
+    },
+    {
+        "id": "a100000000000003",
+        "type": "serial control",
+        "z": "3738026cb3832ee1",
+        "name": "TinyMesh serial control",
+        "serial": "683cf0d2d547c4fd",
+        "x": 940,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a100000000000004",
+        "type": "status",
+        "z": "3738026cb3832ee1",
+        "name": "TinyMesh serial status",
+        "scope": [
+            "3795322861042bc3"
+        ],
+        "x": 150,
+        "y": 260,
+        "wires": [
+            [
+                "a100000000000005"
+            ]
+        ]
+    },
+    {
+        "id": "a100000000000005",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "TinyMesh bad-status filter",
+        "func": "const status = msg.status || {};\nconst fill = String(status.fill || \"\").toLowerCase();\nconst text = String(status.text || \"\").toLowerCase();\nconst bad = fill === \"red\" || /(disconnect|error|failed|cannot|not open)/.test(text);\n\nglobal.set(\"health_tinymesh_serial_bad\", bad);\nglobal.set(\"health_tinymesh_serial_status\", {\n    timestamp: new Date().toISOString(),\n    fill,\n    text\n});\n\nif (!bad) return null;\n\nmsg.payload = {\n    source: \"serial_status\",\n    reason: `TinyMesh serial status: ${status.text || status.fill || \"unknown error\"}`\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 260,
+        "wires": [
+            [
+                "a100000000000002"
+            ]
+        ]
+    },
+    {
+        "id": "a100000000000006",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "name": "Arm TinyMesh watchdog",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 5,
+        "topic": "",
+        "payload": "arm",
+        "payloadType": "str",
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "a100000000000001"
+            ]
+        ]
+    },
+    {
+        "id": "a100000000000007",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Record TinyMesh heartbeat",
+        "func": "global.set(\"health_tinymesh_last_seen\", Date.now());\nglobal.set(\"health_tinymesh_serial_bad\", false);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 340,
+        "wires": []
     },
     {
         "id": "3e23d6eda29ff93e",
@@ -1685,7 +1830,7 @@
         "showErrors": false,
         "showWarnings": true,
         "logIOActivities": false,
-        "unitid": "1",
+        "unitid": "2",
         "dataType": "HoldingRegister",
         "adr": "40",
         "quantity": "2",
@@ -2210,29 +2355,27 @@
         "x": 470,
         "y": 500,
         "wires": [
-            []
+            [
+                "d240b7efb392380c"
+            ]
         ]
     },
     {
-        "id": "2f8caae27a65034c",
-        "type": "function",
+        "id": "d240b7efb392380c",
+        "type": "debug",
         "z": "3738026cb3832ee1",
         "g": "5014da80cd5e927f",
-        "name": "function 1",
-        "func": "const gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) {\n    return null;\n}\n\nlet buf = context.get(\"emcTinyMeshBuffer\");\n\nif (!Buffer.isBuffer(buf)) {\n    buf = Buffer.alloc(0);\n}\n\nbuf = Buffer.concat([buf, msg.payload]);\n\nconst messages = [];\n\nwhile (buf.length > 0) {\n    const frameLength = buf[0];\n\n    // Reject implausible values and move forward one byte.\n    if (frameLength < 10 || frameLength > 200) {\n        buf = buf.subarray(1);\n        continue;\n    }\n\n    if (buf.length < frameLength) {\n        break;\n    }\n\n    const frame = buf.subarray(0, frameLength);\n    buf = buf.subarray(frameLength);\n\n    // New TinyMesh EMC firmware frame.\n    if (frameLength === 78) {\n        messages.push({\n            topic: `gateway/${gatewaySerial}/tinymesh/rx`,\n            payload: {\n                received: new Date().toISOString(),\n                frame_length: frameLength,\n                sequence: frame.length > 13 ? frame[13] : null\n            }\n        });\n    }\n}\n\ncontext.set(\"emcTinyMeshBuffer\", buf);\n\nreturn messages.length ? [messages] : null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 620,
-        "y": 440,
-        "wires": [
-            [
-                "479b96e0273a18b1"
-            ]
-        ]
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 500,
+        "wires": []
     },
     {
         "id": "b47e197bea680102",
@@ -2245,9 +2388,148 @@
         "wires": [
             [
                 "52ba29789e7d0103",
-                "be070cfd14fd0104"
+                "be070cfd14fd0104",
+                "a200000000000001",
+                "a200000000000007"
             ]
         ]
+    },
+    {
+        "id": "a200000000000001",
+        "type": "trigger",
+        "z": "61c0ff1f6e5e2101",
+        "name": "wM-Bus 10s data watchdog",
+        "op1": "",
+        "op2": "{\"source\":\"data_watchdog\",\"reason\":\"no wM-Bus data for 10 seconds\"}",
+        "op1type": "nul",
+        "op2type": "json",
+        "duration": "10",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 420,
+        "y": 260,
+        "wires": [
+            [
+                "a200000000000002"
+            ]
+        ]
+    },
+    {
+        "id": "a200000000000002",
+        "type": "function",
+        "z": "61c0ff1f6e5e2101",
+        "name": "Recover wM-Bus serial port",
+        "func": "const request = msg.payload || {};\nconst source = request.source || \"unknown\";\nconst emcMode = String(env.get(\"EMC_TEST_MODE\") || \"false\").toLowerCase() === \"true\";\n\n// A passive receiver can legitimately have no traffic in production.\n// Only use data freshness as a recovery trigger during the controlled EMC test.\nif (source === \"data_watchdog\" && !emcMode) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"stale recovery disabled outside EMC mode\" });\n    return null;\n}\n\nconst now = Date.now();\nconst cooldownMs = 60000;\nconst lastRecovery = context.get(\"lastRecovery\") || 0;\nif (now - lastRecovery < cooldownMs) {\n    node.status({ fill: \"yellow\", shape: \"ring\", text: \"recovery cooldown\" });\n    return null;\n}\ncontext.set(\"lastRecovery\", now);\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst recoveryId = `wmbus-${now}`;\nconst eventTopic = `gateway/${gatewaySerial}/health/recovery`;\nconst baseEvent = {\n    timestamp: new Date(now).toISOString(),\n    recovery_id: recoveryId,\n    interface: \"wmbus\",\n    source,\n    reason: request.reason || \"serial recovery requested\"\n};\n\nnode.status({ fill: \"yellow\", shape: \"dot\", text: \"closing serial port\" });\nnode.send([\n    { payload: { enabled: false }, recovery_id: recoveryId },\n    { topic: eventTopic, payload: { ...baseEvent, action: \"serial_close\" }, qos: 1 }\n]);\n\nsetTimeout(() => {\n    node.status({ fill: \"green\", shape: \"dot\", text: \"serial port reopened\" });\n    node.send([\n        { payload: { enabled: true }, recovery_id: recoveryId },\n        {\n            topic: eventTopic,\n            payload: { ...baseEvent, timestamp: new Date().toISOString(), action: \"serial_reopen\" },\n            qos: 1\n        }\n    ]);\n}, 1000);\n\nreturn null;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 260,
+        "wires": [
+            [
+                "a200000000000003"
+            ],
+            [
+                "690d094e48a70105"
+            ]
+        ]
+    },
+    {
+        "id": "a200000000000003",
+        "type": "serial control",
+        "z": "61c0ff1f6e5e2101",
+        "name": "wM-Bus serial control",
+        "serial": "bcc4801ac002ac63",
+        "x": 970,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a200000000000004",
+        "type": "status",
+        "z": "61c0ff1f6e5e2101",
+        "name": "wM-Bus serial status",
+        "scope": [
+            "b47e197bea680102"
+        ],
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "a200000000000005"
+            ]
+        ]
+    },
+    {
+        "id": "a200000000000005",
+        "type": "function",
+        "z": "61c0ff1f6e5e2101",
+        "name": "wM-Bus bad-status filter",
+        "func": "const status = msg.status || {};\nconst fill = String(status.fill || \"\").toLowerCase();\nconst text = String(status.text || \"\").toLowerCase();\nconst bad = fill === \"red\" || /(disconnect|error|failed|cannot|not open)/.test(text);\n\nglobal.set(\"health_wmbus_serial_bad\", bad);\nglobal.set(\"health_wmbus_serial_status\", {\n    timestamp: new Date().toISOString(),\n    fill,\n    text\n});\n\nif (!bad) return null;\n\nmsg.payload = {\n    source: \"serial_status\",\n    reason: `wM-Bus serial status: ${status.text || status.fill || \"unknown error\"}`\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 220,
+        "wires": [
+            [
+                "a200000000000002"
+            ]
+        ]
+    },
+    {
+        "id": "a200000000000006",
+        "type": "inject",
+        "z": "61c0ff1f6e5e2101",
+        "name": "Arm wM-Bus watchdog",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 5,
+        "topic": "",
+        "payload": "arm",
+        "payloadType": "str",
+        "x": 170,
+        "y": 260,
+        "wires": [
+            [
+                "a200000000000001"
+            ]
+        ]
+    },
+    {
+        "id": "a200000000000007",
+        "type": "function",
+        "z": "61c0ff1f6e5e2101",
+        "name": "Record wM-Bus heartbeat",
+        "func": "global.set(\"health_wmbus_last_seen\", Date.now());\nglobal.set(\"health_wmbus_serial_bad\", false);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 300,
+        "wires": []
     },
     {
         "id": "52ba29789e7d0103",
@@ -2494,6 +2776,54 @@
         "statusType": "auto",
         "x": 1020,
         "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a300000000000001",
+        "type": "http in",
+        "z": "a300000000000000",
+        "name": "Functional health",
+        "url": "/healthz",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "a300000000000002"
+            ]
+        ]
+    },
+    {
+        "id": "a300000000000002",
+        "type": "function",
+        "z": "a300000000000000",
+        "name": "Evaluate gateway health",
+        "func": "const now = Date.now();\nconst startedAt = global.get(\"health_started_at\") || now;\nif (!global.get(\"health_started_at\")) global.set(\"health_started_at\", startedAt);\n\nconst emcMode = String(env.get(\"EMC_TEST_MODE\") || \"false\").toLowerCase() === \"true\";\nconst staleSeconds = Number(env.get(\"NODE_RED_HEALTH_STALE_SECONDS\") || 25);\nconst startupGraceSeconds = Number(env.get(\"NODE_RED_HEALTH_STARTUP_GRACE_SECONDS\") || 30);\nconst inStartupGrace = now - startedAt < startupGraceSeconds * 1000;\n\nconst tinyLast = Number(global.get(\"health_tinymesh_last_seen\") || 0);\nconst wmbusLast = Number(global.get(\"health_wmbus_last_seen\") || 0);\nconst tinyAge = tinyLast ? (now - tinyLast) / 1000 : null;\nconst wmbusAge = wmbusLast ? (now - wmbusLast) / 1000 : null;\nconst tinySerialBad = global.get(\"health_tinymesh_serial_bad\") === true;\nconst wmbusSerialBad = global.get(\"health_wmbus_serial_bad\") === true;\n\nconst failures = [];\nif (!inStartupGrace && tinySerialBad) failures.push(\"tinymesh_serial\");\nif (!inStartupGrace && wmbusSerialBad) failures.push(\"wmbus_serial\");\n\n// Data freshness is a valid liveness check only with continuous EMC test transmitters.\nif (emcMode && !inStartupGrace) {\n    if (tinyAge === null || tinyAge > staleSeconds) failures.push(\"tinymesh_stale\");\n    if (wmbusAge === null || wmbusAge > staleSeconds) failures.push(\"wmbus_stale\");\n}\n\nconst healthy = failures.length === 0;\nmsg.statusCode = healthy ? 200 : 503;\nmsg.headers = { \"content-type\": \"application/json\", \"cache-control\": \"no-store\" };\nmsg.payload = {\n    status: healthy ? \"ok\" : \"fail\",\n    timestamp: new Date(now).toISOString(),\n    emc_test_mode: emcMode,\n    startup_grace: inStartupGrace,\n    failures,\n    tinymesh: { age_seconds: tinyAge, serial_bad: tinySerialBad },\n    wmbus: { age_seconds: wmbusAge, serial_bad: wmbusSerialBad }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "global.set(\"health_started_at\", Date.now());",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 100,
+        "wires": [
+            [
+                "a300000000000003"
+            ]
+        ]
+    },
+    {
+        "id": "a300000000000003",
+        "type": "http response",
+        "z": "a300000000000000",
+        "name": "Health response",
+        "statusCode": "",
+        "headers": {},
+        "x": 680,
+        "y": 100,
         "wires": []
     }
 ]

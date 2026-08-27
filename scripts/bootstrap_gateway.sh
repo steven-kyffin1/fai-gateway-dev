@@ -112,6 +112,29 @@ GATEWAY_SERIAL=$FINAL_SERIAL
 GATEWAY_HOSTNAME=$NEW_HOSTNAME
 POWER_METER_TYPE=$METER_TYPE
 COMPOSE_PROFILES=$ACTIVE_PROFILES
+EMC_TEST_MODE=false
+NODE_RED_HEALTH_STALE_SECONDS=25
+NODE_RED_HEALTH_STARTUP_GRACE_SECONDS=30
+RECOVERY_STARTUP_GRACE_SECONDS=30
+RECOVERY_DATA_STALE_SECONDS=10
+RECOVERY_NODERED_RESTART_SECONDS=18
+RECOVERY_USB_RESET_SECONDS=30
+RECOVERY_ACTION_COOLDOWN_SECONDS=60
+ALLOW_HOST_REBOOT=false
+EMC_RF_DWELL_SECONDS=3
+EMC_TINYMESH_STALE_SECONDS=10
+EMC_WMBUS_STALE_SECONDS=6
+EMC_POWER_STALE_SECONDS=3
+EMC_SILO_STALE_SECONDS=3
+EMC_MONITOR_REQUIRED_FLOWS=tinymesh,wmbus,power,silo1,silo2
+AUDIOMOTH_ENABLED=true
+AUDIOMOTH_TEST_MODE=false
+AUDIOMOTH_ALSA_DEVICE=plughw:CARD=AudioMoth,DEV=0
+AUDIOMOTH_SAMPLE_RATE=48000
+AUDIOMOTH_CHANNELS=1
+AUDIOMOTH_FORMAT=S16_LE
+AUDIOMOTH_RECORD_SECONDS=30
+AUDIOMOTH_INTERVAL_SECONDS=300
 EOF
 
 chown "$REAL_USER":"$REAL_USER" .env
@@ -209,7 +232,8 @@ SERVICE_SOURCE=""
 for candidate in \
     "$PROJECT_ROOT/fai-gateway.service" \
     "$SCRIPT_DIR/fai-gateway.service" \
-    "$PROJECT_ROOT/scripts/fai-gateway.service"
+    "$PROJECT_ROOT/scripts/fai-gateway.service" \
+    "$PROJECT_ROOT/systemd/fai-gateway.service"
 do
     if [ -f "$candidate" ]; then
         SERVICE_SOURCE="$candidate"
@@ -231,7 +255,8 @@ echo "Installing service from: $SERVICE_SOURCE"
 cp "$SERVICE_SOURCE" /etc/systemd/system/fai-gateway.service
 
 sed -i \
-    "s|^WorkingDirectory=.*|WorkingDirectory=$PROJECT_ROOT|" \
+    -e "s|__PROJECT_ROOT__|$PROJECT_ROOT|g" \
+    -e "s|^WorkingDirectory=.*|WorkingDirectory=$PROJECT_ROOT|" \
     /etc/systemd/system/fai-gateway.service
 
 systemctl daemon-reload
@@ -303,6 +328,16 @@ EOF
 
 udevadm control --reload-rules
 udevadm trigger
+
+# Install the focused recovery supervisor, stable FT2232 device mappings and
+# restricted radio USB recovery helper. This does not restart the stack.
+RECOVERY_INSTALLER="$PROJECT_ROOT/scripts/install_recovery.sh"
+if [ ! -f "$RECOVERY_INSTALLER" ]; then
+    echo "ERROR: recovery installer missing: $RECOVERY_INSTALLER"
+    exit 1
+fi
+chmod +x "$RECOVERY_INSTALLER"
+bash "$RECOVERY_INSTALLER" --install-only
 
 # =================================================================
 # 11. ZERO-TOUCH CHIRPSTACK AUTO-PROVISIONING

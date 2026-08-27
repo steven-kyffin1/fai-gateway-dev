@@ -1,0 +1,25 @@
+[Unit]
+Description=FAI AudioMoth scheduled recorder
+Documentation=file://__PROJECT_ROOT__/EMC_RECOVERY_IMPLEMENTATION.md
+After=local-fs.target sound.target
+
+[Service]
+Type=simple
+User=root
+Group=audio
+WorkingDirectory=__PROJECT_ROOT__
+EnvironmentFile=-__PROJECT_ROOT__/.env
+ExecCondition=/bin/sh -c 'case "$AUDIOMOTH_ENABLED" in 1|true|yes|on) exit 0;; *) exit 1;; esac'
+ExecStart=/usr/bin/python3 __PROJECT_ROOT__/scripts/audiomoth_recorder.py
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=80
+RuntimeDirectory=fai-audiomoth
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+ReadWritePaths=/opt/fai-storage/audio /opt/fai-storage/emc
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,98 @@
+#!/bin/bash
+# Re-enumerate one explicitly identified USB device.
+#
+# This deliberately refuses to reset a hub or an unverified device.  Resetting
+# the FT2232 RS485 converter resets both of its serial interfaces because they
+# are functions of one physical USB device.
+
+set -euo pipefail
+
+if [ "${EUID}" -ne 0 ]; then
+    echo "ERROR: fai-usb-recover must run as root." >&2
+    exit 1
+fi
+
+TARGET="${1:-}"
+
+case "$TARGET" in
+    tinymesh)
+        DEVICE_NODE="${TINY_SERIAL_DEVICE:-/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJOI-if00-port0}"
+        EXPECTED_SERIAL="${TINY_USB_SERIAL:-B401GJOI}"
+        EXPECTED_VID="0403"
+        EXPECTED_PID="6001"
+        ;;
+    wmbus)
+        DEVICE_NODE="${WMBUS_SERIAL_DEVICE:-/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B400T7S7-if00-port0}"
+        EXPECTED_SERIAL="${WMBUS_USB_SERIAL:-B400T7S7}"
+        EXPECTED_VID="0403"
+        EXPECTED_PID="6001"
+        ;;
+    rs485)
+        DEVICE_NODE="${RS485_SERIAL_DEVICE:-/dev/RS485_ISO_1}"
+        EXPECTED_SERIAL="${RS485_USB_SERIAL:-}"
+        EXPECTED_VID="${RS485_USB_VID:-0403}"
+        EXPECTED_PID="${RS485_USB_PID:-6010}"
+        if [ -z "$EXPECTED_SERIAL" ]; then
+            echo "ERROR: RS485_USB_SERIAL is not configured; refusing an ambiguous USB reset." >&2
+            exit 2
+        fi
+        ;;
+    *)
+        echo "Usage: $0 {tinymesh|wmbus|rs485}" >&2
+        exit 2
+        ;;
+esac
+
+if [ ! -e "$DEVICE_NODE" ]; then
+    echo "ERROR: device node does not exist: $DEVICE_NODE" >&2
+    exit 3
+fi
+
+UDEV_PATH="$(udevadm info --query=path --name="$DEVICE_NODE")"
+SYS_PATH="/sys$UDEV_PATH"
+USB_PATH=""
+
+while [ "$SYS_PATH" != "/sys" ] && [ "$SYS_PATH" != "/" ]; do
+    if [ -f "$SYS_PATH/idVendor" ] && [ -f "$SYS_PATH/idProduct" ] && [ -f "$SYS_PATH/authorized" ]; then
+        USB_PATH="$SYS_PATH"
+        break
+    fi
+    SYS_PATH="$(dirname "$SYS_PATH")"
+done
+
+if [ -z "$USB_PATH" ]; then
+    echo "ERROR: could not resolve the physical USB parent for $DEVICE_NODE" >&2
+    exit 4
+fi
+
+ACTUAL_VID="$(tr '[:upper:]' '[:lower:]' < "$USB_PATH/idVendor")"
+ACTUAL_PID="$(tr '[:upper:]' '[:lower:]' < "$USB_PATH/idProduct")"
+ACTUAL_SERIAL="$(tr -d '\r\n' < "$USB_PATH/serial" 2>/dev/null || true)"
+
+if [ "$ACTUAL_VID" != "${EXPECTED_VID,,}" ] || [ "$ACTUAL_PID" != "${EXPECTED_PID,,}" ]; then
+    echo "ERROR: VID:PID mismatch for $DEVICE_NODE (got $ACTUAL_VID:$ACTUAL_PID)." >&2
+    exit 5
+fi
+
+if [ "$ACTUAL_SERIAL" != "$EXPECTED_SERIAL" ]; then
+    echo "ERROR: USB serial mismatch for $DEVICE_NODE (got '$ACTUAL_SERIAL')." >&2
+    exit 6
+fi
+
+if [ ! -w "$USB_PATH/authorized" ]; then
+    echo "ERROR: USB authorization control is not writable: $USB_PATH/authorized" >&2
+    exit 7
+fi
+
+echo "Re-enumerating '$TARGET' at $USB_PATH ($ACTUAL_VID:$ACTUAL_PID, serial $ACTUAL_SERIAL)"
+printf '0' > "$USB_PATH/authorized"
+sleep 1
+printf '1' > "$USB_PATH/authorized"
+sleep 2
+
+if [ ! -e "$DEVICE_NODE" ]; then
+    echo "ERROR: device did not reappear at $DEVICE_NODE" >&2
+    exit 8
+fi
+
+echo "USB recovery completed for '$TARGET'."

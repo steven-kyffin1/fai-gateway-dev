@@ -29,8 +29,7 @@ scripts/mosquitto/
 .env
 
 # Log files
-*.log*cred.json
-.env
+*.log
 chirpstack/postgres/
 chirpstack/postgres-init/
 chirpstack/redis/

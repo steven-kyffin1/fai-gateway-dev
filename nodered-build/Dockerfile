@@ -1,6 +1,8 @@
-FROM nodered/node-red:latest
+FROM nodered/node-red:4.1.11-22
 
-# Automatically install required community nodes during the build
-RUN npm install node-red-dashboard \
-                node-red-contrib-modbus \
-                node-red-node-serialport
+# Pin the nodes required by the authoritative flow. In particular, the serial
+# package version contains the serial-control node used for automatic reopen.
+RUN npm install --unsafe-perm --no-update-notifier --no-fund \
+        node-red-dashboard@3.6.6 \
+        node-red-contrib-modbus@5.60.1 \
+        node-red-node-serialport@2.0.3

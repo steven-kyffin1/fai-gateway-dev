@@ -1,0 +1,11 @@
+# FAI radio receivers: bind names to the FTDI serial numbers already used by
+# the production Node-RED flow.  These rules do not depend on ttyUSB order.
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="0403", ENV{ID_MODEL_ID}=="6001", ATTRS{serial}=="B401GJOI", SYMLINK+="tinymesh"
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="0403", ENV{ID_MODEL_ID}=="6001", ATTRS{serial}=="B400T7S7", SYMLINK+="wmbus"
+
+# Waveshare USB TO 2CH RS485, FT2232HL.  FTDI's default FT2232H VID/PID is
+# 0403:6010 and its two VCP interfaces are 00 and 01.  Confirm that A maps to
+# the meter terminals and B to the silo terminals before field commissioning;
+# swap the two SYMLINK names here if the physical labels enumerate oppositely.
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="0403", ENV{ID_MODEL_ID}=="6010", ENV{ID_USB_INTERFACE_NUM}=="00", SYMLINK+="RS485_ISO_1"
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="0403", ENV{ID_MODEL_ID}=="6010", ENV{ID_USB_INTERFACE_NUM}=="01", SYMLINK+="RS485_ISO_2"
