@@ -2605,6 +2605,54 @@
         "wires": []
     },
     {
+        "id": "a300000000000001",
+        "type": "http in",
+        "z": "a300000000000000",
+        "name": "Functional health",
+        "url": "/healthz",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "a300000000000002"
+            ]
+        ]
+    },
+    {
+        "id": "a300000000000002",
+        "type": "function",
+        "z": "a300000000000000",
+        "name": "Evaluate gateway health",
+        "func": "const now = Date.now();\nconst startedAt = global.get(\"health_started_at\") || now;\nif (!global.get(\"health_started_at\")) global.set(\"health_started_at\", startedAt);\n\nconst emcMode = String(env.get(\"EMC_TEST_MODE\") || \"false\").toLowerCase() === \"true\";\nconst staleSeconds = Number(env.get(\"NODE_RED_HEALTH_STALE_SECONDS\") || 25);\nconst startupGraceSeconds = Number(env.get(\"NODE_RED_HEALTH_STARTUP_GRACE_SECONDS\") || 30);\nconst inStartupGrace = now - startedAt < startupGraceSeconds * 1000;\n\nconst tinyLast = Number(global.get(\"health_tinymesh_last_seen\") || 0);\nconst wmbusLast = Number(global.get(\"health_wmbus_last_seen\") || 0);\nconst tinyAge = tinyLast ? (now - tinyLast) / 1000 : null;\nconst wmbusAge = wmbusLast ? (now - wmbusLast) / 1000 : null;\nconst tinySerialBad = global.get(\"health_tinymesh_serial_bad\") === true;\nconst wmbusSerialBad = global.get(\"health_wmbus_serial_bad\") === true;\n\nconst failures = [];\nif (!inStartupGrace && tinySerialBad) failures.push(\"tinymesh_serial\");\nif (!inStartupGrace && wmbusSerialBad) failures.push(\"wmbus_serial\");\n\n// Data freshness is a valid liveness check only with continuous EMC test transmitters.\nif (emcMode && !inStartupGrace) {\n    if (tinyAge === null || tinyAge > staleSeconds) failures.push(\"tinymesh_stale\");\n    if (wmbusAge === null || wmbusAge > staleSeconds) failures.push(\"wmbus_stale\");\n}\n\nconst healthy = failures.length === 0;\nmsg.statusCode = healthy ? 200 : 503;\nmsg.headers = { \"content-type\": \"application/json\", \"cache-control\": \"no-store\" };\nmsg.payload = {\n    status: healthy ? \"ok\" : \"fail\",\n    timestamp: new Date(now).toISOString(),\n    emc_test_mode: emcMode,\n    startup_grace: inStartupGrace,\n    failures,\n    tinymesh: { age_seconds: tinyAge, serial_bad: tinySerialBad },\n    wmbus: { age_seconds: wmbusAge, serial_bad: wmbusSerialBad }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "global.set(\"health_started_at\", Date.now());",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 100,
+        "wires": [
+            [
+                "a300000000000003"
+            ]
+        ]
+    },
+    {
+        "id": "a300000000000003",
+        "type": "http response",
+        "z": "a300000000000000",
+        "name": "Health response",
+        "statusCode": "",
+        "headers": {},
+        "x": 680,
+        "y": 100,
+        "wires": []
+    },
+    {
         "id": "5ab461591eb64002",
         "type": "inject",
         "z": "c731d38b621d4001",
@@ -2776,54 +2824,6 @@
         "statusType": "auto",
         "x": 1020,
         "y": 220,
-        "wires": []
-    },
-    {
-        "id": "a300000000000001",
-        "type": "http in",
-        "z": "a300000000000000",
-        "name": "Functional health",
-        "url": "/healthz",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 160,
-        "y": 100,
-        "wires": [
-            [
-                "a300000000000002"
-            ]
-        ]
-    },
-    {
-        "id": "a300000000000002",
-        "type": "function",
-        "z": "a300000000000000",
-        "name": "Evaluate gateway health",
-        "func": "const now = Date.now();\nconst startedAt = global.get(\"health_started_at\") || now;\nif (!global.get(\"health_started_at\")) global.set(\"health_started_at\", startedAt);\n\nconst emcMode = String(env.get(\"EMC_TEST_MODE\") || \"false\").toLowerCase() === \"true\";\nconst staleSeconds = Number(env.get(\"NODE_RED_HEALTH_STALE_SECONDS\") || 25);\nconst startupGraceSeconds = Number(env.get(\"NODE_RED_HEALTH_STARTUP_GRACE_SECONDS\") || 30);\nconst inStartupGrace = now - startedAt < startupGraceSeconds * 1000;\n\nconst tinyLast = Number(global.get(\"health_tinymesh_last_seen\") || 0);\nconst wmbusLast = Number(global.get(\"health_wmbus_last_seen\") || 0);\nconst tinyAge = tinyLast ? (now - tinyLast) / 1000 : null;\nconst wmbusAge = wmbusLast ? (now - wmbusLast) / 1000 : null;\nconst tinySerialBad = global.get(\"health_tinymesh_serial_bad\") === true;\nconst wmbusSerialBad = global.get(\"health_wmbus_serial_bad\") === true;\n\nconst failures = [];\nif (!inStartupGrace && tinySerialBad) failures.push(\"tinymesh_serial\");\nif (!inStartupGrace && wmbusSerialBad) failures.push(\"wmbus_serial\");\n\n// Data freshness is a valid liveness check only with continuous EMC test transmitters.\nif (emcMode && !inStartupGrace) {\n    if (tinyAge === null || tinyAge > staleSeconds) failures.push(\"tinymesh_stale\");\n    if (wmbusAge === null || wmbusAge > staleSeconds) failures.push(\"wmbus_stale\");\n}\n\nconst healthy = failures.length === 0;\nmsg.statusCode = healthy ? 200 : 503;\nmsg.headers = { \"content-type\": \"application/json\", \"cache-control\": \"no-store\" };\nmsg.payload = {\n    status: healthy ? \"ok\" : \"fail\",\n    timestamp: new Date(now).toISOString(),\n    emc_test_mode: emcMode,\n    startup_grace: inStartupGrace,\n    failures,\n    tinymesh: { age_seconds: tinyAge, serial_bad: tinySerialBad },\n    wmbus: { age_seconds: wmbusAge, serial_bad: wmbusSerialBad }\n};\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "global.set(\"health_started_at\", Date.now());",
-        "finalize": "",
-        "libs": [],
-        "x": 420,
-        "y": 100,
-        "wires": [
-            [
-                "a300000000000003"
-            ]
-        ]
-    },
-    {
-        "id": "a300000000000003",
-        "type": "http response",
-        "z": "a300000000000000",
-        "name": "Health response",
-        "statusCode": "",
-        "headers": {},
-        "x": 680,
-        "y": 100,
         "wires": []
     }
 ]
