@@ -15,6 +15,8 @@ Restart=on-failure
 RestartSec=5
 TimeoutStopSec=80
 RuntimeDirectory=fai-audiomoth
+Environment=HOME=/run/fai-audiomoth
+Environment=XDG_CONFIG_HOME=/run/fai-audiomoth
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectHome=read-only
