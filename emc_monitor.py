@@ -74,13 +74,13 @@ if LORAWAN_ENABLED:
 
 MQTT_FLOWS = {
     "lorawan": ("application/+/device/+/event/up", float(os.getenv("EMC_LORAWAN_STALE_SECONDS", "6"))),
-    "tinymesh": ("gateway/+/tinymesh/out", float(os.getenv("EMC_TINYMESH_STALE_SECONDS", "10"))),
+    "tinymesh": ("gateway/+/tinymesh/rx", float(os.getenv("EMC_TINYMESH_STALE_SECONDS", "10"))),
     "wmbus": ("gateway/+/wmbus/out", float(os.getenv("EMC_WMBUS_STALE_SECONDS", "6"))),
     "power": ("gateway/+/power/out", float(os.getenv("EMC_POWER_STALE_SECONDS", "3"))),
     "silo1": ("gateway/+/modbus/silo1/emc", float(os.getenv("EMC_SILO_STALE_SECONDS", "3"))),
     "silo2": ("gateway/+/silo/+/telemetry", float(os.getenv("EMC_SILO_STALE_SECONDS", "3"))),
 }
-required_flow_default = "tinymesh,wmbus,power,silo1,silo2" + (",lorawan" if LORAWAN_ENABLED else "")
+required_flow_default = "tinymesh,wmbus,power,silo1" + (",lorawan" if LORAWAN_ENABLED else "")
 REQUIRED_FLOWS = {
     name.strip()
     for name in os.getenv("EMC_MONITOR_REQUIRED_FLOWS", required_flow_default).split(",")

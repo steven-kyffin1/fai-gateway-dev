@@ -273,10 +273,10 @@ def reset_usb(stale_names: list[str], now: float) -> set[str]:
             successful.add(name)
 
     if successful:
-        # Do not let the previous restart cooldown prevent the restart required
-        # after a USB device has been re-enumerated.
-        LAST_NODERED_RESTART = 0.0
-        restart_nodered("usb_reenumerated", sorted(successful), time.monotonic())
+        LOGGER.warning(
+            "RECOVERY usb_reset_complete interfaces=%s nodered_restart=false",
+            ",".join(sorted(successful)),
+        )
     return successful
 
 
@@ -472,7 +472,10 @@ def check_usb_presence(now: float) -> None:
             state.was_present = present
 
     if restart_required:
-        restart_nodered("usb_reattached", restart_required, now)
+        LOGGER.warning(
+            "USB_REATTACHED interfaces=%s nodered_restart=false",
+            ",".join(restart_required),
+        )
 
     auxiliary_restarts: list[tuple[str, str]] = []
     with LOCK:
@@ -585,10 +588,14 @@ def evaluate_recovery(now: float) -> None:
         return
 
     if oldest_age >= NODERED_RESTART_AFTER and minimum_stage < 1:
-        if restart_nodered("radio_data_stale", stale_names, now):
-            with LOCK:
-                for name in stale_names:
-                    STATES[name].stage = max(STATES[name].stage, 1)
+        LOGGER.warning(
+            "RECOVERY_SKIPPED action=nodered_restart reason=radio_data_stale "
+            "interfaces=%s policy=targeted_radio_recovery_only",
+            ",".join(stale_names),
+        )
+        with LOCK:
+            for name in stale_names:
+                STATES[name].stage = max(STATES[name].stage, 1)
 
 
 def main() -> int:

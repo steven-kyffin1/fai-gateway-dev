@@ -29,6 +29,14 @@
         "info": "Polls ADS301 register 40 every second and publishes a heartbeat after each successful Modbus response."
     },
     {
+        "id": "cb99331f4a547bb5",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "group_telemetry",
         "type": "group",
         "z": "3738026cb3832ee1",
@@ -88,9 +96,71 @@
         "h": 482
     },
     {
-        "id": "f39362f0cc4d435f",
+        "id": "febc9982bb1406d1",
         "type": "group",
         "z": "3738026cb3832ee1",
+        "name": "Water Meter",
+        "style": {
+            "stroke": "#001f60",
+            "fill": "#bfdbef",
+            "label": true,
+            "fill-opacity": "0.51"
+        },
+        "nodes": [
+            "81706964859001bb",
+            "771a91e17adff194",
+            "1065086db45c7443"
+        ],
+        "x": 34,
+        "y": 539,
+        "w": 942,
+        "h": 82
+    },
+    {
+        "id": "5014da80cd5e927f",
+        "type": "group",
+        "z": "3738026cb3832ee1",
+        "name": "Flocksensor Tinymesh",
+        "style": {
+            "stroke": "#6f2fa0",
+            "fill": "#dbcbe7",
+            "fill-opacity": "0.5",
+            "label": true
+        },
+        "nodes": [
+            "3795322861042bc3",
+            "3e23d6eda29ff93e",
+            "edd0911a555ca093",
+            "01c00f94db6f61a8"
+        ],
+        "x": 34,
+        "y": 339,
+        "w": 712,
+        "h": 202
+    },
+    {
+        "id": "a3a62aaa37101276",
+        "type": "group",
+        "z": "3738026cb3832ee1",
+        "name": "ShedSensor LoRa",
+        "style": {
+            "fill": "#e3f3d3",
+            "fill-opacity": "0.54",
+            "label": true
+        },
+        "nodes": [
+            "57061788d08a630e",
+            "c96e6411ef124a35"
+        ],
+        "x": 34,
+        "y": 159,
+        "w": 632,
+        "h": 102
+    },
+    {
+        "id": "f39362f0cc4d435f",
+        "type": "group",
+        "z": "cb99331f4a547bb5",
         "name": "Power Meters",
         "style": {
             "stroke": "#ffC000",
@@ -119,72 +189,10 @@
             "0d95085cc5ba3a5e",
             "7c8ff7058b4c4054"
         ],
-        "x": 34,
-        "y": 659,
-        "w": 1612,
+        "x": 234,
+        "y": 439,
+        "w": 1592,
         "h": 362
-    },
-    {
-        "id": "febc9982bb1406d1",
-        "type": "group",
-        "z": "3738026cb3832ee1",
-        "name": "Water Meter",
-        "style": {
-            "stroke": "#001f60",
-            "fill": "#bfdbef",
-            "label": true,
-            "fill-opacity": "0.51"
-        },
-        "nodes": [
-            "81706964859001bb",
-            "771a91e17adff194"
-        ],
-        "x": 34,
-        "y": 539,
-        "w": 752,
-        "h": 82
-    },
-    {
-        "id": "5014da80cd5e927f",
-        "type": "group",
-        "z": "3738026cb3832ee1",
-        "name": "Flocksensor Tinymesh",
-        "style": {
-            "stroke": "#6f2fa0",
-            "fill": "#dbcbe7",
-            "fill-opacity": "0.5",
-            "label": true
-        },
-        "nodes": [
-            "3795322861042bc3",
-            "3e23d6eda29ff93e",
-            "edd0911a555ca093",
-            "01c00f94db6f61a8",
-            "d240b7efb392380c"
-        ],
-        "x": 34,
-        "y": 339,
-        "w": 802,
-        "h": 202
-    },
-    {
-        "id": "a3a62aaa37101276",
-        "type": "group",
-        "z": "3738026cb3832ee1",
-        "name": "ShedSensor LoRa",
-        "style": {
-            "fill": "#e3f3d3",
-            "fill-opacity": "0.54",
-            "label": true
-        },
-        "nodes": [
-            "57061788d08a630e",
-            "c96e6411ef124a35"
-        ],
-        "x": 34,
-        "y": 179,
-        "w": 592,
-        "h": 122
     },
     {
         "id": "683cf0d2d547c4fd",
@@ -648,7 +656,7 @@
     {
         "id": "29fd0d733b014010",
         "type": "modbus-client",
-        "name": "Silo 1 EMC — shared mbusd-silo",
+        "name": "Silo 1 EMC \u2014 shared mbusd-silo",
         "clienttype": "tcp",
         "bufferCommands": true,
         "stateLogEnabled": false,
@@ -690,7 +698,8 @@
                 "edd0911a555ca093",
                 "01c00f94db6f61a8",
                 "a100000000000001",
-                "a100000000000007"
+                "a100000000000007",
+                "tm_emc_rx_publisher"
             ]
         ]
     },
@@ -837,7 +846,7 @@
         "z": "3738026cb3832ee1",
         "g": "5014da80cd5e927f",
         "name": "Local Parser",
-        "func": "// ── The Complete 18-Byte Header Parser (Env, Weight, & Alive) ──\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216; \n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload)) incoming = msg.payload.toString('hex');\nelse if (msg.payload && typeof msg.payload.hex === 'string') incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string') incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\n// 1. GARBAGE COLLECTOR\nif (buf.length > 8192) {\n    buf = \"\"; \n    context.set('buf', buf);\n    node.warn(\"Buffer overflow prevented. Flushed garbage data.\");\n    return null;\n}\n\n// 2. OMNI-SIGNATURE SCANNER\nwhile (buf.length > 0) {\n    // Look for all three known packet types\n    let sensorIdx = buf.indexOf(\"013a\"); // Type 0x01 (Env), Length 58\n    let weightIdx = buf.indexOf(\"026a\"); // Type 0x02 (Weight), Length 106\n    let aliveIdx  = buf.indexOf(\"040c\"); // Type 0x04 (Alive), Length 12\n\n    let startIndex = -1;\n    let packetType = 0;\n\n    // Find whichever valid signature appears first in the current chunk\n    const indices = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx }\n    ].filter(obj => obj.idx !== -1);\n\n    if (indices.length > 0) {\n        const earliest = indices.reduce((prev, curr) => prev.idx < curr.idx ? prev : curr);\n        startIndex = earliest.idx;\n        packetType = earliest.type;\n    }\n\n    if (startIndex === -1) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break; \n    }\n\n    // 3. EXTRACT THE 18-BYTE PACKET MODE HEADER\n    if (startIndex < 36) {\n        buf = buf.slice(startIndex + 2); \n        continue;\n    }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex); \n    \n    // ── THE BIG-ENDIAN FIX ──\n    const trueUidHex = headerHex.slice(10, 18);\n    let dynamicUid = 0; \n    if (/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0); \n    } else {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n\n    // ── EXTRACT METADATA ──\n    const trueRssiHex = headerHex.slice(18, 20);\n    let rawRssi = parseInt(trueRssiHex, 16);\n    let trueRssi = (rawRssi / 2) - 121; // Match the old Gateway's exact dBm formula\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    // 4. EXTRACT THE PAYLOAD DATA (Little-Endian)\n    let expectedPayloadChars = 0;\n    if (packetType === 1) expectedPayloadChars = 58 * 2;\n    else if (packetType === 2) expectedPayloadChars = 106 * 2;\n    else if (packetType === 4) expectedPayloadChars = 12 * 2;\n\n    if (buf.length < startIndex + expectedPayloadChars) {\n        break; // Wait for the rest of the serial chunk\n    }\n\n    const frameHex = buf.slice(startIndex, startIndex + expectedPayloadChars);\n    buf = buf.slice(startIndex + expectedPayloadChars); \n\n    const bytes = [];\n    for (let i = 0; i < frameHex.length; i += 2) {\n        bytes.push(parseInt(frameHex.slice(i, i + 2), 16));\n    }\n    const view = new DataView(new Uint8Array(bytes).buffer);\n\n    let extractedData = {};\n    let messageDetail = \"unknown\";\n\n    if (packetType === 1) {\n        messageDetail = \"sensor_telemetry\";\n        \n        // Mapped exactly to sensor_telegram_t from sensors.h\n        extractedData = {\n            AirTemperature:      view.getFloat32(6,  true),\n            AirPressure:         view.getFloat32(10, true),\n            HumidityTemperature: view.getFloat32(14, true),\n            Humidity:            view.getFloat32(18, true),\n            LightALS:            view.getUint32(22,  true), // Parsed as integer based on C-struct behavior\n            GASCO2:              view.getFloat32(26, true),\n            GASTemperature:      view.getFloat32(30, true),\n            GASHumidity:         view.getFloat32(34, true),\n            GASNH3:              view.getFloat32(38, true),\n            GASCO:               view.getFloat32(42, true),\n            GASNO2:              view.getFloat32(46, true),\n            BoardTemperature:    view.getFloat32(50, true),\n            PT100Temperature:    view.getFloat32(54, true)\n        };\n    } else if (packetType === 2) {\n        messageDetail = \"weight_telemetry\";\n        const samples = [];\n        for (let i = 6; i + 1 < bytes.length; i += 2) {\n            samples.push(view.getUint16(i, true)); // Payload stays LE\n        }\n        extractedData = {\n            count: samples.length,\n            mean_weight: samples.reduce((a, b) => a + b, 0) / samples.length\n        };\n    } else if (packetType === 4) {\n        messageDetail = \"device_startup\";\n        extractedData = {\n            hardware_mac: frameHex.slice(4, 20), \n            firmware: view.getUint16(10, true) // Payload stays LE\n        };\n    }\n\n    // 5. BUILD THE FAI CLOUD ENVELOPE\n    out.push({\n        topic: `gateway/${gatewayId}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString() },\n            \"block\": 0,\n            \"data\": JSON.stringify(extractedData), \n            \"detail\": messageDetail,               \n            \"hops\": hops,\n            \"latency\": latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": trueRssi, \n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid,  \n            \"raw_hex\": frameHex \n        }\n    });\n}\n\ncontext.set('buf', buf);\n\nif (out.length === 0) return null;\nif (out.length === 1) return out[0];\nreturn [out];",
+        "func": "// \u2500\u2500 The Complete 18-Byte Header Parser (Env, Weight, & Alive) \u2500\u2500\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216; \n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload)) incoming = msg.payload.toString('hex');\nelse if (msg.payload && typeof msg.payload.hex === 'string') incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string') incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\n// 1. GARBAGE COLLECTOR\nif (buf.length > 8192) {\n    buf = \"\"; \n    context.set('buf', buf);\n    node.warn(\"Buffer overflow prevented. Flushed garbage data.\");\n    return null;\n}\n\n// 2. OMNI-SIGNATURE SCANNER\nwhile (buf.length > 0) {\n    // Look for all three known packet types\n    let sensorIdx = buf.indexOf(\"013a\"); // Type 0x01 (Env), Length 58\n    let weightIdx = buf.indexOf(\"026a\"); // Type 0x02 (Weight), Length 106\n    let aliveIdx  = buf.indexOf(\"040c\"); // Type 0x04 (Alive), Length 12\n\n    let startIndex = -1;\n    let packetType = 0;\n\n    // Find whichever valid signature appears first in the current chunk\n    const indices = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx }\n    ].filter(obj => obj.idx !== -1);\n\n    if (indices.length > 0) {\n        const earliest = indices.reduce((prev, curr) => prev.idx < curr.idx ? prev : curr);\n        startIndex = earliest.idx;\n        packetType = earliest.type;\n    }\n\n    if (startIndex === -1) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break; \n    }\n\n    // 3. EXTRACT THE 18-BYTE PACKET MODE HEADER\n    if (startIndex < 36) {\n        buf = buf.slice(startIndex + 2); \n        continue;\n    }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex); \n    \n    // \u2500\u2500 THE BIG-ENDIAN FIX \u2500\u2500\n    const trueUidHex = headerHex.slice(10, 18);\n    let dynamicUid = 0; \n    if (/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0); \n    } else {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n\n    // \u2500\u2500 EXTRACT METADATA \u2500\u2500\n    const trueRssiHex = headerHex.slice(18, 20);\n    let rawRssi = parseInt(trueRssiHex, 16);\n    let trueRssi = (rawRssi / 2) - 121; // Match the old Gateway's exact dBm formula\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    // 4. EXTRACT THE PAYLOAD DATA (Little-Endian)\n    let expectedPayloadChars = 0;\n    if (packetType === 1) expectedPayloadChars = 58 * 2;\n    else if (packetType === 2) expectedPayloadChars = 106 * 2;\n    else if (packetType === 4) expectedPayloadChars = 12 * 2;\n\n    if (buf.length < startIndex + expectedPayloadChars) {\n        break; // Wait for the rest of the serial chunk\n    }\n\n    const frameHex = buf.slice(startIndex, startIndex + expectedPayloadChars);\n    buf = buf.slice(startIndex + expectedPayloadChars); \n\n    const bytes = [];\n    for (let i = 0; i < frameHex.length; i += 2) {\n        bytes.push(parseInt(frameHex.slice(i, i + 2), 16));\n    }\n    const view = new DataView(new Uint8Array(bytes).buffer);\n\n    let extractedData = {};\n    let messageDetail = \"unknown\";\n\n    if (packetType === 1) {\n        messageDetail = \"sensor_telemetry\";\n        \n        // Mapped exactly to sensor_telegram_t from sensors.h\n        extractedData = {\n            AirTemperature:      view.getFloat32(6,  true),\n            AirPressure:         view.getFloat32(10, true),\n            HumidityTemperature: view.getFloat32(14, true),\n            Humidity:            view.getFloat32(18, true),\n            LightALS:            view.getUint32(22,  true), // Parsed as integer based on C-struct behavior\n            GASCO2:              view.getFloat32(26, true),\n            GASTemperature:      view.getFloat32(30, true),\n            GASHumidity:         view.getFloat32(34, true),\n            GASNH3:              view.getFloat32(38, true),\n            GASCO:               view.getFloat32(42, true),\n            GASNO2:              view.getFloat32(46, true),\n            BoardTemperature:    view.getFloat32(50, true),\n            PT100Temperature:    view.getFloat32(54, true)\n        };\n    } else if (packetType === 2) {\n        messageDetail = \"weight_telemetry\";\n        const samples = [];\n        for (let i = 6; i + 1 < bytes.length; i += 2) {\n            samples.push(view.getUint16(i, true)); // Payload stays LE\n        }\n        extractedData = {\n            count: samples.length,\n            mean_weight: samples.reduce((a, b) => a + b, 0) / samples.length\n        };\n    } else if (packetType === 4) {\n        messageDetail = \"device_startup\";\n        extractedData = {\n            hardware_mac: frameHex.slice(4, 20), \n            firmware: view.getUint16(10, true) // Payload stays LE\n        };\n    }\n\n    // 5. BUILD THE FAI CLOUD ENVELOPE\n    out.push({\n        topic: `gateway/${gatewayId}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString() },\n            \"block\": 0,\n            \"data\": JSON.stringify(extractedData), \n            \"detail\": messageDetail,               \n            \"hops\": hops,\n            \"latency\": latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": trueRssi, \n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid,  \n            \"raw_hex\": frameHex \n        }\n    });\n}\n\ncontext.set('buf', buf);\n\nif (out.length === 0) return null;\nif (out.length === 1) return out[0];\nreturn [out];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -856,7 +865,7 @@
         "z": "3738026cb3832ee1",
         "g": "5014da80cd5e927f",
         "name": "Backend Parser",
-        "func": "// ── FAI Gateway Parser (v3.1 - Raw Payload, Correct UID) ──\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload))           incoming = msg.payload.toString('hex');\nelse if (msg.payload?.hex)                  incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string')   incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\nif (buf.length > 8192) {\n    context.set('buf', '');\n    node.warn(\"Buffer overflow — flushed\");\n    return null;\n}\n\nwhile (buf.length > 0) {\n    const sensorIdx = buf.indexOf(\"013a\");\n    const weightIdx = buf.indexOf(\"026a\");\n    const aliveIdx  = buf.indexOf(\"040c\");\n\n    const candidates = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx }\n    ].filter(c => c.idx !== -1);\n\n    if (!candidates.length) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break;\n    }\n\n    const { type: packetType, idx: startIndex } =\n        candidates.reduce((a, b) => a.idx < b.idx ? a : b);\n\n    // Need 18-byte (36 hex char) header before the payload signature\n    if (startIndex < 36) { buf = buf.slice(startIndex + 2); continue; }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex);\n\n    // UID: bytes 5-8 of header, Big-Endian\n    const trueUidHex = headerHex.slice(10, 18);\n    if (!/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n    const dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0);\n\n    // RSSI: raw integer as the backend expects (same format tinymesh-edge sent)\n    const rawRssi = parseInt(headerHex.slice(18, 20), 16);\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops       = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency    = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    const payloadLen = packetType === 1 ? 58 : packetType === 2 ? 106 : 12;\n    const needed = startIndex + payloadLen * 2;\n    if (buf.length < needed) break;\n\n    const frameHex = buf.slice(startIndex, needed);\n    buf = buf.slice(needed);\n\n    out.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString().split('.')[0] + '+00:00' },\n            \"block\":       0,\n            \"data\":        frameHex,   // Raw C-struct hex — backend decodes this itself\n            \"detail\":      \"serial\",\n            \"hops\":        hops,\n            \"latency\":     latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\":  Math.floor(Math.random() * 65535),\n            \"rssi\":        rawRssi,    // Raw integer, not dBm — matches tinymesh-edge format\n            \"sid\":         TARGET_CLOUD_SID,\n            \"type\":        \"event\",\n            \"uid\":         dynamicUid\n        }\n    });\n}\n\ncontext.set('buf', buf);\nif (!out.length) return null;\nreturn out.length === 1 ? out[0] : out;",
+        "func": "// \u2500\u2500 FAI Gateway Parser (v3.1 - Raw Payload, Correct UID) \u2500\u2500\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload))           incoming = msg.payload.toString('hex');\nelse if (msg.payload?.hex)                  incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string')   incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\nif (buf.length > 8192) {\n    context.set('buf', '');\n    node.warn(\"Buffer overflow \u2014 flushed\");\n    return null;\n}\n\nwhile (buf.length > 0) {\n    const sensorIdx = buf.indexOf(\"013a\");\n    const weightIdx = buf.indexOf(\"026a\");\n    const aliveIdx  = buf.indexOf(\"040c\");\n\n    const candidates = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx }\n    ].filter(c => c.idx !== -1);\n\n    if (!candidates.length) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break;\n    }\n\n    const { type: packetType, idx: startIndex } =\n        candidates.reduce((a, b) => a.idx < b.idx ? a : b);\n\n    // Need 18-byte (36 hex char) header before the payload signature\n    if (startIndex < 36) { buf = buf.slice(startIndex + 2); continue; }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex);\n\n    // UID: bytes 5-8 of header, Big-Endian\n    const trueUidHex = headerHex.slice(10, 18);\n    if (!/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n    const dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0);\n\n    // RSSI: raw integer as the backend expects (same format tinymesh-edge sent)\n    const rawRssi = parseInt(headerHex.slice(18, 20), 16);\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops       = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency    = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    const payloadLen = packetType === 1 ? 58 : packetType === 2 ? 106 : 12;\n    const needed = startIndex + payloadLen * 2;\n    if (buf.length < needed) break;\n\n    const frameHex = buf.slice(startIndex, needed);\n    buf = buf.slice(needed);\n\n    out.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString().split('.')[0] + '+00:00' },\n            \"block\":       0,\n            \"data\":        frameHex,   // Raw C-struct hex \u2014 backend decodes this itself\n            \"detail\":      \"serial\",\n            \"hops\":        hops,\n            \"latency\":     latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\":  Math.floor(Math.random() * 65535),\n            \"rssi\":        rawRssi,    // Raw integer, not dBm \u2014 matches tinymesh-edge format\n            \"sid\":         TARGET_CLOUD_SID,\n            \"type\":        \"event\",\n            \"uid\":         dynamicUid\n        }\n    });\n}\n\ncontext.set('buf', buf);\nif (!out.length) return null;\nreturn out.length === 1 ? out[0] : out;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -875,7 +884,6 @@
         "id": "81706964859001bb",
         "type": "serial in",
         "z": "3738026cb3832ee1",
-        "d": true,
         "g": "febc9982bb1406d1",
         "name": "WMBUS In",
         "serial": "bcc4801ac002ac63",
@@ -909,10 +917,9 @@
         "id": "771a91e17adff194",
         "type": "function",
         "z": "3738026cb3832ee1",
-        "d": true,
         "g": "febc9982bb1406d1",
         "name": "WMBUS parser 5.2",
-        "func": "// ── FAI wMBus Extractor (MC100 Format Match) ──\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) return null;\n\nconst hexData = msg.payload.toString('hex').toLowerCase();\nconst base64Raw = msg.payload.toString('base64');\n\nif (hexData.length < 50) return null;\n\n// ── PARSE HEADER FIELDS ──\nconst lField = parseInt(hexData.substring(0, 2), 16);\nconst cField = parseInt(hexData.substring(2, 4), 16);\n\n// Manufacturer (bytes 2-3, little-endian → 15-bit decode)\nconst manHex = hexData.substring(6, 8) + hexData.substring(4, 6);\nconst manInt = parseInt(manHex, 16);\nconst manufacturer =\n    String.fromCharCode(((manInt >> 10) & 0x001F) + 64) +\n    String.fromCharCode(((manInt >> 5)  & 0x001F) + 64) +\n    String.fromCharCode((manInt & 0x001F) + 64);\n\n// Device ID (bytes 4-7, little-endian BCD reversal)\nconst idHex = hexData.substring(8, 16);\nconst serialNumber = idHex.substring(6, 8) +\n    idHex.substring(4, 6) +\n    idHex.substring(2, 4) +\n    idHex.substring(0, 2);\n\n// Version and device type bytes\nconst version = parseInt(hexData.substring(16, 18), 16);\nconst ciField  = parseInt(hexData.substring(20, 22), 16);\n\n// Full ID as the MC100 sends it (manufacturer + serial)\nconst fullId = manufacturer + serialNumber;\n\n// RSSI — RC1180 with RSSI mode off means we don't have it;\n// send a reasonable placeholder or omit\nconst rssiDbm = -52; // placeholder; adjust if you enable RSSI on dongle\n\nmsg.topic = `gateway/${gatewaySerial}/wmbus/out`;\nmsg.payload = {\n    \"_meta\": {\n        \"received\": new Date().toISOString().split('.')[0] + '+00:00',\n        \"receiver_id\": \"0000000000000000\",\n        \"rssi\": rssiDbm\n    },\n    \"data\": {\n        \"AField\":       idHex.toUpperCase() + hexData.substring(16, 28).toUpperCase(),\n        \"CField\":       cField,\n        \"CIField\":      ciField,\n        \"ID\":           \"18\" + serialNumber,\n        \"LField\":       lField,\n        \"MField\":       manInt,\n        \"Manufacturer\": manufacturer,\n        \"SerialNumber\": serialNumber\n    },\n    \"raw\":  base64Raw,\n    \"type\": \"wmbus\"\n};\n\nreturn msg;",
+        "func": "// \u2500\u2500 FAI wMBus Extractor (MC100 Format Match) \u2500\u2500\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) return null;\n\nconst hexData = msg.payload.toString('hex').toLowerCase();\nconst base64Raw = msg.payload.toString('base64');\n\nif (hexData.length < 50) return null;\n\n// \u2500\u2500 PARSE HEADER FIELDS \u2500\u2500\nconst lField = parseInt(hexData.substring(0, 2), 16);\nconst cField = parseInt(hexData.substring(2, 4), 16);\n\n// Manufacturer (bytes 2-3, little-endian \u2192 15-bit decode)\nconst manHex = hexData.substring(6, 8) + hexData.substring(4, 6);\nconst manInt = parseInt(manHex, 16);\nconst manufacturer =\n    String.fromCharCode(((manInt >> 10) & 0x001F) + 64) +\n    String.fromCharCode(((manInt >> 5)  & 0x001F) + 64) +\n    String.fromCharCode((manInt & 0x001F) + 64);\n\n// Device ID (bytes 4-7, little-endian BCD reversal)\nconst idHex = hexData.substring(8, 16);\nconst serialNumber = idHex.substring(6, 8) +\n    idHex.substring(4, 6) +\n    idHex.substring(2, 4) +\n    idHex.substring(0, 2);\n\n// Version and device type bytes\nconst version = parseInt(hexData.substring(16, 18), 16);\nconst ciField  = parseInt(hexData.substring(20, 22), 16);\n\n// Full ID as the MC100 sends it (manufacturer + serial)\nconst fullId = manufacturer + serialNumber;\n\n// RSSI \u2014 RC1180 with RSSI mode off means we don't have it;\n// send a reasonable placeholder or omit\nconst rssiDbm = -52; // placeholder; adjust if you enable RSSI on dongle\n\nmsg.topic = `gateway/${gatewaySerial}/wmbus/out`;\nmsg.payload = {\n    \"_meta\": {\n        \"received\": new Date().toISOString().split('.')[0] + '+00:00',\n        \"receiver_id\": \"0000000000000000\",\n        \"rssi\": rssiDbm\n    },\n    \"data\": {\n        \"AField\":       idHex.toUpperCase() + hexData.substring(16, 28).toUpperCase(),\n        \"CField\":       cField,\n        \"CIField\":      ciField,\n        \"ID\":           \"18\" + serialNumber,\n        \"LField\":       lField,\n        \"MField\":       manInt,\n        \"Manufacturer\": manufacturer,\n        \"SerialNumber\": serialNumber\n    },\n    \"raw\":  base64Raw,\n    \"type\": \"wmbus\"\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -923,570 +930,8 @@
         "y": 580,
         "wires": [
             [
-                "479b96e0273a18b1"
-            ]
-        ]
-    },
-    {
-        "id": "2ec4d64c4d152c47",
-        "type": "switch",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Power Meter Switch",
-        "property": "POWER_METER_TYPE",
-        "propertyType": "env",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "GAVAZZI",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "TIP_SINUS",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 400,
-        "y": 840,
-        "wires": [
-            [
-                "d392a434756845eb",
-                "c49885e9d6a9fc61",
-                "0d95085cc5ba3a5e",
-                "7c8ff7058b4c4054"
-            ],
-            [
-                "ef481e36e2bb3fa6",
-                "f9eb5f9f56a54bc6",
-                "e3730d84bcc3688e"
-            ]
-        ]
-    },
-    {
-        "id": "ece73113c7b4bfd0",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "1",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 840,
-        "wires": [
-            [
-                "2ec4d64c4d152c47"
-            ]
-        ]
-    },
-    {
-        "id": "f758c47d588bbb4d",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "CG Voltage",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "0",
-        "quantity": "2",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "x": 870,
-        "y": 700,
-        "wires": [
-            [
-                "459b1521753592c4"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "3c1ea0563bf6ac22",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "CG Amps",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "12",
-        "quantity": "2",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": true,
-        "enableDeformedMessages": false,
-        "startDelayTime": "20",
-        "x": 860,
-        "y": 740,
-        "wires": [
-            [
-                "459b1521753592c4"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "d392a434756845eb",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "CG Voltage Model",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "11",
-        "quantity": "1",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": true,
-        "enableDeformedMessages": false,
-        "startDelayTime": "40",
-        "x": 890,
-        "y": 780,
-        "wires": [
-            [
-                "459b1521753592c4"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "a38fb8b144266ed0",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "CG Serial",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "20480",
-        "quantity": "7",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": true,
-        "enableDeformedMessages": false,
-        "startDelayTime": "60",
-        "x": 860,
-        "y": 820,
-        "wires": [
-            [
-                "459b1521753592c4"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "e101a3e45c80eeab",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Sinus Voltage",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "34",
-        "quantity": "2",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": true,
-        "enableDeformedMessages": false,
-        "startDelayTime": "20",
-        "x": 880,
-        "y": 900,
-        "wires": [
-            [
-                "06c2e152e80aa22b"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "47ce93c9cc2d22b9",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Sinus Amps",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "2",
-        "dataType": "InputRegister",
-        "adr": "36",
-        "quantity": "2",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": true,
-        "enableDeformedMessages": false,
-        "startDelayTime": "40",
-        "x": 870,
-        "y": 940,
-        "wires": [
-            [
-                "06c2e152e80aa22b"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "f81febb542ad7385",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Sinus Serial#",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "2",
-        "dataType": "HoldingRegister",
-        "adr": "4",
-        "quantity": "2",
-        "server": "6776b5a3c41f3f5c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": true,
-        "enableDeformedMessages": true,
-        "startDelayTime": "0",
-        "x": 870,
-        "y": 980,
-        "wires": [
-            [
-                "06c2e152e80aa22b"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "459b1521753592c4",
-        "type": "join",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Modbus Join",
-        "mode": "custom",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "useparts": false,
-        "accumulate": true,
-        "timeout": "20",
-        "count": "4",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "",
-        "reduceFixup": "",
-        "x": 1140,
-        "y": 760,
-        "wires": [
-            [
-                "878d632399a701a1"
-            ]
-        ]
-    },
-    {
-        "id": "878d632399a701a1",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Power meter Parser (Carlo Gavazzi)",
-        "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"Unknown CG Meter\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet modArr = getArray(joined.model);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 0)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[1] << 16) | volArr[0];\n    voltage = rawVolts / 10;\n}\n\n// 2. Parse Amps (Address 12)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[1] << 16) | ampArr[0];\n    amps = rawAmps / 1000;\n}\n\n// 3. Identify Device Type (Address 11)\nif (modArr && modArr.length >= 1) {\n    let modelCode = modArr[0];\n    if (modelCode === 332) partNumber = \"EM330-DIN AV5\";\n    else if (modelCode === 341) partNumber = \"EM340-DIN AV2\";\n    else partNumber = \"Model Code: \" + modelCode;\n}\n\n// 4. Parse Serial Number (Address 20480)\nif (serArr) {\n    serial = \"\";\n    serArr.forEach(reg => {\n        serial += String.fromCharCode(reg & 0xFF); // Extract LSB to ASCII\n    });\n}\n\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- NEW CODE: Build the exact MQTT Topic ---\n// Grab the Gateway Serial from the Docker environment variables\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// Format: gateway/A100000155081224/power/out\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1470,
-        "y": 760,
-        "wires": [
-            [
-                "479b96e0273a18b1"
-            ]
-        ]
-    },
-    {
-        "id": "06c2e152e80aa22b",
-        "type": "join",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Modbus Join",
-        "mode": "custom",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "useparts": false,
-        "accumulate": true,
-        "timeout": "20",
-        "count": "3",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "",
-        "reduceFixup": "",
-        "x": 1080,
-        "y": 920,
-        "wires": [
-            [
-                "d0ffcd208a752da9"
-            ]
-        ]
-    },
-    {
-        "id": "d0ffcd208a752da9",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Power meter Parser (Sinus)",
-        "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"TIP SINUS\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\n// Notice I removed the '#' from the Serial name here!\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 34)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[0] * 65536) + volArr[1];\n    voltage = rawVolts / 1000;\n}\n\n// 2. Parse Amps (Address 36)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[0] * 65536) + ampArr[1];\n    amps = rawAmps / 1000;\n}\n\n// 3. Parse Serial Number (Address 4)\nif (serArr && serArr.length >= 2) {\n    let highHex = serArr[0].toString(16).padStart(4, '0');\n    let lowHex = serArr[1].toString(16).padStart(4, '0');\n    let rawSerial = (highHex + lowHex).toUpperCase();\n    \n    // Convert to integer to strip leading zeros, then back to string\n    serial = parseInt(rawSerial, 10).toString(); \n}\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- Build the exact MQTT Topic ---\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1320,
-        "y": 920,
-        "wires": [
-            [
-                "479b96e0273a18b1"
-            ]
-        ]
-    },
-    {
-        "id": "ef481e36e2bb3fa6",
-        "type": "change",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Voltage Change",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "voltage",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 620,
-        "y": 900,
-        "wires": [
-            [
-                "e101a3e45c80eeab"
-            ]
-        ]
-    },
-    {
-        "id": "f9eb5f9f56a54bc6",
-        "type": "change",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Amps Change",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "amps",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 620,
-        "y": 940,
-        "wires": [
-            [
-                "47ce93c9cc2d22b9"
-            ]
-        ]
-    },
-    {
-        "id": "e3730d84bcc3688e",
-        "type": "change",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Serial Change",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "serial",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 620,
-        "y": 980,
-        "wires": [
-            [
-                "f81febb542ad7385"
-            ]
-        ]
-    },
-    {
-        "id": "c49885e9d6a9fc61",
-        "type": "change",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Voltage Change",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "voltage",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 620,
-        "y": 700,
-        "wires": [
-            [
-                "f758c47d588bbb4d"
-            ]
-        ]
-    },
-    {
-        "id": "0d95085cc5ba3a5e",
-        "type": "change",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Amps Change",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "amps",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 620,
-        "y": 740,
-        "wires": [
-            [
-                "3c1ea0563bf6ac22"
-            ]
-        ]
-    },
-    {
-        "id": "7c8ff7058b4c4054",
-        "type": "change",
-        "z": "3738026cb3832ee1",
-        "g": "f39362f0cc4d435f",
-        "name": "Serial Change",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "serial",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 640,
-        "y": 820,
-        "wires": [
-            [
-                "a38fb8b144266ed0"
+                "479b96e0273a18b1",
+                "1065086db45c7443"
             ]
         ]
     },
@@ -1550,6 +995,7 @@
         "id": "debug_weight",
         "type": "debug",
         "z": "3738026cb3832ee1",
+        "d": true,
         "g": "group_telemetry",
         "name": "Live Weight",
         "active": true,
@@ -2010,15 +1456,15 @@
         "z": "3738026cb3832ee1",
         "g": "a3a62aaa37101276",
         "name": "LoRa Parser 7.2",
-        "func": "// ── FAI Gateway Parser (v7.3 - Always-send weight, \"now\" timestamp, GASCO2 workaround) ──\n//\n// Key fix vs v6.0: the backend does NOT want JSON in `data`. It wants the raw\n// hex-encoded C-struct (sensor_telegram_t / weight array), exactly like the\n// physical Tinymesh hardware sent it, with detail:\"serial\".\n//\n// Changes in v7.3 (app showed device online but no weight/graph data):\n//   1. Removed the weight>0.01 guard on Packet 2 — always send the weight\n//      array now, including 0g, matching confirmed old-hardware behavior.\n//   2. Timestamp reverted to always-\"now\" (matches proven v3.1 behavior)\n//      instead of preferring ChirpStack's uplink time — removes possible\n//      clock-skew/query-window mismatch as a variable.\n// Note: a \"send a fake 0x04 keep-alive packet to flip online status\" fix\n// was considered and rejected — the device already shows online in the app,\n// so that diagnosis didn't match the actual symptom. Not included here.\n//\n// Per the official sensors.h spec:\n//   Type 0x01 (Env, 58 bytes): all fields Little-Endian Float32, except\n//     LightALS (bytes 22-25) which is Uint32 LE.\n//   Type 0x02 (Weight, 106 bytes): 50x Uint16 LE samples starting at byte 6.\n//\n// CONFIRMED WORKAROUND: the third-party backend's decoder reads GASCO2\n// (bytes 26-29) as Uint32, not Float32 as the spec documents. We can't patch\n// the backend, so this parser writes GASCO2 as a raw integer to match what\n// the backend actually does, not what the spec says it should do. See the\n// inline comment at that field for the verification details.\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nif (!msg.payload || !msg.payload.deviceInfo || !msg.payload.data) return null;\n\n// ── UID: last 4 bytes of DevEUI, Big-Endian (matches dynamicUid convention) ──\nconst devEui = msg.payload.deviceInfo.devEui;\nconst uidHex = devEui.slice(-8);\nconst dynamicUid = parseInt(uidHex, 16);\n\n// ── Decode the LoRa binary payload ──\n// Payload is now 22 bytes (was 14, was originally 10): the Arduino sketch\n// now also transmits humidity and pressure from the already-installed\n// BME280 (it measures both, the code just wasn't reading them before).\n// Layout, all Little-Endian:\n//   bytes 0-3:   temperature (float)\n//   bytes 4-5:   co2 ppm (uint16)\n//   bytes 6-9:   scale weight (float)\n//   bytes 10-13: light lux (float)\n//   bytes 14-17: humidity %RH (float)   <-- NEW\n//   bytes 18-21: pressure hPa (float)   <-- NEW\nconst buf = Buffer.from(msg.payload.data, 'base64');\nif (buf.length < 22) return null;\n\nconst temp     = buf.readFloatLE(0);   // °C\nconst co2      = buf.readUInt16LE(4);  // ppm\nconst weight   = buf.readFloatLE(6);   // g\nconst lux      = buf.readFloatLE(10);  // lx\nconst humidity = buf.readFloatLE(14);  // %RH\nconst pressure = buf.readFloatLE(18);  // hPa\n\n// ── RSSI & meta (raw integer, matching tinymesh-edge convention: Math.abs) ──\nlet bestRssi = -120;\nif (msg.payload.rxInfo && msg.payload.rxInfo.length > 0) {\n    bestRssi = Math.max(...msg.payload.rxInfo.map(rx => rx.rssi));\n}\nconst rawRssi = Math.abs(bestRssi);\n// Timestamp: match the known-working v3.1 behavior exactly. v3.1 always used\n// \"now\" (the time Node-RED processed the packet), never the radio's own\n// embedded timestamp. We previously preferred msg.payload.time (ChirpStack's\n// uplink receive time) as a \"more accurate\" timestamp, but that's an\n// unverified deviation from what's proven to work — if there's any clock\n// skew between the Jetson and the app's backend, or if the app's query\n// window is strict about recency, this could be why weight data silently\n// fails to render in the app even though Grafana (likely more lenient on\n// time range) still shows it. Reverting to \"always now\" removes that as a\n// variable.\nconst timestamp = new Date().toISOString().split('.')[0] + '+00:00';\n\nconst outMessages = [];\n\n// ==========================================\n// FORGE PACKET 1: TYPE 0x01 (ENVIRONMENTAL)\n// Length: 58 bytes | Signature: 013a\n// Layout matches sensor_telegram_t exactly, Little-Endian floats per sensors.h spec\n// ==========================================\nconst envBuf = Buffer.alloc(58, 0);\nenvBuf.writeUInt8(0x01, 0); // Byte 0: Type\nenvBuf.writeUInt8(0x3a, 1); // Byte 1: Length (58)\n\n// Bytes 2-5 reserved/unused in struct — left as 0x00\n\nenvBuf.writeFloatLE(temp, 6);    // AirTemperature      (bytes 6-9)\nenvBuf.writeFloatLE(pressure, 10); // AirPressure (bytes 10-13) — now real BME280 hPa reading.\n                                  // UNVERIFIED against backend: AirTemperature at byte 6 is\n                                  // confirmed correct as Float32, but we haven't specifically\n                                  // checked AirPressure. If Grafana shows nonsense here, run the\n                                  // same bit-pattern check used for GASCO2.\nenvBuf.writeFloatLE(temp, 14);   // HumidityTemperature  (bytes 14-17)  — BME280 has one temp sensor,\n                                  // reused here since there's no separate humidity-specific probe\nenvBuf.writeFloatLE(humidity, 18); // Humidity (bytes 18-21) — now real BME280 %RH reading.\n                                  // Also unverified against backend — check Grafana after deploy.\nenvBuf.writeUInt32LE(Math.max(0, Math.round(lux)), 22); // LightALS (bytes 22-25) — now real VEML7700\n                                            // lux data. Written as Uint32 per spec (rounded, floor\n                                            // 0 since lux can't be negative). UNVERIFIED: we found\n                                            // GASCO2 doesn't match its documented type, so once this\n                                            // is live, check Grafana the same way — if LightALS shows\n                                            // a nonsense number, the backend likely also reads this\n                                            // field as a different type than Uint32 and needs the\n                                            // same bit-pattern diagnosis we did for GASCO2.\nenvBuf.writeUInt32LE(Math.round(co2), 26); // GASCO2 (bytes 26-29) — WORKAROUND: spec sheet says\n                                            // Float32 here, but the backend's fixed/third-party\n                                            // decoder actually reads this field as Uint32 (same\n                                            // type as LightALS next to it). Confirmed by reverse-\n                                            // engineering: writing 476.0 as Float32 produced\n                                            // 1139671040 in Grafana — the exact bit pattern of\n                                            // that float reinterpreted as a raw uint32. Since the\n                                            // backend can't be patched, we match its real behavior\n                                            // instead of the documented spec: write the ppm value\n                                            // directly as an integer.\nenvBuf.writeFloatLE(0.0, 30);    // GASTemperature       (bytes 30-33)\nenvBuf.writeFloatLE(0.0, 34);    // GASHumidity          (bytes 34-37)\nenvBuf.writeFloatLE(0.0, 38);    // GASNH3               (bytes 38-41)\nenvBuf.writeFloatLE(0.0, 42);    // GASCO                (bytes 42-45)\nenvBuf.writeFloatLE(0.0, 46);    // GASNO2               (bytes 46-49)\nenvBuf.writeFloatLE(temp, 50);   // BoardTemperature     (bytes 50-53)  — reuse BME280 temp\nenvBuf.writeFloatLE(temp, 54);   // PT100Temperature     (bytes 54-57)  — reuse BME280 temp\n\noutMessages.push({\n    topic: `gateway/${gatewaySerial}/tinymesh/out`,\n    payload: {\n        \"_meta\": { \"received\": timestamp },\n        \"block\": 0,\n        \"data\": envBuf.toString('hex'), // RAW HEX — backend decodes this itself\n        \"detail\": \"serial\",             // matches the proven working contract\n        \"hops\": 1,\n        \"latency\": 2,\n        \"network_lvl\": 1,\n        \"packet_num\": Math.floor(Math.random() * 65535), // bypass cloud dedup\n        \"rssi\": rawRssi,\n        \"sid\": TARGET_CLOUD_SID,\n        \"type\": \"event\",\n        \"uid\": dynamicUid\n    }\n});\n\n// ==========================================\n// FORGE PACKET 2: TYPE 0x02 (WEIGHT ARRAY)\n// Length: 106 bytes | Signature: 026a\n// Array of 50x UInt16, Little-Endian (per reference decoder: \"Payload stays LE\")\n//\n// NOTE: previously guarded with `if (weight > 0.01 || weight < -0.01)` to\n// skip sending when the scale read ~0g. Removed: confirmed that old hardware\n// always sent weight including 0g, and the app is expected to show the scale\n// dropping to zero (e.g. bird stepped off), not flatline at the last nonzero\n// reading. Always transmit this packet now.\n// ==========================================\n{\n    const wBuf = Buffer.alloc(106, 0);\n    wBuf.writeUInt8(0x02, 0); // Byte 0: Type\n    wBuf.writeUInt8(0x6a, 1); // Byte 1: Length (106)\n\n    const wInt = Math.abs(Math.round(weight));\n\n    for (let i = 0; i < 50; i++) {\n        wBuf.writeUInt16LE(wInt, 6 + (i * 2));\n    }\n\n    outMessages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": timestamp },\n            \"block\": 0,\n            \"data\": wBuf.toString('hex'), // RAW HEX, same as packet 1\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    });\n}\n\nreturn [ outMessages ];",
+        "func": "// \u2500\u2500 FAI Gateway Parser (v7.3 - Always-send weight, \"now\" timestamp, GASCO2 workaround) \u2500\u2500\n//\n// Key fix vs v6.0: the backend does NOT want JSON in `data`. It wants the raw\n// hex-encoded C-struct (sensor_telegram_t / weight array), exactly like the\n// physical Tinymesh hardware sent it, with detail:\"serial\".\n//\n// Changes in v7.3 (app showed device online but no weight/graph data):\n//   1. Removed the weight>0.01 guard on Packet 2 \u2014 always send the weight\n//      array now, including 0g, matching confirmed old-hardware behavior.\n//   2. Timestamp reverted to always-\"now\" (matches proven v3.1 behavior)\n//      instead of preferring ChirpStack's uplink time \u2014 removes possible\n//      clock-skew/query-window mismatch as a variable.\n// Note: a \"send a fake 0x04 keep-alive packet to flip online status\" fix\n// was considered and rejected \u2014 the device already shows online in the app,\n// so that diagnosis didn't match the actual symptom. Not included here.\n//\n// Per the official sensors.h spec:\n//   Type 0x01 (Env, 58 bytes): all fields Little-Endian Float32, except\n//     LightALS (bytes 22-25) which is Uint32 LE.\n//   Type 0x02 (Weight, 106 bytes): 50x Uint16 LE samples starting at byte 6.\n//\n// CONFIRMED WORKAROUND: the third-party backend's decoder reads GASCO2\n// (bytes 26-29) as Uint32, not Float32 as the spec documents. We can't patch\n// the backend, so this parser writes GASCO2 as a raw integer to match what\n// the backend actually does, not what the spec says it should do. See the\n// inline comment at that field for the verification details.\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216;\n\nif (!msg.payload || !msg.payload.deviceInfo || !msg.payload.data) return null;\n\n// \u2500\u2500 UID: last 4 bytes of DevEUI, Big-Endian (matches dynamicUid convention) \u2500\u2500\nconst devEui = msg.payload.deviceInfo.devEui;\nconst uidHex = devEui.slice(-8);\nconst dynamicUid = parseInt(uidHex, 16);\n\n// \u2500\u2500 Decode the LoRa binary payload \u2500\u2500\n// Payload is now 22 bytes (was 14, was originally 10): the Arduino sketch\n// now also transmits humidity and pressure from the already-installed\n// BME280 (it measures both, the code just wasn't reading them before).\n// Layout, all Little-Endian:\n//   bytes 0-3:   temperature (float)\n//   bytes 4-5:   co2 ppm (uint16)\n//   bytes 6-9:   scale weight (float)\n//   bytes 10-13: light lux (float)\n//   bytes 14-17: humidity %RH (float)   <-- NEW\n//   bytes 18-21: pressure hPa (float)   <-- NEW\nconst buf = Buffer.from(msg.payload.data, 'base64');\nif (buf.length < 22) return null;\n\nconst temp     = buf.readFloatLE(0);   // \u00b0C\nconst co2      = buf.readUInt16LE(4);  // ppm\nconst weight   = buf.readFloatLE(6);   // g\nconst lux      = buf.readFloatLE(10);  // lx\nconst humidity = buf.readFloatLE(14);  // %RH\nconst pressure = buf.readFloatLE(18);  // hPa\n\n// \u2500\u2500 RSSI & meta (raw integer, matching tinymesh-edge convention: Math.abs) \u2500\u2500\nlet bestRssi = -120;\nif (msg.payload.rxInfo && msg.payload.rxInfo.length > 0) {\n    bestRssi = Math.max(...msg.payload.rxInfo.map(rx => rx.rssi));\n}\nconst rawRssi = Math.abs(bestRssi);\n// Timestamp: match the known-working v3.1 behavior exactly. v3.1 always used\n// \"now\" (the time Node-RED processed the packet), never the radio's own\n// embedded timestamp. We previously preferred msg.payload.time (ChirpStack's\n// uplink receive time) as a \"more accurate\" timestamp, but that's an\n// unverified deviation from what's proven to work \u2014 if there's any clock\n// skew between the Jetson and the app's backend, or if the app's query\n// window is strict about recency, this could be why weight data silently\n// fails to render in the app even though Grafana (likely more lenient on\n// time range) still shows it. Reverting to \"always now\" removes that as a\n// variable.\nconst timestamp = new Date().toISOString().split('.')[0] + '+00:00';\n\nconst outMessages = [];\n\n// ==========================================\n// FORGE PACKET 1: TYPE 0x01 (ENVIRONMENTAL)\n// Length: 58 bytes | Signature: 013a\n// Layout matches sensor_telegram_t exactly, Little-Endian floats per sensors.h spec\n// ==========================================\nconst envBuf = Buffer.alloc(58, 0);\nenvBuf.writeUInt8(0x01, 0); // Byte 0: Type\nenvBuf.writeUInt8(0x3a, 1); // Byte 1: Length (58)\n\n// Bytes 2-5 reserved/unused in struct \u2014 left as 0x00\n\nenvBuf.writeFloatLE(temp, 6);    // AirTemperature      (bytes 6-9)\nenvBuf.writeFloatLE(pressure, 10); // AirPressure (bytes 10-13) \u2014 now real BME280 hPa reading.\n                                  // UNVERIFIED against backend: AirTemperature at byte 6 is\n                                  // confirmed correct as Float32, but we haven't specifically\n                                  // checked AirPressure. If Grafana shows nonsense here, run the\n                                  // same bit-pattern check used for GASCO2.\nenvBuf.writeFloatLE(temp, 14);   // HumidityTemperature  (bytes 14-17)  \u2014 BME280 has one temp sensor,\n                                  // reused here since there's no separate humidity-specific probe\nenvBuf.writeFloatLE(humidity, 18); // Humidity (bytes 18-21) \u2014 now real BME280 %RH reading.\n                                  // Also unverified against backend \u2014 check Grafana after deploy.\nenvBuf.writeUInt32LE(Math.max(0, Math.round(lux)), 22); // LightALS (bytes 22-25) \u2014 now real VEML7700\n                                            // lux data. Written as Uint32 per spec (rounded, floor\n                                            // 0 since lux can't be negative). UNVERIFIED: we found\n                                            // GASCO2 doesn't match its documented type, so once this\n                                            // is live, check Grafana the same way \u2014 if LightALS shows\n                                            // a nonsense number, the backend likely also reads this\n                                            // field as a different type than Uint32 and needs the\n                                            // same bit-pattern diagnosis we did for GASCO2.\nenvBuf.writeUInt32LE(Math.round(co2), 26); // GASCO2 (bytes 26-29) \u2014 WORKAROUND: spec sheet says\n                                            // Float32 here, but the backend's fixed/third-party\n                                            // decoder actually reads this field as Uint32 (same\n                                            // type as LightALS next to it). Confirmed by reverse-\n                                            // engineering: writing 476.0 as Float32 produced\n                                            // 1139671040 in Grafana \u2014 the exact bit pattern of\n                                            // that float reinterpreted as a raw uint32. Since the\n                                            // backend can't be patched, we match its real behavior\n                                            // instead of the documented spec: write the ppm value\n                                            // directly as an integer.\nenvBuf.writeFloatLE(0.0, 30);    // GASTemperature       (bytes 30-33)\nenvBuf.writeFloatLE(0.0, 34);    // GASHumidity          (bytes 34-37)\nenvBuf.writeFloatLE(0.0, 38);    // GASNH3               (bytes 38-41)\nenvBuf.writeFloatLE(0.0, 42);    // GASCO                (bytes 42-45)\nenvBuf.writeFloatLE(0.0, 46);    // GASNO2               (bytes 46-49)\nenvBuf.writeFloatLE(temp, 50);   // BoardTemperature     (bytes 50-53)  \u2014 reuse BME280 temp\nenvBuf.writeFloatLE(temp, 54);   // PT100Temperature     (bytes 54-57)  \u2014 reuse BME280 temp\n\noutMessages.push({\n    topic: `gateway/${gatewaySerial}/tinymesh/out`,\n    payload: {\n        \"_meta\": { \"received\": timestamp },\n        \"block\": 0,\n        \"data\": envBuf.toString('hex'), // RAW HEX \u2014 backend decodes this itself\n        \"detail\": \"serial\",             // matches the proven working contract\n        \"hops\": 1,\n        \"latency\": 2,\n        \"network_lvl\": 1,\n        \"packet_num\": Math.floor(Math.random() * 65535), // bypass cloud dedup\n        \"rssi\": rawRssi,\n        \"sid\": TARGET_CLOUD_SID,\n        \"type\": \"event\",\n        \"uid\": dynamicUid\n    }\n});\n\n// ==========================================\n// FORGE PACKET 2: TYPE 0x02 (WEIGHT ARRAY)\n// Length: 106 bytes | Signature: 026a\n// Array of 50x UInt16, Little-Endian (per reference decoder: \"Payload stays LE\")\n//\n// NOTE: previously guarded with `if (weight > 0.01 || weight < -0.01)` to\n// skip sending when the scale read ~0g. Removed: confirmed that old hardware\n// always sent weight including 0g, and the app is expected to show the scale\n// dropping to zero (e.g. bird stepped off), not flatline at the last nonzero\n// reading. Always transmit this packet now.\n// ==========================================\n{\n    const wBuf = Buffer.alloc(106, 0);\n    wBuf.writeUInt8(0x02, 0); // Byte 0: Type\n    wBuf.writeUInt8(0x6a, 1); // Byte 1: Length (106)\n\n    const wInt = Math.abs(Math.round(weight));\n\n    for (let i = 0; i < 50; i++) {\n        wBuf.writeUInt16LE(wInt, 6 + (i * 2));\n    }\n\n    outMessages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": timestamp },\n            \"block\": 0,\n            \"data\": wBuf.toString('hex'), // RAW HEX, same as packet 1\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    });\n}\n\nreturn [ outMessages ];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 520,
-        "y": 260,
+        "x": 560,
+        "y": 200,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -2293,7 +1739,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 170,
+        "x": 150,
         "y": 100,
         "wires": [
             [
@@ -2345,7 +1791,7 @@
         "z": "3738026cb3832ee1",
         "g": "5014da80cd5e927f",
         "name": "Local Parser with new weight and light sensor",
-        "func": "// ── The Complete 18-Byte Header Parser (Env, Weight, Alive, Light & Spot) ──\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216; \n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload)) incoming = msg.payload.toString('hex');\nelse if (msg.payload && typeof msg.payload.hex === 'string') incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string') incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\n// 1. GARBAGE COLLECTOR\nif (buf.length > 8192) {\n    buf = \"\"; \n    context.set('buf', buf);\n    node.warn(\"Buffer overflow prevented. Flushed garbage data.\");\n    return null;\n}\n\n// 2. OMNI-SIGNATURE SCANNER\nwhile (buf.length > 0) {\n    // Look for all known packet types\n    let sensorIdx = buf.indexOf(\"013a\"); // Type 0x01 (Env), Length 58\n    let weightIdx = buf.indexOf(\"026a\"); // Type 0x02 (Weight Array), Length 106\n    let aliveIdx  = buf.indexOf(\"040c\"); // Type 0x04 (Alive), Length 12\n    let lightIdx  = buf.indexOf(\"070a\"); // Type 0x07 (SEN0562), Length 10\n    let spotIdx   = buf.indexOf(\"0808\"); // Type 0x08 (Weight Spot), Length 8\n\n    let startIndex = -1;\n    let packetType = 0;\n\n    // Find whichever valid signature appears first in the current chunk\n    const indices = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx },\n        { type: 7, idx: lightIdx },\n        { type: 8, idx: spotIdx }\n    ].filter(obj => obj.idx !== -1);\n\n    if (indices.length > 0) {\n        const earliest = indices.reduce((prev, curr) => prev.idx < curr.idx ? prev : curr);\n        startIndex = earliest.idx;\n        packetType = earliest.type;\n    }\n\n    if (startIndex === -1) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break; \n    }\n\n    // 3. EXTRACT THE 18-BYTE PACKET MODE HEADER\n    if (startIndex < 36) {\n        buf = buf.slice(startIndex + 2); \n        continue;\n    }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex); \n    \n    // ── THE BIG-ENDIAN FIX ──\n    const trueUidHex = headerHex.slice(10, 18);\n    let dynamicUid = 0; \n    if (/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0); \n    } else {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n\n    // ── EXTRACT METADATA ──\n    const trueRssiHex = headerHex.slice(18, 20);\n    let rawRssi = parseInt(trueRssiHex, 16);\n    let trueRssi = (rawRssi / 2) - 121; // Match the old Gateway's exact dBm formula\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    // 4. EXTRACT THE PAYLOAD DATA (Little-Endian)\n    let expectedPayloadChars = 0;\n    if (packetType === 1) expectedPayloadChars = 58 * 2;\n    else if (packetType === 2) expectedPayloadChars = 106 * 2;\n    else if (packetType === 4) expectedPayloadChars = 12 * 2;\n    else if (packetType === 7) expectedPayloadChars = 10 * 2;\n    else if (packetType === 8) expectedPayloadChars = 8 * 2;\n\n    if (buf.length < startIndex + expectedPayloadChars) {\n        break; // Wait for the rest of the serial chunk\n    }\n\n    const frameHex = buf.slice(startIndex, startIndex + expectedPayloadChars);\n    buf = buf.slice(startIndex + expectedPayloadChars); \n\n    const bytes = [];\n    for (let i = 0; i < frameHex.length; i += 2) {\n        bytes.push(parseInt(frameHex.slice(i, i + 2), 16));\n    }\n    const view = new DataView(new Uint8Array(bytes).buffer);\n\n    let extractedData = {};\n    let messageDetail = \"unknown\";\n\n    if (packetType === 1) {\n        messageDetail = \"sensor_telemetry\";\n        extractedData = {\n            AirTemperature:      view.getFloat32(6,  true),\n            AirPressure:         view.getFloat32(10, true),\n            HumidityTemperature: view.getFloat32(14, true),\n            Humidity:            view.getFloat32(18, true),\n            LightALS:            view.getUint32(22,  true), \n            GASCO2:              view.getFloat32(26, true),\n            GASTemperature:      view.getFloat32(30, true),\n            GASHumidity:         view.getFloat32(34, true),\n            GASNH3:              view.getFloat32(38, true),\n            GASCO:               view.getFloat32(42, true),\n            GASNO2:              view.getFloat32(46, true),\n            BoardTemperature:    view.getFloat32(50, true),\n            PT100Temperature:    view.getFloat32(54, true)\n        };\n    } else if (packetType === 2) {\n        messageDetail = \"weight_telemetry\";\n        const samples = [];\n        for (let i = 6; i + 1 < bytes.length; i += 2) {\n            samples.push(view.getUint16(i, true)); \n        }\n        extractedData = {\n            count: samples.length,\n            mean_weight: samples.reduce((a, b) => a + b, 0) / samples.length\n        };\n    } else if (packetType === 4) {\n        messageDetail = \"device_startup\";\n        extractedData = {\n            hardware_mac: frameHex.slice(4, 20), \n            firmware: view.getUint16(10, true) \n        };\n    } else if (packetType === 7) {\n        messageDetail = \"lamination_telemetry\";\n        extractedData = {\n            hw_type: view.getUint8(2),\n            firmware: view.getUint16(3, true),\n            lux: Math.round(view.getFloat32(6, true)) // Parses 0x42F9FFFF as Float32 (124.99) and rounds to 125\n        };\n    } else if (packetType === 8) {\n        messageDetail = \"weight_spot\";\n        extractedData = {\n            hw_type: view.getUint8(2),\n            firmware: view.getUint16(3, true),\n            weight_g: view.getInt16(6, true) // Parsed as signed 16-bit to allow for negative scale tare drift\n        };\n    }\n\n    // 5. BUILD THE FAI CLOUD ENVELOPE\n    out.push({\n        topic: `gateway/${gatewayId}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString() },\n            \"block\": 0,\n            \"data\": JSON.stringify(extractedData), \n            \"detail\": messageDetail,               \n            \"hops\": hops,\n            \"latency\": latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": trueRssi, \n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid,  \n            \"raw_hex\": frameHex \n        }\n    });\n}\n\ncontext.set('buf', buf);\n\nif (out.length === 0) return null;\nif (out.length === 1) return out[0];\nreturn [out];",
+        "func": "// \u2500\u2500 The Complete 18-Byte Header Parser (Env, Weight, Alive, Light & Spot) \u2500\u2500\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_CLOUD_SID = 16777216; \n\nlet incoming = \"\";\nif (Buffer.isBuffer(msg.payload)) incoming = msg.payload.toString('hex');\nelse if (msg.payload && typeof msg.payload.hex === 'string') incoming = msg.payload.hex;\nelse if (typeof msg.payload === 'string') incoming = msg.payload;\nelse return null;\n\nlet buf = (context.get('buf') || '') + incoming.replace(/\\s+/g, '');\nconst out = [];\n\n// 1. GARBAGE COLLECTOR\nif (buf.length > 8192) {\n    buf = \"\"; \n    context.set('buf', buf);\n    node.warn(\"Buffer overflow prevented. Flushed garbage data.\");\n    return null;\n}\n\n// 2. OMNI-SIGNATURE SCANNER\nwhile (buf.length > 0) {\n    // Look for all known packet types\n    let sensorIdx = buf.indexOf(\"013a\"); // Type 0x01 (Env), Length 58\n    let weightIdx = buf.indexOf(\"026a\"); // Type 0x02 (Weight Array), Length 106\n    let aliveIdx  = buf.indexOf(\"040c\"); // Type 0x04 (Alive), Length 12\n    let lightIdx  = buf.indexOf(\"070a\"); // Type 0x07 (SEN0562), Length 10\n    let spotIdx   = buf.indexOf(\"0808\"); // Type 0x08 (Weight Spot), Length 8\n\n    let startIndex = -1;\n    let packetType = 0;\n\n    // Find whichever valid signature appears first in the current chunk\n    const indices = [\n        { type: 1, idx: sensorIdx },\n        { type: 2, idx: weightIdx },\n        { type: 4, idx: aliveIdx },\n        { type: 7, idx: lightIdx },\n        { type: 8, idx: spotIdx }\n    ].filter(obj => obj.idx !== -1);\n\n    if (indices.length > 0) {\n        const earliest = indices.reduce((prev, curr) => prev.idx < curr.idx ? prev : curr);\n        startIndex = earliest.idx;\n        packetType = earliest.type;\n    }\n\n    if (startIndex === -1) {\n        if (buf.length > 50) buf = buf.slice(-50);\n        break; \n    }\n\n    // 3. EXTRACT THE 18-BYTE PACKET MODE HEADER\n    if (startIndex < 36) {\n        buf = buf.slice(startIndex + 2); \n        continue;\n    }\n\n    const headerHex = buf.slice(startIndex - 36, startIndex); \n    \n    // \u2500\u2500 THE BIG-ENDIAN FIX \u2500\u2500\n    const trueUidHex = headerHex.slice(10, 18);\n    let dynamicUid = 0; \n    if (/^[0-9a-fA-F]{8}$/.test(trueUidHex)) {\n        dynamicUid = Buffer.from(trueUidHex, 'hex').readUInt32BE(0); \n    } else {\n        buf = buf.slice(startIndex + 2);\n        continue;\n    }\n\n    // \u2500\u2500 EXTRACT METADATA \u2500\u2500\n    const trueRssiHex = headerHex.slice(18, 20);\n    let rawRssi = parseInt(trueRssiHex, 16);\n    let trueRssi = (rawRssi / 2) - 121; // Match the old Gateway's exact dBm formula\n\n    const networkLvl = parseInt(headerHex.slice(20, 22), 16) || 1;\n    const hops = parseInt(headerHex.slice(22, 24), 16) || 1;\n    const latency = parseInt(headerHex.slice(24, 26), 16) || 2;\n\n    // 4. EXTRACT THE PAYLOAD DATA (Little-Endian)\n    let expectedPayloadChars = 0;\n    if (packetType === 1) expectedPayloadChars = 58 * 2;\n    else if (packetType === 2) expectedPayloadChars = 106 * 2;\n    else if (packetType === 4) expectedPayloadChars = 12 * 2;\n    else if (packetType === 7) expectedPayloadChars = 10 * 2;\n    else if (packetType === 8) expectedPayloadChars = 8 * 2;\n\n    if (buf.length < startIndex + expectedPayloadChars) {\n        break; // Wait for the rest of the serial chunk\n    }\n\n    const frameHex = buf.slice(startIndex, startIndex + expectedPayloadChars);\n    buf = buf.slice(startIndex + expectedPayloadChars); \n\n    const bytes = [];\n    for (let i = 0; i < frameHex.length; i += 2) {\n        bytes.push(parseInt(frameHex.slice(i, i + 2), 16));\n    }\n    const view = new DataView(new Uint8Array(bytes).buffer);\n\n    let extractedData = {};\n    let messageDetail = \"unknown\";\n\n    if (packetType === 1) {\n        messageDetail = \"sensor_telemetry\";\n        extractedData = {\n            AirTemperature:      view.getFloat32(6,  true),\n            AirPressure:         view.getFloat32(10, true),\n            HumidityTemperature: view.getFloat32(14, true),\n            Humidity:            view.getFloat32(18, true),\n            LightALS:            view.getUint32(22,  true), \n            GASCO2:              view.getFloat32(26, true),\n            GASTemperature:      view.getFloat32(30, true),\n            GASHumidity:         view.getFloat32(34, true),\n            GASNH3:              view.getFloat32(38, true),\n            GASCO:               view.getFloat32(42, true),\n            GASNO2:              view.getFloat32(46, true),\n            BoardTemperature:    view.getFloat32(50, true),\n            PT100Temperature:    view.getFloat32(54, true)\n        };\n    } else if (packetType === 2) {\n        messageDetail = \"weight_telemetry\";\n        const samples = [];\n        for (let i = 6; i + 1 < bytes.length; i += 2) {\n            samples.push(view.getUint16(i, true)); \n        }\n        extractedData = {\n            count: samples.length,\n            mean_weight: samples.reduce((a, b) => a + b, 0) / samples.length\n        };\n    } else if (packetType === 4) {\n        messageDetail = \"device_startup\";\n        extractedData = {\n            hardware_mac: frameHex.slice(4, 20), \n            firmware: view.getUint16(10, true) \n        };\n    } else if (packetType === 7) {\n        messageDetail = \"lamination_telemetry\";\n        extractedData = {\n            hw_type: view.getUint8(2),\n            firmware: view.getUint16(3, true),\n            lux: Math.round(view.getFloat32(6, true)) // Parses 0x42F9FFFF as Float32 (124.99) and rounds to 125\n        };\n    } else if (packetType === 8) {\n        messageDetail = \"weight_spot\";\n        extractedData = {\n            hw_type: view.getUint8(2),\n            firmware: view.getUint16(3, true),\n            weight_g: view.getInt16(6, true) // Parsed as signed 16-bit to allow for negative scale tare drift\n        };\n    }\n\n    // 5. BUILD THE FAI CLOUD ENVELOPE\n    out.push({\n        topic: `gateway/${gatewayId}/tinymesh/out`,\n        payload: {\n            \"_meta\": { \"received\": new Date().toISOString() },\n            \"block\": 0,\n            \"data\": JSON.stringify(extractedData), \n            \"detail\": messageDetail,               \n            \"hops\": hops,\n            \"latency\": latency,\n            \"network_lvl\": networkLvl,\n            \"packet_num\": Math.floor(Math.random() * 65535),\n            \"rssi\": trueRssi, \n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid,  \n            \"raw_hex\": frameHex \n        }\n    });\n}\n\ncontext.set('buf', buf);\n\nif (out.length === 0) return null;\nif (out.length === 1) return out[0];\nreturn [out];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2355,17 +1801,15 @@
         "x": 470,
         "y": 500,
         "wires": [
-            [
-                "d240b7efb392380c"
-            ]
+            []
         ]
     },
     {
-        "id": "d240b7efb392380c",
+        "id": "1065086db45c7443",
         "type": "debug",
         "z": "3738026cb3832ee1",
-        "g": "5014da80cd5e927f",
-        "name": "debug 1",
+        "g": "febc9982bb1406d1",
+        "name": "debug 2",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -2373,8 +1817,222 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 730,
-        "y": 500,
+        "x": 870,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "sinus_poll_1s",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "name": "Sinus Poll \u2014 1 second",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "0.2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 2200,
+        "wires": [
+            [
+                "sinus_measurements"
+            ]
+        ]
+    },
+    {
+        "id": "sinus_measurements",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "name": "Sinus Measurements",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "34",
+        "quantity": "4",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "0",
+        "x": 380,
+        "y": 2200,
+        "wires": [
+            [
+                "sinus_measurement_parser"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "sinus_measurement_parser",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Power meter Parser (Sinus)",
+        "func": "let data = msg.payload;\n\nif (data && data.data) {\n    data = data.data;\n}\n\nif (!Array.isArray(data) || data.length < 4) {\n    node.warn(\"Invalid Sinus measurement response\");\n    return null;\n}\n\n// Input registers 34-35 = Voltage\nconst rawVoltage = (data[0] * 65536) + data[1];\n\n// Input registers 36-37 = Current\nconst rawAmps = (data[2] * 65536) + data[3];\n\nconst voltage = rawVoltage / 1000;\nconst amps = rawAmps / 1000;\n\n// Serial is cached independently so it cannot block live telemetry\nconst serial = flow.get(\"power_meter_serial\") || \"Unknown\";\n\nmsg.payload = {\n    DateTime: new Date().toISOString(),\n    Amp: parseFloat(amps.toFixed(3)),\n    AmpHour: 0,\n    Voltage: parseFloat(voltage.toFixed(1)),\n    State: \"\",\n    Partnumber: \"TIP SINUS\",\n    Serialnumber: serial,\n    FirmwareRevision: \"0.0-1\",\n    Type: \"modbus-meter\",\n    Meta: null\n};\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 2200,
+        "wires": [
+            [
+                "sinus_mqtt_out"
+            ]
+        ]
+    },
+    {
+        "id": "sinus_mqtt_out",
+        "type": "mqtt out",
+        "z": "3738026cb3832ee1",
+        "name": "Sinus Power MQTT",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b78b8561ebd93ffc",
+        "x": 870,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "sinus_serial_refresh",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "name": "Sinus Serial \u2014 startup + 5 min",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 2,
+        "topic": "serial",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 2280,
+        "wires": [
+            [
+                "sinus_serial_getter"
+            ]
+        ]
+    },
+    {
+        "id": "sinus_serial_getter",
+        "type": "modbus-getter",
+        "z": "3738026cb3832ee1",
+        "name": "Sinus Serial# \u2014 Cached",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "4",
+        "quantity": "2",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": true,
+        "startDelayTime": "0",
+        "x": 410,
+        "y": 2280,
+        "wires": [
+            [
+                "sinus_store_serial"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "sinus_store_serial",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "Store Sinus Serial",
+        "func": "let data = msg.payload;\n\nif (data && data.data) {\n    data = data.data;\n}\n\nif (!Array.isArray(data) || data.length < 2) {\n    node.warn(\"Invalid Sinus serial response\");\n    return null;\n}\n\nconst highHex = data[0].toString(16).padStart(4, \"0\");\nconst lowHex = data[1].toString(16).padStart(4, \"0\");\nconst rawSerial = (highHex + lowHex).toUpperCase();\nconst parsed = parseInt(rawSerial, 10);\n\nif (Number.isNaN(parsed)) {\n    node.warn(`Could not parse Sinus serial: ${rawSerial}`);\n    return null;\n}\n\nconst serial = parsed.toString();\nflow.set(\"power_meter_serial\", serial);\n\nnode.status({\n    fill: \"green\",\n    shape: \"dot\",\n    text: `serial ${serial}`\n});\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 2280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "tm_emc_rx_publisher",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "name": "TinyMesh EMC RX Publisher",
+        "func": "const gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_LENGTH = 78;\n\n// Convert serial input into a Buffer.\nlet incoming;\n\nif (Buffer.isBuffer(msg.payload)) {\n    incoming = msg.payload;\n} else if (Array.isArray(msg.payload)) {\n    incoming = Buffer.from(msg.payload);\n} else if (msg.payload && Array.isArray(msg.payload.data)) {\n    incoming = Buffer.from(msg.payload.data);\n} else if (typeof msg.payload === \"string\") {\n    const clean = msg.payload.replace(/\\s+/g, \"\");\n\n    if (!/^[0-9a-fA-F]+$/.test(clean) || clean.length % 2 !== 0) {\n        return null;\n    }\n\n    incoming = Buffer.from(clean, \"hex\");\n} else {\n    return null;\n}\n\n// Recover buffered partial serial data.\nlet buf = context.get(\"buf\");\n\nif (!Buffer.isBuffer(buf)) {\n    buf = Buffer.alloc(0);\n}\n\nbuf = Buffer.concat([buf, incoming]);\n\n// Prevent runaway buffering.\nif (buf.length > 8192) {\n    buf = buf.slice(-512);\n}\n\nconst messages = [];\n\nwhile (buf.length > 0) {\n\n    /*\n     * TinyMesh packet mode:\n     * byte 0 = total frame length.\n     *\n     * The controlled EMC transmitter sends 78-byte frames.\n     */\n\n    if (buf[0] !== TARGET_LENGTH) {\n\n        // We may have attached in the middle of a serial frame.\n        // Find the next possible 78-byte frame boundary.\n        const next = buf.indexOf(TARGET_LENGTH, 1);\n\n        if (next === -1) {\n            // No possible frame start currently present.\n            buf = Buffer.alloc(0);\n            break;\n        }\n\n        buf = buf.slice(next);\n    }\n\n    // Wait for the rest of the frame if it arrived in several\n    // serial chunks.\n    if (buf.length < TARGET_LENGTH) {\n        break;\n    }\n\n    const frame = buf.slice(0, TARGET_LENGTH);\n    buf = buf.slice(TARGET_LENGTH);\n\n    let sequence = context.get(\"sequence\") || 0;\n    sequence++;\n    context.set(\"sequence\", sequence);\n\n    messages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/rx`,\n        payload: {\n            received: new Date().toISOString(),\n            frame_length: frame.length,\n            sequence: sequence\n        }\n    });\n}\n\ncontext.set(\"buf\", buf);\n\nif (messages.length === 0) {\n    return null;\n}\n\nif (messages.length === 1) {\n    return messages[0];\n}\n\n// Multiple complete frames received in one serial chunk.\nreturn [messages];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 120,
+        "wires": [
+            [
+                "tm_emc_rx_mqtt"
+            ]
+        ]
+    },
+    {
+        "id": "tm_emc_rx_mqtt",
+        "type": "mqtt out",
+        "z": "3738026cb3832ee1",
+        "name": "TinyMesh EMC RX",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b78b8561ebd93ffc",
+        "x": 1230,
+        "y": 120,
         "wires": []
     },
     {
@@ -2536,7 +2194,7 @@
         "type": "function",
         "z": "61c0ff1f6e5e2101",
         "name": "WMBUS EMC Publisher",
-        "func": "const gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) {\n    try {\n        msg.payload = Buffer.from(msg.payload);\n    } catch (err) {\n        node.error(\"wMBus payload is not a Buffer\", msg);\n        return null;\n    }\n}\n\nconst frame = msg.payload;\n\nif (frame.length < 11) {\n    node.warn(`Discarding short wMBus frame: ${frame.length} bytes`);\n    return null;\n}\n\nconst sequence = (context.get(\"sequence\") || 0) + 1;\ncontext.set(\"sequence\", sequence);\n\nconst lField = frame[0];\nconst cField = frame[1];\nconst manufacturerValue = frame[2] | (frame[3] << 8);\n\nconst manufacturer =\n    String.fromCharCode(((manufacturerValue >> 10) & 0x1f) + 64) +\n    String.fromCharCode(((manufacturerValue >> 5) & 0x1f) + 64) +\n    String.fromCharCode((manufacturerValue & 0x1f) + 64);\n\nconst serialNumber = Buffer.from([\n    frame[7],\n    frame[6],\n    frame[5],\n    frame[4]\n]).toString(\"hex\").toUpperCase();\n\nmsg.topic = `gateway/${gatewaySerial}/wmbus/out`;\nmsg.payload = {\n    \"_meta\": {\n        \"received\": new Date().toISOString(),\n        \"receiver_id\": \"RC1180-B400T7S7\",\n        \"byte_length\": frame.length,\n        \"emc_sequence\": sequence\n    },\n    \"data\": {\n        \"LField\": lField,\n        \"CField\": cField,\n        \"MField\": manufacturerValue,\n        \"Manufacturer\": manufacturer,\n        \"SerialNumber\": serialNumber,\n        \"Version\": frame[8],\n        \"DeviceType\": frame[9],\n        \"CIField\": frame[10]\n    },\n    \"raw\": frame.toString(\"base64\"),\n    \"hex\": frame.toString(\"hex\").toUpperCase(),\n    \"type\": \"wmbus\"\n};\n\nnode.status({\n    fill: \"green\",\n    shape: \"dot\",\n    text: `${frame.length} bytes · #${sequence}`\n});\n\nreturn msg;",
+        "func": "const gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nif (!Buffer.isBuffer(msg.payload)) {\n    try {\n        msg.payload = Buffer.from(msg.payload);\n    } catch (err) {\n        node.error(\"wMBus payload is not a Buffer\", msg);\n        return null;\n    }\n}\n\nconst frame = msg.payload;\n\nif (frame.length < 11) {\n    node.warn(`Discarding short wMBus frame: ${frame.length} bytes`);\n    return null;\n}\n\nconst sequence = (context.get(\"sequence\") || 0) + 1;\ncontext.set(\"sequence\", sequence);\n\nconst lField = frame[0];\nconst cField = frame[1];\nconst manufacturerValue = frame[2] | (frame[3] << 8);\n\nconst manufacturer =\n    String.fromCharCode(((manufacturerValue >> 10) & 0x1f) + 64) +\n    String.fromCharCode(((manufacturerValue >> 5) & 0x1f) + 64) +\n    String.fromCharCode((manufacturerValue & 0x1f) + 64);\n\nconst serialNumber = Buffer.from([\n    frame[7],\n    frame[6],\n    frame[5],\n    frame[4]\n]).toString(\"hex\").toUpperCase();\n\nmsg.topic = `gateway/${gatewaySerial}/wmbus/out`;\nmsg.payload = {\n    \"_meta\": {\n        \"received\": new Date().toISOString(),\n        \"receiver_id\": \"RC1180-B400T7S7\",\n        \"byte_length\": frame.length,\n        \"emc_sequence\": sequence\n    },\n    \"data\": {\n        \"LField\": lField,\n        \"CField\": cField,\n        \"MField\": manufacturerValue,\n        \"Manufacturer\": manufacturer,\n        \"SerialNumber\": serialNumber,\n        \"Version\": frame[8],\n        \"DeviceType\": frame[9],\n        \"CIField\": frame[10]\n    },\n    \"raw\": frame.toString(\"base64\"),\n    \"hex\": frame.toString(\"hex\").toUpperCase(),\n    \"type\": \"wmbus\"\n};\n\nnode.status({\n    fill: \"green\",\n    shape: \"dot\",\n    text: `${frame.length} bytes \u00b7 #${sequence}`\n});\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2626,7 +2284,7 @@
         "type": "function",
         "z": "a300000000000000",
         "name": "Evaluate gateway health",
-        "func": "const now = Date.now();\nconst startedAt = global.get(\"health_started_at\") || now;\nif (!global.get(\"health_started_at\")) global.set(\"health_started_at\", startedAt);\n\nconst emcMode = String(env.get(\"EMC_TEST_MODE\") || \"false\").toLowerCase() === \"true\";\nconst staleSeconds = Number(env.get(\"NODE_RED_HEALTH_STALE_SECONDS\") || 25);\nconst startupGraceSeconds = Number(env.get(\"NODE_RED_HEALTH_STARTUP_GRACE_SECONDS\") || 30);\nconst inStartupGrace = now - startedAt < startupGraceSeconds * 1000;\n\nconst tinyLast = Number(global.get(\"health_tinymesh_last_seen\") || 0);\nconst wmbusLast = Number(global.get(\"health_wmbus_last_seen\") || 0);\nconst tinyAge = tinyLast ? (now - tinyLast) / 1000 : null;\nconst wmbusAge = wmbusLast ? (now - wmbusLast) / 1000 : null;\nconst tinySerialBad = global.get(\"health_tinymesh_serial_bad\") === true;\nconst wmbusSerialBad = global.get(\"health_wmbus_serial_bad\") === true;\n\nconst failures = [];\nif (!inStartupGrace && tinySerialBad) failures.push(\"tinymesh_serial\");\nif (!inStartupGrace && wmbusSerialBad) failures.push(\"wmbus_serial\");\n\n// Data freshness is a valid liveness check only with continuous EMC test transmitters.\nif (emcMode && !inStartupGrace) {\n    if (tinyAge === null || tinyAge > staleSeconds) failures.push(\"tinymesh_stale\");\n    if (wmbusAge === null || wmbusAge > staleSeconds) failures.push(\"wmbus_stale\");\n}\n\nconst healthy = failures.length === 0;\nmsg.statusCode = healthy ? 200 : 503;\nmsg.headers = { \"content-type\": \"application/json\", \"cache-control\": \"no-store\" };\nmsg.payload = {\n    status: healthy ? \"ok\" : \"fail\",\n    timestamp: new Date(now).toISOString(),\n    emc_test_mode: emcMode,\n    startup_grace: inStartupGrace,\n    failures,\n    tinymesh: { age_seconds: tinyAge, serial_bad: tinySerialBad },\n    wmbus: { age_seconds: wmbusAge, serial_bad: wmbusSerialBad }\n};\nreturn msg;",
+        "func": "const now = Date.now();\nconst startedAt = global.get(\"health_started_at\") || now;\nif (!global.get(\"health_started_at\")) global.set(\"health_started_at\", startedAt);\n\nconst emcMode = String(env.get(\"EMC_TEST_MODE\") || \"false\").toLowerCase() === \"true\";\nconst staleSeconds = Number(env.get(\"NODE_RED_HEALTH_STALE_SECONDS\") || 25);\nconst startupGraceSeconds = Number(env.get(\"NODE_RED_HEALTH_STARTUP_GRACE_SECONDS\") || 30);\nconst inStartupGrace = now - startedAt < startupGraceSeconds * 1000;\n\nconst tinyLast = Number(global.get(\"health_tinymesh_last_seen\") || 0);\nconst wmbusLast = Number(global.get(\"health_wmbus_last_seen\") || 0);\nconst tinyAge = tinyLast ? (now - tinyLast) / 1000 : null;\nconst wmbusAge = wmbusLast ? (now - wmbusLast) / 1000 : null;\nconst tinySerialBad = global.get(\"health_tinymesh_serial_bad\") === true;\nconst wmbusSerialBad = global.get(\"health_wmbus_serial_bad\") === true;\n\nconst failures = [];\nif (!inStartupGrace && tinySerialBad) failures.push(\"tinymesh_serial\");\nif (!inStartupGrace && wmbusSerialBad) failures.push(\"wmbus_serial\");\n\n// Radio data freshness is monitored separately by the EMC monitor and\n// targeted radio recovery logic. It must not make the whole Node-RED\n// container unhealthy and trigger Docker autoheal.\n\nconst healthy = failures.length === 0;\nmsg.statusCode = healthy ? 200 : 503;\nmsg.headers = { \"content-type\": \"application/json\", \"cache-control\": \"no-store\" };\nmsg.payload = {\n    status: healthy ? \"ok\" : \"fail\",\n    timestamp: new Date(now).toISOString(),\n    emc_test_mode: emcMode,\n    startup_grace: inStartupGrace,\n    failures,\n    tinymesh: { age_seconds: tinyAge, serial_bad: tinySerialBad },\n    wmbus: { age_seconds: wmbusAge, serial_bad: wmbusSerialBad }\n};\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2685,7 +2343,7 @@
         "id": "8c2e38a6955c4003",
         "type": "modbus-getter",
         "z": "c731d38b621d4001",
-        "name": "Read Silo 1 Weight — Register 40",
+        "name": "Read Silo 1 Weight \u2014 Register 40",
         "showStatusActivities": true,
         "showErrors": true,
         "showWarnings": true,
@@ -2825,5 +2483,564 @@
         "x": 1020,
         "y": 220,
         "wires": []
+    },
+    {
+        "id": "2ec4d64c4d152c47",
+        "type": "switch",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Power Meter Switch",
+        "property": "POWER_METER_TYPE",
+        "propertyType": "env",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "GAVAZZI",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "TIP_SINUS",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 600,
+        "y": 620,
+        "wires": [
+            [
+                "d392a434756845eb",
+                "c49885e9d6a9fc61",
+                "0d95085cc5ba3a5e",
+                "7c8ff7058b4c4054"
+            ],
+            [
+                "ef481e36e2bb3fa6",
+                "f9eb5f9f56a54bc6",
+                "e3730d84bcc3688e"
+            ]
+        ]
+    },
+    {
+        "id": "ece73113c7b4bfd0",
+        "type": "inject",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 350,
+        "y": 620,
+        "wires": [
+            [
+                "2ec4d64c4d152c47"
+            ]
+        ]
+    },
+    {
+        "id": "f758c47d588bbb4d",
+        "type": "modbus-getter",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "CG Voltage",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "0",
+        "quantity": "2",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 1070,
+        "y": 480,
+        "wires": [
+            [
+                "459b1521753592c4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3c1ea0563bf6ac22",
+        "type": "modbus-getter",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "CG Amps",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "12",
+        "quantity": "2",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": false,
+        "startDelayTime": "20",
+        "x": 1060,
+        "y": 520,
+        "wires": [
+            [
+                "459b1521753592c4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d392a434756845eb",
+        "type": "modbus-getter",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "CG Voltage Model",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "11",
+        "quantity": "1",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": false,
+        "startDelayTime": "40",
+        "x": 1090,
+        "y": 560,
+        "wires": [
+            [
+                "459b1521753592c4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a38fb8b144266ed0",
+        "type": "modbus-getter",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "CG Serial",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "20480",
+        "quantity": "7",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": false,
+        "startDelayTime": "60",
+        "x": 1060,
+        "y": 600,
+        "wires": [
+            [
+                "459b1521753592c4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e101a3e45c80eeab",
+        "type": "modbus-getter",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Sinus Voltage",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "34",
+        "quantity": "2",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": false,
+        "startDelayTime": "20",
+        "x": 1080,
+        "y": 680,
+        "wires": [
+            [
+                "06c2e152e80aa22b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "47ce93c9cc2d22b9",
+        "type": "modbus-getter",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Sinus Amps",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "InputRegister",
+        "adr": "36",
+        "quantity": "2",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": false,
+        "startDelayTime": "40",
+        "x": 1070,
+        "y": 720,
+        "wires": [
+            [
+                "06c2e152e80aa22b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f81febb542ad7385",
+        "type": "modbus-getter",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Sinus Serial#",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "4",
+        "quantity": "2",
+        "server": "6776b5a3c41f3f5c",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": true,
+        "enableDeformedMessages": true,
+        "startDelayTime": "0",
+        "x": 1070,
+        "y": 760,
+        "wires": [
+            [
+                "06c2e152e80aa22b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "459b1521753592c4",
+        "type": "join",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Modbus Join",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "20",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1340,
+        "y": 540,
+        "wires": [
+            [
+                "878d632399a701a1"
+            ]
+        ]
+    },
+    {
+        "id": "878d632399a701a1",
+        "type": "function",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Power meter Parser (Carlo Gavazzi)",
+        "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"Unknown CG Meter\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet modArr = getArray(joined.model);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 0)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[1] << 16) | volArr[0];\n    voltage = rawVolts / 10;\n}\n\n// 2. Parse Amps (Address 12)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[1] << 16) | ampArr[0];\n    amps = rawAmps / 1000;\n}\n\n// 3. Identify Device Type (Address 11)\nif (modArr && modArr.length >= 1) {\n    let modelCode = modArr[0];\n    if (modelCode === 332) partNumber = \"EM330-DIN AV5\";\n    else if (modelCode === 341) partNumber = \"EM340-DIN AV2\";\n    else partNumber = \"Model Code: \" + modelCode;\n}\n\n// 4. Parse Serial Number (Address 20480)\nif (serArr) {\n    serial = \"\";\n    serArr.forEach(reg => {\n        serial += String.fromCharCode(reg & 0xFF); // Extract LSB to ASCII\n    });\n}\n\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- NEW CODE: Build the exact MQTT Topic ---\n// Grab the Gateway Serial from the Docker environment variables\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// Format: gateway/A100000155081224/power/out\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1650,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "06c2e152e80aa22b",
+        "type": "join",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Modbus Join",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "20",
+        "count": "3",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1280,
+        "y": 700,
+        "wires": [
+            [
+                "d0ffcd208a752da9"
+            ]
+        ]
+    },
+    {
+        "id": "d0ffcd208a752da9",
+        "type": "function",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Power meter Parser (Sinus)",
+        "func": "let joined = msg.payload;\n\n// Safely set default values so it never crashes\nlet voltage = 0;\nlet amps = 0;\nlet partNumber = \"TIP SINUS\";\nlet serial = \"Unknown\";\n\n// Helper function: Node-RED Modbus sometimes puts the array inside '.data'\nfunction getArray(payloadPart) {\n    if (!payloadPart) return null;\n    return payloadPart.data ? payloadPart.data : payloadPart;\n}\n\n// Notice I removed the '#' from the Serial name here!\nlet volArr = getArray(joined.voltage);\nlet ampArr = getArray(joined.amps);\nlet serArr = getArray(joined.serial);\n\n// 1. Parse Voltage (Address 34)\nif (volArr && volArr.length >= 2) {\n    let rawVolts = (volArr[0] * 65536) + volArr[1];\n    voltage = rawVolts / 1000;\n}\n\n// 2. Parse Amps (Address 36)\nif (ampArr && ampArr.length >= 2) {\n    let rawAmps = (ampArr[0] * 65536) + ampArr[1];\n    amps = rawAmps / 1000;\n}\n\n// 3. Parse Serial Number (Address 4)\nif (serArr && serArr.length >= 2) {\n    let highHex = serArr[0].toString(16).padStart(4, '0');\n    let lowHex = serArr[1].toString(16).padStart(4, '0');\n    let rawSerial = (highHex + lowHex).toUpperCase();\n    \n    // Convert to integer to strip leading zeros, then back to string\n    serial = parseInt(rawSerial, 10).toString(); \n}\n// Build the exact MC100 output payload\nmsg.payload = {\n    \"DateTime\": new Date().toISOString(),\n    \"Amp\": parseFloat(amps.toFixed(3)),\n    \"AmpHour\": 0, \n    \"Voltage\": parseFloat(voltage.toFixed(1)),\n    \"State\": \"\",\n    \"Partnumber\": partNumber,\n    \"Serialnumber\": serial.trim(), \n    \"FirmwareRevision\": \"0.0-1\",\n    \"Type\": \"modbus-meter\",\n    \"Meta\": null\n};\n\n// --- Build the exact MQTT Topic ---\nlet gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nmsg.topic = `gateway/${gatewaySerial}/power/out`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1520,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ef481e36e2bb3fa6",
+        "type": "change",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Voltage Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "voltage",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 680,
+        "wires": [
+            [
+                "e101a3e45c80eeab"
+            ]
+        ]
+    },
+    {
+        "id": "f9eb5f9f56a54bc6",
+        "type": "change",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Amps Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "amps",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 720,
+        "wires": [
+            [
+                "47ce93c9cc2d22b9"
+            ]
+        ]
+    },
+    {
+        "id": "e3730d84bcc3688e",
+        "type": "change",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Serial Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "serial",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 760,
+        "wires": [
+            [
+                "f81febb542ad7385"
+            ]
+        ]
+    },
+    {
+        "id": "c49885e9d6a9fc61",
+        "type": "change",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Voltage Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "voltage",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 480,
+        "wires": [
+            [
+                "f758c47d588bbb4d"
+            ]
+        ]
+    },
+    {
+        "id": "0d95085cc5ba3a5e",
+        "type": "change",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Amps Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "amps",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 520,
+        "wires": [
+            [
+                "3c1ea0563bf6ac22"
+            ]
+        ]
+    },
+    {
+        "id": "7c8ff7058b4c4054",
+        "type": "change",
+        "z": "cb99331f4a547bb5",
+        "g": "f39362f0cc4d435f",
+        "name": "Serial Change",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "serial",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 600,
+        "wires": [
+            [
+                "a38fb8b144266ed0"
+            ]
+        ]
     }
 ]

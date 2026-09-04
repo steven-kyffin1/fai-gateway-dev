@@ -31,6 +31,14 @@ POLL_SECONDS = float(os.getenv("UPS_POLL_SECONDS", "1"))
 HEALTH_PATH = Path("/tmp/ups-watchdog-health.json")
 RTC_WAKEALARM = Path(os.getenv("RTC_WAKEALARM_PATH", "/sys/class/rtc/rtc0/wakealarm"))
 
+RTC_ADDRESS = int(os.getenv("RTC_ADDRESS", "0x51"), 0)
+PCF8563_REG_ST2 = 0x01
+PCF8563_REG_TMRC = 0x0E
+PCF8563_REG_TMR = 0x0F
+PCF8563_BIT_TIE = 0x01
+PCF8563_TMRC_ENABLE = 0x80
+PCF8563_TMRC_1HZ = 0x02
+
 STOP = False
 
 logging.basicConfig(
@@ -64,15 +72,112 @@ def write_health(state: str) -> None:
     temporary.replace(HEALTH_PATH)
 
 
-def set_wake_alarm() -> bool:
+def cancel_wake_timer(bus: SMBus) -> bool:
+    """Best-effort disable of the PCF8563 reset timer."""
     try:
-        RTC_WAKEALARM.write_text("0\n", encoding="ascii")
-        RTC_WAKEALARM.write_text(f"+{WAKE_SECONDS}\n", encoding="ascii")
-        configured = RTC_WAKEALARM.read_text(encoding="ascii").strip()
-        LOG.info("RTC wake alarm configured value=%s", configured)
-        return bool(configured and configured != "0")
+        bus.write_byte_data(
+            RTC_ADDRESS,
+            PCF8563_REG_TMRC,
+            PCF8563_TMRC_1HZ,
+            force=True,
+        )
+        tmrc = bus.read_byte_data(
+            RTC_ADDRESS,
+            PCF8563_REG_TMRC,
+            force=True,
+        )
+        disabled = not bool(tmrc & PCF8563_TMRC_ENABLE)
+        LOG.info(
+            "PCF8563 reset timer cancel tmrc=0x%02x disabled=%s",
+            tmrc,
+            disabled,
+        )
+        return disabled
     except OSError as exc:
-        LOG.error("Unable to configure RTC wake alarm: %s", exc)
+        LOG.error("Unable to disable PCF8563 reset timer: %s", exc)
+        return False
+
+
+def set_wake_alarm(bus: SMBus) -> bool:
+    """Arm the PCF8563 hardware reset timer used by this platform."""
+    if not 2 <= WAKE_SECONDS <= 255:
+        LOG.error(
+            "Invalid PCF8563 reset timeout=%s; valid range is 2..255 seconds",
+            WAKE_SECONDS,
+        )
+        return False
+
+    try:
+        # Match the installed rtc-pcf8563w watchdog driver's start sequence:
+        # clear pending timer state / enable timer interrupt,
+        # load timeout, then enable timer at 1 Hz.
+        bus.write_byte_data(
+            RTC_ADDRESS,
+            PCF8563_REG_ST2,
+            PCF8563_BIT_TIE,
+            force=True,
+        )
+        bus.write_byte_data(
+            RTC_ADDRESS,
+            PCF8563_REG_TMR,
+            WAKE_SECONDS,
+            force=True,
+        )
+        bus.write_byte_data(
+            RTC_ADDRESS,
+            PCF8563_REG_TMRC,
+            PCF8563_TMRC_ENABLE | PCF8563_TMRC_1HZ,
+            force=True,
+        )
+
+        st2 = bus.read_byte_data(
+            RTC_ADDRESS,
+            PCF8563_REG_ST2,
+            force=True,
+        )
+        tmrc = bus.read_byte_data(
+            RTC_ADDRESS,
+            PCF8563_REG_TMRC,
+            force=True,
+        )
+        tmr = bus.read_byte_data(
+            RTC_ADDRESS,
+            PCF8563_REG_TMR,
+            force=True,
+        )
+
+        # Ignore undefined/reserved TMRC bits. The required state is:
+        # timer enabled + frequency selector 2 (1 Hz).
+        tmrc_ok = (
+            tmrc & (PCF8563_TMRC_ENABLE | 0x03)
+        ) == (PCF8563_TMRC_ENABLE | PCF8563_TMRC_1HZ)
+
+        st2_ok = bool(st2 & PCF8563_BIT_TIE)
+
+        # A read can occur around a one-second decrement boundary.
+        tmr_ok = max(2, WAKE_SECONDS - 2) <= tmr <= WAKE_SECONDS
+
+        configured = tmrc_ok and st2_ok and tmr_ok
+
+        LOG.info(
+            "PCF8563 reset timer armed=%s timeout=%ss "
+            "st2=0x%02x tmrc=0x%02x tmr=%s",
+            configured,
+            WAKE_SECONDS,
+            st2,
+            tmrc,
+            tmr,
+        )
+
+        if not configured:
+            LOG.error("PCF8563 reset timer verification failed; disabling timer")
+            cancel_wake_timer(bus)
+
+        return configured
+
+    except OSError as exc:
+        LOG.error("Unable to arm PCF8563 reset timer: %s", exc)
+        cancel_wake_timer(bus)
         return False
 
 
@@ -153,17 +258,31 @@ def main() -> int:
 
                         if elapsed >= TRIGGER_SECONDS and not halt_requested:
                             halt_requested = True
-                            wake_ok = set_wake_alarm()
-                            LOG.critical(
-                                "Requesting graceful host halt wake_alarm_configured=%s",
-                                wake_ok,
-                            )
-                            if not request_host_halt():
+                            wake_ok = set_wake_alarm(bus)
+
+                            if not wake_ok:
+                                LOG.critical(
+                                    "Automatic wake could not be armed; "
+                                    "refusing graceful host halt"
+                                )
+                                write_health("wake-arm-failed")
                                 halt_requested = False
                             else:
-                                while not STOP:
-                                    write_health("halt-requested")
-                                    time.sleep(5)
+                                LOG.critical(
+                                    "Requesting graceful host halt "
+                                    "wake_alarm_configured=true"
+                                )
+                                if not request_host_halt():
+                                    LOG.error(
+                                        "Host halt failed after reset timer was armed; "
+                                        "cancelling reset timer"
+                                    )
+                                    cancel_wake_timer(bus)
+                                    halt_requested = False
+                                else:
+                                    while not STOP:
+                                        write_health("halt-requested")
+                                        time.sleep(5)
                     else:
                         if backup_started is not None:
                             LOG.info("Main power restored before halt threshold")
