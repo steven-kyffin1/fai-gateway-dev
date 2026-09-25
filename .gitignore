@@ -35,3 +35,4 @@ chirpstack/postgres/
 chirpstack/postgres-init/
 chirpstack/redis/
 sx1302_hal/
+__pycache__/

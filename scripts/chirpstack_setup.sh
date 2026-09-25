@@ -258,40 +258,54 @@ if [ "${LORAWAN_WATER_METERS:-false}" = "true" ]; then
     echo ""
     echo "--- Provisioning LoRaWAN water-meter support ---"
 
-    WATER_PROFILE_NAME="B METERS HYDRODIGIT-S1 EU868"
-    WATER_APP_NAME="Water Meters"
+    WATER_APP_NAME="LoRa Water Meters"
+
+    HYDRO_PROFILE_NAME="B METERS HYDRODIGIT-S1 EU868"
+    TALKPOOL_PROFILE_NAME="Talkpool OY1310 EU868"
 
     # ------------------------------------------------------------
-    # Find or create the device profile
+    # Helper: find device profile by exact name
     # ------------------------------------------------------------
 
-    WATER_PROFILE_LIST=$(grpcurl \
-        -plaintext \
-        -H "authorization: Bearer $TOKEN" \
-        -d "{
-            \"limit\": 100,
-            \"tenantId\": \"$TENANT_ID\",
-            \"search\": \"$WATER_PROFILE_NAME\"
-        }" \
-        localhost:8080 \
-        api.DeviceProfileService/List 2>&1)
+    find_device_profile_id() {
+        local PROFILE_NAME="$1"
 
-    WATER_PROFILE_ID=$(echo "$WATER_PROFILE_LIST" |
+        grpcurl \
+            -plaintext \
+            -H "authorization: Bearer $TOKEN" \
+            -d "{
+                \"limit\": 100,
+                \"tenantId\": \"$TENANT_ID\",
+                \"search\": \"$PROFILE_NAME\"
+            }" \
+            localhost:8080 \
+            api.DeviceProfileService/List 2>/dev/null |
         jq -r \
-            --arg NAME "$WATER_PROFILE_NAME" \
+            --arg NAME "$PROFILE_NAME" \
             '.result[]? | select(.name == $NAME) | .id' |
-        head -n 1)
+        head -n 1
+    }
 
-    if [ -n "$WATER_PROFILE_ID" ]; then
-        echo "ℹ️  Device profile already exists: $WATER_PROFILE_NAME"
+    # ------------------------------------------------------------
+    # Hydrodigit profile
+    # ------------------------------------------------------------
+
+    echo "Provisioning Device Profile: $HYDRO_PROFILE_NAME..."
+
+    HYDRO_PROFILE_ID=$(
+        find_device_profile_id "$HYDRO_PROFILE_NAME"
+    )
+
+    if [ -n "$HYDRO_PROFILE_ID" ]; then
+        echo "ℹ️  Device profile already exists: $HYDRO_PROFILE_NAME"
     else
-        WATER_PROFILE_RESP=$(grpcurl \
+        HYDRO_PROFILE_RESP=$(grpcurl \
             -plaintext \
             -H "authorization: Bearer $TOKEN" \
             -d "{
                 \"deviceProfile\": {
                     \"tenantId\": \"$TENANT_ID\",
-                    \"name\": \"$WATER_PROFILE_NAME\",
+                    \"name\": \"$HYDRO_PROFILE_NAME\",
                     \"description\": \"B METERS HYDRODIGIT-S1 LoRaWAN water meter\",
                     \"region\": \"EU868\",
                     \"macVersion\": \"LORAWAN_1_0_3\",
@@ -303,28 +317,82 @@ if [ "${LORAWAN_WATER_METERS:-false}" = "true" ]; then
                     \"tags\": {
                         \"sensor_type\": \"water_meter\",
                         \"manufacturer\": \"B_METERS\",
-                        \"model\": \"HYDRODIGIT_S1\"
+                        \"model\": \"HYDRODIGIT_S1\",
+                        \"transport\": \"lorawan\"
                     }
                 }
             }" \
             localhost:8080 \
             api.DeviceProfileService/Create 2>&1)
 
-        WATER_PROFILE_ID=$(echo "$WATER_PROFILE_RESP" |
+        HYDRO_PROFILE_ID=$(echo "$HYDRO_PROFILE_RESP" |
             jq -r '.id // empty')
 
-        if [ -n "$WATER_PROFILE_ID" ]; then
-            echo "✅ Water-meter device profile created."
+        if [ -n "$HYDRO_PROFILE_ID" ]; then
+            echo "✅ Hydrodigit profile created: $HYDRO_PROFILE_ID"
         else
-            echo "ERROR: Could not create water-meter device profile."
-            echo "$WATER_PROFILE_RESP"
+            echo "ERROR: Could not create Hydrodigit profile."
+            echo "$HYDRO_PROFILE_RESP"
             exit 1
         fi
     fi
 
     # ------------------------------------------------------------
-    # Find or create the application
+    # Talkpool OY1310 profile
     # ------------------------------------------------------------
+
+    echo "Provisioning Device Profile: $TALKPOOL_PROFILE_NAME..."
+
+    TALKPOOL_PROFILE_ID=$(
+        find_device_profile_id "$TALKPOOL_PROFILE_NAME"
+    )
+
+    if [ -n "$TALKPOOL_PROFILE_ID" ]; then
+        echo "ℹ️  Device profile already exists: $TALKPOOL_PROFILE_NAME"
+    else
+        TALKPOOL_PROFILE_RESP=$(grpcurl \
+            -plaintext \
+            -H "authorization: Bearer $TOKEN" \
+            -d "{
+                \"deviceProfile\": {
+                    \"tenantId\": \"$TENANT_ID\",
+                    \"name\": \"$TALKPOOL_PROFILE_NAME\",
+                    \"description\": \"Talkpool OY1310 LoRaWAN water meter\",
+                    \"region\": \"EU868\",
+                    \"macVersion\": \"LORAWAN_1_0_2\",
+                    \"regParamsRevision\": \"RP002_1_0_3\",
+                    \"supportsOtaa\": true,
+                    \"supportsClassB\": false,
+                    \"supportsClassC\": false,
+                    \"adrAlgorithmId\": \"default\",
+                    \"tags\": {
+                        \"sensor_type\": \"water_meter\",
+                        \"manufacturer\": \"Talkpool\",
+                        \"model\": \"OY1310\",
+                        \"transport\": \"lorawan\"
+                    }
+                }
+            }" \
+            localhost:8080 \
+            api.DeviceProfileService/Create 2>&1)
+
+        TALKPOOL_PROFILE_ID=$(echo "$TALKPOOL_PROFILE_RESP" |
+            jq -r '.id // empty')
+
+        if [ -n "$TALKPOOL_PROFILE_ID" ]; then
+            echo "✅ Talkpool OY1310 profile created: $TALKPOOL_PROFILE_ID"
+        else
+            echo "ERROR: Could not create Talkpool OY1310 profile."
+            echo "$TALKPOOL_PROFILE_RESP"
+            exit 1
+        fi
+    fi
+
+    # ------------------------------------------------------------
+    # LoRa Water Meters application
+    # ------------------------------------------------------------
+
+    echo "Provisioning Application: $WATER_APP_NAME..."
 
     WATER_APP_LIST=$(grpcurl \
         -plaintext \
@@ -367,16 +435,19 @@ if [ "${LORAWAN_WATER_METERS:-false}" = "true" ]; then
             jq -r '.id // empty')
 
         if [ -n "$WATER_APP_ID" ]; then
-            echo "✅ Water Meters application created."
+            echo "✅ LoRa Water Meters application created: $WATER_APP_ID"
         else
-            echo "ERROR: Could not create Water Meters application."
+            echo "ERROR: Could not create LoRa Water Meters application."
             echo "$WATER_APP_RESP"
             exit 1
         fi
     fi
 
-    echo "Water application ID: $WATER_APP_ID"
-    echo "Water profile ID: $WATER_PROFILE_ID"
+    echo ""
+    echo "LoRa water-meter provisioning complete:"
+    echo "  Application ID:     $WATER_APP_ID"
+    echo "  Hydrodigit profile: $HYDRO_PROFILE_ID"
+    echo "  Talkpool profile:   $TALKPOOL_PROFILE_ID"
 fi
 
 # ==========================================

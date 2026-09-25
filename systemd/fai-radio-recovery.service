@@ -1,0 +1,24 @@
+[Unit]
+Description=FAI gateway radio and MQTT recovery supervisor
+Wants=network-online.target docker.service
+Requires=fai-emc-logdir.service
+After=network-online.target docker.service fai-gateway.service fai-emc-logdir.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=__PROJECT_ROOT__
+EnvironmentFile=-__PROJECT_ROOT__/.env
+ExecStart=/usr/bin/python3 __PROJECT_ROOT__/scripts/radio_recovery_watchdog.py
+Restart=always
+RestartSec=3
+TimeoutStopSec=15
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=read-only
+ProtectSystem=full
+ReadWritePaths=/opt/fai-storage/emc
+
+[Install]
+WantedBy=multi-user.target

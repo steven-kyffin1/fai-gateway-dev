@@ -11,6 +11,12 @@ services:
       - ./mosquitto/config:/mosquitto/config
       - /opt/fai-storage:/mosquitto/data
       - ./mosquitto/log:/mosquitto/log
+    healthcheck:
+      test: ["CMD-SHELL", "mosquitto_sub -h 127.0.0.1 -t '$$SYS/broker/version' -C 1 -W 3 >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
 
   watchdog:
     image: willfarrell/autoheal:latest
@@ -18,23 +24,36 @@ services:
     restart: unless-stopped
     environment:
       - AUTOHEAL_CONTAINER_LABEL=all
+      - AUTOHEAL_INTERVAL=2
+      - AUTOHEAL_START_PERIOD=30
+      - AUTOHEAL_DEFAULT_STOP_TIMEOUT=10
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
   ups-watchdog:
-      image: python:3.9-slim
+      build:
+        context: .
+        dockerfile: ups-watchdog/Dockerfile
       container_name: ups-watchdog
       restart: always
-      privileged: true 
+      privileged: true
+      environment:
+        - BUS_NUMBER=6
+        - LTC_ADDRESS=0x09
+        - LTC_STATUS_REGISTER=0x1C
+        - LTC_SWAP_BYTES=true
+        - UPS_TRIGGER_SECONDS=5
+        - UPS_WAKE_SECONDS=60
       volumes:
-        - ./scripts/ups_watchdog.py:/app/ups_watchdog.py:ro
-        - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket 
+        - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
       devices:
-        - "/dev/i2c-6:/dev/i2c-6" 
-      command: >
-        sh -c "apt-get update && apt-get install -y dbus && 
-        pip install smbus2 && 
-        python -u /app/ups_watchdog.py"
+        - "/dev/i2c-6:/dev/i2c-6"
+      healthcheck:
+        test: ["CMD", "python", "/app/healthcheck.py"]
+        interval: 10s
+        timeout: 3s
+        retries: 3
+        start_period: 15s
 
   # ==========================================
   # RS-485 MODBUS SERVICES (USB QUAD HUB)
@@ -42,62 +61,43 @@ services:
 
   # ── 1. Power Meters (Hub Port 1) ──
   mbusd:
+      profiles: ["rs485-isolated"]
       build: ./mbusd
       container_name: fai-mbusd
       restart: unless-stopped
-      privileged: true
-      volumes:
-        - /dev:/dev
+      devices:
+        - /dev/RS485_ISO_1:/dev/RS485_ISO_1
       environment:
-        - RS485_PORT=/dev/RS485_QUAD_1  
-        #- RS485_PORT=/dev/ttyACM1   
+        - RS485_PORT=/dev/RS485_ISO_1
+        - RS485_BAUD=9600
+        - MBUSD_TCP_PORT=5020
       ports:
         - "5020:5020"
       healthcheck:
-        # FIXED: Alpine natively supports 'nc -z' for TCP port checking
         test: ["CMD-SHELL", "nc -z 127.0.0.1 5020 || exit 1"]
-        interval: 30s
-        timeout: 10s
+        interval: 10s
+        timeout: 3s
         retries: 3
         start_period: 15s
 
-  # ── 2. Silo Junction Box 1 (Hub Port 3) ──
-  mbusd-weight-3:
+  # ── Channel 2: shared silo bus (silo 1 = unit 1, silo 2 = unit 2) ──
+  mbusd-silo:
+      profiles: ["rs485-isolated"]
       build: ./mbusd
-      container_name: fai-mbusd-weight-3
+      container_name: fai-mbusd-silo
       restart: unless-stopped
-      privileged: true
-      volumes:
-        - /dev:/dev
-      # FIXED: Removed the invalid '-t 2000' syntax
-      #command: sh -c "mbusd -d -p /dev/ttyACM3 -s 19200 -m 8N1 -P 5021"
-      command: sh -c "mbusd -d -p /dev/RS485_QUAD_3 -s 19200 -m 8N1 -P 5021"
+      devices:
+        - /dev/RS485_ISO_2:/dev/RS485_ISO_2
+      environment:
+        - RS485_PORT=/dev/RS485_ISO_2
+        - RS485_BAUD=19200
+        - MBUSD_TCP_PORT=5021
       ports:
         - "5021:5021"
       healthcheck:
         test: ["CMD-SHELL", "nc -z 127.0.0.1 5021 || exit 1"]
-        interval: 30s
-        timeout: 10s
-        retries: 3
-        start_period: 15s
-
-  # ── 3. Silo Junction Box 2 (Hub Port 4) ──
-  mbusd-weight-4:
-      build: ./mbusd
-      container_name: fai-mbusd-weight-4
-      restart: unless-stopped
-      privileged: true
-      volumes:
-        - /dev:/dev
-      # FIXED: Removed the invalid '-t 2000' syntax
-      #command: sh -c "mbusd -d -p /dev/ttyACM4 -s 19200 -m 8N1 -P 5022"
-      command: sh -c "mbusd -d -p /dev/RS485_QUAD_4 -s 19200 -m 8N1 -P 5022"
-      ports:
-        - "5022:5022"
-      healthcheck:
-        test: ["CMD-SHELL", "nc -z 127.0.0.1 5022 || exit 1"]
-        interval: 30s
-        timeout: 10s
+        interval: 10s
+        timeout: 3s
         retries: 3
         start_period: 15s
 
@@ -123,17 +123,16 @@ services:
         - GATEWAY_SERIAL=${GATEWAY_SERIAL}
         - GATEWAY_HOSTNAME=${GATEWAY_HOSTNAME}
         - POWER_METER_TYPE=${POWER_METER_TYPE}
+        - EMC_TEST_MODE=${EMC_TEST_MODE:-false}
+        - ADS301_SILO_1_ACCESS_UNIT_ID=${ADS301_SILO_1_ACCESS_UNIT_ID:-1}
+        - ADS301_SILO_2_ACCESS_UNIT_ID=${ADS301_SILO_2_ACCESS_UNIT_ID:-2}
+        - ADS301_SILO_1_CHANNELS=${ADS301_SILO_1_CHANNELS:-4}
+        - ADS301_SILO_2_CHANNELS=${ADS301_SILO_2_CHANNELS:-4}
       ports:
         - "1880:1880"
       depends_on:
         mqtt:
-          condition: service_started
-        mbusd:
-          condition: service_started 
-        mbusd-weight-3:
-          condition: service_started
-        mbusd-weight-4:
-          condition: service_started
+          condition: service_healthy
       healthcheck:
         test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:1880/ || exit 1"]
         interval: 60s
@@ -146,7 +145,7 @@ services:
   # ==========================================
   lora-forwarder:
     image: rakwireless/udp-packet-forwarder:latest
-    profiles: ["lorawan"]
+    profiles: ["lorawan-usb"]
     container_name: lora-forwarder
     restart: unless-stopped
     privileged: true
@@ -155,11 +154,29 @@ services:
     environment:
       - MODEL=SX1302
       - INTERFACE=USB
-      - DEVICE=/dev/ttyACM0
+      - DEVICE=${LORA_DEVICE:-/dev/ttyACM0}
       - GATEWAY_EUI=${GATEWAY_SERIAL}
       - SERVER_HOST=gateway-bridge
       - SERVER_PORT=1700
       - FREQ_BAND=EU868
+
+  lora-forwarder-spi:
+    build:
+      context: ./lora-forwarder
+      dockerfile: Dockerfile
+    image: fai-wm1302:2.1.0-r1000
+    profiles: ["lorawan-spi"]
+    container_name: lora-forwarder-spi
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /dev:/dev
+      - /sys:/sys:rw
+    environment:
+      GATEWAY_SERIAL: ${GATEWAY_SERIAL}
+    depends_on:
+      gateway-bridge:
+        condition: service_started
 
   gateway-bridge:
     image: chirpstack/chirpstack-gateway-bridge:4

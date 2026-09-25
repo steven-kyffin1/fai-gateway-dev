@@ -8,6 +8,13 @@
         "env": []
     },
     {
+        "id": "a300000000000000",
+        "type": "tab",
+        "label": "Gateway Recovery Health",
+        "disabled": false,
+        "info": "Functional health endpoint used by Docker and the host recovery supervisor."
+    },
+    {
         "id": "group_telemetry",
         "type": "group",
         "z": "3738026cb3832ee1",
@@ -69,8 +76,8 @@
             "7c8ff7058b4c4054",
             "bd0bbb07a30d97f8"
         ],
-        "x": 34,
-        "y": 659,
+        "x": 14,
+        "y": 1059,
         "w": 1612,
         "h": 362
     },
@@ -87,12 +94,19 @@
         },
         "nodes": [
             "81706964859001bb",
-            "771a91e17adff194"
+            "771a91e17adff194",
+            "a200000000000007",
+            "a200000000000004",
+            "a200000000000005",
+            "a200000000000002",
+            "a200000000000001",
+            "a200000000000006",
+            "a200000000000003"
         ],
-        "x": 34,
-        "y": 539,
-        "w": 752,
-        "h": 82
+        "x": 14,
+        "y": 759,
+        "w": 1012,
+        "h": 282
     },
     {
         "id": "5014da80cd5e927f",
@@ -108,12 +122,20 @@
         "nodes": [
             "3795322861042bc3",
             "3e23d6eda29ff93e",
-            "edd0911a555ca093"
+            "edd0911a555ca093",
+            "a100000000000005",
+            "a100000000000002",
+            "a100000000000007",
+            "a100000000000001",
+            "a100000000000006",
+            "tm_emc_rx_publisher",
+            "a100000000000004",
+            "a100000000000003"
         ],
-        "x": 34,
-        "y": 339,
-        "w": 712,
-        "h": 162
+        "x": 14,
+        "y": 419,
+        "w": 1072,
+        "h": 342
     },
     {
         "id": "a3a62aaa37101276",
@@ -136,12 +158,19 @@
             "a5a75db8e96fde8a",
             "6e1df4a95aa1b1f9",
             "b53b1a5fd06b4b39",
-            "449d3fb8efadacc7"
+            "e7e8d06b2e5a1cb1",
+            "d30d9a0ed817a5f1",
+            "cb1c76909e4cc237",
+            "dd05fa8a63bbce59",
+            "c8eeaa7ed265f0e8",
+            "bbfc7b9df1d6af32",
+            "94ff946adb189568",
+            "31daaefc6f2976c6"
         ],
-        "x": 34,
-        "y": -1,
+        "x": 14,
+        "y": -28.5,
         "w": 1292,
-        "h": 322
+        "h": 469.5
     },
     {
         "id": "2ba8c5099f662f10",
@@ -249,8 +278,8 @@
             "1dcfb15384764427",
             "b82ff135049249dd"
         ],
-        "x": 74,
-        "y": 1699,
+        "x": 14,
+        "y": 1499,
         "w": 3372,
         "h": 1082
     },
@@ -258,7 +287,7 @@
         "id": "683cf0d2d547c4fd",
         "type": "serial-port",
         "name": "Tinymesh",
-        "serialport": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJOC-if00-port0",
+        "serialport": "/dev/FAI_TINYMESH",
         "serialbaud": "19200",
         "databits": "8",
         "parity": "none",
@@ -356,7 +385,7 @@
         "id": "bcc4801ac002ac63",
         "type": "serial-port",
         "name": "WMBUS in",
-        "serialport": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_B401GJOO-if00-port0",
+        "serialport": "/dev/FAI_WMBUS",
         "serialbaud": "19200",
         "databits": 8,
         "parity": "none",
@@ -375,13 +404,7 @@
     {
         "id": "06277bcaebbb921e",
         "type": "global-config",
-        "env": [
-            {
-                "name": "GATEWAY_SERIAL",
-                "value": "000088a29eab689d",
-                "type": "str"
-            }
-        ],
+        "env": [],
         "modules": {}
     },
     {
@@ -625,13 +648,13 @@
     {
         "id": "4bb58d809ecde0ee",
         "type": "modbus-client",
-        "name": "mbusd-weight-port-3",
+        "name": "Shared silo bus — Silo 1",
         "clienttype": "tcp",
         "bufferCommands": true,
         "stateLogEnabled": false,
         "queueLogEnabled": false,
         "failureLogEnabled": true,
-        "tcpHost": "mbusd-weight-3",
+        "tcpHost": "mbusd-silo",
         "tcpPort": "5021",
         "tcpType": "DEFAULT",
         "serialPort": "/dev/ttyUSB",
@@ -655,14 +678,14 @@
     {
         "id": "6cb3960ddc98e75c",
         "type": "modbus-client",
-        "name": "mbusd-weight-port-4",
+        "name": "Shared silo bus — Silo 2",
         "clienttype": "tcp",
         "bufferCommands": true,
         "stateLogEnabled": false,
         "queueLogEnabled": false,
         "failureLogEnabled": true,
-        "tcpHost": "mbusd-weight-4",
-        "tcpPort": "5022",
+        "tcpHost": "mbusd-silo",
+        "tcpPort": "5021",
         "tcpType": "DEFAULT",
         "serialPort": "/dev/ttyUSB",
         "serialType": "RTU-BUFFERD",
@@ -709,12 +732,15 @@
         "g": "5014da80cd5e927f",
         "name": "Tinymesh In",
         "serial": "683cf0d2d547c4fd",
-        "x": 130,
-        "y": 380,
+        "x": 110,
+        "y": 540,
         "wires": [
             [
                 "3e23d6eda29ff93e",
-                "edd0911a555ca093"
+                "edd0911a555ca093",
+                "a100000000000001",
+                "a100000000000007",
+                "tm_emc_rx_publisher"
             ]
         ]
     },
@@ -731,8 +757,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 410,
-        "y": 460,
+        "x": 430,
+        "y": 560,
         "wires": [
             []
         ]
@@ -750,8 +776,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 380,
+        "x": 660,
+        "y": 540,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -765,11 +791,13 @@
         "g": "febc9982bb1406d1",
         "name": "WMBUS In",
         "serial": "bcc4801ac002ac63",
-        "x": 120,
-        "y": 580,
+        "x": 140,
+        "y": 1000,
         "wires": [
             [
-                "771a91e17adff194"
+                "771a91e17adff194",
+                "a200000000000001",
+                "a200000000000007"
             ]
         ]
     },
@@ -787,8 +815,8 @@
         "correl": "",
         "expiry": "",
         "broker": "b78b8561ebd93ffc",
-        "x": 3310,
-        "y": 1480,
+        "x": 1430,
+        "y": 360,
         "wires": []
     },
     {
@@ -804,8 +832,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 670,
-        "y": 580,
+        "x": 690,
+        "y": 1000,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -835,8 +863,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 400,
-        "y": 840,
+        "x": 380,
+        "y": 1240,
         "wires": [
             [
                 "d392a434756845eb",
@@ -873,8 +901,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 840,
+        "x": 130,
+        "y": 1240,
         "wires": [
             [
                 "2ec4d64c4d152c47"
@@ -904,8 +932,8 @@
         "delayOnStart": false,
         "enableDeformedMessages": false,
         "startDelayTime": "",
-        "x": 870,
-        "y": 700,
+        "x": 850,
+        "y": 1100,
         "wires": [
             [
                 "459b1521753592c4"
@@ -936,8 +964,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": false,
         "startDelayTime": "20",
-        "x": 860,
-        "y": 740,
+        "x": 840,
+        "y": 1140,
         "wires": [
             [
                 "459b1521753592c4"
@@ -968,8 +996,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": false,
         "startDelayTime": "40",
-        "x": 890,
-        "y": 780,
+        "x": 870,
+        "y": 1180,
         "wires": [
             [
                 "459b1521753592c4"
@@ -1000,8 +1028,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": false,
         "startDelayTime": "60",
-        "x": 860,
-        "y": 820,
+        "x": 840,
+        "y": 1220,
         "wires": [
             [
                 "459b1521753592c4"
@@ -1032,8 +1060,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": false,
         "startDelayTime": "20",
-        "x": 880,
-        "y": 900,
+        "x": 860,
+        "y": 1300,
         "wires": [
             [
                 "06c2e152e80aa22b"
@@ -1064,8 +1092,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": false,
         "startDelayTime": "40",
-        "x": 870,
-        "y": 940,
+        "x": 850,
+        "y": 1340,
         "wires": [
             [
                 "06c2e152e80aa22b"
@@ -1096,8 +1124,8 @@
         "delayOnStart": true,
         "enableDeformedMessages": true,
         "startDelayTime": "0",
-        "x": 870,
-        "y": 980,
+        "x": 850,
+        "y": 1380,
         "wires": [
             [
                 "06c2e152e80aa22b"
@@ -1127,8 +1155,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 1140,
-        "y": 760,
+        "x": 1120,
+        "y": 1160,
         "wires": [
             [
                 "878d632399a701a1"
@@ -1148,8 +1176,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1470,
-        "y": 760,
+        "x": 1450,
+        "y": 1160,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -1178,8 +1206,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 1080,
-        "y": 920,
+        "x": 1060,
+        "y": 1320,
         "wires": [
             [
                 "d0ffcd208a752da9"
@@ -1199,8 +1227,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1320,
-        "y": 920,
+        "x": 1300,
+        "y": 1320,
         "wires": [
             [
                 "479b96e0273a18b1",
@@ -1228,8 +1256,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 620,
-        "y": 900,
+        "x": 600,
+        "y": 1300,
         "wires": [
             [
                 "e101a3e45c80eeab"
@@ -1256,8 +1284,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 620,
-        "y": 940,
+        "x": 600,
+        "y": 1340,
         "wires": [
             [
                 "47ce93c9cc2d22b9"
@@ -1284,8 +1312,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 620,
-        "y": 980,
+        "x": 600,
+        "y": 1380,
         "wires": [
             [
                 "f81febb542ad7385"
@@ -1312,8 +1340,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 620,
-        "y": 700,
+        "x": 600,
+        "y": 1100,
         "wires": [
             [
                 "f758c47d588bbb4d"
@@ -1340,8 +1368,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 620,
-        "y": 740,
+        "x": 600,
+        "y": 1140,
         "wires": [
             [
                 "3c1ea0563bf6ac22"
@@ -1368,8 +1396,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 640,
-        "y": 820,
+        "x": 620,
+        "y": 1220,
         "wires": [
             [
                 "a38fb8b144266ed0"
@@ -1486,7 +1514,7 @@
         "showErrors": false,
         "showWarnings": true,
         "logIOActivities": false,
-        "unitid": "1",
+        "unitid": "2",
         "dataType": "HoldingRegister",
         "adr": "40",
         "quantity": "2",
@@ -1712,8 +1740,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 190,
-        "y": 220,
+        "x": 170,
+        "y": 260,
         "wires": [
             [
                 "87aa47cc136f336a"
@@ -1724,6 +1752,7 @@
         "id": "c96e6411ef124a35",
         "type": "function",
         "z": "3738026cb3832ee1",
+        "d": true,
         "g": "a3a62aaa37101276",
         "name": "LoRa Parser 9.1",
         "func": "// ── FAI Gateway Parser v9.1 — Session-aware duplicate protection ─────────────\n//\n// Arduino input:\n//   One 50-byte LoRaWAN packet every approximately 3 minutes.\n//\n//   Byte 0:       protocol version\n//   Byte 1:       number of weight samples\n//   Bytes 2-3:    batch number, UInt16 LE\n//   Bytes 4-39:   18 × weight readings, UInt16 LE\n//   Bytes 40-41:  temperature × 100, Int16 LE\n//   Bytes 42-43:  CO2 ppm, UInt16 LE\n//   Bytes 44-45:  light lux, UInt16 LE\n//   Bytes 46-47:  humidity × 100, UInt16 LE\n//   Bytes 48-49:  pressure × 10, UInt16 LE\n//\n// Weight behaviour:\n//   - The 18 Arduino readings are genuine spot readings taken 10 seconds apart.\n//   - Each valid reading becomes a separate backend Type 0x02 event.\n//   - Each Type 0x02 event contains the one weight repeated across all 50\n//     legacy array positions.\n//   - The 18 backend event timestamps are reconstructed at 10-second intervals.\n//   - 0xFFFF means invalid and that specific event is omitted.\n//   - Genuine 0 g readings are retained.\n//\n// Backend output:\n//   Type 0x01: environmental packet, 58 bytes, signature 013a.\n//   Type 0x02: weight packet, 106 bytes, signature 026a.\n//\n// There is no longer a cross-message weight queue.\n\n// ============================================================================\n// Configuration\n// ============================================================================\n\nconst gatewaySerial =\n    env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nconst TARGET_CLOUD_SID = 16777216;\n\nconst EXPECTED_PAYLOAD_LENGTH = 50;\nconst EXPECTED_VERSION = 1;\n\nconst MAX_WEIGHT_SAMPLES = 18;\nconst WEIGHT_INTERVAL_MS = 10000;\n\nconst INVALID_WEIGHT = 0xFFFF;\n\n// Retain a small duplicate history for each device.\nconst RECENT_MESSAGE_HISTORY = 64;\nconst STATE_NAMESPACE = \"faiParserV91\";\n\n// ============================================================================\n// ChirpStack event type\n// ============================================================================\n//\n// This function can safely receive:\n//   application/+/device/+/event/+\n//\n// A join event clears the duplicate history for that DevEUI. Other non-uplink\n// event types are ignored.\n\nconst topicParts =\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean);\n\nconst eventType =\n    topicParts.length > 0\n        ? topicParts[topicParts.length - 1]\n        : \"up\";\n\nif (eventType === \"join\") {\n    const joinDevEui =\n        msg.payload &&\n            msg.payload.deviceInfo &&\n            msg.payload.deviceInfo.devEui\n            ? String(\n                msg.payload.deviceInfo.devEui\n            ).toUpperCase()\n            : null;\n\n    if (joinDevEui) {\n        global.set(\n            `${STATE_NAMESPACE}_state_${joinDevEui}`,\n            undefined\n        );\n\n        node.warn(\n            `LoRaWAN session reset after join — device=${joinDevEui}`\n        );\n\n        node.status({\n            fill: \"blue\",\n            shape: \"ring\",\n            text: `new session ${joinDevEui.slice(-8)}`\n        });\n    }\n\n    return null;\n}\n\nif (eventType !== \"up\") {\n    return null;\n}\n\n// ============================================================================\n// Validate incoming ChirpStack message\n// ============================================================================\n\nif (\n    !msg.payload ||\n    !msg.payload.deviceInfo ||\n    !msg.payload.deviceInfo.devEui ||\n    msg.payload.data === undefined ||\n    msg.payload.data === null\n) {\n    node.warn(\n        \"Invalid ChirpStack message: required payload fields are missing\"\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Device identity\n// ============================================================================\n\nconst devEui =\n    String(msg.payload.deviceInfo.devEui).toUpperCase();\n\nconst uidHex =\n    devEui.slice(-8);\n\nif (!/^[0-9A-F]{8}$/.test(uidHex)) {\n    node.warn(`Invalid DevEUI: ${devEui}`);\n    return null;\n}\n\nconst dynamicUid =\n    parseInt(uidHex, 16);\n\nif (!Number.isFinite(dynamicUid)) {\n    node.warn(\n        `Unable to calculate UID from DevEUI: ${devEui}`\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Decode compact LoRaWAN payload\n// ============================================================================\n\nlet buf;\n\ntry {\n    if (Buffer.isBuffer(msg.payload.data)) {\n        buf = msg.payload.data;\n    } else {\n        buf = Buffer.from(\n            String(msg.payload.data),\n            \"base64\"\n        );\n    }\n} catch (error) {\n    node.warn(\n        `Unable to decode LoRa payload from ${devEui}: ` +\n        error.message\n    );\n\n    return null;\n}\n\nif (buf.length !== EXPECTED_PAYLOAD_LENGTH) {\n    node.warn(\n        `Unexpected payload length from ${devEui}: ` +\n        `${buf.length} bytes; expected ${EXPECTED_PAYLOAD_LENGTH}`\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Decode header\n// ============================================================================\n\nconst protocolVersion =\n    buf.readUInt8(0);\n\nconst sampleCount =\n    buf.readUInt8(1);\n\nconst batchNumber =\n    buf.readUInt16LE(2);\n\nif (protocolVersion !== EXPECTED_VERSION) {\n    node.warn(\n        `Unsupported payload version from ${devEui}: ` +\n        `${protocolVersion}; expected ${EXPECTED_VERSION}`\n    );\n\n    return null;\n}\n\nif (\n    sampleCount === 0 ||\n    sampleCount > MAX_WEIGHT_SAMPLES\n) {\n    node.warn(\n        `Invalid weight sample count from ${devEui}: ` +\n        sampleCount\n    );\n\n    return null;\n}\n\nif (sampleCount !== MAX_WEIGHT_SAMPLES) {\n    node.warn(\n        `Partial weight batch from ${devEui}: ` +\n        `${sampleCount}/${MAX_WEIGHT_SAMPLES}`\n    );\n}\n\n// ============================================================================\n// Session-aware duplicate protection\n// ============================================================================\n//\n// The Arduino batch counter and the LoRaWAN frame counter both restart after\n// a new OTAA session. Therefore, neither value is globally unique by itself.\n//\n// Protection is applied at two levels:\n//\n//   1. ChirpStack deduplicationId suppresses the exact same MQTT event.\n//   2. DevAddr + session sequence + Arduino batch + complete payload suppresses\n//      a retransmission of the same application batch within one session.\n//\n// A new session is detected when:\n//   - a ChirpStack join event clears the state; or\n//   - DevAddr changes; or\n//   - fCnt returns to 0/1 after previously advancing beyond 1.\n\nconst stateKey =\n    `${STATE_NAMESPACE}_state_${devEui}`;\n\nlet deviceState =\n    global.get(stateKey);\n\nif (\n    !deviceState ||\n    typeof deviceState !== \"object\" ||\n    Array.isArray(deviceState)\n) {\n    deviceState = {\n        sessionSequence: 0,\n        devAddr: null,\n        maxFrameCounter: -1,\n        recentEventIds: [],\n        recentBatches: []\n    };\n}\n\nif (!Array.isArray(deviceState.recentEventIds)) {\n    deviceState.recentEventIds = [];\n}\n\nif (!Array.isArray(deviceState.recentBatches)) {\n    deviceState.recentBatches = [];\n}\n\nconst normaliseHex = value =>\n    String(value || \"\")\n        .replace(/^0x/i, \"\")\n        .replace(/[^0-9a-f]/gi, \"\")\n        .toUpperCase();\n\nconst devAddr =\n    normaliseHex(msg.payload.devAddr);\n\nconst frameCounter =\n    Number(msg.payload.fCnt);\n\nconst hasFrameCounter =\n    Number.isInteger(frameCounter) &&\n    frameCounter >= 0;\n\nconst devAddrChanged =\n    devAddr.length > 0 &&\n    deviceState.devAddr &&\n    devAddr !== deviceState.devAddr;\n\nconst frameCounterRestarted =\n    hasFrameCounter &&\n    frameCounter <= 1 &&\n    Number.isInteger(deviceState.maxFrameCounter) &&\n    deviceState.maxFrameCounter > 1;\n\nif (devAddrChanged || frameCounterRestarted) {\n    deviceState.sessionSequence =\n        Number(deviceState.sessionSequence || 0) + 1;\n\n    deviceState.recentEventIds = [];\n    deviceState.recentBatches = [];\n    deviceState.maxFrameCounter = -1;\n\n    node.warn(\n        `New LoRaWAN session detected — ` +\n        `device=${devEui}, ` +\n        `devAddr=${devAddr || \"unknown\"}, ` +\n        `fCnt=${hasFrameCounter ? frameCounter : \"unknown\"}`\n    );\n}\n\nif (devAddr.length > 0) {\n    deviceState.devAddr = devAddr;\n}\n\nconst payloadHex =\n    buf.toString(\"hex\");\n\nconst deduplicationId =\n    String(\n        msg.payload.deduplicationId || \"\"\n    ).trim();\n\nconst exactEventSignature =\n    deduplicationId\n        ? `dedup:${deduplicationId}`\n        : (\n            devAddr.length > 0 &&\n                hasFrameCounter\n                ? `frame:${devAddr}:${frameCounter}:${payloadHex}`\n                : `payload:${batchNumber}:${payloadHex}`\n        );\n\nif (\n    deviceState.recentEventIds.includes(\n        exactEventSignature\n    )\n) {\n    node.warn(\n        `Ignoring duplicate ChirpStack event — ` +\n        `device=${devEui}, batch=${batchNumber}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `duplicate event ${batchNumber}`\n    });\n\n    return null;\n}\n\nconst sessionIdentity =\n    `session:${Number(deviceState.sessionSequence || 0)}:` +\n    `${deviceState.devAddr || \"unknown\"}`;\n\nconst applicationBatchSignature =\n    `${sessionIdentity}:batch:${batchNumber}:${payloadHex}`;\n\nif (\n    deviceState.recentBatches.includes(\n        applicationBatchSignature\n    )\n) {\n    node.warn(\n        `Ignoring retransmitted application batch — ` +\n        `device=${devEui}, ` +\n        `session=${deviceState.sessionSequence}, ` +\n        `batch=${batchNumber}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `retransmitted batch ${batchNumber}`\n    });\n\n    return null;\n}\n\ndeviceState.recentEventIds.push(\n    exactEventSignature\n);\n\ndeviceState.recentBatches.push(\n    applicationBatchSignature\n);\n\nif (\n    deviceState.recentEventIds.length >\n    RECENT_MESSAGE_HISTORY\n) {\n    deviceState.recentEventIds =\n        deviceState.recentEventIds.slice(\n            -RECENT_MESSAGE_HISTORY\n        );\n}\n\nif (\n    deviceState.recentBatches.length >\n    RECENT_MESSAGE_HISTORY\n) {\n    deviceState.recentBatches =\n        deviceState.recentBatches.slice(\n            -RECENT_MESSAGE_HISTORY\n        );\n}\n\nif (hasFrameCounter) {\n    deviceState.maxFrameCounter =\n        Math.max(\n            Number(deviceState.maxFrameCounter || -1),\n            frameCounter\n        );\n}\n\nglobal.set(\n    stateKey,\n    deviceState\n);\n\n// ============================================================================\n// Decode environmental data\n// ============================================================================\n\nconst temp =\n    buf.readInt16LE(40) / 100.0;\n\nconst co2 =\n    buf.readUInt16LE(42);\n\nconst lux =\n    buf.readUInt16LE(44);\n\nconst humidity =\n    buf.readUInt16LE(46) / 100.0;\n\nconst pressure =\n    buf.readUInt16LE(48) / 10.0;\n\n// ============================================================================\n// RSSI\n// ============================================================================\n\nlet bestRssi = -120;\n\nif (\n    Array.isArray(msg.payload.rxInfo) &&\n    msg.payload.rxInfo.length > 0\n) {\n    const validRssiValues =\n        msg.payload.rxInfo\n            .map(rx => Number(rx.rssi))\n            .filter(value => Number.isFinite(value));\n\n    if (validRssiValues.length > 0) {\n        bestRssi =\n            Math.max(...validRssiValues);\n    }\n}\n\nconst rawRssi =\n    Math.abs(bestRssi);\n\n// ============================================================================\n// Timestamp helpers\n// ============================================================================\n//\n// Preserve the previously proven behaviour by using Node-RED processing time\n// as the time of the newest sample.\n//\n// For an 18-reading batch:\n//\n//   sample 0  = newest time minus 170 seconds\n//   sample 1  = newest time minus 160 seconds\n//   ...\n//   sample 17 = newest time\n\nconst newestSampleTime =\n    new Date();\n\nfunction formatBackendTimestamp(date) {\n    return (\n        date.toISOString().split(\".\")[0] +\n        \"+00:00\"\n    );\n}\n\n// ============================================================================\n// Backend message helper\n// ============================================================================\n\nconst outMessages = [];\n\nconst usedPacketNumbers =\n    new Set();\n\nfunction nextPacketNumber() {\n    let packetNumber;\n\n    do {\n        packetNumber =\n            Math.floor(Math.random() * 65536);\n    } while (usedPacketNumbers.has(packetNumber));\n\n    usedPacketNumbers.add(packetNumber);\n\n    return packetNumber;\n}\n\nfunction makeBackendMessage(\n    hexData,\n    receivedTimestamp\n) {\n    return {\n        topic:\n            `gateway/${gatewaySerial}/tinymesh/out`,\n\n        payload: {\n            \"_meta\": {\n                \"received\": receivedTimestamp\n            },\n\n            \"block\": 0,\n            \"data\": hexData,\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": nextPacketNumber(),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    };\n}\n\n// ============================================================================\n// Forge one Type 0x02 packet for each valid weight reading\n//\n// Type:      0x02\n// Length:    106 bytes\n// Signature: 026a\n// ============================================================================\n\nlet validWeightEvents = 0;\nlet invalidWeightEvents = 0;\nlet genuineZeroEvents = 0;\n\nlet firstValidWeight = null;\nlet lastValidWeight = null;\n\nlet firstWeightTimestamp = null;\nlet lastWeightTimestamp = null;\n\nfor (let i = 0; i < sampleCount; i++) {\n    const weight =\n        buf.readUInt16LE(4 + (i * 2));\n\n    const ageFromNewestMs =\n        (sampleCount - 1 - i) *\n        WEIGHT_INTERVAL_MS;\n\n    const sampleTime =\n        new Date(\n            newestSampleTime.getTime() -\n            ageFromNewestMs\n        );\n\n    const sampleTimestamp =\n        formatBackendTimestamp(sampleTime);\n\n    if (weight === INVALID_WEIGHT) {\n        invalidWeightEvents++;\n\n        node.warn(\n            `Skipping invalid weight — ` +\n            `device=${devEui}, ` +\n            `batch=${batchNumber}, ` +\n            `sample=${i + 1}/${sampleCount}, ` +\n            `timestamp=${sampleTimestamp}`\n        );\n\n        continue;\n    }\n\n    // Preserve genuine zeroes and reserve 0xFFFF for invalid readings.\n    const outputWeight =\n        Math.min(\n            65534,\n            Math.max(\n                0,\n                Math.round(weight)\n            )\n        );\n\n    if (outputWeight === 0) {\n        genuineZeroEvents++;\n    }\n\n    const wBuf =\n        Buffer.alloc(106, 0);\n\n    wBuf.writeUInt8(0x02, 0);\n    wBuf.writeUInt8(0x6A, 1);\n\n    // Bytes 2-5 remain reserved and zero-filled.\n    //\n    // Repeat this single spot reading across the fixed legacy 50-value\n    // structure. The backend associates the complete telegram with the\n    // timestamp above.\n\n    for (let j = 0; j < 50; j++) {\n        wBuf.writeUInt16LE(\n            outputWeight,\n            6 + (j * 2)\n        );\n    }\n\n    outMessages.push(\n        makeBackendMessage(\n            wBuf.toString(\"hex\"),\n            sampleTimestamp\n        )\n    );\n\n    if (firstValidWeight === null) {\n        firstValidWeight =\n            outputWeight;\n\n        firstWeightTimestamp =\n            sampleTimestamp;\n    }\n\n    lastValidWeight =\n        outputWeight;\n\n    lastWeightTimestamp =\n        sampleTimestamp;\n\n    validWeightEvents++;\n}\n\n// ============================================================================\n// Forge Type 0x01 environmental packet\n//\n// Type:      0x01\n// Length:    58 bytes\n// Signature: 013a\n// ============================================================================\n\nconst envBuf =\n    Buffer.alloc(58, 0);\n\nenvBuf.writeUInt8(0x01, 0);\nenvBuf.writeUInt8(0x3A, 1);\n\n// Bytes 2-5 remain reserved and zero-filled.\n\nenvBuf.writeFloatLE(\n    temp,\n    6\n);                                      // AirTemperature\n\nenvBuf.writeFloatLE(\n    pressure,\n    10\n);                                      // AirPressure\n\nenvBuf.writeFloatLE(\n    temp,\n    14\n);                                      // HumidityTemperature\n\nenvBuf.writeFloatLE(\n    humidity,\n    18\n);                                      // Humidity\n\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(\n            0,\n            Math.round(lux)\n        )\n    ),\n    22\n);                                      // LightALS\n\n// Confirmed backend workaround:\n// GASCO2 must be written as UInt32 rather than Float32.\nenvBuf.writeUInt32LE(\n    Math.min(\n        0xFFFFFFFF,\n        Math.max(\n            0,\n            Math.round(co2)\n        )\n    ),\n    26\n);                                      // GASCO2\n\nenvBuf.writeFloatLE(0.0, 30);            // GASTemperature\nenvBuf.writeFloatLE(0.0, 34);            // GASHumidity\nenvBuf.writeFloatLE(0.0, 38);            // GASNH3\nenvBuf.writeFloatLE(0.0, 42);            // GASCO\nenvBuf.writeFloatLE(0.0, 46);            // GASNO2\nenvBuf.writeFloatLE(temp, 50);           // BoardTemperature\nenvBuf.writeFloatLE(temp, 54);           // PT100Temperature\n\nconst environmentalTimestamp =\n    formatBackendTimestamp(newestSampleTime);\n\n// Add the environmental packet after the chronological weight events.\noutMessages.push(\n    makeBackendMessage(\n        envBuf.toString(\"hex\"),\n        environmentalTimestamp\n    )\n);\n\n// ============================================================================\n// Diagnostics\n// ============================================================================\n\nnode.warn(\n    `BATCH DECODED — ` +\n    `device=${devEui}, ` +\n    `batch=${batchNumber}, ` +\n    `samples=${sampleCount}, ` +\n    `validWeights=${validWeightEvents}, ` +\n    `invalidWeights=${invalidWeightEvents}, ` +\n    `genuineZeros=${genuineZeroEvents}`\n);\n\nif (validWeightEvents > 0) {\n    node.warn(\n        `WEIGHT EVENTS CREATED — ` +\n        `device=${devEui}, ` +\n        `count=${validWeightEvents}, ` +\n        `firstWeight=${firstValidWeight}, ` +\n        `firstTime=${firstWeightTimestamp}, ` +\n        `lastWeight=${lastValidWeight}, ` +\n        `lastTime=${lastWeightTimestamp}`\n    );\n}\n\nnode.warn(\n    `PARSER OUTPUT — ` +\n    `device=${devEui}, ` +\n    `messages=${outMessages.length}, ` +\n    `weightMessages=${validWeightEvents}, ` +\n    `environmentMessages=1`\n);\n\nnode.status({\n    fill:\n        invalidWeightEvents > 0\n            ? \"yellow\"\n            : \"green\",\n\n    shape: \"dot\",\n\n    text:\n        `${validWeightEvents} weights + 1 env`\n});\n\n// ============================================================================\n// Send all generated messages through output 1\n// ============================================================================\n//\n// With 18 valid weights, this sends 19 messages:\n//\n//   18 × Type 0x02 weight packets\n//    1 × Type 0x01 environmental packet\n\nnode.send([outMessages]);\n\nreturn null;",
@@ -1733,8 +1762,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 720,
-        "y": 200,
+        "x": 780,
+        "y": 240,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -1779,8 +1808,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1540,
-        "y": 960,
+        "x": 1520,
+        "y": 1360,
         "wires": []
     },
     {
@@ -1796,8 +1825,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 260,
-        "y": 40,
+        "x": 280,
+        "y": 20,
         "wires": [
             []
         ]
@@ -1816,8 +1845,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 190,
-        "y": 280,
+        "x": 170,
+        "y": 320,
         "wires": [
             [
                 "87aa47cc136f336a"
@@ -1829,22 +1858,27 @@
         "type": "function",
         "z": "3738026cb3832ee1",
         "g": "a3a62aaa37101276",
-        "name": "LoRa Device Dispatcher",
-        "func": "// ── FAI LoRaWAN Device Dispatcher v1.1 ─────────────────────────────────────\n//\n// Output 1: ShedSensor events, including up and join\n// Output 2: Water-meter uplinks only\n// Output 3: Water-meter joins and unknown devices/events\n\nconst payload =\n    msg.payload || {};\n\nconst deviceInfo =\n    payload.deviceInfo || {};\n\nconst tags =\n    deviceInfo.tags &&\n    typeof deviceInfo.tags === \"object\"\n        ? deviceInfo.tags\n        : {};\n\nconst profileName =\n    String(\n        deviceInfo.deviceProfileName || \"\"\n    );\n\nconst eventType =\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean)\n        .pop() || \"unknown\";\n\nlet deviceType =\n    String(\n        tags.sensor_type ||\n        tags.device_type ||\n        \"\"\n    ).toLowerCase();\n\n// Compatibility with existing profiles that do not yet have tags.\nif (!deviceType) {\n    if (profileName === \"RAK3272 Node\") {\n        deviceType = \"shed_sensor\";\n    } else if (\n        profileName ===\n        \"B METERS HYDRODIGIT-S1 EU868\"\n    ) {\n        deviceType = \"water_meter\";\n    }\n}\n\nmsg.fai = {\n    deviceType,\n    eventType,\n\n    devEui:\n        String(\n            deviceInfo.devEui || \"\"\n        ).toUpperCase(),\n\n    deviceName:\n        String(\n            deviceInfo.deviceName || \"\"\n        ),\n\n    profileName,\n    tags\n};\n\n// ShedSensor parser handles both uplinks and joins.\nif (deviceType === \"shed_sensor\") {\n    node.status({\n        fill: \"green\",\n        shape: \"dot\",\n        text: `shed_sensor ${eventType}`\n    });\n\n    return [msg, null, null];\n}\n\n// Only water-meter uplinks contain application payload data.\nif (\n    deviceType === \"water_meter\" &&\n    eventType === \"up\"\n) {\n    node.status({\n        fill: \"blue\",\n        shape: \"dot\",\n        text: \"water_meter up\"\n    });\n\n    return [null, msg, null];\n}\n\n// Water-meter join events and unidentified devices go to diagnostics.\nnode.status({\n    fill: \"yellow\",\n    shape: \"ring\",\n    text:\n        `${deviceType || \"unknown\"} ${eventType}`\n});\n\nreturn [null, null, msg];",
-        "outputs": 3,
+        "name": "LoRa Device Dispatcher V.2",
+        "func": "// ── FAI LoRaWAN Device Dispatcher v1.2 ─────────────────────────────────────\n//\n// Output 1: ShedSensor events, including up and join\n// Output 2: B Meters Hydrodigit uplinks\n// Output 3: Talkpool OY1310 uplinks\n// Output 4: joins, unknown devices/events and diagnostics\n\nconst payload =\n    msg.payload || {};\n\nconst deviceInfo =\n    payload.deviceInfo || {};\n\nconst tags =\n    deviceInfo.tags &&\n        typeof deviceInfo.tags === \"object\"\n        ? deviceInfo.tags\n        : {};\n\nconst profileName =\n    String(\n        deviceInfo.deviceProfileName || \"\"\n    );\n\nconst eventType =\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean)\n        .pop() || \"unknown\";\n\nconst sensorType =\n    String(\n        tags.sensor_type ||\n        tags.device_type ||\n        \"\"\n    ).toLowerCase();\n\nconst manufacturer =\n    String(\n        tags.manufacturer || \"\"\n    ).toLowerCase();\n\nconst model =\n    String(\n        tags.model || \"\"\n    ).toLowerCase();\n\nlet deviceType = \"\";\n\n// ============================================================================\n// Device classification\n// ============================================================================\n\n// ShedSensor\nif (\n    sensorType === \"shed_sensor\" ||\n    profileName === \"RAK3272 Node\"\n) {\n    deviceType = \"shed_sensor\";\n}\n\n// Talkpool OY1310\nelse if (\n    sensorType === \"water_meter_talkpool\" ||\n    sensorType === \"talkpool_oy1310\" ||\n    model.includes(\"oy1310\") ||\n    manufacturer.includes(\"talkpool\") ||\n    profileName.toLowerCase().includes(\"oy1310\")\n) {\n    deviceType = \"water_meter_talkpool\";\n}\n\n// Existing B Meters Hydrodigit\nelse if (\n    sensorType === \"water_meter_hydrodigit\" ||\n    model.includes(\"hydrodigit\") ||\n    manufacturer.includes(\"b meters\") ||\n    profileName === \"B METERS HYDRODIGIT-S1 EU868\"\n) {\n    deviceType = \"water_meter_hydrodigit\";\n}\n\n// Backwards compatibility:\n// Existing devices tagged only as sensor_type=water_meter continue\n// down the Hydrodigit path.\nelse if (\n    sensorType === \"water_meter\"\n) {\n    deviceType = \"water_meter_hydrodigit\";\n}\n\n// ============================================================================\n// Add normalized FAI metadata\n// ============================================================================\n\nmsg.fai = {\n    deviceType,\n    eventType,\n\n    devEui:\n        String(\n            deviceInfo.devEui || \"\"\n        ).toUpperCase(),\n\n    deviceName:\n        String(\n            deviceInfo.deviceName || \"\"\n        ),\n\n    profileName,\n    tags\n};\n\n// ============================================================================\n// Routing\n// ============================================================================\n\n// ShedSensor parser handles both uplinks and joins.\nif (deviceType === \"shed_sensor\") {\n    node.status({\n        fill: \"green\",\n        shape: \"dot\",\n        text: `shed_sensor ${eventType}`\n    });\n\n    return [msg, null, null, null];\n}\n\n// Hydrodigit application uplinks.\nif (\n    deviceType === \"water_meter_hydrodigit\" &&\n    eventType === \"up\"\n) {\n    node.status({\n        fill: \"blue\",\n        shape: \"dot\",\n        text: \"hydrodigit up\"\n    });\n\n    return [null, msg, null, null];\n}\n\n// Talkpool OY1310 application uplinks.\nif (\n    deviceType === \"water_meter_talkpool\" &&\n    (eventType === \"up\" || eventType === \"join\")\n) {\n    node.status({\n        fill: \"blue\",\n        shape: \"dot\",\n        text: `OY1310 ${eventType}`\n    });\n\n    return [null, null, msg, null];\n}\n\n// Joins, unknown devices and unsupported events.\nnode.status({\n    fill: \"yellow\",\n    shape: \"ring\",\n    text:\n        `${deviceType || \"unknown\"} ${eventType}`\n});\n\nreturn [null, null, null, msg];",
+        "outputs": 4,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
-        "y": 240,
+        "x": 500,
+        "y": 280,
         "wires": [
             [
-                "c96e6411ef124a35"
+                "c96e6411ef124a35",
+                "31daaefc6f2976c6"
             ],
             [
                 "027f325576280c94"
+            ],
+            [
+                "cb1c76909e4cc237",
+                "c8eeaa7ed265f0e8"
             ],
             []
         ]
@@ -1862,8 +1896,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 750,
-        "y": 260,
+        "x": 790,
+        "y": 320,
         "wires": [
             [
                 "7e52c868fd492d08"
@@ -1883,8 +1917,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1010,
-        "y": 260,
+        "x": 990,
+        "y": 300,
         "wires": [
             [
                 "a5a75db8e96fde8a"
@@ -1904,8 +1938,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1210,
-        "y": 260,
+        "x": 1190,
+        "y": 300,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -1919,8 +1953,8 @@
         "g": "35c85549ab8e7922",
         "name": "ADS301 DAISY CHAIN — multichannel silo telemetry",
         "info": "Each physical ADS301 exposes multiple channel addresses on the same RS-485 bus.\n\nFor normal silo telemetry Node-RED does NOT require the ADS301 master address. Instead, one responding Unit ID from each physical junction box is used as the ACCESS Unit ID. Node-RED reads the ADS301 multichannel register block (0x1001 onward), sums the configured active load-cell channels, and publishes one logical silo value.\n\nLogical identity remains fixed:\nSilo 1 -> <gateway>_silo_01\nSilo 2 -> <gateway>_silo_02\n\nAll channel addresses across both physical ADS301 boxes must still be unique when both boxes share the bus.",
-        "x": 540,
-        "y": 1740,
+        "x": 480,
+        "y": 1540,
         "wires": []
     },
     {
@@ -1945,8 +1979,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 290,
-        "y": 1960,
+        "x": 230,
+        "y": 1760,
         "wires": [
             [
                 "c27964af8bf6225d"
@@ -1966,8 +2000,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 690,
-        "y": 1940,
+        "x": 630,
+        "y": 1740,
         "wires": [
             [
                 "822f2d58ede5aaa0"
@@ -2011,8 +2045,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "str",
-        "x": 1130,
-        "y": 1900,
+        "x": 1070,
+        "y": 1700,
         "wires": [
             [
                 "d5c636614eaea494"
@@ -2032,8 +2066,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1450,
-        "y": 1900,
+        "x": 1390,
+        "y": 1700,
         "wires": [
             []
         ]
@@ -2057,8 +2091,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "str",
-        "x": 1130,
-        "y": 1940,
+        "x": 1070,
+        "y": 1740,
         "wires": [
             [
                 "bde244a04e7b3dc7"
@@ -2078,8 +2112,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1450,
-        "y": 1940,
+        "x": 1390,
+        "y": 1740,
         "wires": [
             []
         ]
@@ -2105,8 +2139,8 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 280,
-        "y": 2140,
+        "x": 220,
+        "y": 1940,
         "wires": [
             [
                 "3858427b71906a62"
@@ -2126,8 +2160,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 630,
-        "y": 2140,
+        "x": 570,
+        "y": 1940,
         "wires": [
             [
                 "9a34c841ed226199"
@@ -2153,8 +2187,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "str",
-        "x": 270,
-        "y": 2280,
+        "x": 210,
+        "y": 2080,
         "wires": [
             [
                 "89dbb858ccd79a37"
@@ -2174,8 +2208,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
-        "y": 2280,
+        "x": 540,
+        "y": 2080,
         "wires": [
             []
         ]
@@ -2199,8 +2233,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "str",
-        "x": 270,
-        "y": 2340,
+        "x": 210,
+        "y": 2140,
         "wires": [
             [
                 "13701716f10f6336"
@@ -2220,8 +2254,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
-        "y": 2340,
+        "x": 540,
+        "y": 2140,
         "wires": [
             []
         ]
@@ -2252,8 +2286,8 @@
         "officon": "",
         "offcolor": "",
         "animate": false,
-        "x": 2650,
-        "y": 2500,
+        "x": 2590,
+        "y": 2300,
         "wires": [
             [
                 "27086ab2d045dfcc"
@@ -2273,8 +2307,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2940,
-        "y": 2500,
+        "x": 2880,
+        "y": 2300,
         "wires": [
             []
         ]
@@ -2300,8 +2334,8 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 300,
-        "y": 2460,
+        "x": 240,
+        "y": 2260,
         "wires": [
             [
                 "e73aae40757011ca"
@@ -2321,8 +2355,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 660,
-        "y": 2460,
+        "x": 600,
+        "y": 2260,
         "wires": [
             [
                 "4b9c6b6d566b07cf"
@@ -2350,8 +2384,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1050,
-        "y": 2460,
+        "x": 990,
+        "y": 2260,
         "wires": [
             [
                 "f4af018071157fe0"
@@ -2381,8 +2415,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1350,
-        "y": 2460,
+        "x": 1290,
+        "y": 2260,
         "wires": [
             [
                 "89bb95965960e4b4"
@@ -2406,8 +2440,8 @@
         "keepMsgProperties": true,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 1670,
-        "y": 2420,
+        "x": 1610,
+        "y": 2220,
         "wires": [
             [
                 "5f435cb09ab848ca"
@@ -2433,8 +2467,8 @@
         "keepMsgProperties": true,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 1670,
-        "y": 2500,
+        "x": 1610,
+        "y": 2300,
         "wires": [
             [
                 "977e3152870c0e93"
@@ -2455,8 +2489,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2000,
-        "y": 2420,
+        "x": 1940,
+        "y": 2220,
         "wires": [
             [
                 "9a34c841ed226199",
@@ -2503,8 +2537,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 4,
-        "x": 2000,
-        "y": 2500,
+        "x": 1940,
+        "y": 2300,
         "wires": [
             [
                 "a1de40347dae74ba"
@@ -2533,8 +2567,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2310,
-        "y": 2480,
+        "x": 2250,
+        "y": 2280,
         "wires": [
             [
                 "9a34c841ed226199",
@@ -2556,8 +2590,8 @@
             "f5653f8c8376e7b6"
         ],
         "uncaught": false,
-        "x": 1680,
-        "y": 2560,
+        "x": 1620,
+        "y": 2360,
         "wires": [
             [
                 "b6b05b2367b32d73"
@@ -2577,8 +2611,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2000,
-        "y": 2560,
+        "x": 1940,
+        "y": 2360,
         "wires": [
             [
                 "9a34c841ed226199",
@@ -2620,8 +2654,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 270,
-        "y": 2560,
+        "x": 210,
+        "y": 2360,
         "wires": [
             [
                 "cb5acd6d07846b76"
@@ -2641,8 +2675,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
-        "y": 2560,
+        "x": 540,
+        "y": 2360,
         "wires": [
             [
                 "9a34c841ed226199"
@@ -2668,8 +2702,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "str",
-        "x": 270,
-        "y": 2620,
+        "x": 210,
+        "y": 2420,
         "wires": [
             [
                 "6323974d2bb3a96f"
@@ -2689,8 +2723,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
-        "y": 2620,
+        "x": 540,
+        "y": 2420,
         "wires": [
             [
                 "9a34c841ed226199"
@@ -2718,8 +2752,8 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 250,
-        "y": 2680,
+        "x": 190,
+        "y": 2480,
         "wires": [
             [
                 "12f53333b24286fe"
@@ -2739,8 +2773,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
-        "y": 2680,
+        "x": 540,
+        "y": 2480,
         "wires": [
             [
                 "f5653f8c8376e7b6"
@@ -2771,8 +2805,8 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 290,
-        "y": 2740,
+        "x": 230,
+        "y": 2540,
         "wires": [
             [
                 "dd2a885670b40625"
@@ -2792,8 +2826,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 630,
-        "y": 2740,
+        "x": 570,
+        "y": 2540,
         "wires": [
             [
                 "f5653f8c8376e7b6"
@@ -2821,8 +2855,8 @@
         "once": true,
         "onceDelay": "3",
         "topic": "",
-        "x": 1030,
-        "y": 1760,
+        "x": 970,
+        "y": 1560,
         "wires": [
             [
                 "25f433e99efba297"
@@ -2847,8 +2881,8 @@
         "once": true,
         "onceDelay": "13",
         "topic": "",
-        "x": 1030,
-        "y": 1800,
+        "x": 970,
+        "y": 1600,
         "wires": [
             [
                 "25f433e99efba297"
@@ -2868,8 +2902,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1350,
-        "y": 1780,
+        "x": 1290,
+        "y": 1580,
         "wires": [
             [
                 "f5653f8c8376e7b6"
@@ -2889,8 +2923,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2740,
-        "y": 2580,
+        "x": 2680,
+        "y": 2380,
         "wires": [
             [
                 "82f07040e6a283a3",
@@ -2912,8 +2946,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 3270,
-        "y": 2240,
+        "x": 3210,
+        "y": 2040,
         "wires": []
     },
     {
@@ -2930,8 +2964,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2810,
-        "y": 2720,
+        "x": 2750,
+        "y": 2520,
         "wires": []
     },
     {
@@ -2948,8 +2982,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 3060,
-        "y": 2580,
+        "x": 3000,
+        "y": 2380,
         "wires": []
     },
     {
@@ -2968,8 +3002,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 290,
-        "y": 1840,
+        "x": 230,
+        "y": 1640,
         "wires": [
             []
         ]
@@ -2990,8 +3024,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 240,
-        "y": 1900,
+        "x": 180,
+        "y": 1700,
         "wires": [
             []
         ]
@@ -3010,8 +3044,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 3270,
-        "y": 2080,
+        "x": 3210,
+        "y": 1880,
         "wires": []
     },
     {
@@ -3028,8 +3062,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 3270,
-        "y": 2120,
+        "x": 3210,
+        "y": 1920,
         "wires": []
     },
     {
@@ -3045,8 +3079,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2790,
-        "y": 2240,
+        "x": 2730,
+        "y": 2040,
         "wires": [
             [
                 "d90cc664cbc9159c"
@@ -3076,8 +3110,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 3280,
-        "y": 2160,
+        "x": 3220,
+        "y": 1960,
         "wires": []
     },
     {
@@ -3094,8 +3128,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 3280,
-        "y": 2200,
+        "x": 3220,
+        "y": 2000,
         "wires": []
     },
     {
@@ -3114,8 +3148,8 @@
         "className": "",
         "topic": "",
         "name": "ADS301 action notification",
-        "x": 3300,
-        "y": 2280,
+        "x": 3240,
+        "y": 2080,
         "wires": []
     },
     {
@@ -3137,8 +3171,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "str",
-        "x": 1100,
-        "y": 2040,
+        "x": 1040,
+        "y": 1840,
         "wires": [
             [
                 "c58c0bed3f47a73b"
@@ -3158,8 +3192,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1450,
-        "y": 2040,
+        "x": 1390,
+        "y": 1840,
         "wires": [
             []
         ]
@@ -3183,8 +3217,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "str",
-        "x": 1100,
-        "y": 2080,
+        "x": 1040,
+        "y": 1880,
         "wires": [
             [
                 "93a7b797f8b357ce"
@@ -3204,8 +3238,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1450,
-        "y": 2080,
+        "x": 1390,
+        "y": 1880,
         "wires": [
             []
         ]
@@ -3223,8 +3257,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2380,
-        "y": 2120,
+        "x": 2320,
+        "y": 1920,
         "wires": [
             [
                 "9a34c841ed226199",
@@ -3251,8 +3285,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2340,
-        "y": 2720,
+        "x": 2280,
+        "y": 2520,
         "wires": [
             [
                 "9a34c841ed226199",
@@ -3282,8 +3316,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 120,
+        "x": 140,
+        "y": 160,
         "wires": [
             [
                 "b53b1a5fd06b4b39"
@@ -3303,30 +3337,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 370,
-        "y": 120,
+        "x": 350,
+        "y": 160,
         "wires": [
-            [
-                "449d3fb8efadacc7"
-            ]
+            []
         ]
-    },
-    {
-        "id": "449d3fb8efadacc7",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "g": "a3a62aaa37101276",
-        "name": "debug 6",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 600,
-        "y": 120,
-        "wires": []
     },
     {
         "id": "9e82656eb5534a6c",
@@ -3736,6 +3751,520 @@
         "statusType": "auto",
         "x": 2500,
         "y": 3640,
+        "wires": []
+    },
+    {
+        "id": "a100000000000001",
+        "type": "trigger",
+        "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
+        "name": "TinyMesh 10s data watchdog",
+        "op1": "",
+        "op2": "{\"source\":\"data_watchdog\",\"reason\":\"no TinyMesh data for 10 seconds\"}",
+        "op1type": "nul",
+        "op2type": "json",
+        "duration": "10",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 520,
+        "y": 720,
+        "wires": [
+            [
+                "a100000000000002"
+            ]
+        ]
+    },
+    {
+        "id": "a100000000000002",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
+        "name": "Recover TinyMesh serial port",
+        "func": "const request = msg.payload || {};\nconst source = request.source || \"unknown\";\nconst emcMode = String(env.get(\"EMC_TEST_MODE\") || \"false\").toLowerCase() === \"true\";\n\n// A passive receiver can legitimately have no traffic in production.\n// Only use data freshness as a recovery trigger during the controlled EMC test.\nif (source === \"data_watchdog\" && !emcMode) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"stale recovery disabled outside EMC mode\" });\n    return null;\n}\n\nconst now = Date.now();\nconst cooldownMs = 60000;\nconst lastRecovery = context.get(\"lastRecovery\") || 0;\nif (now - lastRecovery < cooldownMs) {\n    node.status({ fill: \"yellow\", shape: \"ring\", text: \"recovery cooldown\" });\n    return null;\n}\ncontext.set(\"lastRecovery\", now);\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst recoveryId = `tinymesh-${now}`;\nconst eventTopic = `gateway/${gatewaySerial}/health/recovery`;\nconst baseEvent = {\n    timestamp: new Date(now).toISOString(),\n    recovery_id: recoveryId,\n    interface: \"tinymesh\",\n    source,\n    reason: request.reason || \"serial recovery requested\"\n};\n\nnode.status({ fill: \"yellow\", shape: \"dot\", text: \"closing serial port\" });\nnode.send([\n    { payload: { enabled: false }, recovery_id: recoveryId },\n    { topic: eventTopic, payload: { ...baseEvent, action: \"serial_close\" }, qos: 1 }\n]);\n\nsetTimeout(() => {\n    node.status({ fill: \"green\", shape: \"dot\", text: \"serial port reopened\" });\n    node.send([\n        { payload: { enabled: true }, recovery_id: recoveryId },\n        {\n            topic: eventTopic,\n            payload: { ...baseEvent, timestamp: new Date().toISOString(), action: \"serial_reopen\" },\n            qos: 1\n        }\n    ]);\n}, 1000);\n\nreturn null;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 680,
+        "wires": [
+            [
+                "a100000000000003"
+            ],
+            [
+                "479b96e0273a18b1"
+            ]
+        ]
+    },
+    {
+        "id": "a100000000000003",
+        "type": "serial control",
+        "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
+        "name": "TinyMesh serial control",
+        "serial": "683cf0d2d547c4fd",
+        "x": 960,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a100000000000004",
+        "type": "status",
+        "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
+        "name": "TinyMesh serial status",
+        "scope": [
+            "3795322861042bc3"
+        ],
+        "x": 140,
+        "y": 640,
+        "wires": [
+            [
+                "a100000000000005"
+            ]
+        ]
+    },
+    {
+        "id": "a100000000000005",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
+        "name": "TinyMesh bad-status filter",
+        "func": "const status = msg.status || {};\nconst fill = String(status.fill || \"\").toLowerCase();\nconst text = String(status.text || \"\").toLowerCase();\nconst bad = fill === \"red\" || /(disconnect|error|failed|cannot|not open)/.test(text);\n\nglobal.set(\"health_tinymesh_serial_bad\", bad);\nglobal.set(\"health_tinymesh_serial_status\", {\n    timestamp: new Date().toISOString(),\n    fill,\n    text\n});\n\nif (!bad) return null;\n\nmsg.payload = {\n    source: \"serial_status\",\n    reason: `TinyMesh serial status: ${status.text || status.fill || \"unknown error\"}`\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 640,
+        "wires": [
+            [
+                "a100000000000002"
+            ]
+        ]
+    },
+    {
+        "id": "a100000000000006",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
+        "name": "Arm TinyMesh watchdog",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 5,
+        "topic": "",
+        "payload": "arm",
+        "payloadType": "str",
+        "x": 170,
+        "y": 720,
+        "wires": [
+            [
+                "a100000000000001"
+            ]
+        ]
+    },
+    {
+        "id": "a100000000000007",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
+        "name": "Record TinyMesh heartbeat",
+        "func": "global.set(\"health_tinymesh_last_seen\", Date.now());\nglobal.set(\"health_tinymesh_serial_bad\", false);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "a200000000000001",
+        "type": "trigger",
+        "z": "3738026cb3832ee1",
+        "g": "febc9982bb1406d1",
+        "name": "wM-Bus 10s data watchdog",
+        "op1": "",
+        "op2": "{\"source\":\"data_watchdog\",\"reason\":\"no wM-Bus data for 10 seconds\"}",
+        "op1type": "nul",
+        "op2type": "json",
+        "duration": "10",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 420,
+        "y": 860,
+        "wires": [
+            [
+                "a200000000000002"
+            ]
+        ]
+    },
+    {
+        "id": "a200000000000002",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "febc9982bb1406d1",
+        "name": "Recover wM-Bus serial port",
+        "func": "const request = msg.payload || {};\nconst source = request.source || \"unknown\";\nconst emcMode = String(env.get(\"EMC_TEST_MODE\") || \"false\").toLowerCase() === \"true\";\n\n// A passive receiver can legitimately have no traffic in production.\n// Only use data freshness as a recovery trigger during the controlled EMC test.\nif (source === \"data_watchdog\" && !emcMode) {\n    node.status({ fill: \"grey\", shape: \"ring\", text: \"stale recovery disabled outside EMC mode\" });\n    return null;\n}\n\nconst now = Date.now();\nconst cooldownMs = 60000;\nconst lastRecovery = context.get(\"lastRecovery\") || 0;\nif (now - lastRecovery < cooldownMs) {\n    node.status({ fill: \"yellow\", shape: \"ring\", text: \"recovery cooldown\" });\n    return null;\n}\ncontext.set(\"lastRecovery\", now);\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst recoveryId = `wmbus-${now}`;\nconst eventTopic = `gateway/${gatewaySerial}/health/recovery`;\nconst baseEvent = {\n    timestamp: new Date(now).toISOString(),\n    recovery_id: recoveryId,\n    interface: \"wmbus\",\n    source,\n    reason: request.reason || \"serial recovery requested\"\n};\n\nnode.status({ fill: \"yellow\", shape: \"dot\", text: \"closing serial port\" });\nnode.send([\n    { payload: { enabled: false }, recovery_id: recoveryId },\n    { topic: eventTopic, payload: { ...baseEvent, action: \"serial_close\" }, qos: 1 }\n]);\n\nsetTimeout(() => {\n    node.status({ fill: \"green\", shape: \"dot\", text: \"serial port reopened\" });\n    node.send([\n        { payload: { enabled: true }, recovery_id: recoveryId },\n        {\n            topic: eventTopic,\n            payload: { ...baseEvent, timestamp: new Date().toISOString(), action: \"serial_reopen\" },\n            qos: 1\n        }\n    ]);\n}, 1000);\n\nreturn null;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 920,
+        "wires": [
+            [
+                "a200000000000003"
+            ],
+            [
+                "479b96e0273a18b1"
+            ]
+        ]
+    },
+    {
+        "id": "a200000000000003",
+        "type": "serial control",
+        "z": "3738026cb3832ee1",
+        "g": "febc9982bb1406d1",
+        "name": "wM-Bus serial control",
+        "serial": "bcc4801ac002ac63",
+        "x": 900,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a200000000000004",
+        "type": "status",
+        "z": "3738026cb3832ee1",
+        "g": "febc9982bb1406d1",
+        "name": "wM-Bus serial status",
+        "scope": [
+            "81706964859001bb"
+        ],
+        "x": 170,
+        "y": 940,
+        "wires": [
+            [
+                "a200000000000005"
+            ]
+        ]
+    },
+    {
+        "id": "a200000000000005",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "febc9982bb1406d1",
+        "name": "wM-Bus bad-status filter",
+        "func": "const status = msg.status || {};\nconst fill = String(status.fill || \"\").toLowerCase();\nconst text = String(status.text || \"\").toLowerCase();\nconst bad = fill === \"red\" || /(disconnect|error|failed|cannot|not open)/.test(text);\n\nglobal.set(\"health_wmbus_serial_bad\", bad);\nglobal.set(\"health_wmbus_serial_status\", {\n    timestamp: new Date().toISOString(),\n    fill,\n    text\n});\n\nif (!bad) return null;\n\nmsg.payload = {\n    source: \"serial_status\",\n    reason: `wM-Bus serial status: ${status.text || status.fill || \"unknown error\"}`\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 920,
+        "wires": [
+            [
+                "a200000000000002"
+            ]
+        ]
+    },
+    {
+        "id": "a200000000000006",
+        "type": "inject",
+        "z": "3738026cb3832ee1",
+        "g": "febc9982bb1406d1",
+        "name": "Arm wM-Bus watchdog",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 5,
+        "topic": "",
+        "payload": "arm",
+        "payloadType": "str",
+        "x": 170,
+        "y": 800,
+        "wires": [
+            [
+                "a200000000000001"
+            ]
+        ]
+    },
+    {
+        "id": "a200000000000007",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "febc9982bb1406d1",
+        "name": "Record wM-Bus heartbeat",
+        "func": "global.set(\"health_wmbus_last_seen\", Date.now());\nglobal.set(\"health_wmbus_serial_bad\", false);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "tm_emc_rx_publisher",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "5014da80cd5e927f",
+        "name": "TinyMesh physical RX - EMC diagnostics",
+        "func": "if (String(env.get(\"EMC_TEST_MODE\") || \"false\").toLowerCase() !== \"true\") return null;\n\nconst gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\nconst TARGET_LENGTH = 78;\n\n// Convert serial input into a Buffer.\nlet incoming;\n\nif (Buffer.isBuffer(msg.payload)) {\n    incoming = msg.payload;\n} else if (Array.isArray(msg.payload)) {\n    incoming = Buffer.from(msg.payload);\n} else if (msg.payload && Array.isArray(msg.payload.data)) {\n    incoming = Buffer.from(msg.payload.data);\n} else if (typeof msg.payload === \"string\") {\n    const clean = msg.payload.replace(/\\s+/g, \"\");\n\n    if (!/^[0-9a-fA-F]+$/.test(clean) || clean.length % 2 !== 0) {\n        return null;\n    }\n\n    incoming = Buffer.from(clean, \"hex\");\n} else {\n    return null;\n}\n\n// Recover buffered partial serial data.\nlet buf = context.get(\"buf\");\n\nif (!Buffer.isBuffer(buf)) {\n    buf = Buffer.alloc(0);\n}\n\nbuf = Buffer.concat([buf, incoming]);\n\n// Prevent runaway buffering.\nif (buf.length > 8192) {\n    buf = buf.slice(-512);\n}\n\nconst messages = [];\n\nwhile (buf.length > 0) {\n\n    /*\n     * TinyMesh packet mode:\n     * byte 0 = total frame length.\n     *\n     * The controlled EMC transmitter sends 78-byte frames.\n     */\n\n    if (buf[0] !== TARGET_LENGTH) {\n\n        // We may have attached in the middle of a serial frame.\n        // Find the next possible 78-byte frame boundary.\n        const next = buf.indexOf(TARGET_LENGTH, 1);\n\n        if (next === -1) {\n            // No possible frame start currently present.\n            buf = Buffer.alloc(0);\n            break;\n        }\n\n        buf = buf.slice(next);\n    }\n\n    // Wait for the rest of the frame if it arrived in several\n    // serial chunks.\n    if (buf.length < TARGET_LENGTH) {\n        break;\n    }\n\n    const frame = buf.slice(0, TARGET_LENGTH);\n    buf = buf.slice(TARGET_LENGTH);\n\n    let sequence = context.get(\"sequence\") || 0;\n    sequence++;\n    context.set(\"sequence\", sequence);\n\n    messages.push({\n        topic: `gateway/${gatewaySerial}/tinymesh/rx`,\n        payload: {\n            received: new Date().toISOString(),\n            frame_length: frame.length,\n            sequence: sequence\n        }\n    });\n}\n\ncontext.set(\"buf\", buf);\n\nif (messages.length === 0) {\n    return null;\n}\n\nif (messages.length === 1) {\n    return messages[0];\n}\n\n// Multiple complete frames received in one serial chunk.\nreturn [messages];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 460,
+        "wires": [
+            [
+                "479b96e0273a18b1"
+            ]
+        ]
+    },
+    {
+        "id": "e7e8d06b2e5a1cb1",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "LoRa Parser 10 (new weight protocol)",
+        "func": "// ── FAI Gateway Parser v10.0 — V2 event waveform + split environment ───────\n//\n// Supports BOTH:\n//\n//   V2 firmware (current)\n//   ---------------------\n//   FPort 2 — weight event\n//     50 bytes\n//     Byte 0:       protocol version = 2\n//     Byte 1:       sample count = 23\n//     Bytes 2-3:    event number, UInt16 LE\n//     Bytes 4-49:   23 × zero-relative weight samples, UInt16 LE\n//\n//   FPort 3 — environment\n//     13 bytes\n//     Byte 0:       protocol version = 2\n//     Bytes 1-2:    environment packet number, UInt16 LE\n//     Bytes 3-4:    temperature × 100, Int16 LE\n//     Bytes 5-6:    CO2 ppm, UInt16 LE\n//     Bytes 7-8:    light lux, UInt16 LE\n//     Bytes 9-10:   humidity × 100, UInt16 LE\n//     Bytes 11-12:  pressure × 10, UInt16 LE\n//\n//   V1 firmware (backward compatibility)\n//   ------------------------------------\n//   FPort 2 — old combined 50-byte packet\n//     Version 1\n//     18 weight spot readings + environmental values.\n//\n// Backend output remains the existing legacy format:\n//\n//   Type 0x01: environmental packet, 58 bytes, signature 013a.\n//   Type 0x02: weight packet,        106 bytes, signature 026a.\n//\n// V2 weight-event conversion:\n//   - One LoRa event becomes ONE backend Type 0x02 packet.\n//   - The 23 samples are resampled by nearest-neighbour to the legacy\n//     50-position array.\n//   - First and last source values are preserved.\n//   - 0xFFFF source samples are repaired from the nearest valid neighbour\n//     before legacy expansion so an invalid read cannot appear as a huge\n//     false weight peak.\n//\n// ============================================================================\n// Configuration\n// ============================================================================\n\nconst gatewaySerial =\n    env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nconst TARGET_CLOUD_SID = 16777216;\n\nconst INVALID_WEIGHT = 0xFFFF;\n\nconst RECENT_MESSAGE_HISTORY = 64;\nconst STATE_NAMESPACE = \"faiParserV100\";\n\n// Current V2 protocol.\nconst V2_VERSION = 2;\n\nconst V2_WEIGHT_PORT = 2;\nconst V2_WEIGHT_PAYLOAD_LENGTH = 50;\nconst V2_WEIGHT_SAMPLE_COUNT = 23;\n\nconst V2_ENVIRONMENT_PORT = 3;\nconst V2_ENVIRONMENT_PAYLOAD_LENGTH = 13;\n\n// Legacy backend weight structure.\nconst LEGACY_WEIGHT_SAMPLE_COUNT = 50;\n\n// V1 backward compatibility.\n// Keep the old parser's 10-second reconstruction behaviour unchanged.\nconst V1_VERSION = 1;\nconst V1_PORT = 2;\nconst V1_PAYLOAD_LENGTH = 50;\nconst V1_MAX_WEIGHT_SAMPLES = 18;\nconst V1_WEIGHT_INTERVAL_MS = 10000;\n\n// ============================================================================\n// ChirpStack event type\n// ============================================================================\n//\n// This function can safely receive:\n//   application/+/device/+/event/+\n//\n// Join events clear duplicate state for that DevEUI.\n// Other non-uplink event types are ignored.\n\nconst topicParts =\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean);\n\nconst eventType =\n    topicParts.length > 0\n        ? topicParts[topicParts.length - 1]\n        : \"up\";\n\nif (eventType === \"join\") {\n    const joinDevEui =\n        msg.payload &&\n        msg.payload.deviceInfo &&\n        msg.payload.deviceInfo.devEui\n            ? String(\n                msg.payload.deviceInfo.devEui\n            ).toUpperCase()\n            : null;\n\n    if (joinDevEui) {\n        global.set(\n            `${STATE_NAMESPACE}_state_${joinDevEui}`,\n            undefined\n        );\n\n        node.warn(\n            `LoRaWAN session reset after join — device=${joinDevEui}`\n        );\n\n        node.status({\n            fill: \"blue\",\n            shape: \"ring\",\n            text: `new session ${joinDevEui.slice(-8)}`\n        });\n    }\n\n    return null;\n}\n\nif (eventType !== \"up\") {\n    return null;\n}\n\n// ============================================================================\n// Validate incoming ChirpStack message\n// ============================================================================\n\nif (\n    !msg.payload ||\n    !msg.payload.deviceInfo ||\n    !msg.payload.deviceInfo.devEui ||\n    msg.payload.data === undefined ||\n    msg.payload.data === null\n) {\n    node.warn(\n        \"Invalid ChirpStack message: required payload fields are missing\"\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Device identity\n// ============================================================================\n\nconst devEui =\n    String(\n        msg.payload.deviceInfo.devEui\n    ).toUpperCase();\n\nconst uidHex =\n    devEui.slice(-8);\n\nif (!/^[0-9A-F]{8}$/.test(uidHex)) {\n    node.warn(\n        `Invalid DevEUI: ${devEui}`\n    );\n\n    return null;\n}\n\nconst dynamicUid =\n    parseInt(uidHex, 16);\n\nif (!Number.isFinite(dynamicUid)) {\n    node.warn(\n        `Unable to calculate UID from DevEUI: ${devEui}`\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Decode compact LoRaWAN payload\n// ============================================================================\n\nlet buf;\n\ntry {\n    if (Buffer.isBuffer(msg.payload.data)) {\n        buf = msg.payload.data;\n    } else {\n        buf = Buffer.from(\n            String(msg.payload.data),\n            \"base64\"\n        );\n    }\n} catch (error) {\n    node.warn(\n        `Unable to decode LoRa payload from ${devEui}: ` +\n        error.message\n    );\n\n    return null;\n}\n\nif (buf.length < 1) {\n    node.warn(\n        `Empty LoRa payload from ${devEui}`\n    );\n\n    return null;\n}\n\nconst protocolVersion =\n    buf.readUInt8(0);\n\nconst fPortCandidate =\n    msg.payload.fPort !== undefined\n        ? msg.payload.fPort\n        : (\n            msg.payload.fport !== undefined\n                ? msg.payload.fport\n                : msg.payload.port\n        );\n\nconst fPort =\n    Number(fPortCandidate);\n\nif (\n    !Number.isInteger(fPort) ||\n    fPort < 1 ||\n    fPort > 223\n) {\n    node.warn(\n        `Missing/invalid FPort from ${devEui}: ` +\n        `${String(fPortCandidate)}`\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Identify and validate packet format\n// ============================================================================\n\nlet packetKind = null;\nlet packetSequence = null;\n\nif (\n    protocolVersion === V2_VERSION &&\n    fPort === V2_WEIGHT_PORT\n) {\n    if (\n        buf.length !==\n        V2_WEIGHT_PAYLOAD_LENGTH\n    ) {\n        node.warn(\n            `Unexpected V2 weight payload length from ${devEui}: ` +\n            `${buf.length} bytes; expected ${V2_WEIGHT_PAYLOAD_LENGTH}`\n        );\n\n        return null;\n    }\n\n    const sampleCount =\n        buf.readUInt8(1);\n\n    if (\n        sampleCount !==\n        V2_WEIGHT_SAMPLE_COUNT\n    ) {\n        node.warn(\n            `Invalid V2 weight sample count from ${devEui}: ` +\n            `${sampleCount}; expected ${V2_WEIGHT_SAMPLE_COUNT}`\n        );\n\n        return null;\n    }\n\n    packetKind = \"v2-weight\";\n    packetSequence =\n        buf.readUInt16LE(2);\n}\nelse if (\n    protocolVersion === V2_VERSION &&\n    fPort === V2_ENVIRONMENT_PORT\n) {\n    if (\n        buf.length !==\n        V2_ENVIRONMENT_PAYLOAD_LENGTH\n    ) {\n        node.warn(\n            `Unexpected V2 environment payload length from ${devEui}: ` +\n            `${buf.length} bytes; expected ${V2_ENVIRONMENT_PAYLOAD_LENGTH}`\n        );\n\n        return null;\n    }\n\n    packetKind = \"v2-environment\";\n    packetSequence =\n        buf.readUInt16LE(1);\n}\nelse if (\n    protocolVersion === V1_VERSION &&\n    fPort === V1_PORT\n) {\n    if (\n        buf.length !==\n        V1_PAYLOAD_LENGTH\n    ) {\n        node.warn(\n            `Unexpected V1 payload length from ${devEui}: ` +\n            `${buf.length} bytes; expected ${V1_PAYLOAD_LENGTH}`\n        );\n\n        return null;\n    }\n\n    const sampleCount =\n        buf.readUInt8(1);\n\n    if (\n        sampleCount === 0 ||\n        sampleCount >\n        V1_MAX_WEIGHT_SAMPLES\n    ) {\n        node.warn(\n            `Invalid V1 weight sample count from ${devEui}: ` +\n            sampleCount\n        );\n\n        return null;\n    }\n\n    packetKind = \"v1-combined\";\n    packetSequence =\n        buf.readUInt16LE(2);\n}\nelse {\n    node.warn(\n        `Unsupported LoRa application packet — ` +\n        `device=${devEui}, ` +\n        `version=${protocolVersion}, ` +\n        `fPort=${fPort}, ` +\n        `length=${buf.length}`\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Session-aware duplicate protection\n// ============================================================================\n//\n// The application counters and LoRaWAN frame counter can restart after OTAA.\n// Therefore duplicate protection is scoped to the detected LoRaWAN session.\n\nconst stateKey =\n    `${STATE_NAMESPACE}_state_${devEui}`;\n\nlet deviceState =\n    global.get(stateKey);\n\nif (\n    !deviceState ||\n    typeof deviceState !== \"object\" ||\n    Array.isArray(deviceState)\n) {\n    deviceState = {\n        sessionSequence: 0,\n        devAddr: null,\n        maxFrameCounter: -1,\n        recentEventIds: [],\n        recentPackets: []\n    };\n}\n\nif (\n    !Array.isArray(\n        deviceState.recentEventIds\n    )\n) {\n    deviceState.recentEventIds = [];\n}\n\nif (\n    !Array.isArray(\n        deviceState.recentPackets\n    )\n) {\n    deviceState.recentPackets = [];\n}\n\nconst normaliseHex = value =>\n    String(value || \"\")\n        .replace(/^0x/i, \"\")\n        .replace(/[^0-9a-f]/gi, \"\")\n        .toUpperCase();\n\nconst devAddr =\n    normaliseHex(\n        msg.payload.devAddr\n    );\n\nconst frameCounter =\n    Number(\n        msg.payload.fCnt\n    );\n\nconst hasFrameCounter =\n    Number.isInteger(frameCounter) &&\n    frameCounter >= 0;\n\nconst devAddrChanged =\n    devAddr.length > 0 &&\n    deviceState.devAddr &&\n    devAddr !== deviceState.devAddr;\n\nconst frameCounterRestarted =\n    hasFrameCounter &&\n    frameCounter <= 1 &&\n    Number.isInteger(\n        deviceState.maxFrameCounter\n    ) &&\n    deviceState.maxFrameCounter > 1;\n\nif (\n    devAddrChanged ||\n    frameCounterRestarted\n) {\n    deviceState.sessionSequence =\n        Number(\n            deviceState.sessionSequence || 0\n        ) + 1;\n\n    deviceState.recentEventIds = [];\n    deviceState.recentPackets = [];\n    deviceState.maxFrameCounter = -1;\n\n    node.warn(\n        `New LoRaWAN session detected — ` +\n        `device=${devEui}, ` +\n        `devAddr=${devAddr || \"unknown\"}, ` +\n        `fCnt=${hasFrameCounter ? frameCounter : \"unknown\"}`\n    );\n}\n\nif (devAddr.length > 0) {\n    deviceState.devAddr =\n        devAddr;\n}\n\nconst payloadHex =\n    buf.toString(\"hex\");\n\nconst deduplicationId =\n    String(\n        msg.payload.deduplicationId || \"\"\n    ).trim();\n\nconst exactEventSignature =\n    deduplicationId\n        ? `dedup:${deduplicationId}`\n        : (\n            devAddr.length > 0 &&\n            hasFrameCounter\n                ? (\n                    `frame:${devAddr}:` +\n                    `${frameCounter}:` +\n                    `${fPort}:` +\n                    `${payloadHex}`\n                )\n                : (\n                    `payload:${fPort}:` +\n                    `${packetSequence}:` +\n                    `${payloadHex}`\n                )\n        );\n\nif (\n    deviceState.recentEventIds.includes(\n        exactEventSignature\n    )\n) {\n    node.warn(\n        `Ignoring duplicate ChirpStack event — ` +\n        `device=${devEui}, ` +\n        `kind=${packetKind}, ` +\n        `sequence=${packetSequence}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `duplicate ${packetKind} ${packetSequence}`\n    });\n\n    return null;\n}\n\nconst sessionIdentity =\n    `session:${Number(deviceState.sessionSequence || 0)}:` +\n    `${deviceState.devAddr || \"unknown\"}`;\n\nconst applicationPacketSignature =\n    `${sessionIdentity}:` +\n    `${packetKind}:` +\n    `${packetSequence}:` +\n    `${payloadHex}`;\n\nif (\n    deviceState.recentPackets.includes(\n        applicationPacketSignature\n    )\n) {\n    node.warn(\n        `Ignoring retransmitted application packet — ` +\n        `device=${devEui}, ` +\n        `kind=${packetKind}, ` +\n        `sequence=${packetSequence}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `retransmitted ${packetKind} ${packetSequence}`\n    });\n\n    return null;\n}\n\ndeviceState.recentEventIds.push(\n    exactEventSignature\n);\n\ndeviceState.recentPackets.push(\n    applicationPacketSignature\n);\n\nif (\n    deviceState.recentEventIds.length >\n    RECENT_MESSAGE_HISTORY\n) {\n    deviceState.recentEventIds =\n        deviceState.recentEventIds.slice(\n            -RECENT_MESSAGE_HISTORY\n        );\n}\n\nif (\n    deviceState.recentPackets.length >\n    RECENT_MESSAGE_HISTORY\n) {\n    deviceState.recentPackets =\n        deviceState.recentPackets.slice(\n            -RECENT_MESSAGE_HISTORY\n        );\n}\n\nif (hasFrameCounter) {\n    deviceState.maxFrameCounter =\n        Math.max(\n            Number(\n                deviceState.maxFrameCounter || -1\n            ),\n            frameCounter\n        );\n}\n\nglobal.set(\n    stateKey,\n    deviceState\n);\n\n// ============================================================================\n// RSSI\n// ============================================================================\n\nlet bestRssi = -120;\n\nif (\n    Array.isArray(\n        msg.payload.rxInfo\n    ) &&\n    msg.payload.rxInfo.length > 0\n) {\n    const validRssiValues =\n        msg.payload.rxInfo\n            .map(\n                rx => Number(rx.rssi)\n            )\n            .filter(\n                value => Number.isFinite(value)\n            );\n\n    if (\n        validRssiValues.length > 0\n    ) {\n        bestRssi =\n            Math.max(\n                ...validRssiValues\n            );\n    }\n}\n\nconst rawRssi =\n    Math.abs(bestRssi);\n\n// ============================================================================\n// Timestamp helpers\n// ============================================================================\n//\n// As in the previous proven parser, Node-RED processing time is used as the\n// packet timestamp. V2 firmware does not currently transmit an RTC timestamp.\n\nfunction formatBackendTimestamp(date) {\n    return (\n        date.toISOString().split(\".\")[0] +\n        \"+00:00\"\n    );\n}\n\nconst receivedTime =\n    new Date();\n\nconst receivedTimestamp =\n    formatBackendTimestamp(\n        receivedTime\n    );\n\n// ============================================================================\n// Backend message helpers\n// ============================================================================\n\nconst outMessages = [];\n\nconst usedPacketNumbers =\n    new Set();\n\nfunction nextPacketNumber() {\n    let packetNumber;\n\n    do {\n        packetNumber =\n            Math.floor(\n                Math.random() * 65536\n            );\n    } while (\n        usedPacketNumbers.has(\n            packetNumber\n        )\n    );\n\n    usedPacketNumbers.add(\n        packetNumber\n    );\n\n    return packetNumber;\n}\n\nfunction makeBackendMessage(\n    hexData,\n    timestamp\n) {\n    return {\n        topic:\n            `gateway/${gatewaySerial}/tinymesh/out`,\n\n        payload: {\n            \"_meta\": {\n                \"received\": timestamp\n            },\n\n            \"block\": 0,\n            \"data\": hexData,\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": nextPacketNumber(),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    };\n}\n\n// ============================================================================\n// Legacy Type 0x01 environmental packet\n// ============================================================================\n//\n// Type:      0x01\n// Length:    58 bytes\n// Signature: 013a\n\nfunction makeEnvironmentMessage(\n    temperature,\n    pressure,\n    humidity,\n    lux,\n    co2,\n    timestamp\n) {\n    const envBuf =\n        Buffer.alloc(58, 0);\n\n    envBuf.writeUInt8(\n        0x01,\n        0\n    );\n\n    envBuf.writeUInt8(\n        0x3A,\n        1\n    );\n\n    // Bytes 2-5 remain reserved and zero-filled.\n\n    envBuf.writeFloatLE(\n        temperature,\n        6\n    );                                      // AirTemperature\n\n    envBuf.writeFloatLE(\n        pressure,\n        10\n    );                                      // AirPressure\n\n    envBuf.writeFloatLE(\n        temperature,\n        14\n    );                                      // HumidityTemperature\n\n    envBuf.writeFloatLE(\n        humidity,\n        18\n    );                                      // Humidity\n\n    envBuf.writeUInt32LE(\n        Math.min(\n            0xFFFFFFFF,\n            Math.max(\n                0,\n                Math.round(lux)\n            )\n        ),\n        22\n    );                                      // LightALS\n\n    // Confirmed backend workaround retained from v9.1:\n    // GASCO2 must be UInt32, not Float32.\n    envBuf.writeUInt32LE(\n        Math.min(\n            0xFFFFFFFF,\n            Math.max(\n                0,\n                Math.round(co2)\n            )\n        ),\n        26\n    );                                      // GASCO2\n\n    envBuf.writeFloatLE(\n        0.0,\n        30\n    );                                      // GASTemperature\n\n    envBuf.writeFloatLE(\n        0.0,\n        34\n    );                                      // GASHumidity\n\n    envBuf.writeFloatLE(\n        0.0,\n        38\n    );                                      // GASNH3\n\n    envBuf.writeFloatLE(\n        0.0,\n        42\n    );                                      // GASCO\n\n    envBuf.writeFloatLE(\n        0.0,\n        46\n    );                                      // GASNO2\n\n    envBuf.writeFloatLE(\n        temperature,\n        50\n    );                                      // BoardTemperature\n\n    envBuf.writeFloatLE(\n        temperature,\n        54\n    );                                      // PT100Temperature\n\n    return makeBackendMessage(\n        envBuf.toString(\"hex\"),\n        timestamp\n    );\n}\n\n// ============================================================================\n// Legacy Type 0x02 weight packet\n// ============================================================================\n//\n// Type:      0x02\n// Length:    106 bytes\n// Signature: 026a\n\nfunction makeWeightMessage(\n    legacySamples,\n    timestamp\n) {\n    const wBuf =\n        Buffer.alloc(106, 0);\n\n    wBuf.writeUInt8(\n        0x02,\n        0\n    );\n\n    wBuf.writeUInt8(\n        0x6A,\n        1\n    );\n\n    // Bytes 2-5 remain reserved and zero-filled.\n\n    for (\n        let i = 0;\n        i < LEGACY_WEIGHT_SAMPLE_COUNT;\n        i++\n    ) {\n        const value =\n            Math.min(\n                65534,\n                Math.max(\n                    0,\n                    Math.round(\n                        legacySamples[i] || 0\n                    )\n                )\n            );\n\n        wBuf.writeUInt16LE(\n            value,\n            6 + (i * 2)\n        );\n    }\n\n    return makeBackendMessage(\n        wBuf.toString(\"hex\"),\n        timestamp\n    );\n}\n\n// ============================================================================\n// V2 weight waveform helpers\n// ============================================================================\n\nfunction repairInvalidWeightSamples(\n    sourceSamples\n) {\n    const repaired =\n        sourceSamples.slice();\n\n    let repairedCount = 0;\n\n    for (\n        let i = 0;\n        i < repaired.length;\n        i++\n    ) {\n        if (\n            repaired[i] !==\n            INVALID_WEIGHT\n        ) {\n            continue;\n        }\n\n        repairedCount++;\n\n        let replacement = null;\n\n        for (\n            let distance = 1;\n            distance < repaired.length;\n            distance++\n        ) {\n            const leftIndex =\n                i - distance;\n\n            const rightIndex =\n                i + distance;\n\n            if (\n                leftIndex >= 0 &&\n                repaired[leftIndex] !==\n                INVALID_WEIGHT\n            ) {\n                replacement =\n                    repaired[leftIndex];\n\n                break;\n            }\n\n            if (\n                rightIndex <\n                    repaired.length &&\n                repaired[rightIndex] !==\n                    INVALID_WEIGHT\n            ) {\n                replacement =\n                    repaired[rightIndex];\n\n                break;\n            }\n        }\n\n        repaired[i] =\n            replacement === null\n                ? 0\n                : replacement;\n    }\n\n    return {\n        samples: repaired,\n        repairedCount\n    };\n}\n\nfunction expandV2WeightToLegacy(\n    sourceSamples\n) {\n    const repairedResult =\n        repairInvalidWeightSamples(\n            sourceSamples\n        );\n\n    const source =\n        repairedResult.samples;\n\n    const legacy =\n        new Array(\n            LEGACY_WEIGHT_SAMPLE_COUNT\n        );\n\n    // Nearest-neighbour resampling:\n    //\n    //   source index 0  -> legacy index 0\n    //   source index 22 -> legacy index 49\n    //\n    // This preserves measured values rather than inventing interpolated\n    // amplitudes. It only repeats measured points to populate the fixed\n    // 50-value historical structure.\n\n    for (\n        let legacyIndex = 0;\n        legacyIndex <\n            LEGACY_WEIGHT_SAMPLE_COUNT;\n        legacyIndex++\n    ) {\n        const sourcePosition =\n            legacyIndex *\n            (source.length - 1) /\n            (\n                LEGACY_WEIGHT_SAMPLE_COUNT -\n                1\n            );\n\n        const sourceIndex =\n            Math.round(\n                sourcePosition\n            );\n\n        legacy[legacyIndex] =\n            source[sourceIndex];\n    }\n\n    return {\n        samples: legacy,\n        repairedCount:\n            repairedResult.repairedCount\n    };\n}\n\n// ============================================================================\n// Decode packet\n// ============================================================================\n\nif (packetKind === \"v2-weight\") {\n    const sampleCount =\n        buf.readUInt8(1);\n\n    const eventNumber =\n        buf.readUInt16LE(2);\n\n    const sourceSamples = [];\n\n    for (\n        let i = 0;\n        i < sampleCount;\n        i++\n    ) {\n        sourceSamples.push(\n            buf.readUInt16LE(\n                4 + (i * 2)\n            )\n        );\n    }\n\n    const expanded =\n        expandV2WeightToLegacy(\n            sourceSamples\n        );\n\n    outMessages.push(\n        makeWeightMessage(\n            expanded.samples,\n            receivedTimestamp\n        )\n    );\n\n    const validSourceSamples =\n        sourceSamples.filter(\n            value =>\n                value !== INVALID_WEIGHT\n        );\n\n    const sourceMinimum =\n        validSourceSamples.length > 0\n            ? Math.min(\n                ...validSourceSamples\n            )\n            : null;\n\n    const sourceMaximum =\n        validSourceSamples.length > 0\n            ? Math.max(\n                ...validSourceSamples\n            )\n            : null;\n\n    node.warn(\n        `V2 WEIGHT EVENT DECODED — ` +\n        `device=${devEui}, ` +\n        `event=${eventNumber}, ` +\n        `samples=${sampleCount}, ` +\n        `min=${sourceMinimum === null ? \"none\" : sourceMinimum}, ` +\n        `max=${sourceMaximum === null ? \"none\" : sourceMaximum}, ` +\n        `repairedInvalid=${expanded.repairedCount}, ` +\n        `backendMessages=1`\n    );\n\n    node.status({\n        fill:\n            expanded.repairedCount > 0\n                ? \"yellow\"\n                : \"green\",\n\n        shape: \"dot\",\n\n        text:\n            `weight event ${eventNumber} -> 1 backend packet`\n    });\n}\nelse if (\n    packetKind === \"v2-environment\"\n) {\n    const environmentPacketNumber =\n        buf.readUInt16LE(1);\n\n    const temperature =\n        buf.readInt16LE(3) /\n        100.0;\n\n    const co2 =\n        buf.readUInt16LE(5);\n\n    const lux =\n        buf.readUInt16LE(7);\n\n    const humidity =\n        buf.readUInt16LE(9) /\n        100.0;\n\n    const pressure =\n        buf.readUInt16LE(11) /\n        10.0;\n\n    outMessages.push(\n        makeEnvironmentMessage(\n            temperature,\n            pressure,\n            humidity,\n            lux,\n            co2,\n            receivedTimestamp\n        )\n    );\n\n    node.warn(\n        `V2 ENVIRONMENT DECODED — ` +\n        `device=${devEui}, ` +\n        `packet=${environmentPacketNumber}, ` +\n        `temperature=${temperature}, ` +\n        `pressure=${pressure}, ` +\n        `humidity=${humidity}, ` +\n        `lux=${lux}, ` +\n        `co2=${co2}, ` +\n        `backendMessages=1`\n    );\n\n    node.status({\n        fill: \"green\",\n        shape: \"dot\",\n        text:\n            `environment ${environmentPacketNumber} -> 1 backend packet`\n    });\n}\nelse if (\n    packetKind === \"v1-combined\"\n) {\n    // ------------------------------------------------------------------------\n    // Backward-compatible path for the old combined V1 packet.\n    // This deliberately preserves the v9.1 behaviour.\n    // ------------------------------------------------------------------------\n\n    const sampleCount =\n        buf.readUInt8(1);\n\n    const batchNumber =\n        buf.readUInt16LE(2);\n\n    const temperature =\n        buf.readInt16LE(40) /\n        100.0;\n\n    const co2 =\n        buf.readUInt16LE(42);\n\n    const lux =\n        buf.readUInt16LE(44);\n\n    const humidity =\n        buf.readUInt16LE(46) /\n        100.0;\n\n    const pressure =\n        buf.readUInt16LE(48) /\n        10.0;\n\n    let validWeightEvents = 0;\n    let invalidWeightEvents = 0;\n    let genuineZeroEvents = 0;\n\n    const newestSampleTime =\n        receivedTime;\n\n    for (\n        let i = 0;\n        i < sampleCount;\n        i++\n    ) {\n        const weight =\n            buf.readUInt16LE(\n                4 + (i * 2)\n            );\n\n        const ageFromNewestMs =\n            (\n                sampleCount -\n                1 -\n                i\n            ) *\n            V1_WEIGHT_INTERVAL_MS;\n\n        const sampleTime =\n            new Date(\n                newestSampleTime.getTime() -\n                ageFromNewestMs\n            );\n\n        const sampleTimestamp =\n            formatBackendTimestamp(\n                sampleTime\n            );\n\n        if (\n            weight ===\n            INVALID_WEIGHT\n        ) {\n            invalidWeightEvents++;\n\n            continue;\n        }\n\n        const outputWeight =\n            Math.min(\n                65534,\n                Math.max(\n                    0,\n                    Math.round(weight)\n                )\n            );\n\n        if (\n            outputWeight === 0\n        ) {\n            genuineZeroEvents++;\n        }\n\n        const legacySamples =\n            new Array(\n                LEGACY_WEIGHT_SAMPLE_COUNT\n            ).fill(\n                outputWeight\n            );\n\n        outMessages.push(\n            makeWeightMessage(\n                legacySamples,\n                sampleTimestamp\n            )\n        );\n\n        validWeightEvents++;\n    }\n\n    outMessages.push(\n        makeEnvironmentMessage(\n            temperature,\n            pressure,\n            humidity,\n            lux,\n            co2,\n            receivedTimestamp\n        )\n    );\n\n    node.warn(\n        `V1 COMBINED BATCH DECODED — ` +\n        `device=${devEui}, ` +\n        `batch=${batchNumber}, ` +\n        `samples=${sampleCount}, ` +\n        `validWeights=${validWeightEvents}, ` +\n        `invalidWeights=${invalidWeightEvents}, ` +\n        `genuineZeros=${genuineZeroEvents}, ` +\n        `backendMessages=${outMessages.length}`\n    );\n\n    node.status({\n        fill:\n            invalidWeightEvents > 0\n                ? \"yellow\"\n                : \"green\",\n\n        shape: \"dot\",\n\n        text:\n            `${validWeightEvents} V1 weights + 1 env`\n    });\n}\n\n// ============================================================================\n// Send all generated backend messages through output 1\n// ============================================================================\n\nif (outMessages.length === 0) {\n    return null;\n}\n\nnode.send(\n    [outMessages]\n);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 20,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d30d9a0ed817a5f1",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "LoRa Device Dispatcher",
+        "func": "// ── FAI LoRaWAN Device Dispatcher v1.1 ─────────────────────────────────────\n//\n// Output 1: ShedSensor events, including up and join\n// Output 2: Water-meter uplinks only\n// Output 3: Water-meter joins and unknown devices/events\n\nconst payload =\n    msg.payload || {};\n\nconst deviceInfo =\n    payload.deviceInfo || {};\n\nconst tags =\n    deviceInfo.tags &&\n    typeof deviceInfo.tags === \"object\"\n        ? deviceInfo.tags\n        : {};\n\nconst profileName =\n    String(\n        deviceInfo.deviceProfileName || \"\"\n    );\n\nconst eventType =\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean)\n        .pop() || \"unknown\";\n\nlet deviceType =\n    String(\n        tags.sensor_type ||\n        tags.device_type ||\n        \"\"\n    ).toLowerCase();\n\n// Compatibility with existing profiles that do not yet have tags.\nif (!deviceType) {\n    if (profileName === \"RAK3272 Node\") {\n        deviceType = \"shed_sensor\";\n    } else if (\n        profileName ===\n        \"B METERS HYDRODIGIT-S1 EU868\"\n    ) {\n        deviceType = \"water_meter\";\n    }\n}\n\nmsg.fai = {\n    deviceType,\n    eventType,\n\n    devEui:\n        String(\n            deviceInfo.devEui || \"\"\n        ).toUpperCase(),\n\n    deviceName:\n        String(\n            deviceInfo.deviceName || \"\"\n        ),\n\n    profileName,\n    tags\n};\n\n// ShedSensor parser handles both uplinks and joins.\nif (deviceType === \"shed_sensor\") {\n    node.status({\n        fill: \"green\",\n        shape: \"dot\",\n        text: `shed_sensor ${eventType}`\n    });\n\n    return [msg, null, null];\n}\n\n// Only water-meter uplinks contain application payload data.\nif (\n    deviceType === \"water_meter\" &&\n    eventType === \"up\"\n) {\n    node.status({\n        fill: \"blue\",\n        shape: \"dot\",\n        text: \"water_meter up\"\n    });\n\n    return [null, msg, null];\n}\n\n// Water-meter join events and unidentified devices go to diagnostics.\nnode.status({\n    fill: \"yellow\",\n    shape: \"ring\",\n    text:\n        `${deviceType || \"unknown\"} ${eventType}`\n});\n\nreturn [null, null, msg];",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 20,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "cb1c76909e4cc237",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "Talkpool OY1310 Parser V.1",
+        "func": "// ── FAI Talkpool OY1310 Parser v1.0 ────────────────────────────────────────\n//\n// Input:\n//   ChirpStack application/.../event/up message\n//   routed from LoRa Device Dispatcher output 3.\n//\n// Supported OY1310 uplinks:\n//\n//   Measurement:\n//     FPort: 1\n//     6 bytes\n//     01 21 XX XX XX XX\n//     bytes 2-5 = UInt32 BE accumulated volume in litres\n//\n//   Status:\n//     FPort: 1\n//     3 bytes\n//     01 20 XX\n//\n// Output:\n//   Normalised Talkpool water-meter message.\n//   Backend formatting is intentionally handled separately.\n\nconst payload =\n    msg.payload || {};\n\nconst deviceInfo =\n    payload.deviceInfo || {};\n\nconst devEui =\n    String(\n        deviceInfo.devEui ||\n        (msg.fai && msg.fai.devEui) ||\n        \"\"\n    ).toUpperCase();\n\nconst deviceName =\n    String(\n        deviceInfo.deviceName ||\n        (msg.fai && msg.fai.deviceName) ||\n        devEui\n    );\n\nconst fPort =\n    Number(payload.fPort);\n\n// --------------------------------------------------------------------------\n// Validate LoRaWAN port\n// --------------------------------------------------------------------------\nconst eventType =\n    msg.fai?.eventType ||\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean)\n        .pop();\n\nif (eventType !== \"up\") {\n    return null;\n}\n\nif (fPort !== 1) {\n    node.warn(\n        `OY1310 unexpected FPort — ` +\n        `device=${devEui || \"unknown\"}, ` +\n        `fPort=${fPort}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `unexpected FPort ${fPort}`\n    });\n\n    return null;\n}\n\n// --------------------------------------------------------------------------\n// Decode ChirpStack Base64 application payload\n// --------------------------------------------------------------------------\n\nlet buf;\n\ntry {\n    if (Buffer.isBuffer(payload.data)) {\n        buf = payload.data;\n    } else {\n        buf = Buffer.from(\n            String(payload.data || \"\"),\n            \"base64\"\n        );\n    }\n} catch (error) {\n    node.warn(\n        `OY1310 payload decode failed — ` +\n        `device=${devEui || \"unknown\"}, ` +\n        `error=${error.message}`\n    );\n\n    node.status({\n        fill: \"red\",\n        shape: \"ring\",\n        text: \"payload decode failed\"\n    });\n\n    return null;\n}\n\nif (buf.length < 2) {\n    node.warn(\n        `OY1310 payload too short — ` +\n        `device=${devEui || \"unknown\"}, ` +\n        `length=${buf.length}`\n    );\n\n    return null;\n}\n\nconst type =\n    buf.readUInt8(0);\n\nconst index =\n    buf.readUInt8(1);\n\nconst rawHex =\n    buf.toString(\"hex\");\n\n// --------------------------------------------------------------------------\n// Validate Talkpool protocol type\n//\n// 0x01 = Data\n// --------------------------------------------------------------------------\n\nif (type !== 0x01) {\n    node.warn(\n        `OY1310 unsupported message type — ` +\n        `device=${devEui || \"unknown\"}, ` +\n        `type=0x${type.toString(16).padStart(2, \"0\")}, ` +\n        `raw=${rawHex}`\n    );\n\n    return null;\n}\n\n// --------------------------------------------------------------------------\n// 0x21 — accumulated volume\n//\n// Expected:\n//   01 21 XX XX XX XX\n//\n// UInt32 big-endian, litres.\n// --------------------------------------------------------------------------\n\nif (index === 0x21) {\n\n    if (buf.length !== 6) {\n        node.warn(\n            `OY1310 invalid volume payload length — ` +\n            `device=${devEui || \"unknown\"}, ` +\n            `length=${buf.length}, expected=6, ` +\n            `raw=${rawHex}`\n        );\n\n        node.status({\n            fill: \"red\",\n            shape: \"ring\",\n            text: `bad volume length ${buf.length}`\n        });\n\n        return null;\n    }\n\n    const volumeLitres =\n        buf.readUInt32BE(2);\n\n    const volumeM3 =\n        volumeLitres / 1000.0;\n\n    // Best RSSI from ChirpStack gateway reception metadata.\n    let rssi = null;\n\n    if (\n        Array.isArray(payload.rxInfo) &&\n        payload.rxInfo.length > 0\n    ) {\n        const values =\n            payload.rxInfo\n                .map(rx => Number(rx.rssi))\n                .filter(Number.isFinite);\n\n        if (values.length > 0) {\n            rssi = Math.max(...values);\n        }\n    }\n\n    msg.payload = {\n        manufacturer: \"Talkpool\",\n        model: \"OY1310\",\n\n        dev_eui: devEui,\n        device_name: deviceName,\n\n        volume_litres: volumeLitres,\n        volume_m3: volumeM3,\n\n        f_port: fPort,\n        frame_counter:\n            Number.isFinite(Number(payload.fCnt))\n                ? Number(payload.fCnt)\n                : null,\n\n        rssi,\n\n        timestamp:\n            payload.time ||\n            new Date().toISOString(),\n\n        raw: rawHex\n    };\n\n    msg.fai = {\n        ...(msg.fai || {}),\n        deviceType: \"water_meter_talkpool\",\n        manufacturer: \"Talkpool\",\n        model: \"OY1310\"\n    };\n\n    node.status({\n        fill: \"green\",\n        shape: \"dot\",\n        text: `${volumeLitres} L`\n    });\n\n    node.warn(\n        `OY1310 VOLUME — ` +\n        `device=${devEui}, ` +\n        `volume=${volumeLitres} L, ` +\n        `fCnt=${payload.fCnt}, ` +\n        `rssi=${rssi}`\n    );\n\n    return msg;\n}\n\n// --------------------------------------------------------------------------\n// 0x20 — status report\n//\n// Typical startup report:\n//   01 20 00\n// --------------------------------------------------------------------------\n\nif (index === 0x20) {\n\n    const status =\n        buf.length >= 3\n            ? buf.readUInt8(2)\n            : null;\n\n    node.status({\n        fill: \"blue\",\n        shape: \"ring\",\n        text:\n            status === null\n                ? \"status\"\n                : `status 0x${status\n                    .toString(16)\n                    .padStart(2, \"0\")}`\n    });\n\n    node.warn(\n        `OY1310 STATUS — ` +\n        `device=${devEui || \"unknown\"}, ` +\n        `status=${status === null\n            ? \"missing\"\n            : \"0x\" +\n            status\n                .toString(16)\n                .padStart(2, \"0\")\n        }, ` +\n        `raw=${rawHex}`\n    );\n\n    // Status isn't a water-volume measurement.\n    return null;\n}\n\n// --------------------------------------------------------------------------\n// Other Talkpool command/query responses\n// --------------------------------------------------------------------------\n\nnode.warn(\n    `OY1310 unhandled command — ` +\n    `device=${devEui || \"unknown\"}, ` +\n    `index=0x${index.toString(16).padStart(2, \"0\")}, ` +\n    `raw=${rawHex}`\n);\n\nnode.status({\n    fill: \"yellow\",\n    shape: \"ring\",\n    text:\n        `unhandled 0x${index\n            .toString(16)\n            .padStart(2, \"0\")}`\n});\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 380,
+        "wires": [
+            [
+                "dd05fa8a63bbce59"
+            ]
+        ]
+    },
+    {
+        "id": "dd05fa8a63bbce59",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "c8eeaa7ed265f0e8",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "Talkpool data transmission setup",
+        "func": "// ── Talkpool OY1310 Configure on Join v1.0 ───────────────────────────────\n//\n// Configure the OY1310 reporting interval after a successful OTAA join.\n//\n// FPort 1\n// 01 23 00 0F = set measurement interval to 15 minutes\n// 0123001E = set to 30 minute interval\n\nconst eventType =\n    msg.fai?.eventType ||\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean)\n        .pop();\n\n// Only act on successful join events.\nif (eventType !== \"join\") {\n    return null;\n}\n\nconst deviceInfo =\n    msg.payload?.deviceInfo || {};\n\nconst applicationId =\n    String(deviceInfo.applicationId || \"\");\n\nconst devEui =\n    String(deviceInfo.devEui || \"\").toLowerCase();\n\nif (!applicationId || !devEui) {\n    node.warn(\n        \"OY1310 configuration skipped: missing applicationId or DevEUI\"\n    );\n\n    return null;\n}\n\nconst commandHex =\n    \"0123000E\";\n\nconst commandBase64 =\n    Buffer.from(commandHex, \"hex\")\n        .toString(\"base64\");\n\nmsg.topic =\n    `application/${applicationId}/device/${devEui}/command/down`;\n\nmsg.payload = JSON.stringify({\n    devEui: devEui,\n    confirmed: false,\n    fPort: 1,\n    data: commandBase64\n});\n\nnode.status({\n    fill: \"blue\",\n    shape: \"dot\",\n    text: \"15 min config queued\"\n});\n\nnode.warn(\n    `OY1310 CONFIG QUEUED — ` +\n    `device=${devEui}, interval=15min, ` +\n    `command=${commandHex}`\n);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 400,
+        "wires": [
+            [
+                "bbfc7b9df1d6af32"
+            ]
+        ]
+    },
+    {
+        "id": "bbfc7b9df1d6af32",
+        "type": "mqtt out",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": " ChirpStack Downlink",
+        "topic": "",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "473037bbac0aa9aa",
+        "x": 710,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "94ff946adb189568",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "31daaefc6f2976c6",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "LoRa Parser 10.1",
+        "func": "// ── FAI Gateway Parser v10.1 — V2 5 Hz reconstruction + split environment ─\n//\n// Supports BOTH:\n//\n//   V2 firmware (current)\n//   ---------------------\n//   FPort 2 — weight event\n//     50 bytes\n//     Byte 0:       protocol version = 2\n//     Byte 1:       sample count = 23\n//     Bytes 2-3:    event number, UInt16 LE\n//     Bytes 4-49:   23 × zero-relative weight samples, UInt16 LE\n//\n//   FPort 3 — environment\n//     13 bytes\n//     Byte 0:       protocol version = 2\n//     Bytes 1-2:    environment packet number, UInt16 LE\n//     Bytes 3-4:    temperature × 100, Int16 LE\n//     Bytes 5-6:    CO2 ppm, UInt16 LE\n//     Bytes 7-8:    light lux, UInt16 LE\n//     Bytes 9-10:   humidity × 100, UInt16 LE\n//     Bytes 11-12:  pressure × 10, UInt16 LE\n//\n//   V1 firmware (backward compatibility)\n//   ------------------------------------\n//   FPort 2 — old combined 50-byte packet\n//     Version 1\n//     18 weight spot readings + environmental values.\n//\n// Backend output remains the existing legacy format:\n//\n//   Type 0x01: environmental packet, 58 bytes, signature 013a.\n//   Type 0x02: weight packet,        106 bytes, signature 026a.\n//\n// V2 weight-window conversion:\n//   - One LoRa weight window contains 23 sequential samples at 5 Hz.\n//   - One LoRa window becomes up to 23 backend Type 0x02 messages.\n//   - Each source sample is repeated across all 50 legacy WeightLoadSample\n//     positions, matching the historical backend representation.\n//   - Reconstructed backend timestamps are spaced 200 ms apart.\n//   - 0xFFFF failed source samples are skipped rather than invented/repaired.\n//\n// ============================================================================\n// Configuration\n// ============================================================================\n\nconst gatewaySerial =\n    env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nconst TARGET_CLOUD_SID = 16777216;\n\nconst INVALID_WEIGHT = 0xFFFF;\n\nconst RECENT_MESSAGE_HISTORY = 64;\nconst STATE_NAMESPACE = \"faiParserV101\";\n\n// Current V2 protocol.\nconst V2_VERSION = 2;\n\nconst V2_WEIGHT_PORT = 2;\nconst V2_WEIGHT_PAYLOAD_LENGTH = 50;\nconst V2_WEIGHT_SAMPLE_COUNT = 23;\nconst V2_WEIGHT_INTERVAL_MS = 200;\n\nconst V2_ENVIRONMENT_PORT = 3;\nconst V2_ENVIRONMENT_PAYLOAD_LENGTH = 13;\n\n// Legacy backend weight structure.\nconst LEGACY_WEIGHT_SAMPLE_COUNT = 50;\n\n// V1 backward compatibility.\n// Keep the old parser's 10-second reconstruction behaviour unchanged.\nconst V1_VERSION = 1;\nconst V1_PORT = 2;\nconst V1_PAYLOAD_LENGTH = 50;\nconst V1_MAX_WEIGHT_SAMPLES = 18;\nconst V1_WEIGHT_INTERVAL_MS = 10000;\n\n// ============================================================================\n// ChirpStack event type\n// ============================================================================\n//\n// This function can safely receive:\n//   application/+/device/+/event/+\n//\n// Join events clear duplicate state for that DevEUI.\n// Other non-uplink event types are ignored.\n\nconst topicParts =\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean);\n\nconst eventType =\n    topicParts.length > 0\n        ? topicParts[topicParts.length - 1]\n        : \"up\";\n\nif (eventType === \"join\") {\n    const joinDevEui =\n        msg.payload &&\n        msg.payload.deviceInfo &&\n        msg.payload.deviceInfo.devEui\n            ? String(\n                msg.payload.deviceInfo.devEui\n            ).toUpperCase()\n            : null;\n\n    if (joinDevEui) {\n        global.set(\n            `${STATE_NAMESPACE}_state_${joinDevEui}`,\n            undefined\n        );\n\n        node.warn(\n            `LoRaWAN session reset after join — device=${joinDevEui}`\n        );\n\n        node.status({\n            fill: \"blue\",\n            shape: \"ring\",\n            text: `new session ${joinDevEui.slice(-8)}`\n        });\n    }\n\n    return null;\n}\n\nif (eventType !== \"up\") {\n    return null;\n}\n\n// ============================================================================\n// Validate incoming ChirpStack message\n// ============================================================================\n\nif (\n    !msg.payload ||\n    !msg.payload.deviceInfo ||\n    !msg.payload.deviceInfo.devEui ||\n    msg.payload.data === undefined ||\n    msg.payload.data === null\n) {\n    node.warn(\n        \"Invalid ChirpStack message: required payload fields are missing\"\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Device identity\n// ============================================================================\n\nconst devEui =\n    String(\n        msg.payload.deviceInfo.devEui\n    ).toUpperCase();\n\nconst uidHex =\n    devEui.slice(-8);\n\nif (!/^[0-9A-F]{8}$/.test(uidHex)) {\n    node.warn(\n        `Invalid DevEUI: ${devEui}`\n    );\n\n    return null;\n}\n\nconst dynamicUid =\n    parseInt(uidHex, 16);\n\nif (!Number.isFinite(dynamicUid)) {\n    node.warn(\n        `Unable to calculate UID from DevEUI: ${devEui}`\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Decode compact LoRaWAN payload\n// ============================================================================\n\nlet buf;\n\ntry {\n    if (Buffer.isBuffer(msg.payload.data)) {\n        buf = msg.payload.data;\n    } else {\n        buf = Buffer.from(\n            String(msg.payload.data),\n            \"base64\"\n        );\n    }\n} catch (error) {\n    node.warn(\n        `Unable to decode LoRa payload from ${devEui}: ` +\n        error.message\n    );\n\n    return null;\n}\n\nif (buf.length < 1) {\n    node.warn(\n        `Empty LoRa payload from ${devEui}`\n    );\n\n    return null;\n}\n\nconst protocolVersion =\n    buf.readUInt8(0);\n\nconst fPortCandidate =\n    msg.payload.fPort !== undefined\n        ? msg.payload.fPort\n        : (\n            msg.payload.fport !== undefined\n                ? msg.payload.fport\n                : msg.payload.port\n        );\n\nconst fPort =\n    Number(fPortCandidate);\n\nif (\n    !Number.isInteger(fPort) ||\n    fPort < 1 ||\n    fPort > 223\n) {\n    node.warn(\n        `Missing/invalid FPort from ${devEui}: ` +\n        `${String(fPortCandidate)}`\n    );\n\n    return null;\n}\n\n// Ignore unrelated LoRa application traffic.\n// This parser handles ShedSensor FPort 2 and FPort 3 only.\nif (\n    fPort !== V2_WEIGHT_PORT &&\n    fPort !== V2_ENVIRONMENT_PORT\n) {\n    return null;\n}\n\n// ============================================================================\n// Identify and validate packet format\n// ============================================================================\n\nlet packetKind = null;\nlet packetSequence = null;\n\nif (\n    protocolVersion === V2_VERSION &&\n    fPort === V2_WEIGHT_PORT\n) {\n    if (\n        buf.length !==\n        V2_WEIGHT_PAYLOAD_LENGTH\n    ) {\n        node.warn(\n            `Unexpected V2 weight payload length from ${devEui}: ` +\n            `${buf.length} bytes; expected ${V2_WEIGHT_PAYLOAD_LENGTH}`\n        );\n\n        return null;\n    }\n\n    const sampleCount =\n        buf.readUInt8(1);\n\n    if (\n        sampleCount !==\n        V2_WEIGHT_SAMPLE_COUNT\n    ) {\n        node.warn(\n            `Invalid V2 weight sample count from ${devEui}: ` +\n            `${sampleCount}; expected ${V2_WEIGHT_SAMPLE_COUNT}`\n        );\n\n        return null;\n    }\n\n    packetKind = \"v2-weight\";\n    packetSequence =\n        buf.readUInt16LE(2);\n}\nelse if (\n    protocolVersion === V2_VERSION &&\n    fPort === V2_ENVIRONMENT_PORT\n) {\n    if (\n        buf.length !==\n        V2_ENVIRONMENT_PAYLOAD_LENGTH\n    ) {\n        node.warn(\n            `Unexpected V2 environment payload length from ${devEui}: ` +\n            `${buf.length} bytes; expected ${V2_ENVIRONMENT_PAYLOAD_LENGTH}`\n        );\n\n        return null;\n    }\n\n    packetKind = \"v2-environment\";\n    packetSequence =\n        buf.readUInt16LE(1);\n}\nelse if (\n    protocolVersion === V1_VERSION &&\n    fPort === V1_PORT\n) {\n    if (\n        buf.length !==\n        V1_PAYLOAD_LENGTH\n    ) {\n        node.warn(\n            `Unexpected V1 payload length from ${devEui}: ` +\n            `${buf.length} bytes; expected ${V1_PAYLOAD_LENGTH}`\n        );\n\n        return null;\n    }\n\n    const sampleCount =\n        buf.readUInt8(1);\n\n    if (\n        sampleCount === 0 ||\n        sampleCount >\n        V1_MAX_WEIGHT_SAMPLES\n    ) {\n        node.warn(\n            `Invalid V1 weight sample count from ${devEui}: ` +\n            sampleCount\n        );\n\n        return null;\n    }\n\n    packetKind = \"v1-combined\";\n    packetSequence =\n        buf.readUInt16LE(2);\n}\nelse {\n    node.warn(\n        `Unsupported LoRa application packet — ` +\n        `device=${devEui}, ` +\n        `version=${protocolVersion}, ` +\n        `fPort=${fPort}, ` +\n        `length=${buf.length}`\n    );\n\n    return null;\n}\n\n// ============================================================================\n// Session-aware duplicate protection\n// ============================================================================\n//\n// The application counters and LoRaWAN frame counter can restart after OTAA.\n// Therefore duplicate protection is scoped to the detected LoRaWAN session.\n\nconst stateKey =\n    `${STATE_NAMESPACE}_state_${devEui}`;\n\nlet deviceState =\n    global.get(stateKey);\n\nif (\n    !deviceState ||\n    typeof deviceState !== \"object\" ||\n    Array.isArray(deviceState)\n) {\n    deviceState = {\n        sessionSequence: 0,\n        devAddr: null,\n        maxFrameCounter: -1,\n        recentEventIds: [],\n        recentPackets: []\n    };\n}\n\nif (\n    !Array.isArray(\n        deviceState.recentEventIds\n    )\n) {\n    deviceState.recentEventIds = [];\n}\n\nif (\n    !Array.isArray(\n        deviceState.recentPackets\n    )\n) {\n    deviceState.recentPackets = [];\n}\n\nconst normaliseHex = value =>\n    String(value || \"\")\n        .replace(/^0x/i, \"\")\n        .replace(/[^0-9a-f]/gi, \"\")\n        .toUpperCase();\n\nconst devAddr =\n    normaliseHex(\n        msg.payload.devAddr\n    );\n\nconst frameCounter =\n    Number(\n        msg.payload.fCnt\n    );\n\nconst hasFrameCounter =\n    Number.isInteger(frameCounter) &&\n    frameCounter >= 0;\n\nconst devAddrChanged =\n    devAddr.length > 0 &&\n    deviceState.devAddr &&\n    devAddr !== deviceState.devAddr;\n\nconst frameCounterRestarted =\n    hasFrameCounter &&\n    frameCounter <= 1 &&\n    Number.isInteger(\n        deviceState.maxFrameCounter\n    ) &&\n    deviceState.maxFrameCounter > 1;\n\nif (\n    devAddrChanged ||\n    frameCounterRestarted\n) {\n    deviceState.sessionSequence =\n        Number(\n            deviceState.sessionSequence || 0\n        ) + 1;\n\n    deviceState.recentEventIds = [];\n    deviceState.recentPackets = [];\n    deviceState.maxFrameCounter = -1;\n\n    node.warn(\n        `New LoRaWAN session detected — ` +\n        `device=${devEui}, ` +\n        `devAddr=${devAddr || \"unknown\"}, ` +\n        `fCnt=${hasFrameCounter ? frameCounter : \"unknown\"}`\n    );\n}\n\nif (devAddr.length > 0) {\n    deviceState.devAddr =\n        devAddr;\n}\n\nconst payloadHex =\n    buf.toString(\"hex\");\n\nconst deduplicationId =\n    String(\n        msg.payload.deduplicationId || \"\"\n    ).trim();\n\nconst exactEventSignature =\n    deduplicationId\n        ? `dedup:${deduplicationId}`\n        : (\n            devAddr.length > 0 &&\n            hasFrameCounter\n                ? (\n                    `frame:${devAddr}:` +\n                    `${frameCounter}:` +\n                    `${fPort}:` +\n                    `${payloadHex}`\n                )\n                : (\n                    `payload:${fPort}:` +\n                    `${packetSequence}:` +\n                    `${payloadHex}`\n                )\n        );\n\nif (\n    deviceState.recentEventIds.includes(\n        exactEventSignature\n    )\n) {\n    node.warn(\n        `Ignoring duplicate ChirpStack event — ` +\n        `device=${devEui}, ` +\n        `kind=${packetKind}, ` +\n        `sequence=${packetSequence}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `duplicate ${packetKind} ${packetSequence}`\n    });\n\n    return null;\n}\n\nconst sessionIdentity =\n    `session:${Number(deviceState.sessionSequence || 0)}:` +\n    `${deviceState.devAddr || \"unknown\"}`;\n\nconst applicationPacketSignature =\n    `${sessionIdentity}:` +\n    `${packetKind}:` +\n    `${packetSequence}:` +\n    `${payloadHex}`;\n\nif (\n    deviceState.recentPackets.includes(\n        applicationPacketSignature\n    )\n) {\n    node.warn(\n        `Ignoring retransmitted application packet — ` +\n        `device=${devEui}, ` +\n        `kind=${packetKind}, ` +\n        `sequence=${packetSequence}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `retransmitted ${packetKind} ${packetSequence}`\n    });\n\n    return null;\n}\n\ndeviceState.recentEventIds.push(\n    exactEventSignature\n);\n\ndeviceState.recentPackets.push(\n    applicationPacketSignature\n);\n\nif (\n    deviceState.recentEventIds.length >\n    RECENT_MESSAGE_HISTORY\n) {\n    deviceState.recentEventIds =\n        deviceState.recentEventIds.slice(\n            -RECENT_MESSAGE_HISTORY\n        );\n}\n\nif (\n    deviceState.recentPackets.length >\n    RECENT_MESSAGE_HISTORY\n) {\n    deviceState.recentPackets =\n        deviceState.recentPackets.slice(\n            -RECENT_MESSAGE_HISTORY\n        );\n}\n\nif (hasFrameCounter) {\n    deviceState.maxFrameCounter =\n        Math.max(\n            Number(\n                deviceState.maxFrameCounter || -1\n            ),\n            frameCounter\n        );\n}\n\nglobal.set(\n    stateKey,\n    deviceState\n);\n\n// ============================================================================\n// RSSI\n// ============================================================================\n\nlet bestRssi = -120;\n\nif (\n    Array.isArray(\n        msg.payload.rxInfo\n    ) &&\n    msg.payload.rxInfo.length > 0\n) {\n    const validRssiValues =\n        msg.payload.rxInfo\n            .map(\n                rx => Number(rx.rssi)\n            )\n            .filter(\n                value => Number.isFinite(value)\n            );\n\n    if (\n        validRssiValues.length > 0\n    ) {\n        bestRssi =\n            Math.max(\n                ...validRssiValues\n            );\n    }\n}\n\nconst rawRssi =\n    Math.abs(bestRssi);\n\n// ============================================================================\n// Timestamp helpers\n// ============================================================================\n//\n// Node-RED processing time anchors each received packet because the V2\n// firmware does not currently transmit an RTC timestamp. For V2 weight data,\n// the preceding 22 samples are reconstructed backwards at 200 ms intervals.\n\nfunction formatBackendTimestamp(date) {\n    // Preserve milliseconds because V2 weight samples are 200 ms apart.\n    return date\n        .toISOString()\n        .replace(\"Z\", \"+00:00\");\n}\n\nconst receivedTime =\n    new Date();\n\nconst receivedTimestamp =\n    formatBackendTimestamp(\n        receivedTime\n    );\n\n// ============================================================================\n// Backend message helpers\n// ============================================================================\n\nconst outMessages = [];\n\nconst usedPacketNumbers =\n    new Set();\n\nfunction nextPacketNumber() {\n    let packetNumber;\n\n    do {\n        packetNumber =\n            Math.floor(\n                Math.random() * 65536\n            );\n    } while (\n        usedPacketNumbers.has(\n            packetNumber\n        )\n    );\n\n    usedPacketNumbers.add(\n        packetNumber\n    );\n\n    return packetNumber;\n}\n\nfunction makeBackendMessage(\n    hexData,\n    timestamp\n) {\n    return {\n        topic:\n            `gateway/${gatewaySerial}/tinymesh/out`,\n\n        payload: {\n            \"_meta\": {\n                \"received\": timestamp\n            },\n\n            \"block\": 0,\n            \"data\": hexData,\n            \"detail\": \"serial\",\n            \"hops\": 1,\n            \"latency\": 2,\n            \"network_lvl\": 1,\n            \"packet_num\": nextPacketNumber(),\n            \"rssi\": rawRssi,\n            \"sid\": TARGET_CLOUD_SID,\n            \"type\": \"event\",\n            \"uid\": dynamicUid\n        }\n    };\n}\n\n// ============================================================================\n// Legacy Type 0x01 environmental packet\n// ============================================================================\n//\n// Type:      0x01\n// Length:    58 bytes\n// Signature: 013a\n\nfunction makeEnvironmentMessage(\n    temperature,\n    pressure,\n    humidity,\n    lux,\n    co2,\n    timestamp\n) {\n    const envBuf =\n        Buffer.alloc(58, 0);\n\n    envBuf.writeUInt8(\n        0x01,\n        0\n    );\n\n    envBuf.writeUInt8(\n        0x3A,\n        1\n    );\n\n    // Bytes 2-5 remain reserved and zero-filled.\n\n    envBuf.writeFloatLE(\n        temperature,\n        6\n    );\n\n    envBuf.writeFloatLE(\n        pressure,\n        10\n    );\n\n    envBuf.writeFloatLE(\n        temperature,\n        14\n    );\n\n    envBuf.writeFloatLE(\n        humidity,\n        18\n    );\n\n    envBuf.writeUInt32LE(\n        Math.min(\n            0xFFFFFFFF,\n            Math.max(\n                0,\n                Math.round(lux)\n            )\n        ),\n        22\n    );\n\n    // Confirmed backend workaround retained from v9.1:\n    // GASCO2 must be UInt32, not Float32.\n    envBuf.writeUInt32LE(\n        Math.min(\n            0xFFFFFFFF,\n            Math.max(\n                0,\n                Math.round(co2)\n            )\n        ),\n        26\n    );\n\n    envBuf.writeFloatLE(\n        0.0,\n        30\n    );\n\n    envBuf.writeFloatLE(\n        0.0,\n        34\n    );\n\n    envBuf.writeFloatLE(\n        0.0,\n        38\n    );\n\n    envBuf.writeFloatLE(\n        0.0,\n        42\n    );\n\n    envBuf.writeFloatLE(\n        0.0,\n        46\n    );\n\n    envBuf.writeFloatLE(\n        temperature,\n        50\n    );\n\n    envBuf.writeFloatLE(\n        temperature,\n        54\n    );\n\n    return makeBackendMessage(\n        envBuf.toString(\"hex\"),\n        timestamp\n    );\n}\n\n// ============================================================================\n// Legacy Type 0x02 weight packet\n// ============================================================================\n//\n// Type:      0x02\n// Length:    106 bytes\n// Signature: 026a\n\nfunction makeWeightMessage(\n    legacySamples,\n    timestamp\n) {\n    const wBuf =\n        Buffer.alloc(106, 0);\n\n    wBuf.writeUInt8(\n        0x02,\n        0\n    );\n\n    wBuf.writeUInt8(\n        0x6A,\n        1\n    );\n\n    // Bytes 2-5 remain reserved and zero-filled.\n\n    for (\n        let i = 0;\n        i < LEGACY_WEIGHT_SAMPLE_COUNT;\n        i++\n    ) {\n        const value =\n            Math.min(\n                65534,\n                Math.max(\n                    0,\n                    Math.round(\n                        legacySamples[i] || 0\n                    )\n                )\n            );\n\n        wBuf.writeUInt16LE(\n            value,\n            6 + (i * 2)\n        );\n    }\n\n    return makeBackendMessage(\n        wBuf.toString(\"hex\"),\n        timestamp\n    );\n}\n\n// ============================================================================\n// Decode packet\n// ============================================================================\n\nif (packetKind === \"v2-weight\") {\n    const sampleCount =\n        buf.readUInt8(1);\n\n    const eventNumber =\n        buf.readUInt16LE(2);\n\n    const sourceSamples = [];\n\n    for (\n        let i = 0;\n        i < sampleCount;\n        i++\n    ) {\n        sourceSamples.push(\n            buf.readUInt16LE(\n                4 + (i * 2)\n            )\n        );\n    }\n\n    // ------------------------------------------------------------------------\n    // V2 weight reconstruction\n    // ------------------------------------------------------------------------\n    //\n    // Firmware supplies 23 sequential weight measurements at 5 Hz.\n    //\n    // Do NOT spread those 23 measurements across WeightLoadSample1..50.\n    //\n    // Instead, generate one legacy Type 0x02 backend message per valid source\n    // sample. Within each backend message, repeat that single measured value\n    // across all 50 legacy WeightLoadSample positions. This mirrors the old\n    // parser/backend representation while preserving the new 200 ms sequence.\n    // ------------------------------------------------------------------------\n\n    const newestSampleTime =\n        receivedTime;\n\n    let validWeightSamples = 0;\n    let invalidWeightSamples = 0;\n    let genuineZeroSamples = 0;\n\n    let sourceMinimum = null;\n    let sourceMaximum = null;\n\n    for (\n        let i = 0;\n        i < sampleCount;\n        i++\n    ) {\n        const weight =\n            sourceSamples[i];\n\n        // 0xFFFF means this scale point failed. Do not fabricate a replacement.\n        if (\n            weight === INVALID_WEIGHT\n        ) {\n            invalidWeightSamples++;\n            continue;\n        }\n\n        const outputWeight =\n            Math.min(\n                65534,\n                Math.max(\n                    0,\n                    Math.round(weight)\n                )\n            );\n\n        if (\n            outputWeight === 0\n        ) {\n            genuineZeroSamples++;\n        }\n\n        if (\n            sourceMinimum === null ||\n            outputWeight < sourceMinimum\n        ) {\n            sourceMinimum =\n                outputWeight;\n        }\n\n        if (\n            sourceMaximum === null ||\n            outputWeight > sourceMaximum\n        ) {\n            sourceMaximum =\n                outputWeight;\n        }\n\n        // Treat the last source point as the newest point and reconstruct the\n        // preceding samples backwards using the actual firmware interval.\n        const ageFromNewestMs =\n            (\n                sampleCount -\n                1 -\n                i\n            ) *\n            V2_WEIGHT_INTERVAL_MS;\n\n        const sampleTime =\n            new Date(\n                newestSampleTime.getTime() -\n                ageFromNewestMs\n            );\n\n        const sampleTimestamp =\n            formatBackendTimestamp(\n                sampleTime\n            );\n\n        // Historical backend representation:\n        // one measured weight repeated through all 50 WeightLoadSample fields.\n        const legacySamples =\n            new Array(\n                LEGACY_WEIGHT_SAMPLE_COUNT\n            ).fill(\n                outputWeight\n            );\n\n        outMessages.push(\n            makeWeightMessage(\n                legacySamples,\n                sampleTimestamp\n            )\n        );\n\n        validWeightSamples++;\n    }\n\n    node.warn(\n        `V2 WEIGHT WINDOW DECODED — ` +\n        `device=${devEui}, ` +\n        `window=${eventNumber}, ` +\n        `sourceSamples=${sampleCount}, ` +\n        `valid=${validWeightSamples}, ` +\n        `invalid=${invalidWeightSamples}, ` +\n        `zeros=${genuineZeroSamples}, ` +\n        `min=${sourceMinimum === null ? \"none\" : sourceMinimum}, ` +\n        `max=${sourceMaximum === null ? \"none\" : sourceMaximum}, ` +\n        `backendMessages=${validWeightSamples}`\n    );\n\n    node.status({\n        fill:\n            invalidWeightSamples > 0\n                ? \"yellow\"\n                : \"green\",\n\n        shape: \"dot\",\n\n        text:\n            `weight window ${eventNumber} -> ${validWeightSamples} samples`\n    });\n}\nelse if (\n    packetKind === \"v2-environment\"\n) {\n    const environmentPacketNumber =\n        buf.readUInt16LE(1);\n\n    const temperature =\n        buf.readInt16LE(3) /\n        100.0;\n\n    const co2 =\n        buf.readUInt16LE(5);\n\n    const lux =\n        buf.readUInt16LE(7);\n\n    const humidity =\n        buf.readUInt16LE(9) /\n        100.0;\n\n    const pressure =\n        buf.readUInt16LE(11) /\n        10.0;\n\n    outMessages.push(\n        makeEnvironmentMessage(\n            temperature,\n            pressure,\n            humidity,\n            lux,\n            co2,\n            receivedTimestamp\n        )\n    );\n\n    node.warn(\n        `V2 ENVIRONMENT DECODED — ` +\n        `device=${devEui}, ` +\n        `packet=${environmentPacketNumber}, ` +\n        `temperature=${temperature}, ` +\n        `pressure=${pressure}, ` +\n        `humidity=${humidity}, ` +\n        `lux=${lux}, ` +\n        `co2=${co2}, ` +\n        `backendMessages=1`\n    );\n\n    node.status({\n        fill: \"green\",\n        shape: \"dot\",\n        text:\n            `environment ${environmentPacketNumber} -> 1 backend packet`\n    });\n}\nelse if (\n    packetKind === \"v1-combined\"\n) {\n    // ------------------------------------------------------------------------\n    // Backward-compatible path for the old combined V1 packet.\n    // This deliberately preserves the v9.1 behaviour.\n    // ------------------------------------------------------------------------\n\n    const sampleCount =\n        buf.readUInt8(1);\n\n    const batchNumber =\n        buf.readUInt16LE(2);\n\n    const temperature =\n        buf.readInt16LE(40) /\n        100.0;\n\n    const co2 =\n        buf.readUInt16LE(42);\n\n    const lux =\n        buf.readUInt16LE(44);\n\n    const humidity =\n        buf.readUInt16LE(46) /\n        100.0;\n\n    const pressure =\n        buf.readUInt16LE(48) /\n        10.0;\n\n    let validWeightEvents = 0;\n    let invalidWeightEvents = 0;\n    let genuineZeroEvents = 0;\n\n    const newestSampleTime =\n        receivedTime;\n\n    for (\n        let i = 0;\n        i < sampleCount;\n        i++\n    ) {\n        const weight =\n            buf.readUInt16LE(\n                4 + (i * 2)\n            );\n\n        const ageFromNewestMs =\n            (\n                sampleCount -\n                1 -\n                i\n            ) *\n            V1_WEIGHT_INTERVAL_MS;\n\n        const sampleTime =\n            new Date(\n                newestSampleTime.getTime() -\n                ageFromNewestMs\n            );\n\n        const sampleTimestamp =\n            formatBackendTimestamp(\n                sampleTime\n            );\n\n        if (\n            weight ===\n            INVALID_WEIGHT\n        ) {\n            invalidWeightEvents++;\n\n            continue;\n        }\n\n        const outputWeight =\n            Math.min(\n                65534,\n                Math.max(\n                    0,\n                    Math.round(weight)\n                )\n            );\n\n        if (\n            outputWeight === 0\n        ) {\n            genuineZeroEvents++;\n        }\n\n        const legacySamples =\n            new Array(\n                LEGACY_WEIGHT_SAMPLE_COUNT\n            ).fill(\n                outputWeight\n            );\n\n        outMessages.push(\n            makeWeightMessage(\n                legacySamples,\n                sampleTimestamp\n            )\n        );\n\n        validWeightEvents++;\n    }\n\n    outMessages.push(\n        makeEnvironmentMessage(\n            temperature,\n            pressure,\n            humidity,\n            lux,\n            co2,\n            receivedTimestamp\n        )\n    );\n\n    node.warn(\n        `V1 COMBINED BATCH DECODED — ` +\n        `device=${devEui}, ` +\n        `batch=${batchNumber}, ` +\n        `samples=${sampleCount}, ` +\n        `validWeights=${validWeightEvents}, ` +\n        `invalidWeights=${invalidWeightEvents}, ` +\n        `genuineZeros=${genuineZeroEvents}, ` +\n        `backendMessages=${outMessages.length}`\n    );\n\n    node.status({\n        fill:\n            invalidWeightEvents > 0\n                ? \"yellow\"\n                : \"green\",\n\n        shape: \"dot\",\n\n        text:\n            `${validWeightEvents} V1 weights + 1 env`\n    });\n}\n\n// ============================================================================\n// Send all generated backend messages through output 1\n// ============================================================================\n\nif (outMessages.length === 0) {\n    return null;\n}\n\nnode.send(\n    [outMessages]\n);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 160,
+        "wires": [
+            [
+                "94ff946adb189568",
+                "479b96e0273a18b1"
+            ]
+        ]
+    },
+    {
+        "id": "a300000000000001",
+        "type": "http in",
+        "z": "a300000000000000",
+        "name": "Functional health",
+        "url": "/healthz",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "a300000000000002"
+            ]
+        ]
+    },
+    {
+        "id": "a300000000000002",
+        "type": "function",
+        "z": "a300000000000000",
+        "name": "Evaluate gateway health",
+        "func": "const now = Date.now();\nconst startedAt = global.get(\"health_started_at\") || now;\nif (!global.get(\"health_started_at\")) global.set(\"health_started_at\", startedAt);\n\nconst emcMode = String(env.get(\"EMC_TEST_MODE\") || \"false\").toLowerCase() === \"true\";\nconst staleSeconds = Number(env.get(\"NODE_RED_HEALTH_STALE_SECONDS\") || 25);\nconst startupGraceSeconds = Number(env.get(\"NODE_RED_HEALTH_STARTUP_GRACE_SECONDS\") || 30);\nconst inStartupGrace = now - startedAt < startupGraceSeconds * 1000;\n\nconst tinyLast = Number(global.get(\"health_tinymesh_last_seen\") || 0);\nconst wmbusLast = Number(global.get(\"health_wmbus_last_seen\") || 0);\nconst tinyAge = tinyLast ? (now - tinyLast) / 1000 : null;\nconst wmbusAge = wmbusLast ? (now - wmbusLast) / 1000 : null;\nconst tinySerialBad = global.get(\"health_tinymesh_serial_bad\") === true;\nconst wmbusSerialBad = global.get(\"health_wmbus_serial_bad\") === true;\n\nconst failures = [];\nif (!inStartupGrace && tinySerialBad) failures.push(\"tinymesh_serial\");\nif (!inStartupGrace && wmbusSerialBad) failures.push(\"wmbus_serial\");\n\n// Radio data freshness is monitored separately by the EMC monitor and\n// targeted radio recovery logic. It must not make the whole Node-RED\n// container unhealthy and trigger Docker autoheal.\n\nconst healthy = failures.length === 0;\nmsg.statusCode = healthy ? 200 : 503;\nmsg.headers = { \"content-type\": \"application/json\", \"cache-control\": \"no-store\" };\nmsg.payload = {\n    status: healthy ? \"ok\" : \"fail\",\n    timestamp: new Date(now).toISOString(),\n    emc_test_mode: emcMode,\n    startup_grace: inStartupGrace,\n    failures,\n    tinymesh: { age_seconds: tinyAge, serial_bad: tinySerialBad },\n    wmbus: { age_seconds: wmbusAge, serial_bad: wmbusSerialBad }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "global.set(\"health_started_at\", Date.now());",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 100,
+        "wires": [
+            [
+                "a300000000000003"
+            ]
+        ]
+    },
+    {
+        "id": "a300000000000003",
+        "type": "http response",
+        "z": "a300000000000000",
+        "name": "Health response",
+        "statusCode": "",
+        "headers": {},
+        "x": 680,
+        "y": 100,
         "wires": []
     }
 ]

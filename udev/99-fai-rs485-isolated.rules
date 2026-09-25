@@ -1,0 +1,7 @@
+# FAI Waveshare isolated two-port RS485 adapter (FT2232HL)
+# Interface 00: power meter
+# Interface 01: shared silo bus
+
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="0403", ENV{ID_MODEL_ID}=="6010", ENV{ID_USB_INTERFACE_NUM}=="00", SYMLINK+="RS485_ISO_1"
+
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="0403", ENV{ID_MODEL_ID}=="6010", ENV{ID_USB_INTERFACE_NUM}=="01", SYMLINK+="RS485_ISO_2"

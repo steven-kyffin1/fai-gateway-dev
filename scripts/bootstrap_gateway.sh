@@ -55,10 +55,13 @@ echo "[5/10] Installing Docker Engine..."
 if ! command -v docker &> /dev/null; then
     curl -fsSL https://get.docker.com -o get-docker.sh
     sh get-docker.sh
-    usermod -aG docker "$REAL_USER"
 else
     echo "Docker already installed."
 fi
+
+# Always ensure the commissioning user can access Docker,
+# including gateways where Docker was pre-installed.
+usermod -aG docker "$REAL_USER"
 
 # 6. MQTT, LoRaWAN & Project Folder Structure
 echo "[6/10] Finalizing Project Folders & Environment..."
@@ -68,6 +71,14 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 echo "Project Root detected at: $PROJECT_ROOT"
 cd "$PROJECT_ROOT"
+
+# Preserve commissioned configuration on subsequent runs.
+if [ -f .env ]; then
+    echo "Loading existing gateway configuration..."
+    set -a
+    . ./.env
+    set +a
+fi
 
 # Interactive Power Meter Selection
 echo ""
@@ -87,39 +98,150 @@ fi
 # Interactive LoRaWAN Selection
 echo ""
 echo "----------------------------------------"
-echo "Does this gateway have a LoRaWAN Module installed?"
-echo "1) YES"
-echo "2) NO [Default]"
+echo "Select LoRaWAN hardware:"
+echo "1) WM1302 SPI EU868"
+echo "2) Legacy USB EU868"
+echo "3) No LoRaWAN"
 echo "----------------------------------------"
-read -r -p "Enter 1 or 2 [Default: 2]: " LORA_CHOICE
 
-LORAWAN_WATER_METERS=false
+# Reuse a previously commissioned selection.
+DEFAULT_LORA=1
 
-if [ "$LORA_CHOICE" = "1" ]; then
-    ACTIVE_PROFILES="lorawan"
-    echo "LoRaWAN Stack ENABLED."
+case "${LORA_HARDWARE:-${COMPOSE_PROFILES:-}}" in
+    USB|*lorawan-usb*) DEFAULT_LORA=2 ;;
+    NONE) DEFAULT_LORA=3 ;;
+esac
 
-    echo ""
-    echo "----------------------------------------"
+read -r -p "Select [Default: $DEFAULT_LORA]: " LORA_CHOICE
+LORA_CHOICE="${LORA_CHOICE:-$DEFAULT_LORA}"
+
+PREVIOUS_LORA_INTERFACE="${LORA_INTERFACE:-}"
+PREVIOUS_LORA_DEVICE="${LORA_DEVICE:-}"
+
+case "$LORA_CHOICE" in
+    1)
+        LORA_HARDWARE=SPI
+        LORA_INTERFACE=SPI
+        LORA_DEVICE=/dev/spidev0.1
+        ACTIVE_PROFILES="lorawan,lorawan-spi"
+        ;;
+    2)
+        LORA_HARDWARE=USB
+        LORA_INTERFACE=USB
+        LORA_DEVICE=/dev/ttyACM0
+
+        if [ "$PREVIOUS_LORA_INTERFACE" = USB ] &&
+           [ -n "$PREVIOUS_LORA_DEVICE" ]; then
+            LORA_DEVICE="$PREVIOUS_LORA_DEVICE"
+        fi
+
+        ACTIVE_PROFILES="lorawan,lorawan-usb"
+        ;;
+    3)
+        LORA_HARDWARE=NONE
+        LORA_INTERFACE=""
+        LORA_DEVICE=""
+        ACTIVE_PROFILES=""
+        ;;
+    *)
+        echo "ERROR: Invalid LoRaWAN selection" >&2
+        exit 1
+        ;;
+esac
+
+LORAWAN_WATER_METERS="${LORAWAN_WATER_METERS:-true}"
+
+if [ "$LORA_HARDWARE" != NONE ]; then
+    WATER_DEFAULT=2
+    [ "$LORAWAN_WATER_METERS" = true ] && WATER_DEFAULT=1
+
     echo "Will this gateway receive LoRaWAN water meters?"
     echo "1) YES"
-    echo "2) NO [Default]"
-    echo "----------------------------------------"
-    read -r -p "Enter 1 or 2 [Default: 2]: " WATER_LORA_CHOICE
+    echo "2) NO"
 
-    if [ "$WATER_LORA_CHOICE" = "1" ]; then
-        LORAWAN_WATER_METERS=true
-        echo "LoRaWAN water-meter support ENABLED."
-    else
-        echo "LoRaWAN water-meter support DISABLED."
-    fi
+    read -r -p "Select [Default: $WATER_DEFAULT]: " WATER_CHOICE
+    WATER_CHOICE="${WATER_CHOICE:-$WATER_DEFAULT}"
+
+    case "$WATER_CHOICE" in
+        1) LORAWAN_WATER_METERS=true ;;
+        2) LORAWAN_WATER_METERS=false ;;
+        *)
+            echo "ERROR: Invalid water-meter selection" >&2
+            exit 1
+            ;;
+    esac
 else
-    ACTIVE_PROFILES=""
-    echo "LoRaWAN Stack DISABLED."
+    LORAWAN_WATER_METERS=false
 fi
 
+echo "Selected LoRaWAN hardware: $LORA_HARDWARE"
+echo "Compose profiles: ${ACTIVE_PROFILES:-none}"
+
+# Isolated two-port RS485 is standard on new production gateways.
+RS485_DEFAULT=1
+
+case "${RS485_HARDWARE:-${COMPOSE_PROFILES:-}}" in
+    NONE) RS485_DEFAULT=2 ;;
+    ISOLATED|*rs485-isolated*) RS485_DEFAULT=1 ;;
+esac
+
+echo ""
+echo "Select RS485 hardware:"
+echo "1) Waveshare isolated two-port [Default]"
+echo "2) No external RS485 adapter"
+
+read -r -p "Select [Default: $RS485_DEFAULT]: " RS485_CHOICE
+RS485_CHOICE="${RS485_CHOICE:-$RS485_DEFAULT}"
+
+case "$RS485_CHOICE" in
+    1)
+        RS485_HARDWARE=ISOLATED
+        if [ -n "$ACTIVE_PROFILES" ]; then
+            ACTIVE_PROFILES="$ACTIVE_PROFILES,rs485-isolated"
+        else
+            ACTIVE_PROFILES="rs485-isolated"
+        fi
+        ;;
+    2)
+        RS485_HARDWARE=NONE
+        ;;
+    *)
+        echo "ERROR: Invalid RS485 selection" >&2
+        exit 1
+        ;;
+esac
+
+echo "RS485 hardware: $RS485_HARDWARE"
+echo "Final Compose profiles: ${ACTIVE_PROFILES:-none}"
+
+# RS485 adapter presence preflight.
+# Detect the FT2232 USB device before storage setup or Docker startup.
+if [[ "$RS485_HARDWARE" == "ISOLATED" ]]; then
+    rs485_found=false
+
+    for usb_device in /sys/bus/usb/devices/*; do
+        [[ -f "$usb_device/idVendor" &&
+           -f "$usb_device/idProduct" ]] || continue
+
+        if [[ "$(<"$usb_device/idVendor")" == "0403" &&
+              "$(<"$usb_device/idProduct")" == "6010" ]]; then
+            rs485_found=true
+            break
+        fi
+    done
+
+    if [[ "$rs485_found" != true ]]; then
+        echo "ERROR: Isolated RS485 selected, but FT2232 adapter not detected." >&2
+        echo "Connect the adapter or rerun bootstrap and select option 2." >&2
+        exit 1
+    fi
+fi
+
+
+
 FINAL_SERIAL=${GATEWAY_SERIAL:-$ETH_MAC}
-NEW_HOSTNAME=${NEW_HOSTNAME:-fai-gw-${FINAL_SERIAL: -8}}
+DEFAULT_HOSTNAME="fai-gw-${FINAL_SERIAL: -8}"
+NEW_HOSTNAME="${NEW_HOSTNAME:-${GATEWAY_HOSTNAME:-$DEFAULT_HOSTNAME}}"
 
 echo "Setting hostname to $NEW_HOSTNAME..."
 hostnamectl set-hostname "$NEW_HOSTNAME" || true
@@ -129,25 +251,55 @@ hostnamectl set-hostname "$NEW_HOSTNAME" || true
 sed -i '/^127\.0\.1\.1/d' /etc/hosts
 echo "127.0.1.1   $NEW_HOSTNAME" >> /etc/hosts
 
-echo "Writing environment variables to $PROJECT_ROOT/.env..."
-cat <<EOF > .env
-GATEWAY_SERIAL=$FINAL_SERIAL
-GATEWAY_HOSTNAME=$NEW_HOSTNAME
-POWER_METER_TYPE=$METER_TYPE
-COMPOSE_PROFILES=$ACTIVE_PROFILES
-LORAWAN_WATER_METERS=$LORAWAN_WATER_METERS
+echo "Updating environment variables in $PROJECT_ROOT/.env..."
 
-# ADS301 silo junction-box configuration
-ADS301_SILO_1_ACCESS_UNIT_ID=1
-ADS301_SILO_2_ACCESS_UNIT_ID=11
-ADS301_SILO_1_CHANNELS=4
-ADS301_SILO_2_CHANNELS=4
-EOF
+touch .env
+
+set_env() {
+    local key="$1"
+    local value="$2"
+
+    if grep -q "^${key}=" .env; then
+        sed -i "s|^${key}=.*|${key}=${value}|" .env
+    else
+        printf '%s=%s\n' "$key" "$value" >> .env
+    fi
+}
+
+ensure_env() {
+    local key="$1"
+    local value="$2"
+
+    if ! grep -q "^${key}=" .env; then
+        printf '%s=%s\n' "$key" "$value" >> .env
+    fi
+}
+
+# The selected profiles must override any value loaded earlier.
+export COMPOSE_PROFILES="$ACTIVE_PROFILES"
+
+set_env GATEWAY_SERIAL "$FINAL_SERIAL"
+set_env GATEWAY_HOSTNAME "$NEW_HOSTNAME"
+set_env POWER_METER_TYPE "$METER_TYPE"
+set_env COMPOSE_PROFILES "$ACTIVE_PROFILES"
+set_env RS485_HARDWARE "$RS485_HARDWARE"
+set_env LORA_HARDWARE "$LORA_HARDWARE"
+set_env LORA_INTERFACE "$LORA_INTERFACE"
+set_env LORA_DEVICE "$LORA_DEVICE"
+set_env LORAWAN_WATER_METERS "$LORAWAN_WATER_METERS"
+
+# Supply ADS301 defaults without erasing commissioned values.
+ensure_env ADS301_SILO_1_ACCESS_UNIT_ID 1
+ensure_env ADS301_SILO_2_ACCESS_UNIT_ID 2
+ensure_env ADS301_SILO_1_CHANNELS 4
+ensure_env ADS301_SILO_2_CHANNELS 4
 
 chown "$REAL_USER":"$REAL_USER" .env
 
 # Permissions
-chown -R 1883:1883 mosquitto/data mosquitto/log
+# Runtime directories are gitignored, so create them on every fresh install.
+mkdir -p "$PROJECT_ROOT/mosquitto/data" "$PROJECT_ROOT/mosquitto/log"
+chown -R 1883:1883 "$PROJECT_ROOT/mosquitto/data" "$PROJECT_ROOT/mosquitto/log"
 chown -R 1000:1000 node-red-data
 usermod -aG dialout "$REAL_USER"
 
@@ -250,6 +402,7 @@ cat > /etc/systemd/system/fai-gateway.service <<EOF
 [Unit]
 Description=FAI Gateway Docker Stack
 Requires=docker.service
+RequiresMountsFor=/opt/fai-storage
 Wants=network-online.target tailscaled.service
 After=docker.service network-online.target tailscaled.service
 
@@ -272,33 +425,134 @@ systemctl daemon-reload
 systemctl enable fai-gateway.service
 echo "Persistence enabled."
 
+# Install all dependencies before configuring SSD and UPS.
+# Required on every freshly imaged production gateway.
+apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    parted util-linux e2fsprogs curl \
+    i2c-tools python3-smbus python3-paho-mqtt
+
 # 8. SSD Setup
 echo "[8/10] Configuring NVMe SSD for Store-and-Forward..."
+
 MOUNT_POINT="/opt/fai-storage"
 NVME_DRIVE="/dev/nvme0n1"
+NVME_PARTITION="${NVME_DRIVE}p1"
 
-mkdir -p $MOUNT_POINT
-if blkid $NVME_DRIVE | grep -q "ext4"; then
-    echo "Drive $NVME_DRIVE is already formatted."
+mkdir -p "$MOUNT_POINT"
+
+if [ ! -b "$NVME_DRIVE" ]; then
+    echo "ERROR: Expected NVMe drive $NVME_DRIVE was not found."
+    exit 1
+fi
+
+if [ -b "$NVME_PARTITION" ]; then
+    EXISTING_FSTYPE="$(blkid -s TYPE -o value "$NVME_PARTITION" 2>/dev/null || true)"
+
+    if [ "$EXISTING_FSTYPE" = "ext4" ]; then
+        echo "Existing ext4 filesystem found on $NVME_PARTITION. Reusing it."
+    else
+        echo "ERROR: $NVME_PARTITION already exists but is not ext4."
+        echo "Refusing to format an existing partition automatically."
+        lsblk -f "$NVME_DRIVE" || true
+        exit 1
+    fi
 else
-    echo "Formatting $NVME_DRIVE to ext4..."
-    parted -s $NVME_DRIVE mklabel gpt
-    parted -s $NVME_DRIVE mkpart primary ext4 0% 100%
-    mkfs.ext4 -F ${NVME_DRIVE}p1
+    # Refuse to repartition a disk that already contains unexpected partitions.
+    CHILD_COUNT="$(
+        lsblk -nrpo TYPE "$NVME_DRIVE" 2>/dev/null |
+        grep -c '^part$' || true
+    )"
+
+    if [ "$CHILD_COUNT" -ne 0 ]; then
+        echo "ERROR: $NVME_DRIVE contains existing partitions, but $NVME_PARTITION was not found."
+        echo "Refusing to repartition automatically."
+        lsblk -f "$NVME_DRIVE" || true
+        exit 1
+    fi
+
+    # A disk can contain data or a partition table even if lsblk
+    # does not show any recognised partitions.
+    if ! SIGNATURES="$(wipefs --no-act "$NVME_DRIVE")"; then
+        echo "ERROR: Cannot inspect NVMe signatures."
+        exit 1
+    fi
+
+    if [ -n "$SIGNATURES" ]; then
+        echo "ERROR: Existing NVMe signatures detected."
+        echo "$SIGNATURES"
+        echo "Refusing automatic formatting."
+        exit 1
+    fi
+
+    echo "Blank NVMe detected. Creating GPT and ext4 filesystem..."
+    parted -s "$NVME_DRIVE" mklabel gpt
+    parted -s "$NVME_DRIVE" mkpart primary ext4 0% 100%
+
+    partprobe "$NVME_DRIVE"
+
+    for _ in $(seq 1 10); do
+        [ -b "$NVME_PARTITION" ] && break
+        sleep 1
+    done
+
+    if [ ! -b "$NVME_PARTITION" ]; then
+        echo "ERROR: $NVME_PARTITION did not appear after partitioning."
+        exit 1
+    fi
+
+    mkfs.ext4 -F "$NVME_PARTITION"
 fi
 
-if ! grep -q "${NVME_DRIVE}p1" /etc/fstab; then
-    echo "${NVME_DRIVE}p1 $MOUNT_POINT ext4 defaults 0 2" | tee -a /etc/fstab
+NVME_UUID="$(blkid -s UUID -o value "$NVME_PARTITION")"
+
+if [ -z "$NVME_UUID" ]; then
+    echo "ERROR: Could not determine filesystem UUID for $NVME_PARTITION."
+    exit 1
 fi
 
-mount -a
-chown -R $REAL_USER:$REAL_USER $MOUNT_POINT
+# Preserve any existing mount configuration. Never silently
+# replace a different filesystem assigned to this mount point.
+FSTAB_SOURCE="$(
+    awk '$1 !~ /^#/ && $2 == "/opt/fai-storage" {print $1}' /etc/fstab
+)"
+
+if [ -z "$FSTAB_SOURCE" ]; then
+    echo "UUID=$NVME_UUID $MOUNT_POINT ext4 defaults,nofail 0 2" >> /etc/fstab
+elif [ "$FSTAB_SOURCE" != "UUID=$NVME_UUID" ]; then
+    echo "ERROR: Existing fstab entry requires review: $FSTAB_SOURCE"
+    exit 1
+fi
+
+# Mount the expected filesystem without invoking mount -a.
+if ! mountpoint -q "$MOUNT_POINT"; then
+    if ! mount "$MOUNT_POINT"; then
+        echo "ERROR: Failed to mount $MOUNT_POINT."
+        exit 1
+    fi
+fi
+
+MOUNTED_UUID="$(findmnt -n -o UUID --mountpoint "$MOUNT_POINT")"
+
+if [ "$MOUNTED_UUID" != "$NVME_UUID" ]; then
+    echo "ERROR: Wrong filesystem mounted at $MOUNT_POINT."
+    echo "Expected UUID: $NVME_UUID"
+    echo "Actual UUID: $MOUNTED_UUID"
+    exit 1
+fi
+
+# The mount root is Mosquitto's persistent data directory.
+# Do not recursively alter the ownership of existing SSD contents.
+chown 1883:1883 "$MOUNT_POINT"
+chmod 0755 "$MOUNT_POINT"
+
+echo "NVMe storage ready:"
+findmnt "$MOUNT_POINT"
 
 # 9. SuperCAP UPS Setup
 echo "[9/10] Configuring I2C for SuperCAP UPS..."
 
-apt-get update
-apt-get install -y i2c-tools python3-smbus
+
 
 if ! groups $REAL_USER | grep &>/dev/null '\bi2c\b'; then
     usermod -aG i2c $REAL_USER
@@ -318,36 +572,126 @@ if ! grep -q "usbcore.quirks=2109:2817:k" /boot/firmware/cmdline.txt; then
     sed -i '$ s/$/ usbcore.autosuspend=-1 usbcore.quirks=2109:2817:k/' /boot/firmware/cmdline.txt
 fi
 
-# 10. Hardware Udev Rules (Zero-Touch RS485 Mapping)
-echo "[10/10] Generating Hardware Device Mappings..."
+# 10. Persistent isolated RS485 device mappings
+echo "[10/10] Installing isolated RS485 device mappings..."
 
-cat <<EOF > /etc/udev/rules.d/99-rs485-wch.rules
-# WCH Quad Serial (4 RS485 Ports) - Mapped by Interface Number
-SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="1a86", ENV{ID_MODEL_ID}=="55d5", ENV{ID_USB_INTERFACE_NUM}=="00", SYMLINK+="RS485_QUAD_1"
-SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="1a86", ENV{ID_MODEL_ID}=="55d5", ENV{ID_USB_INTERFACE_NUM}=="02", SYMLINK+="RS485_QUAD_2"
-SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="1a86", ENV{ID_MODEL_ID}=="55d5", ENV{ID_USB_INTERFACE_NUM}=="04", SYMLINK+="RS485_QUAD_3"
-SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="1a86", ENV{ID_MODEL_ID}=="55d5", ENV{ID_USB_INTERFACE_NUM}=="06", SYMLINK+="RS485_QUAD_4"
-EOF
+install -m 0644     "$PROJECT_ROOT/udev/99-fai-rs485-isolated.rules"     /etc/udev/rules.d/99-fai-rs485-isolated.rules
+
+install -m 0644     "$PROJECT_ROOT/udev/99-fai-radio-ports.rules"     /etc/udev/rules.d/99-fai-radio-ports.rules
 
 udevadm control --reload-rules
-udevadm trigger
+udevadm trigger --subsystem-match=tty
+
+# Verify that udev has created both isolated RS485 interfaces.
+if [[ "$RS485_HARDWARE" == "ISOLATED" ]]; then
+    udevadm settle --timeout=15
+
+    for rs485_device in /dev/RS485_ISO_1 /dev/RS485_ISO_2; do
+        if [[ ! -c "$rs485_device" ]]; then
+            echo "ERROR: Missing RS485 device: $rs485_device" >&2
+            echo "Check the adapter and udev mapping before starting Docker." >&2
+            exit 1
+        fi
+    done
+fi
+
 
 # =================================================================
-# 11. ZERO-TOUCH CHIRPSTACK AUTO-PROVISIONING
+# 10b. RECOVERY & DIAGNOSTIC SERVICES
 # =================================================================
-if [ "$ACTIVE_PROFILES" == "lorawan" ]; then
+echo "[10b/10] Installing recovery and diagnostic services..."
+
+# Restricted helper used by the radio recovery supervisor to re-enumerate
+# only explicitly recognised USB interfaces.
+install -m 0755 \
+    "$PROJECT_ROOT/scripts/fai-usb-recover" \
+    /usr/local/sbin/fai-usb-recover
+
+# EMC/diagnostic log directory service. This also guarantees that
+# /opt/fai-storage/emc exists after the storage mount is available.
+install -m 0644 \
+    "$PROJECT_ROOT/systemd/fai-emc-logdir.service" \
+    /etc/systemd/system/fai-emc-logdir.service
+
+# Install the radio recovery service while substituting the actual project path.
+sed "s|__PROJECT_ROOT__|$PROJECT_ROOT|g" \
+    "$PROJECT_ROOT/systemd/fai-radio-recovery.service" \
+    > /etc/systemd/system/fai-radio-recovery.service
+
+chmod 0644 /etc/systemd/system/fai-radio-recovery.service
+
+systemctl daemon-reload
+
+systemctl enable fai-emc-logdir.service
+systemctl enable fai-radio-recovery.service
+
+# Create the persistent recovery log location now as well as at boot.
+systemctl start fai-emc-logdir.service
+
+echo "Recovery services installed and enabled."
+
+# =================================================================
+# 11. START GATEWAY & OPTIONAL LORAWAN PROVISIONING
+# =================================================================
+# Build the selected SPI forwarder on every new installation.
+# Reuses Docker's build cache on subsequent installations.
+if [[ ",$ACTIVE_PROFILES," == *,lorawan-spi,* ]]; then
+    echo "Preparing WM1302 SPI forwarder..."
+
+    for device in /dev/spidev0.1 /dev/i2c-3; do
+        if [ ! -c "$device" ]; then
+            echo "ERROR: Required SPI hardware missing: $device"
+            exit 1
+        fi
+    done
+
+    if ! docker compose build lora-forwarder-spi; then
+        echo "ERROR: WM1302 SPI image build failed."
+        exit 1
+    fi
+fi
+
+echo "[11/11] Starting FAI Gateway stack..."
+
+# 'start' is a no-op if the oneshot service is already active.
+# Restart an existing installation to apply its selected profiles.
+if systemctl is-active --quiet fai-gateway.service; then
+    GATEWAY_ACTION=restart
+else
+    GATEWAY_ACTION=start
+fi
+
+echo "Gateway service action: $GATEWAY_ACTION"
+
+if ! systemctl "$GATEWAY_ACTION" fai-gateway.service; then
+    echo "ERROR: Failed to start fai-gateway.service."
+    systemctl status fai-gateway.service --no-pager || true
+    journalctl -u fai-gateway.service -n 100 --no-pager || true
+    exit 1
+fi
+
+if [[ ",$ACTIVE_PROFILES," == *,lorawan,* ]]; then
     echo "[11/11] Booting Stack & Auto-Provisioning ChirpStack..."
-    
-    # 1. Start the systemd service NOW so the Docker containers begin booting
-    systemctl start fai-gateway.service
-    
     echo -n "Waiting for ChirpStack to come online (takes ~15-20s)"
     
     # Ping the Web UI on 8080 to see if the container has finished booting
-    until curl -s -f -o /dev/null "http://localhost:8080/"; do
+    CHIRPSTACK_READY=false
+
+    for attempt in {1..60}; do
+        if curl -s -f -o /dev/null "http://localhost:8080/"; then
+            CHIRPSTACK_READY=true
+            break
+        fi
         printf '.'
         sleep 2
     done
+
+    if [ "$CHIRPSTACK_READY" != true ]; then
+        echo
+        echo "ERROR: ChirpStack did not become ready."
+        docker compose logs --tail=50 chirpstack || true
+        exit 1
+    fi
     
     echo ""
     echo "ChirpStack is UP! Executing Ghost Admin..."
@@ -366,6 +710,15 @@ if [ "$ACTIVE_PROFILES" == "lorawan" ]; then
 else
     echo "[11/11] LoRaWAN Disabled. Skipping ChirpStack Auto-Provisioning."
 fi
+
+echo "Starting radio recovery supervisor..."
+if ! systemctl start fai-radio-recovery.service; then
+    echo "ERROR: Failed to start fai-radio-recovery.service."
+    systemctl status fai-radio-recovery.service --no-pager || true
+    journalctl -u fai-radio-recovery.service -n 100 --no-pager || true
+    exit 1
+fi
+
 # =================================================================
 
 echo ""
@@ -373,5 +726,6 @@ echo "--- ✅ BOOTSTRAP COMPLETE ---"
 echo "Identity: $NEW_HOSTNAME"
 echo "Gateway Serial: $FINAL_SERIAL"
 echo "Meter Configured: $METER_TYPE"
-echo "Hardware: LoRaWAN and Modbus are now fully Zero-Touch."
-echo "Next Step: Run 'sudo reboot'"
+echo "LoRaWAN Profile: ${ACTIVE_PROFILES:-disabled}"
+echo "Gateway stack and recovery services are running."
+echo "Recommended verification: run 'sudo reboot' and confirm automatic recovery."
