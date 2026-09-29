@@ -1,7 +1,11 @@
-# FAI fixed internal USB topology
-#
-# TinyMesh - fixed internal USB port
-SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="0403", ENV{ID_MODEL_ID}=="6001", ENV{ID_PATH}=="platform-fe9c0000.xhci-usb-0:1.3.1.1:1.0", SYMLINK+="FAI_TINYMESH"
+cd ~/fai-gateway-dev
 
-# wM-Bus - fixed internal USB port
+cat > udev/99-fai-radio-ports.rules <<'EOF'
+# FAI TinyMesh - supported reComputer internal USB topologies
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="0403", ENV{ID_MODEL_ID}=="6001", ENV{ID_PATH}=="platform-fe9c0000.xhci-usb-0:1.3.1.1:1.0", SYMLINK+="FAI_TINYMESH"
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="0403", ENV{ID_MODEL_ID}=="6001", ENV{ID_PATH}=="platform-fe9c0000.xhci-usb-0:1.3.2.1:1.0", SYMLINK+="FAI_TINYMESH"
+
+# FAI wM-Bus - supported reComputer internal USB topologies
 SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="0403", ENV{ID_MODEL_ID}=="6001", ENV{ID_PATH}=="platform-fe9c0000.xhci-usb-0:1.3.1.4:1.0", SYMLINK+="FAI_WMBUS"
+SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="0403", ENV{ID_MODEL_ID}=="6001", ENV{ID_PATH}=="platform-fe9c0000.xhci-usb-0:1.3.2.4:1.0", SYMLINK+="FAI_WMBUS"
+EOF
