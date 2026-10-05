@@ -165,12 +165,16 @@
             "c8eeaa7ed265f0e8",
             "bbfc7b9df1d6af32",
             "94ff946adb189568",
-            "31daaefc6f2976c6"
+            "31daaefc6f2976c6",
+            "e176e762cc6eefe4",
+            "3faf683613077f13",
+            "d74e9a28505a4120",
+            "4b2d590ac842be82"
         ],
         "x": 14,
         "y": -28.5,
-        "w": 1292,
-        "h": 469.5
+        "w": 1432,
+        "h": 529.5
     },
     {
         "id": "2ba8c5099f662f10",
@@ -815,8 +819,8 @@
         "correl": "",
         "expiry": "",
         "broker": "b78b8561ebd93ffc",
-        "x": 1430,
-        "y": 360,
+        "x": 1510,
+        "y": 400,
         "wires": []
     },
     {
@@ -1917,8 +1921,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 990,
-        "y": 300,
+        "x": 1050,
+        "y": 320,
         "wires": [
             [
                 "a5a75db8e96fde8a"
@@ -1938,8 +1942,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1190,
-        "y": 300,
+        "x": 1290,
+        "y": 320,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -4119,7 +4123,8 @@
         "y": 380,
         "wires": [
             [
-                "dd05fa8a63bbce59"
+                "dd05fa8a63bbce59",
+                "3faf683613077f13"
             ]
         ]
     },
@@ -4133,11 +4138,12 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1010,
-        "y": 380,
+        "x": 1020,
+        "y": 420,
         "wires": []
     },
     {
@@ -4146,7 +4152,7 @@
         "z": "3738026cb3832ee1",
         "g": "a3a62aaa37101276",
         "name": "Talkpool data transmission setup",
-        "func": "// ── Talkpool OY1310 Configure on Join v1.0 ───────────────────────────────\n//\n// Configure the OY1310 reporting interval after a successful OTAA join.\n//\n// FPort 1\n// 01 23 00 0F = set measurement interval to 15 minutes\n// 0123001E = set to 30 minute interval\n\nconst eventType =\n    msg.fai?.eventType ||\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean)\n        .pop();\n\n// Only act on successful join events.\nif (eventType !== \"join\") {\n    return null;\n}\n\nconst deviceInfo =\n    msg.payload?.deviceInfo || {};\n\nconst applicationId =\n    String(deviceInfo.applicationId || \"\");\n\nconst devEui =\n    String(deviceInfo.devEui || \"\").toLowerCase();\n\nif (!applicationId || !devEui) {\n    node.warn(\n        \"OY1310 configuration skipped: missing applicationId or DevEUI\"\n    );\n\n    return null;\n}\n\nconst commandHex =\n    \"0123000E\";\n\nconst commandBase64 =\n    Buffer.from(commandHex, \"hex\")\n        .toString(\"base64\");\n\nmsg.topic =\n    `application/${applicationId}/device/${devEui}/command/down`;\n\nmsg.payload = JSON.stringify({\n    devEui: devEui,\n    confirmed: false,\n    fPort: 1,\n    data: commandBase64\n});\n\nnode.status({\n    fill: \"blue\",\n    shape: \"dot\",\n    text: \"15 min config queued\"\n});\n\nnode.warn(\n    `OY1310 CONFIG QUEUED — ` +\n    `device=${devEui}, interval=15min, ` +\n    `command=${commandHex}`\n);\n\nreturn msg;",
+        "func": "// ── Talkpool OY1310 Configure on Join v1.0 ───────────────────────────────\n//\n// Configure the OY1310 reporting interval after a successful OTAA join.\n//\n// FPort 1\n// 01 23 00 0F = set measurement interval to 15 minutes\n// 0123001E = set to 30 minute interval\n\nconst eventType =\n    msg.fai?.eventType ||\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean)\n        .pop();\n\n// Only act on successful join events.\nif (eventType !== \"join\") {\n    return null;\n}\n\nconst deviceInfo =\n    msg.payload?.deviceInfo || {};\n\nconst applicationId =\n    String(deviceInfo.applicationId || \"\");\n\nconst devEui =\n    String(deviceInfo.devEui || \"\").toLowerCase();\n\nif (!applicationId || !devEui) {\n    node.warn(\n        \"OY1310 configuration skipped: missing applicationId or DevEUI\"\n    );\n\n    return null;\n}\n\nconst commandHex =\n    \"0123001E\";\n\nconst commandBase64 =\n    Buffer.from(commandHex, \"hex\")\n        .toString(\"base64\");\n\nmsg.topic =\n    `application/${applicationId}/device/${devEui}/command/down`;\n\nmsg.payload = JSON.stringify({\n    devEui: devEui,\n    confirmed: false,\n    fPort: 1,\n    data: commandBase64\n});\n\nnode.status({\n    fill: \"blue\",\n    shape: \"dot\",\n    text: \"30 min config queued\"\n});\n\nnode.warn(\n    `OY1310 CONFIG QUEUED — ` +\n    `device=${devEui}, interval=30min, ` +\n    `command=${commandHex}`\n);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -4157,7 +4163,8 @@
         "y": 400,
         "wires": [
             [
-                "bbfc7b9df1d6af32"
+                "bbfc7b9df1d6af32",
+                "e176e762cc6eefe4"
             ]
         ]
     },
@@ -4176,8 +4183,8 @@
         "correl": "",
         "expiry": "",
         "broker": "473037bbac0aa9aa",
-        "x": 710,
-        "y": 400,
+        "x": 760,
+        "y": 420,
         "wires": []
     },
     {
@@ -4215,6 +4222,83 @@
         "wires": [
             [
                 "94ff946adb189568",
+                "479b96e0273a18b1"
+            ]
+        ]
+    },
+    {
+        "id": "e176e762cc6eefe4",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "3faf683613077f13",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "Talkpool Backend Fromatter",
+        "func": "// ── FAI Talkpool OY1310 → wM-Bus Backend Formatter ───────────────────────\n//\n// Purpose:\n//   Make a decoded Talkpool OY1310 LoRaWAN measurement look like the\n//   existing MC100 / wM-Bus message contract.\n//\n// SerialNumber:\n//   Equivalent to Excel:\n//   =HEX2DEC(RIGHT(DevEUI, 8))\n//\n// Example:\n//   DevEUI:       70B3D5D72004216A\n//   Last 8 hex:   2004216A\n//   SerialNumber: 537141610\n//\n// Output:\n//   Same topic, outer JSON structure and field names as existing wM-Bus.\n//\n// --------------------------------------------------------------------------\n\nconst gatewaySerial =\n    env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\nconst p =\n    msg.payload || {};\n\n\n// ==========================================================================\n// 1. GET AND VALIDATE DEVEUI\n// ==========================================================================\n\nconst devEui =\n    String(\n        p.dev_eui ||\n        msg.fai?.devEui ||\n        \"\"\n    )\n    .replace(/^0x/i, \"\")\n    .replace(/[^0-9a-f]/gi, \"\")\n    .toUpperCase();\n\n\nif (devEui.length !== 16) {\n\n    node.warn(\n        `Talkpool formatter: invalid DevEUI \"${devEui}\"`\n    );\n\n    node.status({\n        fill: \"red\",\n        shape: \"ring\",\n        text: \"invalid DevEUI\"\n    });\n\n    return null;\n}\n\n\n// ==========================================================================\n// 2. DERIVE BACKEND SERIAL NUMBER\n//\n// Equivalent to:\n// =HEX2DEC(RIGHT(DevEUI, 8))\n// ==========================================================================\n\nconst serialHex =\n    devEui.slice(-8);\n\nconst serialDecimal =\n    parseInt(serialHex, 16);\n\nif (!Number.isFinite(serialDecimal)) {\n\n    node.warn(\n        `Talkpool formatter: unable to derive serial from ${devEui}`\n    );\n\n    return null;\n}\n\nconst serialNumber =\n    String(serialDecimal);\n\n\n// ==========================================================================\n// 3. VALIDATE TALKPOOL WATER READING\n//\n// Parser should already have decoded:\n// 01 21 XX XX XX XX\n//\n// into volume_litres.\n// ==========================================================================\n\nconst volumeLitres =\n    Number(p.volume_litres);\n\nif (!Number.isFinite(volumeLitres)) {\n\n    node.warn(\n        `Talkpool formatter: missing/invalid water volume ` +\n        `for serial ${serialNumber}`\n    );\n\n    return null;\n}\n\n\n// ==========================================================================\n// 4. MANUFACTURER\n//\n// Use TPL as the 3-character compatibility manufacturer identifier.\n// Encode it using the normal M-Bus 3-letter manufacturer calculation.\n// ==========================================================================\n\nconst manufacturer =\n    \"TPL\";\n\nconst manInt =\n    ((manufacturer.charCodeAt(0) - 64) << 10) |\n    ((manufacturer.charCodeAt(1) - 64) << 5) |\n    (manufacturer.charCodeAt(2) - 64);\n\n\n// ==========================================================================\n// 5. RAW TALKPOOL APPLICATION PAYLOAD\n//\n// Talkpool parser supplies p.raw as HEX.\n//\n// Existing wM-Bus packet sends \"raw\" as Base64, so convert it to Base64.\n// ==========================================================================\n\nconst rawHex =\n    String(p.raw || \"\")\n        .replace(/[^0-9a-f]/gi, \"\");\n\nif (\n    !rawHex ||\n    rawHex.length % 2 !== 0\n) {\n\n    node.warn(\n        `Talkpool formatter: invalid raw payload ` +\n        `for serial ${serialNumber}`\n    );\n\n    return null;\n}\n\nconst base64Raw =\n    Buffer\n        .from(rawHex, \"hex\")\n        .toString(\"base64\");\n\n\n// ==========================================================================\n// 6. BUILD wM-Bus-COMPATIBLE IDENTIFICATION FIELDS\n// ==========================================================================\n\n// Existing wM-Bus parser sends a 20-character AField.\n//\n// Here we preserve the final 32-bit DevEUI portion as the identifier\n// component and pad the remaining compatibility bytes.\n//\n// Example:\n// 2004216A + 000000000000\nconst aField =\n    serialHex +\n    \"000000000000\";\n\n\n// Existing MC100 parser convention:\n// ID = \"18\" + SerialNumber\nconst id =\n    \"18\" + serialNumber;\n\n\n// ==========================================================================\n// 7. SAME MQTT TOPIC AS EXISTING wM-Bus\n// ==========================================================================\n\nmsg.topic =\n    `gateway/${gatewaySerial}/wmbus/out`;\n\n\n// ==========================================================================\n// 8. EXACT SAME OUTER CONTRACT AS EXISTING wM-Bus EXTRACTOR\n// ==========================================================================\n\nmsg.payload = {\n\n    \"_meta\": {\n\n        \"received\":\n            p.timestamp ||\n            new Date()\n                .toISOString()\n                .split(\".\")[0] + \"+00:00\",\n\n        \"receiver_id\":\n            \"0000000000000000\",\n\n        \"rssi\":\n            Number.isFinite(Number(p.rssi))\n                ? Number(p.rssi)\n                : -52\n    },\n\n\n    \"data\": {\n\n        \"AField\":\n            aField.toUpperCase(),\n\n        \"CField\":\n            68,\n\n        \"CIField\":\n            114,\n\n        \"ID\":\n            id,\n\n        \"LField\":\n            Buffer.from(rawHex, \"hex\").length,\n\n        \"MField\":\n            manInt,\n\n        \"Manufacturer\":\n            manufacturer,\n\n        \"SerialNumber\":\n            serialNumber\n    },\n\n\n    \"raw\":\n        base64Raw,\n\n\n    \"type\":\n        \"wmbus\"\n};\n\n\n// ==========================================================================\n// 9. NODE-RED STATUS\n// ==========================================================================\n\nnode.status({\n\n    fill: \"green\",\n    shape: \"dot\",\n\n    text:\n        `${serialNumber}: ${volumeLitres} L`\n});\n\nnode.warn(\n\n    `OY1310 → wM-Bus — ` +\n    `DevEUI=${devEui}, ` +\n    `Serial=${serialNumber}, ` +\n    `Volume=${volumeLitres} L`\n);\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1110,
+        "y": 360,
+        "wires": [
+            [
+                "d74e9a28505a4120",
+                "4b2d590ac842be82"
+            ]
+        ]
+    },
+    {
+        "id": "d74e9a28505a4120",
+        "type": "debug",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1300,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "4b2d590ac842be82",
+        "type": "function",
+        "z": "3738026cb3832ee1",
+        "g": "a3a62aaa37101276",
+        "name": "AES Encrypter",
+        "func": "// ── FAI Talkpool → wM-Bus AES Encrypter ──────────────────────────────────\n//\n// Input:\n//   msg.payload already formatted to the existing wM-Bus backend contract.\n//\n// Key lookup:\n//   SerialNumber -> AES-128 key\n//\n// Environment variable:\n//   TALKPOOL_WMBUS_KEYS_JSON\n//\n// Example:\n// {\n//   \"537141610\": \"00112233445566778899AABBCCDDEEFF\",\n//   \"123456789\": \"FFEEDDCCBBAA99887766554433221100\"\n// }\n//\n// IMPORTANT:\n//   The AES key is NEVER added to msg.payload or MQTT.\n// --------------------------------------------------------------------------\n\nconst packet = msg.payload || {};\nconst data = packet.data || {};\n\nconst serialNumber =\n    String(data.SerialNumber || \"\").trim();\n\nif (!serialNumber) {\n    node.warn(\"wM-Bus encrypter: SerialNumber missing\");\n    return null;\n}\n\n\n// ==========================================================================\n// 1. LOAD KEY LIST\n// ==========================================================================\n\nlet keys;\n\ntry {\n\n    const rawKeyList =\n        env.get(\"TALKPOOL_WMBUS_KEYS_JSON\") || '{\"537141610\": \"e17cc072e4d86e4d13a0ae4f70e2e51a\"}';\n\n    keys =\n        JSON.parse(rawKeyList);\n\n} catch (err) {\n\n    node.warn(\n        `wM-Bus encrypter: invalid TALKPOOL_WMBUS_KEYS_JSON — ${err.message}`\n    );\n\n    node.status({\n        fill: \"red\",\n        shape: \"ring\",\n        text: \"invalid key configuration\"\n    });\n\n    return null;\n}\n\n\n// ==========================================================================\n// 2. FIND KEY FOR THIS SERIAL\n// ==========================================================================\n\nconst keyHex =\n    String(keys[serialNumber] || \"\")\n        .replace(/\\s+/g, \"\")\n        .toUpperCase();\n\nif (!keyHex) {\n\n    node.warn(\n        `wM-Bus encrypter: no AES key configured for ${serialNumber}`\n    );\n\n    node.status({\n        fill: \"yellow\",\n        shape: \"ring\",\n        text: `no key ${serialNumber}`\n    });\n\n    return null;\n}\n\n\n// ==========================================================================\n// 3. VALIDATE AES-128 KEY\n// ==========================================================================\n\nif (!/^[0-9A-F]{32}$/.test(keyHex)) {\n\n    node.warn(\n        `wM-Bus encrypter: invalid AES-128 key format for ${serialNumber}`\n    );\n\n    node.status({\n        fill: \"red\",\n        shape: \"ring\",\n        text: `bad key ${serialNumber}`\n    });\n\n    return null;\n}\n\nconst aesKey =\n    Buffer.from(keyHex, \"hex\");\n\n\n// ==========================================================================\n// 4. GET TALKPOOL WATER READING\n//\n// At this point the formatter needs to preserve the decoded volume for this\n// internal encryption step. It must NOT be added to the final MQTT payload.\n// ==========================================================================\n\nconst volumeLitres =\n    Number(msg._talkpoolVolumeLitres);\n\nif (!Number.isFinite(volumeLitres)) {\n\n    node.warn(\n        `wM-Bus encrypter: volume missing for ${serialNumber}`\n    );\n\n    return null;\n}\n\n\n// ==========================================================================\n// 5. BUILD THE PLAINTEXT wM-Bus APPLICATION DATA\n//\n// DO NOT GUESS THIS PART.\n//\n// We need to reproduce the exact DIF/VIF / security structure that the\n// existing mbusconsumer expects.\n//\n// Example conceptual result:\n//\n//   accumulated volume = volumeLitres\n//\n// const plainFrame = buildWmbusPayload(\n//     serialNumber,\n//     volumeLitres\n// );\n//\n// ==========================================================================\n\n\n// ==========================================================================\n// 6. ENCRYPT USING THE SAME wM-Bus SECURITY MODE AS THE BACKEND\n//\n// Again, this must match the existing mbusconsumer exactly.\n//\n// const encryptedFrame = encryptWmbus(\n//     plainFrame,\n//     aesKey,\n//     ...\n// );\n//\n// packet.raw = encryptedFrame.toString(\"base64\");\n//\n// ==========================================================================\n\n\n// TEMPORARY: stop here until the actual backend wM-Bus crypto format\n// is confirmed.\n\nnode.status({\n    fill: \"blue\",\n    shape: \"ring\",\n    text: `key found ${serialNumber}`\n});\n\nnode.warn(\n    `wM-Bus key resolved — serial=${serialNumber}, ` +\n    `volume=${volumeLitres}L`\n);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1340,
+        "y": 360,
+        "wires": [
+            [
                 "479b96e0273a18b1"
             ]
         ]
