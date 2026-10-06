@@ -15,35 +15,6 @@
         "info": "Functional health endpoint used by Docker and the host recovery supervisor."
     },
     {
-        "id": "group_telemetry",
-        "type": "group",
-        "z": "3738026cb3832ee1",
-        "name": "1. Live Feed Bin Telemetry (Runs Constantly)",
-        "style": {
-            "stroke": "#3f92a6",
-            "fill": "#eff2f6",
-            "label": true
-        },
-        "nodes": [
-            "modbus_read_weight",
-            "parse_weight",
-            "debug_weight",
-            "5e24a7fa58d31074",
-            "43a32c58306da29c",
-            "399c5992ea9f0bad",
-            "470317d11e3be29d",
-            "7944cc5e36abae4b",
-            "57272a9eba0c6efd",
-            "a61fd9ce84ae778d",
-            "87c34af15b4d9e67",
-            "b7f6d0af323aa309"
-        ],
-        "x": 194,
-        "y": 3219,
-        "w": 1052,
-        "h": 202
-    },
-    {
         "id": "f39362f0cc4d435f",
         "type": "group",
         "z": "3738026cb3832ee1",
@@ -77,7 +48,7 @@
             "bd0bbb07a30d97f8"
         ],
         "x": 14,
-        "y": 1059,
+        "y": 1119,
         "w": 1612,
         "h": 362
     },
@@ -103,10 +74,10 @@
             "a200000000000006",
             "a200000000000003"
         ],
-        "x": 14,
-        "y": 759,
-        "w": 1012,
-        "h": 282
+        "x": -6,
+        "y": 859,
+        "w": 1092,
+        "h": 242
     },
     {
         "id": "5014da80cd5e927f",
@@ -132,10 +103,10 @@
             "a100000000000004",
             "a100000000000003"
         ],
-        "x": 14,
-        "y": 419,
-        "w": 1072,
-        "h": 342
+        "x": -6,
+        "y": 499,
+        "w": 1252,
+        "h": 322
     },
     {
         "id": "a3a62aaa37101276",
@@ -161,56 +132,16 @@
             "e7e8d06b2e5a1cb1",
             "d30d9a0ed817a5f1",
             "cb1c76909e4cc237",
-            "dd05fa8a63bbce59",
             "c8eeaa7ed265f0e8",
             "bbfc7b9df1d6af32",
-            "94ff946adb189568",
             "31daaefc6f2976c6",
-            "e176e762cc6eefe4",
             "3faf683613077f13",
-            "d74e9a28505a4120",
             "4b2d590ac842be82"
         ],
         "x": 14,
         "y": -28.5,
-        "w": 1432,
-        "h": 529.5
-    },
-    {
-        "id": "2ba8c5099f662f10",
-        "type": "group",
-        "z": "3738026cb3832ee1",
-        "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
-            "label": true,
-            "label-position": "nw",
-            "color": "#767676"
-        },
-        "nodes": [
-            "9e82656eb5534a6c",
-            "d78ea0c6cc6a46e0",
-            "3e35b4fe1df24143",
-            "74ad24f2d8274eba",
-            "d8c321012a4f40ca",
-            "7ba9f265bf904166",
-            "9837dede03b84a89",
-            "ff305cf975264067",
-            "dca53e7245ae4013",
-            "fe6171767b904329",
-            "ed3c74943aa245c2",
-            "7deb0ca4516b4ad1",
-            "0426fd6d9b454513",
-            "61150982a07346db",
-            "b92613aa21664a40",
-            "020055c64f32407c"
-        ],
-        "x": 214,
-        "y": 3459,
-        "w": 2492,
-        "h": 362
+        "w": 1472,
+        "h": 429.5
     },
     {
         "id": "35c85549ab8e7922",
@@ -285,7 +216,7 @@
         "x": 14,
         "y": 1499,
         "w": 3372,
-        "h": 1082
+        "h": 1162
     },
     {
         "id": "683cf0d2d547c4fd",
@@ -737,7 +668,7 @@
         "name": "Tinymesh In",
         "serial": "683cf0d2d547c4fd",
         "x": 110,
-        "y": 540,
+        "y": 600,
         "wires": [
             [
                 "3e23d6eda29ff93e",
@@ -762,7 +693,7 @@
         "finalize": "",
         "libs": [],
         "x": 430,
-        "y": 560,
+        "y": 620,
         "wires": [
             []
         ]
@@ -780,8 +711,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 660,
-        "y": 540,
+        "x": 440,
+        "y": 580,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -795,8 +726,8 @@
         "g": "febc9982bb1406d1",
         "name": "WMBUS In",
         "serial": "bcc4801ac002ac63",
-        "x": 140,
-        "y": 1000,
+        "x": 100,
+        "y": 1060,
         "wires": [
             [
                 "771a91e17adff194",
@@ -819,8 +750,8 @@
         "correl": "",
         "expiry": "",
         "broker": "b78b8561ebd93ffc",
-        "x": 1510,
-        "y": 400,
+        "x": 2090,
+        "y": 720,
         "wires": []
     },
     {
@@ -837,7 +768,7 @@
         "finalize": "",
         "libs": [],
         "x": 690,
-        "y": 1000,
+        "y": 1060,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -868,7 +799,7 @@
         "repair": false,
         "outputs": 2,
         "x": 380,
-        "y": 1240,
+        "y": 1300,
         "wires": [
             [
                 "d392a434756845eb",
@@ -906,7 +837,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 130,
-        "y": 1240,
+        "y": 1300,
         "wires": [
             [
                 "2ec4d64c4d152c47"
@@ -937,7 +868,7 @@
         "enableDeformedMessages": false,
         "startDelayTime": "",
         "x": 850,
-        "y": 1100,
+        "y": 1160,
         "wires": [
             [
                 "459b1521753592c4"
@@ -969,7 +900,7 @@
         "enableDeformedMessages": false,
         "startDelayTime": "20",
         "x": 840,
-        "y": 1140,
+        "y": 1200,
         "wires": [
             [
                 "459b1521753592c4"
@@ -1001,7 +932,7 @@
         "enableDeformedMessages": false,
         "startDelayTime": "40",
         "x": 870,
-        "y": 1180,
+        "y": 1240,
         "wires": [
             [
                 "459b1521753592c4"
@@ -1033,7 +964,7 @@
         "enableDeformedMessages": false,
         "startDelayTime": "60",
         "x": 840,
-        "y": 1220,
+        "y": 1280,
         "wires": [
             [
                 "459b1521753592c4"
@@ -1065,7 +996,7 @@
         "enableDeformedMessages": false,
         "startDelayTime": "20",
         "x": 860,
-        "y": 1300,
+        "y": 1360,
         "wires": [
             [
                 "06c2e152e80aa22b"
@@ -1097,7 +1028,7 @@
         "enableDeformedMessages": false,
         "startDelayTime": "40",
         "x": 850,
-        "y": 1340,
+        "y": 1400,
         "wires": [
             [
                 "06c2e152e80aa22b"
@@ -1129,7 +1060,7 @@
         "enableDeformedMessages": true,
         "startDelayTime": "0",
         "x": 850,
-        "y": 1380,
+        "y": 1440,
         "wires": [
             [
                 "06c2e152e80aa22b"
@@ -1160,7 +1091,7 @@
         "reduceInitType": "",
         "reduceFixup": "",
         "x": 1120,
-        "y": 1160,
+        "y": 1220,
         "wires": [
             [
                 "878d632399a701a1"
@@ -1181,7 +1112,7 @@
         "finalize": "",
         "libs": [],
         "x": 1450,
-        "y": 1160,
+        "y": 1220,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -1211,7 +1142,7 @@
         "reduceInitType": "",
         "reduceFixup": "",
         "x": 1060,
-        "y": 1320,
+        "y": 1380,
         "wires": [
             [
                 "d0ffcd208a752da9"
@@ -1232,7 +1163,7 @@
         "finalize": "",
         "libs": [],
         "x": 1300,
-        "y": 1320,
+        "y": 1380,
         "wires": [
             [
                 "479b96e0273a18b1",
@@ -1261,7 +1192,7 @@
         "to": "",
         "reg": false,
         "x": 600,
-        "y": 1300,
+        "y": 1360,
         "wires": [
             [
                 "e101a3e45c80eeab"
@@ -1289,7 +1220,7 @@
         "to": "",
         "reg": false,
         "x": 600,
-        "y": 1340,
+        "y": 1400,
         "wires": [
             [
                 "47ce93c9cc2d22b9"
@@ -1317,7 +1248,7 @@
         "to": "",
         "reg": false,
         "x": 600,
-        "y": 1380,
+        "y": 1440,
         "wires": [
             [
                 "f81febb542ad7385"
@@ -1345,7 +1276,7 @@
         "to": "",
         "reg": false,
         "x": 600,
-        "y": 1100,
+        "y": 1160,
         "wires": [
             [
                 "f758c47d588bbb4d"
@@ -1373,7 +1304,7 @@
         "to": "",
         "reg": false,
         "x": 600,
-        "y": 1140,
+        "y": 1200,
         "wires": [
             [
                 "3c1ea0563bf6ac22"
@@ -1401,332 +1332,10 @@
         "to": "",
         "reg": false,
         "x": 620,
-        "y": 1220,
+        "y": 1280,
         "wires": [
             [
                 "a38fb8b144266ed0"
-            ]
-        ]
-    },
-    {
-        "id": "modbus_read_weight",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "Read Weight (Addr 40) Silo 1",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "1",
-        "dataType": "HoldingRegister",
-        "adr": "40",
-        "quantity": "2",
-        "server": "4bb58d809ecde0ee",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "x": 540,
-        "y": 3260,
-        "wires": [
-            [
-                "parse_weight"
-            ],
-            [
-                "b7f6d0af323aa309"
-            ]
-        ]
-    },
-    {
-        "id": "parse_weight",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "Parse 32-bit Weight",
-        "func": "let raw = msg.payload.data || msg.payload;\n\nif (raw && raw.length >= 2) {\n    // 1. Stitch the two 16-bit Modbus registers into a 32-bit signed integer\n    let weight = (raw[0] << 16) | raw[1];\n    \n    // 2. Dynamically pull the device's hardware serial from the local .env\n    let gatewaySerial = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n    \n    // 3. Format the payload to exactly match your Tinymesh backend architecture\n    msg.payload = {\n        \"gateway_id\": gatewaySerial,\n        \"sensor_type\": \"silo_weight\",\n        \"timestamp\": new Date().toISOString(),\n        \"data\": {\n            \"weight_kg\": weight\n        }\n    };\n    \n    // 4. Assign the standard routing topic for your MQTT broker\n    msg.topic = `gateway/${gatewaySerial}/telemetry`;\n    \n    return msg;\n}\n\n// If the Modbus read fails or returns empty, stop the flow to prevent crashing the backend\nreturn null;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 810,
-        "y": 3260,
-        "wires": [
-            [
-                "debug_weight"
-            ]
-        ]
-    },
-    {
-        "id": "debug_weight",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "Live Weight",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "jsonata",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1130,
-        "y": 3280,
-        "wires": []
-    },
-    {
-        "id": "5e24a7fa58d31074",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "Silo 2: Parse 32-bit Weight V4",
-        "func": "const raw = msg.payload?.data ?? msg.payload;\n\nif (!Array.isArray(raw) || raw.length < 2) {\n    return null;\n}\n\n// ADS301 MSV: two 16-bit words, high word first, signed 32-bit result\nconst highWord = Number(raw[0]) & 0xFFFF;\nconst lowWord = Number(raw[1]) & 0xFFFF;\n\nlet displayUnits = (highWord * 0x10000) + lowWord;\n\nif (displayUnits >= 0x80000000) {\n    displayUnits -= 0x100000000;\n}\n\n// Set to 1 for 1 kg divisions.\n// Set to 10 if the ADS301 is configured for 0.1 kg divisions.\nconst unitsPerKg = 1;\nconst weightKg = displayUnits / unitsPerKg;\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// This parser is permanently for physical Silo 1.\nconst siloNumber = 2;\nconst siloId = String(siloNumber).padStart(2, \"0\");\n\nconst deviceSerialNumber = `${gatewayId}_silo_${siloId}`;\n\n// Match the backend schema exactly.\nmsg.payload = {\n    gateway_id: gatewayId,\n    device_serial_number: deviceSerialNumber,\n    sensor_type: \"silo_weight\",\n    timestamp: new Date().toISOString().replace(/\\.\\d{3}Z$/, \"Z\"),\n    data: {\n        weight_kg: weightKg\n    }\n};\n\nmsg.topic = `gateway/${gatewayId}/silo/${deviceSerialNumber}/telemetry`;\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 850,
-        "y": 3320,
-        "wires": [
-            [
-                "479b96e0273a18b1",
-                "debug_weight"
-            ]
-        ]
-    },
-    {
-        "id": "43a32c58306da29c",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "Read Weight (Addr 40) Silo 2",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "2",
-        "dataType": "HoldingRegister",
-        "adr": "40",
-        "quantity": "2",
-        "server": "6cb3960ddc98e75c",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "x": 540,
-        "y": 3300,
-        "wires": [
-            [
-                "5e24a7fa58d31074"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "399c5992ea9f0bad",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "Read Weight (Addr 40) Silo 3",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "3",
-        "dataType": "HoldingRegister",
-        "adr": "40",
-        "quantity": "2",
-        "server": "",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "x": 540,
-        "y": 3340,
-        "wires": [
-            [
-                "5e24a7fa58d31074"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "470317d11e3be29d",
-        "type": "modbus-getter",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "Read Weight (Addr 40) Silo 4",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "logIOActivities": false,
-        "unitid": "4",
-        "dataType": "HoldingRegister",
-        "adr": "40",
-        "quantity": "2",
-        "server": "",
-        "useIOFile": false,
-        "ioFile": "",
-        "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "enableDeformedMessages": false,
-        "startDelayTime": "",
-        "x": 540,
-        "y": 3380,
-        "wires": [
-            [
-                "5e24a7fa58d31074"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "7944cc5e36abae4b",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "20",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 310,
-        "y": 3260,
-        "wires": [
-            [
-                "modbus_read_weight"
-            ]
-        ]
-    },
-    {
-        "id": "57272a9eba0c6efd",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "20",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 310,
-        "y": 3300,
-        "wires": [
-            [
-                "43a32c58306da29c"
-            ]
-        ]
-    },
-    {
-        "id": "a61fd9ce84ae778d",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "20",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "10",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 310,
-        "y": 3340,
-        "wires": [
-            [
-                "399c5992ea9f0bad"
-            ]
-        ]
-    },
-    {
-        "id": "87c34af15b4d9e67",
-        "type": "inject",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "20",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "15",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 310,
-        "y": 3380,
-        "wires": [
-            [
-                "470317d11e3be29d"
             ]
         ]
     },
@@ -1766,33 +1375,10 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 780,
-        "y": 240,
+        "x": 760,
+        "y": 200,
         "wires": [
             [
-                "479b96e0273a18b1"
-            ]
-        ]
-    },
-    {
-        "id": "b7f6d0af323aa309",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "group_telemetry",
-        "name": "Silo 1: Parse 32-bit Weight V4",
-        "func": "const raw = msg.payload?.data ?? msg.payload;\n\nif (!Array.isArray(raw) || raw.length < 2) {\n    return null;\n}\n\n// ADS301 MSV: two 16-bit words, high word first, signed 32-bit result\nconst highWord = Number(raw[0]) & 0xFFFF;\nconst lowWord = Number(raw[1]) & 0xFFFF;\n\nlet displayUnits = (highWord * 0x10000) + lowWord;\n\nif (displayUnits >= 0x80000000) {\n    displayUnits -= 0x100000000;\n}\n\n// Set to 1 for 1 kg divisions.\n// Set to 10 if the ADS301 is configured for 0.1 kg divisions.\nconst unitsPerKg = 1;\nconst weightKg = displayUnits / unitsPerKg;\n\nconst gatewayId = env.get(\"GATEWAY_SERIAL\") || \"UNKNOWN_GW\";\n\n// This parser is permanently for physical Silo 1.\nconst siloNumber = 1;\nconst siloId = String(siloNumber).padStart(2, \"0\");\n\nconst deviceSerialNumber = `${gatewayId}_silo_${siloId}`;\n\n// Match the backend schema exactly.\nmsg.payload = {\n    gateway_id: gatewayId,\n    device_serial_number: deviceSerialNumber,\n    sensor_type: \"silo_weight\",\n    timestamp: new Date().toISOString().replace(/\\.\\d{3}Z$/, \"Z\"),\n    data: {\n        weight_kg: weightKg\n    }\n};\n\nmsg.topic = `gateway/${gatewayId}/silo/${deviceSerialNumber}/telemetry`;\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 850,
-        "y": 3260,
-        "wires": [
-            [
-                "debug_weight",
                 "479b96e0273a18b1"
             ]
         ]
@@ -1813,7 +1399,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1520,
-        "y": 1360,
+        "y": 1420,
         "wires": []
     },
     {
@@ -1942,7 +1528,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1290,
+        "x": 1350,
         "y": 320,
         "wires": [
             [
@@ -2859,8 +2445,8 @@
         "once": true,
         "onceDelay": "3",
         "topic": "",
-        "x": 970,
-        "y": 1560,
+        "x": 1050,
+        "y": 2620,
         "wires": [
             [
                 "25f433e99efba297"
@@ -2885,8 +2471,8 @@
         "once": true,
         "onceDelay": "13",
         "topic": "",
-        "x": 970,
-        "y": 1600,
+        "x": 1050,
+        "y": 2560,
         "wires": [
             [
                 "25f433e99efba297"
@@ -2906,8 +2492,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1290,
-        "y": 1580,
+        "x": 1330,
+        "y": 2500,
         "wires": [
             [
                 "f5653f8c8376e7b6"
@@ -3348,416 +2934,6 @@
         ]
     },
     {
-        "id": "9e82656eb5534a6c",
-        "type": "ui_numeric",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Known test weight",
-        "label": "Known test weight (kg)",
-        "tooltip": "Enter the exact stable load that will be on the selected silo.",
-        "group": "bf1a2f43b10343c8",
-        "order": 2,
-        "width": 6,
-        "height": 1,
-        "wrap": false,
-        "passthru": false,
-        "topic": "",
-        "topicType": "str",
-        "format": "{{value}}",
-        "min": "0.01",
-        "max": "8000000",
-        "step": "1",
-        "className": "",
-        "x": 330,
-        "y": 3660,
-        "wires": [
-            [
-                "d8c321012a4f40ca"
-            ]
-        ]
-    },
-    {
-        "id": "d78ea0c6cc6a46e0",
-        "type": "ui_dropdown",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Choose calibration silo",
-        "label": "Select silo",
-        "tooltip": "Choose the physical silo to calibrate.",
-        "place": "Choose Silo 1 or Silo 2",
-        "group": "bf1a2f43b10343c8",
-        "order": 1,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Silo 1",
-                "value": "1",
-                "type": "str"
-            },
-            {
-                "label": "Silo 2",
-                "value": "2",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "topicType": "str",
-        "className": "",
-        "x": 340,
-        "y": 3600,
-        "wires": [
-            [
-                "74ad24f2d8274eba"
-            ]
-        ]
-    },
-    {
-        "id": "3e35b4fe1df24143",
-        "type": "comment",
-        "z": "3738026cb3832ee1",
-        "g": "2ba8c5099f662f10",
-        "name": "ADS301 dashboard calibration — replacement for old calibration controls",
-        "info": "Use the Dashboard in this order:\n1. Select Silo 1 or Silo 2.\n2. Ensure selected silo is empty and stable, then press Set Zero.\n3. Add a stable, known test load.\n4. Enter that exact load in kg and press Calibrate Known Weight + Save.\n\nEach command is held to one per second, routes to the correct TCP Modbus server,\nand writes with Unit ID 1. Do not use the old dashboard calibration controls after importing.",
-        "x": 660,
-        "y": 3500,
-        "wires": []
-    },
-    {
-        "id": "74ad24f2d8274eba",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Remember selected silo",
-        "func": "const silo = String(msg.payload ?? '').trim();\n\nif (!['1', '2'].includes(silo)) {\n    msg.payload = 'Choose Silo 1 or Silo 2.';\n    return msg;\n}\n\nflow.set('ads301CalibrationSilo', silo);\nmsg.payload = `Selected: Silo ${silo}`;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 750,
-        "y": 3600,
-        "wires": [
-            [
-                "b92613aa21664a40"
-            ]
-        ]
-    },
-    {
-        "id": "d8c321012a4f40ca",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Remember known weight",
-        "func": "const kg = Number(msg.payload);\n\nif (!Number.isFinite(kg) || kg <= 0) {\n    msg.payload = 'Enter a known test weight greater than zero.';\n    return msg;\n}\n\nflow.set('ads301KnownWeightKg', kg);\nmsg.payload = `Known test weight: ${kg} kg`;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 750,
-        "y": 3660,
-        "wires": [
-            [
-                "b92613aa21664a40"
-            ]
-        ]
-    },
-    {
-        "id": "7ba9f265bf904166",
-        "type": "ui_button",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Set zero from dashboard",
-        "group": "bf1a2f43b10343c8",
-        "order": 3,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "label": "1. Set Zero — silo empty & stable",
-        "tooltip": "Samples the empty load point. Do not use this with product or a test weight on the silo.",
-        "color": "white",
-        "bgcolor": "#d9534f",
-        "className": "",
-        "icon": "",
-        "payload": "zero",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 350,
-        "y": 3720,
-        "wires": [
-            [
-                "9837dede03b84a89"
-            ]
-        ]
-    },
-    {
-        "id": "9837dede03b84a89",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Queue Zero sequence",
-        "func": "const silo = String(flow.get('ads301CalibrationSilo') || '');\n\nif (!['1', '2'].includes(silo)) {\n    return [null, { payload: 'Select Silo 1 or Silo 2 before setting zero.' }];\n}\nif (flow.get('ads301CalibrationBusy')) {\n    return [null, { payload: 'A calibration sequence is already running. Wait for it to complete.' }];\n}\n\nflow.set('ads301CalibrationBusy', true);\n\nconst common = { calibrationSilo: silo, calibrationMode: 'zero' };\n\nreturn [[\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for zero`,\n        calibrationAction: `Silo ${silo}: password unlocked for zero`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: sample empty zero (LDW)`,\n        calibrationAction: `Silo ${silo}: zero point sampled`,\n        calibrationLast: true,\n        payload: { value: [32767, 65535], fc: 16, unitid: 1, address: 16, quantity: 2 }\n    }\n], {\n    payload: `Zero calibration queued for Silo ${silo}. Keep it empty and stable.`\n}];",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 740,
-        "y": 3720,
-        "wires": [
-            [
-                "fe6171767b904329"
-            ],
-            [
-                "b92613aa21664a40"
-            ]
-        ]
-    },
-    {
-        "id": "ff305cf975264067",
-        "type": "ui_button",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Calibrate known weight from dashboard",
-        "group": "bf1a2f43b10343c8",
-        "order": 4,
-        "width": 6,
-        "height": 1,
-        "passthru": false,
-        "label": "2. Calibrate Known Weight + Save",
-        "tooltip": "With the known weight applied and stable, samples LWT, writes NOV, and saves calibration.",
-        "color": "white",
-        "bgcolor": "#5cb85c",
-        "className": "",
-        "icon": "",
-        "payload": "known-weight",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 400,
-        "y": 3780,
-        "wires": [
-            [
-                "dca53e7245ae4013"
-            ]
-        ]
-    },
-    {
-        "id": "dca53e7245ae4013",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Queue known-load + save sequence",
-        "func": "const silo = String(flow.get('ads301CalibrationSilo') || '');\nconst kg = Number(flow.get('ads301KnownWeightKg'));\n\n// Set to 10 only when the ADS301 is configured to report 0.1 kg display increments.\nconst unitsPerKg = 1;\nconst nominal = Math.round(kg * unitsPerKg);\n\nif (!['1', '2'].includes(silo)) {\n    return [null, { payload: 'Select Silo 1 or Silo 2 before calibrating the known load.' }];\n}\nif (!Number.isSafeInteger(nominal) || nominal <= 0 || nominal > 8000000) {\n    return [null, { payload: 'Enter a valid known test weight before calibrating.' }];\n}\nif (flow.get('ads301CalibrationBusy')) {\n    return [null, { payload: 'A calibration sequence is already running. Wait for it to complete.' }];\n}\n\nflow.set('ads301CalibrationBusy', true);\n\nconst highWord = Math.floor(nominal / 65536);\nconst lowWord = nominal & 0xFFFF;\nconst common = { calibrationSilo: silo, calibrationMode: 'known-weight' };\n\nreturn [[\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for known load`,\n        calibrationAction: `Silo ${silo}: password unlocked for known load`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: sample known load (LWT)`,\n        calibrationAction: `Silo ${silo}: known load sampled`,\n        payload: { value: [32767, 65535], fc: 16, unitid: 1, address: 18, quantity: 2 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: unlock password for nominal value`,\n        calibrationAction: `Silo ${silo}: password unlocked for nominal value`,\n        payload: { value: 21930, fc: 6, unitid: 1, address: 49, quantity: 1 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: write nominal ${nominal} display units`,\n        calibrationAction: `Silo ${silo}: nominal value ${kg} kg written`,\n        payload: { value: [highWord, lowWord], fc: 16, unitid: 1, address: 20, quantity: 2 }\n    },\n    {\n        ...common,\n        topic: `Silo ${silo}: save calibration (TDD)`,\n        calibrationAction: `Silo ${silo}: calibration saved`,\n        calibrationLast: true,\n        payload: { value: 1, fc: 6, unitid: 1, address: 48, quantity: 1 }\n    }\n], {\n    payload: `Known-load calibration queued for Silo ${silo}: ${kg} kg. Keep the load stable until saved.`\n}];",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 790,
-        "y": 3780,
-        "wires": [
-            [
-                "fe6171767b904329"
-            ],
-            [
-                "b92613aa21664a40"
-            ]
-        ]
-    },
-    {
-        "id": "fe6171767b904329",
-        "type": "delay",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "One ADS301 command per second",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1200,
-        "y": 3640,
-        "wires": [
-            [
-                "ed3c74943aa245c2"
-            ]
-        ]
-    },
-    {
-        "id": "ed3c74943aa245c2",
-        "type": "switch",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Route to selected silo port",
-        "property": "calibrationSilo",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "2",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 1490,
-        "y": 3640,
-        "wires": [
-            [
-                "7deb0ca4516b4ad1"
-            ],
-            [
-                "0426fd6d9b454513"
-            ]
-        ]
-    },
-    {
-        "id": "7deb0ca4516b4ad1",
-        "type": "modbus-flex-write",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Silo 1 — ADS301 Flex Write",
-        "showStatusActivities": true,
-        "showErrors": true,
-        "showWarnings": true,
-        "server": "4bb58d809ecde0ee",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": true,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 1790,
-        "y": 3610,
-        "wires": [
-            [
-                "61150982a07346db"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "0426fd6d9b454513",
-        "type": "modbus-flex-write",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Silo 2 — ADS301 Flex Write",
-        "showStatusActivities": true,
-        "showErrors": true,
-        "showWarnings": true,
-        "server": "6cb3960ddc98e75c",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": true,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 1790,
-        "y": 3670,
-        "wires": [
-            [
-                "61150982a07346db"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "61150982a07346db",
-        "type": "function",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "Show successful command result",
-        "func": "const action = msg.calibrationAction || msg.topic || 'ADS301 write';\n\nif (msg.calibrationLast) {\n    flow.set('ads301CalibrationBusy', false);\n    msg.payload = `✓ ${action} — sequence complete.`;\n} else {\n    msg.payload = `✓ ${action}`;\n}\n\nmsg.topic = 'ADS301 Calibration';\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 2120,
-        "y": 3640,
-        "wires": [
-            [
-                "b92613aa21664a40",
-                "020055c64f32407c"
-            ]
-        ]
-    },
-    {
-        "id": "b92613aa21664a40",
-        "type": "ui_text",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "group": "bf1a2f43b10343c8",
-        "order": 5,
-        "width": 6,
-        "height": 1,
-        "name": "Calibration status",
-        "label": "Calibration status",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": "",
-        "color": "#000000",
-        "x": 1310,
-        "y": 3740,
-        "wires": []
-    },
-    {
-        "id": "020055c64f32407c",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "d": true,
-        "g": "2ba8c5099f662f10",
-        "name": "ADS301 dashboard calibration success",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2500,
-        "y": 3640,
-        "wires": []
-    },
-    {
         "id": "a100000000000001",
         "type": "trigger",
         "z": "3738026cb3832ee1",
@@ -3776,7 +2952,7 @@
         "topic": "topic",
         "outputs": 1,
         "x": 520,
-        "y": 720,
+        "y": 780,
         "wires": [
             [
                 "a100000000000002"
@@ -3797,7 +2973,7 @@
         "finalize": "",
         "libs": [],
         "x": 820,
-        "y": 680,
+        "y": 740,
         "wires": [
             [
                 "a100000000000003"
@@ -3814,8 +2990,8 @@
         "g": "5014da80cd5e927f",
         "name": "TinyMesh serial control",
         "serial": "683cf0d2d547c4fd",
-        "x": 960,
-        "y": 580,
+        "x": 1120,
+        "y": 720,
         "wires": [
             []
         ]
@@ -3830,7 +3006,7 @@
             "3795322861042bc3"
         ],
         "x": 140,
-        "y": 640,
+        "y": 700,
         "wires": [
             [
                 "a100000000000005"
@@ -3851,7 +3027,7 @@
         "finalize": "",
         "libs": [],
         "x": 530,
-        "y": 640,
+        "y": 700,
         "wires": [
             [
                 "a100000000000002"
@@ -3876,8 +3052,8 @@
         "topic": "",
         "payload": "arm",
         "payloadType": "str",
-        "x": 170,
-        "y": 720,
+        "x": 150,
+        "y": 780,
         "wires": [
             [
                 "a100000000000001"
@@ -3897,8 +3073,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 680,
+        "x": 480,
+        "y": 660,
         "wires": []
     },
     {
@@ -3920,7 +3096,7 @@
         "topic": "topic",
         "outputs": 1,
         "x": 420,
-        "y": 860,
+        "y": 920,
         "wires": [
             [
                 "a200000000000002"
@@ -3941,7 +3117,7 @@
         "finalize": "",
         "libs": [],
         "x": 700,
-        "y": 920,
+        "y": 980,
         "wires": [
             [
                 "a200000000000003"
@@ -3958,8 +3134,8 @@
         "g": "febc9982bb1406d1",
         "name": "wM-Bus serial control",
         "serial": "bcc4801ac002ac63",
-        "x": 900,
-        "y": 800,
+        "x": 960,
+        "y": 900,
         "wires": [
             []
         ]
@@ -3973,8 +3149,8 @@
         "scope": [
             "81706964859001bb"
         ],
-        "x": 170,
-        "y": 940,
+        "x": 110,
+        "y": 980,
         "wires": [
             [
                 "a200000000000005"
@@ -3995,7 +3171,7 @@
         "finalize": "",
         "libs": [],
         "x": 410,
-        "y": 920,
+        "y": 980,
         "wires": [
             [
                 "a200000000000002"
@@ -4020,8 +3196,8 @@
         "topic": "",
         "payload": "arm",
         "payloadType": "str",
-        "x": 170,
-        "y": 800,
+        "x": 150,
+        "y": 900,
         "wires": [
             [
                 "a200000000000001"
@@ -4041,8 +3217,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 390,
-        "y": 960,
+        "x": 410,
+        "y": 1020,
         "wires": []
     },
     {
@@ -4059,7 +3235,7 @@
         "finalize": "",
         "libs": [],
         "x": 520,
-        "y": 460,
+        "y": 540,
         "wires": [
             [
                 "479b96e0273a18b1"
@@ -4120,31 +3296,12 @@
         "finalize": "",
         "libs": [],
         "x": 800,
-        "y": 380,
+        "y": 360,
         "wires": [
             [
-                "dd05fa8a63bbce59",
                 "3faf683613077f13"
             ]
         ]
-    },
-    {
-        "id": "dd05fa8a63bbce59",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "g": "a3a62aaa37101276",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1020,
-        "y": 420,
-        "wires": []
     },
     {
         "id": "c8eeaa7ed265f0e8",
@@ -4152,19 +3309,18 @@
         "z": "3738026cb3832ee1",
         "g": "a3a62aaa37101276",
         "name": "Talkpool data transmission setup",
-        "func": "// ── Talkpool OY1310 Configure on Join v1.0 ───────────────────────────────\n//\n// Configure the OY1310 reporting interval after a successful OTAA join.\n//\n// FPort 1\n// 01 23 00 0F = set measurement interval to 15 minutes\n// 0123001E = set to 30 minute interval\n\nconst eventType =\n    msg.fai?.eventType ||\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean)\n        .pop();\n\n// Only act on successful join events.\nif (eventType !== \"join\") {\n    return null;\n}\n\nconst deviceInfo =\n    msg.payload?.deviceInfo || {};\n\nconst applicationId =\n    String(deviceInfo.applicationId || \"\");\n\nconst devEui =\n    String(deviceInfo.devEui || \"\").toLowerCase();\n\nif (!applicationId || !devEui) {\n    node.warn(\n        \"OY1310 configuration skipped: missing applicationId or DevEUI\"\n    );\n\n    return null;\n}\n\nconst commandHex =\n    \"0123001E\";\n\nconst commandBase64 =\n    Buffer.from(commandHex, \"hex\")\n        .toString(\"base64\");\n\nmsg.topic =\n    `application/${applicationId}/device/${devEui}/command/down`;\n\nmsg.payload = JSON.stringify({\n    devEui: devEui,\n    confirmed: false,\n    fPort: 1,\n    data: commandBase64\n});\n\nnode.status({\n    fill: \"blue\",\n    shape: \"dot\",\n    text: \"30 min config queued\"\n});\n\nnode.warn(\n    `OY1310 CONFIG QUEUED — ` +\n    `device=${devEui}, interval=30min, ` +\n    `command=${commandHex}`\n);\n\nreturn msg;",
+        "func": "// ── Talkpool OY1310 Configure on Join v1.0 ───────────────────────────────\n//\n// Configure the OY1310 reporting interval after a successful OTAA join.\n//\n// FPort 1\n// 01 22 00 0F = set measurement interval to 15 minutes\n// 0122001E = set to 30 minute interval\n\nconst eventType =\n    msg.fai?.eventType ||\n    String(msg.topic || \"\")\n        .split(\"/\")\n        .filter(Boolean)\n        .pop();\n\n// Only act on successful join events.\nif (eventType !== \"join\") {\n    return null;\n}\n\nconst deviceInfo =\n    msg.payload?.deviceInfo || {};\n\nconst applicationId =\n    String(deviceInfo.applicationId || \"\");\n\nconst devEui =\n    String(deviceInfo.devEui || \"\").toLowerCase();\n\nif (!applicationId || !devEui) {\n    node.warn(\n        \"OY1310 configuration skipped: missing applicationId or DevEUI\"\n    );\n\n    return null;\n}\n\nconst commandHex =\n    \"0122001E\";\n\nconst commandBase64 =\n    Buffer.from(commandHex, \"hex\")\n        .toString(\"base64\");\n\nmsg.topic =\n    `application/${applicationId}/device/${devEui}/command/down`;\n\nmsg.payload = JSON.stringify({\n    devEui: devEui,\n    confirmed: false,\n    fPort: 1,\n    data: commandBase64\n});\n\nnode.status({\n    fill: \"blue\",\n    shape: \"dot\",\n    text: \"30 min config queued\"\n});\n\nnode.warn(\n    `OY1310 CONFIG QUEUED — ` +\n    `device=${devEui}, interval=30min, ` +\n    `command=${commandHex}`\n);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
-        "y": 400,
+        "x": 810,
+        "y": 280,
         "wires": [
             [
-                "bbfc7b9df1d6af32",
-                "e176e762cc6eefe4"
+                "bbfc7b9df1d6af32"
             ]
         ]
     },
@@ -4183,25 +3339,8 @@
         "correl": "",
         "expiry": "",
         "broker": "473037bbac0aa9aa",
-        "x": 760,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "94ff946adb189568",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "g": "a3a62aaa37101276",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1010,
-        "y": 80,
+        "x": 1360,
+        "y": 280,
         "wires": []
     },
     {
@@ -4221,27 +3360,9 @@
         "y": 160,
         "wires": [
             [
-                "94ff946adb189568",
                 "479b96e0273a18b1"
             ]
         ]
-    },
-    {
-        "id": "e176e762cc6eefe4",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "g": "a3a62aaa37101276",
-        "name": "debug 4",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 740,
-        "y": 460,
-        "wires": []
     },
     {
         "id": "3faf683613077f13",
@@ -4256,31 +3377,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1110,
+        "x": 1080,
         "y": 360,
         "wires": [
             [
-                "d74e9a28505a4120",
                 "4b2d590ac842be82"
             ]
         ]
-    },
-    {
-        "id": "d74e9a28505a4120",
-        "type": "debug",
-        "z": "3738026cb3832ee1",
-        "g": "a3a62aaa37101276",
-        "name": "debug 5",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1300,
-        "y": 440,
-        "wires": []
     },
     {
         "id": "4b2d590ac842be82",
