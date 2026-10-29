@@ -1,7 +1,7 @@
 #!/bin/bash
 # FAI Gateway Bootstrap - Production Zero-Touch Edition
 
-GATEWAY_VERSION="2.4.3"
+GATEWAY_VERSION="2.4.4"
 echo "--- 🛰️ FAI GATEWAY v${GATEWAY_VERSION} STARTUP SEQUENCE ---"
 
 echo "--- 🛰️ FAI GATEWAY STARTUP SEQUENCE ---"
@@ -71,6 +71,7 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 echo "Project Root detected at: $PROJECT_ROOT"
 cd "$PROJECT_ROOT"
+. "$PROJECT_ROOT/scripts/lib/lora_hardware.sh" || exit 1
 
 # Preserve commissioned configuration on subsequent runs.
 if [ -f .env ]; then
@@ -115,14 +116,21 @@ esac
 read -r -p "Select [Default: $DEFAULT_LORA]: " LORA_CHOICE
 LORA_CHOICE="${LORA_CHOICE:-$DEFAULT_LORA}"
 
-PREVIOUS_LORA_INTERFACE="${LORA_INTERFACE:-}"
+PREVIOUS_LORA_INTERFACE="${LORA_INTERFACE:-${LORA_HARDWARE:-}}"
 PREVIOUS_LORA_DEVICE="${LORA_DEVICE:-}"
+LORA_I2C_DEVICE=""
 
 case "$LORA_CHOICE" in
     1)
         LORA_HARDWARE=SPI
         LORA_INTERFACE=SPI
-        LORA_DEVICE=/dev/spidev0.1
+
+        # A saved USB path is not an SPI override.
+        if [ "$PREVIOUS_LORA_INTERFACE" = USB ]; then
+            PREVIOUS_LORA_DEVICE=""
+        fi
+
+        fai_select_lora_spi "$PREVIOUS_LORA_DEVICE" || exit 1
         ACTIVE_PROFILES="lorawan,lorawan-spi"
         ;;
     2)
@@ -286,7 +294,9 @@ set_env RS485_HARDWARE "$RS485_HARDWARE"
 set_env LORA_HARDWARE "$LORA_HARDWARE"
 set_env LORA_INTERFACE "$LORA_INTERFACE"
 set_env LORA_DEVICE "$LORA_DEVICE"
+set_env LORA_I2C_DEVICE "$LORA_I2C_DEVICE"
 set_env LORAWAN_WATER_METERS "$LORAWAN_WATER_METERS"
+export LORA_DEVICE LORA_I2C_DEVICE
 
 # Supply ADS301 defaults without erasing commissioned values.
 ensure_env ADS301_SILO_1_ACCESS_UNIT_ID 1
@@ -511,16 +521,15 @@ if [ -z "$NVME_UUID" ]; then
     exit 1
 fi
 
-# Preserve any existing mount configuration. Never silently
-# replace a different filesystem assigned to this mount point.
-FSTAB_SOURCE="$(
-    awk '$1 !~ /^#/ && $2 == "/opt/fai-storage" {print $1}' /etc/fstab
-)"
+# Repair NUL padding and validate fstab before replacing it with a backup.
+if ! python3 "$PROJECT_ROOT/scripts/configure_storage_fstab.py" \
+    --uuid "$NVME_UUID" --mount-point "$MOUNT_POINT"; then
+    exit 1
+fi
 
-if [ -z "$FSTAB_SOURCE" ]; then
-    echo "UUID=$NVME_UUID $MOUNT_POINT ext4 defaults,nofail 0 2" >> /etc/fstab
-elif [ "$FSTAB_SOURCE" != "UUID=$NVME_UUID" ]; then
-    echo "ERROR: Existing fstab entry requires review: $FSTAB_SOURCE"
+# Reload systemd's mount configuration before mounting.
+if ! systemctl daemon-reload; then
+    echo "ERROR: Failed to reload systemd mount configuration."
     exit 1
 fi
 
@@ -638,7 +647,7 @@ echo "Recovery services installed and enabled."
 if [[ ",$ACTIVE_PROFILES," == *,lorawan-spi,* ]]; then
     echo "Preparing WM1302 SPI forwarder..."
 
-    for device in /dev/spidev0.1 /dev/i2c-3; do
+    for device in "$LORA_DEVICE" "$LORA_I2C_DEVICE"; do
         if [ ! -c "$device" ]; then
             echo "ERROR: Required SPI hardware missing: $device"
             exit 1

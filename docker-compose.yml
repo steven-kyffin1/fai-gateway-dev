@@ -164,6 +164,8 @@ services:
     build:
       context: ./lora-forwarder
       dockerfile: Dockerfile
+      args:
+        LORA_I2C_DEVICE: ${LORA_I2C_DEVICE:-/dev/i2c-3}
     image: fai-wm1302:2.1.0-r1000
     profiles: ["lorawan-spi"]
     container_name: lora-forwarder-spi
@@ -174,6 +176,8 @@ services:
       - /sys:/sys:rw
     environment:
       GATEWAY_SERIAL: ${GATEWAY_SERIAL}
+      LORA_DEVICE: ${LORA_DEVICE:-/dev/spidev0.1}
+      LORA_I2C_DEVICE: ${LORA_I2C_DEVICE:-/dev/i2c-3}
     depends_on:
       gateway-bridge:
         condition: service_started
