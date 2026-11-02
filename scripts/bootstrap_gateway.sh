@@ -1,7 +1,7 @@
 #!/bin/bash
 # FAI Gateway Bootstrap - Production Zero-Touch Edition
 
-GATEWAY_VERSION="2.4.4"
+GATEWAY_VERSION="2.4.5"
 echo "--- 🛰️ FAI GATEWAY v${GATEWAY_VERSION} STARTUP SEQUENCE ---"
 
 echo "--- 🛰️ FAI GATEWAY STARTUP SEQUENCE ---"
@@ -185,32 +185,42 @@ fi
 echo "Selected LoRaWAN hardware: $LORA_HARDWARE"
 echo "Compose profiles: ${ACTIVE_PROFILES:-none}"
 
-# Isolated two-port RS485 is standard on new production gateways.
+# Reuse the saved RS485 selection; isolated two-port is the new-install default.
 RS485_DEFAULT=1
 
 case "${RS485_HARDWARE:-${COMPOSE_PROFILES:-}}" in
-    NONE) RS485_DEFAULT=2 ;;
+    QUAD) RS485_DEFAULT=2 ;;
+    NONE) RS485_DEFAULT=3 ;;
     ISOLATED|*rs485-isolated*) RS485_DEFAULT=1 ;;
 esac
 
 echo ""
 echo "Select RS485 hardware:"
-echo "1) Waveshare isolated two-port [Default]"
-echo "2) No external RS485 adapter"
+echo "1) Waveshare isolated two-port (FT2232)"
+echo "2) Waveshare four-port (CH344)"
+echo "3) No external RS485 adapter"
 
 read -r -p "Select [Default: $RS485_DEFAULT]: " RS485_CHOICE
 RS485_CHOICE="${RS485_CHOICE:-$RS485_DEFAULT}"
 
+RS485_VID=""
+RS485_PID=""
+RS485_RULE=""
+
 case "$RS485_CHOICE" in
     1)
         RS485_HARDWARE=ISOLATED
-        if [ -n "$ACTIVE_PROFILES" ]; then
-            ACTIVE_PROFILES="$ACTIVE_PROFILES,rs485-isolated"
-        else
-            ACTIVE_PROFILES="rs485-isolated"
-        fi
+        RS485_VID=0403
+        RS485_PID=6010
+        RS485_RULE=99-fai-rs485-isolated.rules
         ;;
     2)
+        RS485_HARDWARE=QUAD
+        RS485_VID=1a86
+        RS485_PID=55d5
+        RS485_RULE=99-fai-rs485-quad.rules
+        ;;
+    3)
         RS485_HARDWARE=NONE
         ;;
     *)
@@ -219,33 +229,34 @@ case "$RS485_CHOICE" in
         ;;
 esac
 
+# Both adapters use the existing Modbus services and compatibility aliases.
+if [ "$RS485_HARDWARE" != NONE ]; then
+    ACTIVE_PROFILES="${ACTIVE_PROFILES:+$ACTIVE_PROFILES,}rs485-isolated"
+fi
+
 echo "RS485 hardware: $RS485_HARDWARE"
 echo "Final Compose profiles: ${ACTIVE_PROFILES:-none}"
 
-# RS485 adapter presence preflight.
-# Detect the FT2232 USB device before storage setup or Docker startup.
-if [[ "$RS485_HARDWARE" == "ISOLATED" ]]; then
-    rs485_found=false
+# Check the selected adapter before storage setup or Docker startup.
+if [ "$RS485_HARDWARE" != NONE ]; then
+    RS485_COUNT=0
 
     for usb_device in /sys/bus/usb/devices/*; do
         [[ -f "$usb_device/idVendor" &&
            -f "$usb_device/idProduct" ]] || continue
 
-        if [[ "$(<"$usb_device/idVendor")" == "0403" &&
-              "$(<"$usb_device/idProduct")" == "6010" ]]; then
-            rs485_found=true
-            break
+        if [[ "$(<"$usb_device/idVendor")" == "$RS485_VID" &&
+              "$(<"$usb_device/idProduct")" == "$RS485_PID" ]]; then
+            RS485_COUNT=$((RS485_COUNT + 1))
         fi
     done
 
-    if [[ "$rs485_found" != true ]]; then
-        echo "ERROR: Isolated RS485 selected, but FT2232 adapter not detected." >&2
-        echo "Connect the adapter or rerun bootstrap and select option 2." >&2
+    if [ "$RS485_COUNT" -ne 1 ]; then
+        echo "ERROR: Expected one $RS485_HARDWARE RS485 adapter ($RS485_VID:$RS485_PID); found $RS485_COUNT." >&2
+        echo "Connect exactly one adapter of the selected type, or select option 3 for none." >&2
         exit 1
     fi
 fi
-
-
 
 FINAL_SERIAL=${GATEWAY_SERIAL:-$ETH_MAC}
 DEFAULT_HOSTNAME="fai-gw-${FINAL_SERIAL: -8}"
@@ -581,20 +592,31 @@ if ! grep -q "usbcore.quirks=2109:2817:k" /boot/firmware/cmdline.txt; then
     sed -i '$ s/$/ usbcore.autosuspend=-1 usbcore.quirks=2109:2817:k/' /boot/firmware/cmdline.txt
 fi
 
-# 10. Persistent isolated RS485 device mappings
-echo "[10/10] Installing isolated RS485 device mappings..."
+# 10. Persistent RS485 device mappings
+echo "[10/10] Installing selected RS485 device mappings..."
 
-install -m 0644     "$PROJECT_ROOT/udev/99-fai-rs485-isolated.rules"     /etc/udev/rules.d/99-fai-rs485-isolated.rules
+# Install only the selected adapter's rules under one managed filename.
+if [ "$RS485_HARDWARE" = NONE ]; then
+    rm -f /etc/udev/rules.d/99-fai-rs485.rules || exit 1
+else
+    install -m 0644 \
+        "$PROJECT_ROOT/udev/$RS485_RULE" \
+        /etc/udev/rules.d/99-fai-rs485.rules || exit 1
+fi
 
-install -m 0644     "$PROJECT_ROOT/udev/99-fai-radio-ports.rules"     /etc/udev/rules.d/99-fai-radio-ports.rules
+# Replace the old two-port rules and the quad rules added manually.
+rm -f /etc/udev/rules.d/99-fai-rs485-isolated.rules \
+      /etc/udev/rules.d/99-fai-rs485-quad.rules || exit 1
 
-udevadm control --reload-rules
-udevadm trigger --subsystem-match=tty
+install -m 0644 \
+    "$PROJECT_ROOT/udev/99-fai-radio-ports.rules" \
+    /etc/udev/rules.d/99-fai-radio-ports.rules || exit 1
 
-# Verify that udev has created both isolated RS485 interfaces.
-if [[ "$RS485_HARDWARE" == "ISOLATED" ]]; then
-    udevadm settle --timeout=15
+udevadm control --reload-rules || exit 1
+udevadm trigger --action=add --subsystem-match=tty || exit 1
+udevadm settle --timeout=15 || exit 1
 
+if [ "$RS485_HARDWARE" != NONE ]; then
     for rs485_device in /dev/RS485_ISO_1 /dev/RS485_ISO_2; do
         if [[ ! -c "$rs485_device" ]]; then
             echo "ERROR: Missing RS485 device: $rs485_device" >&2
