@@ -82,16 +82,28 @@ if [ -f .env ]; then
 fi
 
 # Interactive Power Meter Selection
+METER_DEFAULT=1
+
+case "${POWER_METER_TYPE:-}" in
+    TIP_SINUS) METER_DEFAULT=2 ;;
+    EASTRON_LORAWAN) METER_DEFAULT=3 ;;
+esac
+
 echo ""
 echo "----------------------------------------"
 echo "Select the Power Meter Type for this install:"
-echo "1) GAVAZZI (Carlo Gavazzi EM330) [Default]"
+echo "1) GAVAZZI (Carlo Gavazzi EM330)"
 echo "2) TIP_SINUS"
+echo "3) EASTRON LORAWAN"
 echo "----------------------------------------"
-read -p "Enter 1 or 2 [Default: 1]: " METER_CHOICE
+
+read -r -p "Enter 1, 2 or 3 [Default: $METER_DEFAULT]: " METER_CHOICE
+METER_CHOICE="${METER_CHOICE:-$METER_DEFAULT}"
 
 if [ "$METER_CHOICE" == "2" ]; then
     METER_TYPE="TIP_SINUS"
+elif [ "$METER_CHOICE" == "3" ]; then
+    METER_TYPE="EASTRON_LORAWAN"
 else
     METER_TYPE="GAVAZZI"
 fi
@@ -156,8 +168,36 @@ case "$LORA_CHOICE" in
         exit 1
         ;;
 esac
+# Validate the LoRaWAN power-meter selection.
+if [ "$METER_TYPE" = "EASTRON_LORAWAN" ] && [ "$LORA_HARDWARE" = "NONE" ]; then
+    echo "ERROR: Eastron power metering requires SPI or USB LoRaWAN hardware." >&2
+    exit 1
+fi
+
 
 LORAWAN_WATER_METERS="${LORAWAN_WATER_METERS:-true}"
+
+# Eastron credentials are entered per meter and saved only in local .env.
+if [ "$METER_TYPE" = "EASTRON_LORAWAN" ]; then
+    read -r -p "Eastron DevEUI [${EASTRON_DEV_EUI:-}]: " EASTRON_INPUT
+    EASTRON_DEV_EUI="${EASTRON_INPUT:-${EASTRON_DEV_EUI:-}}"
+
+    read -r -p "Eastron AppEUI / JoinEUI [${EASTRON_JOIN_EUI:-}]: " EASTRON_INPUT
+    EASTRON_JOIN_EUI="${EASTRON_INPUT:-${EASTRON_JOIN_EUI:-}}"
+
+    read -r -s -p "Eastron factory AppKey (Enter keeps saved key): " EASTRON_INPUT
+    printf '\n'
+    EASTRON_APP_KEY="${EASTRON_INPUT:-${EASTRON_APP_KEY:-}}"
+    unset EASTRON_INPUT
+
+    if ! [[ "$EASTRON_DEV_EUI" =~ ^[0-9a-fA-F]{16}$ &&
+            "$EASTRON_JOIN_EUI" =~ ^[0-9a-fA-F]{16}$ &&
+            "$EASTRON_APP_KEY" =~ ^[0-9a-fA-F]{32}$ ]]; then
+        echo "ERROR: Eastron DevEUI and JoinEUI require 16 hex characters; AppKey requires 32." >&2
+        exit 1
+    fi
+fi
+
 
 if [ "$LORA_HARDWARE" != NONE ]; then
     WATER_DEFAULT=2
@@ -300,6 +340,11 @@ export COMPOSE_PROFILES="$ACTIVE_PROFILES"
 set_env GATEWAY_SERIAL "$FINAL_SERIAL"
 set_env GATEWAY_HOSTNAME "$NEW_HOSTNAME"
 set_env POWER_METER_TYPE "$METER_TYPE"
+if [ "$METER_TYPE" = "EASTRON_LORAWAN" ]; then
+    set_env EASTRON_DEV_EUI "$EASTRON_DEV_EUI"
+    set_env EASTRON_JOIN_EUI "$EASTRON_JOIN_EUI"
+    set_env EASTRON_APP_KEY "$EASTRON_APP_KEY"
+fi
 set_env COMPOSE_PROFILES "$ACTIVE_PROFILES"
 set_env RS485_HARDWARE "$RS485_HARDWARE"
 set_env LORA_HARDWARE "$LORA_HARDWARE"
@@ -316,6 +361,7 @@ ensure_env ADS301_SILO_1_CHANNELS 4
 ensure_env ADS301_SILO_2_CHANNELS 4
 
 chown "$REAL_USER":"$REAL_USER" .env
+chmod 0600 .env
 
 # Permissions
 # Runtime directories are gitignored, so create them on every fresh install.
@@ -733,10 +779,14 @@ if [[ ",$ACTIVE_PROFILES," == *,lorawan,* ]]; then
     
     if [ -f "$SETUP_SCRIPT" ]; then
         chmod +x "$SETUP_SCRIPT"
-        # Execute from the project root so it can find .env
-        (cd "$PROJECT_ROOT" && bash "$SETUP_SCRIPT")
+
+        if ! (cd "$PROJECT_ROOT" && bash "$SETUP_SCRIPT"); then
+            echo "ERROR: ChirpStack provisioning failed." >&2
+            exit 1
+        fi
     else
-        echo "⚠️ WARNING: Could not find $SETUP_SCRIPT. Skipping auto-provisioning."
+        echo "ERROR: Could not find $SETUP_SCRIPT." >&2
+        exit 1
     fi
 else
     echo "[11/11] LoRaWAN Disabled. Skipping ChirpStack Auto-Provisioning."

@@ -455,6 +455,206 @@ fi
 # ==========================================
 echo "Registering Gateway in ChirpStack..."
 
+
+# Eastron LoRaWAN power-meter support
+if [ "${POWER_METER_TYPE:-}" = "EASTRON_LORAWAN" ]; then
+    echo "Provisioning Eastron LoRaWAN power-meter support..."
+
+    EASTRON_PROFILE_NAME="Eastron SDM630MCT-LR EU868"
+    EASTRON_APP_NAME="Eastron power meter"
+
+    # The manual does not specify the revision; A is provisional.
+    EASTRON_REVISION="${EASTRON_REG_PARAMS_REVISION:-A}"
+
+    eastron_api() {
+        grpcurl -plaintext -format-error \
+            -H "authorization: Bearer $TOKEN" \
+            -d @ localhost:8080 "$1"
+    }
+
+    EASTRON_PROFILE_LIST=$(jq -n \
+        --arg tenant "$TENANT_ID" --arg name "$EASTRON_PROFILE_NAME" \
+        '{limit: 100, tenantId: $tenant, search: $name}' |
+        eastron_api api.DeviceProfileService/List) || exit 1
+
+    EASTRON_PROFILE_ID=$(printf '%s' "$EASTRON_PROFILE_LIST" |
+        jq -r --arg name "$EASTRON_PROFILE_NAME" '
+            [.result[]? | select(.name == $name) | .id]
+            | if length > 1 then error("Duplicate Eastron profiles")
+              else .[0] // empty end
+        ') || exit 1
+
+    if [ -z "$EASTRON_PROFILE_ID" ]; then
+        EASTRON_PROFILE_RESP=$(jq -n \
+            --arg tenant "$TENANT_ID" --arg name "$EASTRON_PROFILE_NAME" \
+            --arg revision "$EASTRON_REVISION" '
+            {deviceProfile: {
+                tenantId: $tenant,
+                name: $name,
+                description: "FAI Eastron LoRaWAN power meter",
+                region: "EU868",
+                macVersion: "LORAWAN_1_0_2",
+                regParamsRevision: $revision,
+                supportsOtaa: true,
+                supportsClassB: false,
+                supportsClassC: true,
+                classCTimeout: 10,
+                adrAlgorithmId: "default",
+                tags: {
+                    sensor_type: "power_meter",
+                    manufacturer: "Eastron",
+                    model: "SDM630MCT_LR",
+                    transport: "lorawan"
+                }
+            }}' |
+            eastron_api api.DeviceProfileService/Create) || exit 1
+
+        EASTRON_PROFILE_ID=$(printf '%s' "$EASTRON_PROFILE_RESP" |
+            jq -er '.id | select(type == "string" and length > 0)') || exit 1
+        echo "Created Eastron profile: $EASTRON_PROFILE_ID"
+    else
+        # Preserve existing settings and codecs, but verify core capabilities.
+        EASTRON_PROFILE_RESP=$(jq -n --arg id "$EASTRON_PROFILE_ID" \
+            '{id: $id}' |
+            eastron_api api.DeviceProfileService/Get) || exit 1
+
+        if ! printf '%s' "$EASTRON_PROFILE_RESP" | jq -e '
+            .deviceProfile
+            | .region == "EU868"
+              and .macVersion == "LORAWAN_1_0_2"
+              and .supportsOtaa == true
+              and .supportsClassC == true
+        ' >/dev/null; then
+            echo "ERROR: Existing Eastron profile must support EU868, LoRaWAN 1.0.2, OTAA and Class C." >&2
+            exit 1
+        fi
+        echo "Existing Eastron profile verified: $EASTRON_PROFILE_ID"
+    fi
+
+    EASTRON_APP_LIST=$(jq -n \
+        --arg tenant "$TENANT_ID" --arg name "$EASTRON_APP_NAME" \
+        '{limit: 100, tenantId: $tenant, search: $name}' |
+        eastron_api api.ApplicationService/List) || exit 1
+
+    EASTRON_APP_ID=$(printf '%s' "$EASTRON_APP_LIST" |
+        jq -r --arg name "$EASTRON_APP_NAME" '
+            [.result[]? | select(.name == $name) | .id]
+            | if length > 1 then error("Duplicate power-meter applications")
+              else .[0] // empty end
+        ') || exit 1
+
+    if [ -z "$EASTRON_APP_ID" ]; then
+        EASTRON_APP_RESP=$(jq -n \
+            --arg tenant "$TENANT_ID" --arg name "$EASTRON_APP_NAME" '
+            {application: {
+                tenantId: $tenant,
+                name: $name,
+                description: "FAI LoRaWAN power meters",
+                tags: {sensor_type: "power_meter", transport: "lorawan"}
+            }}' |
+            eastron_api api.ApplicationService/Create) || exit 1
+
+        EASTRON_APP_ID=$(printf '%s' "$EASTRON_APP_RESP" |
+            jq -er '.id | select(type == "string" and length > 0)') || exit 1
+        echo "Created power-meter application: $EASTRON_APP_ID"
+    else
+        echo "Existing power-meter application: $EASTRON_APP_ID"
+    fi
+
+    # Register this meter using the credentials saved by bootstrap.
+    if ! [[ "${EASTRON_DEV_EUI:-}" =~ ^[0-9a-fA-F]{16}$ &&
+            "${EASTRON_JOIN_EUI:-}" =~ ^[0-9a-fA-F]{16}$ &&
+            "${EASTRON_APP_KEY:-}" =~ ^[0-9a-fA-F]{32}$ ]]; then
+        echo "ERROR: Valid Eastron DevEUI, JoinEUI and AppKey are required in local .env." >&2
+        exit 1
+    fi
+
+    EASTRON_DEV_EUI="${EASTRON_DEV_EUI,,}"
+    EASTRON_JOIN_EUI="${EASTRON_JOIN_EUI,,}"
+    EASTRON_APP_KEY="${EASTRON_APP_KEY,,}"
+
+    if EASTRON_DEVICE_RESP=$(jq -n --arg eui "$EASTRON_DEV_EUI" \
+        '{devEui: $eui}' |
+        eastron_api api.DeviceService/Get 2>&1); then
+
+        if ! printf '%s' "$EASTRON_DEVICE_RESP" |
+            jq -e --arg eui "$EASTRON_DEV_EUI" \
+                  --arg app "$EASTRON_APP_ID" \
+                  --arg profile "$EASTRON_PROFILE_ID" '
+                .device
+                | (.devEui | ascii_downcase) == $eui
+                  and .applicationId == $app
+                  and .deviceProfileId == $profile
+                  and .isDisabled != true
+            ' >/dev/null; then
+            echo "ERROR: Existing Eastron device uses another application/profile or is disabled. Review it in ChirpStack." >&2
+            exit 1
+        fi
+        echo "Existing Eastron meter verified: $EASTRON_DEV_EUI"
+
+    elif printf '%s' "$EASTRON_DEVICE_RESP" |
+        jq -e '.code == 5' >/dev/null 2>&1; then
+
+        # gRPC code 5 means NotFound; other errors must not trigger creation.
+        jq -n --arg eui "$EASTRON_DEV_EUI" \
+              --arg join "$EASTRON_JOIN_EUI" \
+              --arg app "$EASTRON_APP_ID" \
+              --arg profile "$EASTRON_PROFILE_ID" '
+            {device: {
+                devEui: $eui,
+                joinEui: $join,
+                name: ("Eastron-" + $eui),
+                applicationId: $app,
+                deviceProfileId: $profile,
+                tags: {
+                    sensor_type: "power_meter",
+                    manufacturer: "Eastron",
+                    model: "SDM630MCT_LR",
+                    transport: "lorawan"
+                }
+            }}' |
+            eastron_api api.DeviceService/Create >/dev/null || exit 1
+        echo "Registered Eastron meter: $EASTRON_DEV_EUI"
+    else
+        echo "ERROR: Could not look up the Eastron meter. Check ChirpStack connectivity and authentication." >&2
+        exit 1
+    fi
+
+    if EASTRON_KEYS_RESP=$(jq -n --arg eui "$EASTRON_DEV_EUI" \
+        '{devEui: $eui}' |
+        eastron_api api.DeviceService/GetKeys 2>&1); then
+
+        EASTRON_SAVED_KEY=$(printf '%s' "$EASTRON_KEYS_RESP" |
+            jq -er '.deviceKeys.nwkKey | select(type == "string") | ascii_downcase') || exit 1
+
+        if [ "$EASTRON_SAVED_KEY" != "$EASTRON_APP_KEY" ]; then
+            echo "ERROR: The saved AppKey differs from ChirpStack. Review the key locally before changing credentials." >&2
+            exit 1
+        fi
+        echo "Existing Eastron AppKey verified."
+
+    elif printf '%s' "$EASTRON_KEYS_RESP" |
+        jq -e '.code == 5' >/dev/null 2>&1; then
+
+        # For LoRaWAN 1.0.x, ChirpStack stores the AppKey in nwkKey.
+        # Pass the key through stdin rather than command-line arguments.
+        if ! printf '%s' "$EASTRON_APP_KEY" |
+            jq -Rs --arg eui "$EASTRON_DEV_EUI" \
+                '{deviceKeys: {devEui: $eui, nwkKey: .}}' |
+            eastron_api api.DeviceService/CreateKeys >/dev/null 2>&1; then
+            echo "ERROR: Could not create Eastron OTAA keys. Check ChirpStack logs." >&2
+            exit 1
+        fi
+        echo "Eastron factory AppKey registered."
+    else
+        echo "ERROR: Could not read the Eastron OTAA keys; credentials were not changed." >&2
+        exit 1
+    fi
+
+    unset EASTRON_KEYS_RESP EASTRON_SAVED_KEY
+    echo "Eastron provisioning ready: device=$EASTRON_DEV_EUI profile=$EASTRON_PROFILE_ID application=$EASTRON_APP_ID"
+fi
+
 # Source the .env file to get GATEWAY_SERIAL
 if [ -z "${GATEWAY_SERIAL:-}" ]; then
     echo "ERROR: GATEWAY_SERIAL is not defined."
